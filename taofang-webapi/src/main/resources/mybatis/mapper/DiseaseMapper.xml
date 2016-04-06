@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.taofang.webapi.dao.DiseaseMapper" >
+  <resultMap id="BaseResultMap" type="com.taofang.webapi.model.Disease" >
+    <result column="DiseaseID" property="diseaseid" jdbcType="DOUBLE" />
+    <result column="Sex" property="sex" jdbcType="CHAR" />
+    <result column="Letter" property="letter" jdbcType="VARCHAR" />
+    <result column="DiseaseName" property="diseasename" jdbcType="VARCHAR" />
+    <result column="AliasName" property="aliasname" jdbcType="VARCHAR" />
+    <result column="CreateDate" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="CreateBy" property="createby" jdbcType="VARCHAR" />
+    <result column="LastUpdateDate" property="lastupdatedate" jdbcType="TIMESTAMP" />
+    <result column="LastUpdateUser" property="lastupdateuser" jdbcType="VARCHAR" />
+    <result column="Sequence" property="sequence" jdbcType="INTEGER" />
+    <result column="IsCommon" property="iscommon" jdbcType="CHAR" />
+    <result column="ImageURL" property="imageurl" jdbcType="VARCHAR" />
+    <result column="IsInquiryCommon" property="isinquirycommon" jdbcType="INTEGER" />
+    <result column="TypeID" property="typeid" jdbcType="INTEGER" />
+    <result column="Hide" property="hide" jdbcType="CHAR" />
+  </resultMap>
+</mapper>
