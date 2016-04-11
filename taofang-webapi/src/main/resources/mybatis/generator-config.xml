@@ -7,7 +7,7 @@
 
     <context id="MysqlTables" targetRuntime="MyBatis3">
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://192.168.31.189:3306/taofang"
+                        connectionURL="jdbc:mysql://192.168.13.1:3306/taofang"
                         userId="root"
                         password="123456">
         </jdbcConnection>
@@ -22,8 +22,8 @@
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
-        <table tableName="disease">
-            <generatedKey column="DiseaseId" sqlStatement="Mysql" />
+        <table tableName="member">
+            <generatedKey column="MemberID" sqlStatement="Mysql" />
         </table>
     </context>
 </generatorConfiguration>

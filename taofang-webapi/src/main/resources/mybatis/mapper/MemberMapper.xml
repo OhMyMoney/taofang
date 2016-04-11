@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.taofang.webapi.dao.MemberMapper" >
+  <resultMap id="BaseResultMap" type="com.taofang.webapi.model.Member" >
+    <result column="MemberID" property="memberid" jdbcType="INTEGER" />
+    <result column="MemberName" property="membername" jdbcType="VARCHAR" />
+    <result column="Password" property="password" jdbcType="VARCHAR" />
+    <result column="Email" property="email" jdbcType="VARCHAR" />
+    <result column="Phone" property="phone" jdbcType="VARCHAR" />
+    <result column="Age" property="age" jdbcType="VARCHAR" />
+    <result column="Sex" property="sex" jdbcType="CHAR" />
+    <result column="RegisterDate" property="registerdate" jdbcType="TIMESTAMP" />
+    <result column="Status" property="status" jdbcType="CHAR" />
+    <result column="Description" property="description" jdbcType="VARCHAR" />
+    <result column="SkillName" property="skillname" jdbcType="VARCHAR" />
+    <result column="Credits" property="credits" jdbcType="INTEGER" />
+    <result column="ApplyExpertTime" property="applyexperttime" jdbcType="TIMESTAMP" />
+    <result column="ApplyExpertStatus" property="applyexpertstatus" jdbcType="CHAR" />
+    <result column="MemberType" property="membertype" jdbcType="CHAR" />
+    <result column="Hospital" property="hospital" jdbcType="VARCHAR" />
+    <result column="LastUpdateUser" property="lastupdateuser" jdbcType="VARCHAR" />
+    <result column="LastUpdateDate" property="lastupdatedate" jdbcType="TIMESTAMP" />
+    <result column="Image" property="image" jdbcType="VARCHAR" />
+    <result column="NickName" property="nickname" jdbcType="VARCHAR" />
+    <result column="RealName" property="realname" jdbcType="VARCHAR" />
+    <result column="Birthday" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="Province" property="province" jdbcType="VARCHAR" />
+    <result column="City" property="city" jdbcType="VARCHAR" />
+    <result column="County" property="county" jdbcType="VARCHAR" />
+    <result column="Address" property="address" jdbcType="VARCHAR" />
+    <result column="IdentityNumber" property="identitynumber" jdbcType="VARCHAR" />
+    <result column="Icon" property="icon" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

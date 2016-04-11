@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>九九淘方网</title>
+    <link rel="stylesheet" href="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="../css/home.css">
+    <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript" src="../js/home.js"></script>
+    <script>
+        $(document).ready(function () {
+            // 进入页面刷新验证码
+            $("#verificationCode").children().first().replaceWith($("<label id='createdCode'>" + createVerificationCode() + "</label>"));
+            // 点击刷新验证码按钮
+            $("#loginVerificationCodeButton").click(function () {
+                var newCodeElem = $("<label id='createdCode'>" + createVerificationCode() + "</label>")
+                $("#verificationCode").children().first().replaceWith(newCodeElem);
+            });
+            // 点击登录按钮
+            $("#loginButton").click(function () {
+                // 错误消息
+                var errorMessage = checkLoginForm();
+                $("#loginErrorMsg").addClass("error").text(errorMessage);
+                if(errorMessage == ""){
+                    var userNameVal = $("#loginForm").find($("[name='userName']")).val();
+                    var passwordVal = $("#loginForm").find($("[name='password']")).val();
+                    $.ajax({
+                        timeout: 5000,
+                        url: $("#loginForm").attr("action"),
+                        contentType: "application/json",
+                        data: JSON.stringify({userName : userNameVal, password : passwordVal}),
+                        type: "post",
+                        success: doLoginSuccess
+                    });
+                }
+            });
+            // 点击注册按钮
+        });
+    </script>
+</head>
+<body>
+    <div id="homepage" data-role="page">
+        <div id="navigation" data-role="panel">
+            <ul>
+                <li><a href="#homepage">首页</a></li>
+                <li><a href="#homepage">健康之声</a></li>
+                <li><a href="#homepage">我的故事</a></li>
+                <li><a href="#homepage">自然疗法</a></li>
+                <li><a href="#homepage">季节养身</a></li>
+                <li><a href="#homepage">健康资讯</a></li>
+            </ul>
+        </div>
+
+        <div data-role="header">
+            <a href="#navigation" data-role="button" data-icon="home" class="ui-btn ui-btn-inline ui-corner-all ui-shadow">导航</a>
+            <h1>九九淘方网</h1>
+            <a href="#loginRegister" data-rel="popup" class="ui-btn ui-corner-all ui-shadow ui-icon-search ui-btn-icon-left">用户</a>
+            <div id="loginRegister" data-role="popup">
+                <div>
+                    <a href="#loginpage" data-rel="dialog">登录</a>
+                </div>
+                <div>
+                    <a href="#registerpage" data-rel="dialog">注册</a>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <form id="folkPrescriptionForm" method="get" action="#">
+                        <div class="ui-grid-a">
+                            <div class="ui-block-a" style="width: 75%">
+                                <input type="search" name="folkPrescriptionName" />
+                            </div>
+                            <div class="ui-block-b" style="width: 25%">
+                                <button id="folkPrescriptionButton" type="submit">立即搜索</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div>
+                    result<p />
+                    result<p />
+                </div>
+            </div>
+        </div>
+
+        <div data-role="content" class="ui-content">
+            <div>
+                <ul class="timeline">
+                    <li>
+                        <div class="time">
+                            <p>07 周四</p>
+                            <p>2016.04</p>
+                        </div>
+                        <div class="content">
+                            <p>上次浏览的文章</p>
+                            <p>看80岁老人如何玩转健康人生</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <div>
+                    <a href="#">健康之声</a>
+                </div>
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a href="#">我的故事</a>
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#">自然疗法</a>
+                    </div>
+                </div>
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a href="#">季节养生</a>
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#">健康资讯</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div data-role="footer">
+            <div>
+                <div>
+                    <h1>广告区域</h1>
+                </div>
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a href="#">触屏版</a>
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#">电脑版</a>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h1>Video:看80岁老人如何玩转健康人生</h1>
+            </div>
+        </div>
+    </div>
+    <!-- 登录 -->
+    <div id="loginpage" data-role="page">
+        <div data-role="header">
+            <h1>登录</h1>
+        </div>
+
+        <div data-role="content">
+            <div>
+                <div>
+                    <form id="loginForm" method="post" action="http://localhost:8080/taofang/webapi/user/login">
+                        <div>
+                            <input type="text" name="userName" placeholder="请输入用户名" />
+                        </div>
+                        <div>
+                            <input type="password" name="password" placeholder="请输入密码" />
+                        </div>
+                        <div id="verificationCodeDiv" class="ui-grid-b">
+                            <div class="ui-block-a">
+                                <input type="text" name="verificationCode" maxlength="4" placeholder="请输入验证字符" />
+                            </div>
+                            <div id="verificationCode" class="ui-block-b">
+                                <!-- 验证码 -->
+                                <label id="createdCode">7189</label>
+                            </div>
+                            <div class="ui-block-c">
+                                <button id="loginVerificationCodeButton" type="button">
+                                    刷新
+                                </button>
+                            </div>
+                        </div>
+                        <label id="loginErrorMsg"></label>
+                        <div>
+                            <button id="loginButton" type="button">立即登录</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a href="#">微信登录</a>
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="#">QQ登录</a>
+                    </div>
+                </div>
+            </div>
+            <div class="ui-grid-a">
+                <div class="ui-block-a">
+                    <a href="#registerpage" data-rel="dialog">新用户注册</a>
+                </div>
+                <div class="ui-block-b">
+                    <a href="#">忘记密码?</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="registerpage" data-role="page">
+        <div data-role="header">
+            <h1>注册</h1>
+        </div>
+
+        <div data-role="content">
+            <div>
+                <form id="registerForm" method="post" action="http://localhost:8080/taofang/webapi/user/register">
+                    <div>
+                        <input name="phoneNumber" type="text" placeholder="输入您的手机号码">
+                    </div>
+                    <div>
+                        <input name="userName" type="text" placeholder="设置您的名称">
+                    </div>
+                    <div>
+                        <input name="password" type="password" placeholder="设置您的密码,数字加字母安全性更高">
+                    </div>
+                    <div>
+                        <input name="confirmPassword" type="password" placeholder="再次输入您的密码">
+                    </div>
+                    <div class="ui-grid-a">
+                        <div class="ui-block-a">
+                            <input name="smsCode" type="text" placeholder="输入您收到的激活码">
+                        </div>
+                        <div class="ui-block-b">
+                            <button id="registerSMSCodeButton" type="button">免费获取短信激活码</button>
+                        </div>
+                    </div>
+                    <div>
+                        <button id="registerButton" type="button">立即注册</button>
+                    </div>
+                </form>
+            </div>
+            <div class="ui-grid-a">
+                <div class="ui-block-a">
+                    <a href="#">微信登录</a>
+                </div>
+                <div class="ui-block-b">
+                    <a href="#">QQ登录</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
