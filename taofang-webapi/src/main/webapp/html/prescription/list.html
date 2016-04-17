@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>九九淘方网</title>
+    <link rel="stylesheet" href="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="../../css/prescription.css">
+    <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../../js/prescription.js"></script>
+    <script>
+        $(document).ready(function(){
+            // 点击搜索按钮
+            $("#search").click(function () {
+                var prescriptionName = $("input#prescriptionName").val();
+                $.ajax({
+                    url: "http://localhost:8080/taofang/webapi/prescriptions?name=" + prescriptionName +
+                    "&&page=1&&pageSize=10&&order=0",
+                    success: processPrescriptionPagination
+                });
+            });
+
+            $("#orderId").click(function () {
+                $(".orderlist").toggle();
+            });
+        });
+    </script>
+</head>
+<body>
+    <div data-role="page">
+        <div id="header">
+            <table class="headertable">
+                <tr>
+                    <td style="width: 10%">
+                        <a href="../home.html">
+                            <img src="../../image/back.png" />
+                        </a>
+                    </td>
+                    <td style="width: 80%">
+                        <input id="prescriptionName" type="text" name="prescriptionName" />
+                    </td>
+                    <td style="width: 10%">
+                        <label id="search">搜索</label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="prescription">
+            <div class="totalresult">
+                <table>
+                    <tr>
+                        <td style="width: 60%" >
+                            <a id="orderId" href="#" data-rel="popup">默认排序</a>
+                        </td>
+                        <td style="width: 40%">
+                            共32条搜索结果
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="orderlist">
+                <ul>
+                    <li>验证人数排序</li>
+                    <li>有效程度排序</li>
+                    <li>见效速度排序</li>
+                    <li>安全性由排序</li>
+                    <li>方便性由排序</li>
+                    <li>省钱程度排序</li>
+                </ul>
+            </div>
+            <div class="prescriptionlist">
+
+            </div>
+            <div class="prescriptionpage">
+                <table>
+                    <tr>
+                        <td>
+                            <label id="previousPage">上一页</label>
+                        </td>
+                        <td>
+                            <label id="currentPage">1/5</label>
+                        </td>
+                        <td>
+                            <label id="nextPage">下一页</label>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div>
+            <div class="more">
+                <div class="moretile">
+                    相关推荐
+                </div>
+                <div class="moreresult">
+
+                </div>
+            </div>
+            <div class="more">
+                <div class="moretile">
+                    自然疗法
+                </div>
+                <div class="moreresult">
+
+                </div>
+            </div>
+            <div class="more">
+                <div class="moretile">
+                    产品推荐
+                </div>
+                <div class="moreresult">
+
+                </div>
+            </div>
+            <div class="more">
+                <div class="moretile">
+                    食疗
+                </div>
+                <div class="moreresult">
+                </div>
+            </div>
+        </div>
+        <div data-role="footer">
+            <div>
+                <div>
+                    <h1>广告区域</h1>
+                </div>
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a href="javascript:void(0)">触屏版</a>
+                    </div>
+                    <div class="ui-block-b">
+                        <a href="javascript:void(0)">电脑版</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

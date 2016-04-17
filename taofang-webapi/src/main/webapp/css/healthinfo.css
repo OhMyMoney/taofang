@@ -1,0 +1,23 @@
+#head{
+    background-color: #434547;
+    color: #FFFFFF;
+    height: 50px;
+    width: 100%;
+}
+#head table{
+    height: 30px;
+    width: 100%;
+    padding-top: 10px;
+}
+#back{
+    height: 30px;
+    width: 32px;
+}
+#title{
+    font-weight: 400;
+    font-size: 18px;
+    padding-left: 50px;
+}
+#body{
+    background-color: #F2ECE3;
+}

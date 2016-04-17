@@ -1,3 +1,26 @@
+#navigation{
+    background-color: #434547;
+    width: 200px;
+}
+.paneldiv{
+    width: 100%;
+    height: 40px;
+    color: #CCCFD3;
+    font-size: 15px;
+    font-family: Heiti SC;
+    border-bottom-color: #CCCFD3;
+}
+
+#header{
+    background-image: url("../image/home_header_background.png");
+}
+
+
+
+
+
+
+
 ul.timeline {
     list-style-type: none;
     background: url("../image/version_line.png") repeat-y scroll 120px 0 transparent;
