@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/home.css">
     <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../js/common.js"></script>
     <script type="text/javascript" src="../js/home.js"></script>
     <script>
         $(document).ready(function () {
@@ -41,59 +42,77 @@
     </script>
 </head>
 <body>
-    <div data-role="page">
+    <div id="mainpage" data-role="page">
         <div id="navigation" data-role="panel">
-            <div class="paneldiv">
-                <table>
-                    <tr>
-                        <td><img src="../image/icon/home_icon.png"></td>
-                        <td>首页</td>
+            <table>
+                <colgroup id="navigationCol1" span="1" />
+                <tbody>
+                    <tr onclick="doNavigationById(1)">
+                        <td><img src="../image/icon/home_icon.png"></td><td>首页</td>
                     </tr>
+                    <tr onclick="doNavigationById(2)">
+                        <td><img src="../image/icon/health_icon.png"></td><td>健康之声</td>
+                    </tr>
+                    <tr onclick="doNavigationById(3)">
+                        <td><img src="../image/icon/story_icon.png"></td><td>我的故事</td>
+                    </tr>
+                    <tr onclick="doNavigationById(4)">
+                        <td><img src="../image/icon/natural_icon.png"></td><td>自然疗法</td>
+                    </tr>
+                    <tr onclick="doNavigationById(5)">
+                        <td><img src="../image/icon/season_icon.png"></td><td>季节养身</td>
+                    </tr>
+                    <tr onclick="doNavigationById(6)">
+                        <td><img src="../image/icon/information_icon.png"></td><td>健康资讯</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="header" data-role="header">
+            <div id="title">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <a href="#navigation"><img src="../image/icon/navigation_icon.png"></a>
+                            </td>
+                            <td><img src="../image/jiujiutaofang.png" /></td>
+                            <td>
+                                <a href="#loginRegister" data-rel="popup"><img src="../image/icon/login_icon.png"></a>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
+                <div id="loginRegister" data-role="popup">
+                    <table>
+                        <tbody>
+                            <tr><td><a href="#loginpage" data-rel="dialog">登录</a></td></tr>
+                            <tr><td><a href="#registerpage" data-rel="dialog">注册</a></td></tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="paneldiv">
-                <table>
-                    <tr>
-                        <td><img src="../image/icon/health_icon.png"></td>
-                        <td>健康之声</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="paneldiv">
-                <table>
-                    <tr>
-                        <td><img src="../image/icon/story_icon.png"></td>
-                        <td>我的故事</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="paneldiv">
-                <table>
-                    <tr>
-                        <td><img src="../image/icon/natural_icon.png"></td>
-                        <td>自然疗法</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="paneldiv">
-                <table>
-                    <tr>
-                        <td><img src="../image/icon/season_icon.png"></td>
-                        <td>季节养身</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="paneldiv">
-                <table>
-                    <tr>
-                        <td><img src="../image/icon/information_icon.png"></td>
-                        <td>健康资讯</td>
-                    </tr>
-                </table>
+            <div>
+                 <table id="prescription">
+                     <tbody>
+                         <tr>
+                             <td><input id="prescriptionName" type="search" name="prescriptionName" placeholder="输入关键字寻找相关偏方"></td>
+                             <td id="prescriptionButton"><button onclick="doPrescriptionSearch()">立即搜索</button></td>
+                         </tr>
+                     </tbody>
+                 </table>
             </div>
         </div>
+        <div data-role="content">
+            <div id="usertimeline">
+                <ul>
 
-        <div id="header">
+                </ul>
+            </div>
+        </div>
+        <div data-role="footer"></div>
+
+        <!--<div>
             <div>
                 <table>
                     <tr>
@@ -106,13 +125,13 @@
                             <img src="../image/jiujiutaofang.png" />
                         </td>
                         <td>
-                            <a href="#loginRegister" data-rel="popup">
+                            <a href="#loginRegister1" data-rel="popup">
                                 <img src="../image/icon/login_icon.png">
                             </a>
                         </td>
                     </tr>
                 </table>
-                <div id="loginRegister" data-role="popup">
+                <div id="loginRegister1" data-role="popup">
                     <div>
                         <a href="#loginpage" data-rel="dialog">登录</a>
                     </div>
@@ -176,9 +195,9 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
 
-        <div data-role="footer">
+        <!--<div data-role="footer">
             <div>
                 <div>
                     <h1>广告区域</h1>
@@ -195,103 +214,139 @@
             <div>
                 <h1>Video:看80岁老人如何玩转健康人生</h1>
             </div>
-        </div>
+        </div>-->
     </div>
     <!-- 登录 -->
     <div id="loginpage" data-role="page">
-        <div data-role="header">
-            <h1>登录</h1>
+        <div id="loginpageHeader" data-role="header">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="lrtabletd1"><label class="lrtitle">登录</label></td>
+                        <td class="lrtabletd2"><a href="#mainpage"><img class="backicon" src="../image/icon/close_icon.png" /></a></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
-        <div data-role="content">
-            <div>
-                <div>
-                    <form id="loginForm" method="post" action="http://localhost:8080/taofang/webapi/user/login">
-                        <div>
-                            <input type="text" name="userName" placeholder="请输入用户名" />
-                        </div>
-                        <div>
-                            <input type="password" name="password" placeholder="请输入密码" />
-                        </div>
-                        <div id="verificationCodeDiv" class="ui-grid-b">
-                            <div class="ui-block-a">
-                                <input type="text" name="verificationCode" maxlength="4" placeholder="请输入验证字符" />
-                            </div>
-                            <div id="verificationCode" class="ui-block-b">
-                                <!-- 验证码 -->
-                                <label id="createdCode">7189</label>
-                            </div>
-                            <div class="ui-block-c">
-                                <button id="loginVerificationCodeButton" type="button">
-                                    刷新
-                                </button>
-                            </div>
-                        </div>
-                        <label id="loginErrorMsg"></label>
-                        <div>
-                            <button id="loginButton" type="button">立即登录</button>
-                        </div>
-                    </form>
+        <div data-role="content" style="background-color: #FFFFFF">
+            <div id="login">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td colspan="3"><input data-role='none' class="npinput" type="text" name="userName" placeholder="请输入用户名" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><input data-role='none' class="npinput" type="password" name="password" placeholder="请输入密码" /></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 200px"><input data-role='none' class="npinput" type="text" name="verificationCode" maxlength="4" placeholder="请输入验证字符" /></td>
+                            <td><label id="createdCode">7189</label></td>
+                            <td><a id="vcButton" href="#" onclick="createVerificationCode()"><img id="refreshimg" src="../image/icon/refresh_icon.png" /></a></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><button data-role="none" id="loginButton" type="button" onclick="login()">立即登录</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="wxqqlogin" class="ui-grid-c">
+                <div id="wxlogin" class="ui-block-a">
+                    <table>
+                        <tbody>
+                            <tr onclick="doLoginByWxQQ(1);">
+                                <td class="wxqqicon"><img src="../image/icon/wx_icon.png"></td>
+                                <td class="wxqqfont">微信登录</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="ui-grid-a">
-                    <div class="ui-block-a">
-                        <a href="#">微信登录</a>
-                    </div>
-                    <div class="ui-block-b">
-                        <a href="#">QQ登录</a>
-                    </div>
+                <div id="wxqqcontent" class="ui-block-b">
+                </div>
+                <div id="qqlogin" class="ui-block-c">
+                    <table>
+                        <tbody>
+                            <tr onclick="doLoginByWxQQ(2);">
+                                <td class="wxqqicon"><img src="../image/icon/qq_icon.png"></td>
+                                <td class="wxqqfont">QQ登录</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="ui-grid-a">
-                <div class="ui-block-a">
-                    <a href="#registerpage" data-rel="dialog">新用户注册</a>
-                </div>
-                <div class="ui-block-b">
-                    <a href="#">忘记密码?</a>
-                </div>
+            <div id="repassword">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td id="newuserreg"><a href="#registerpage" data-rel="dialog">新用户注册</a></td>
+                            <td id="forgetpassword"><a href="#">忘记密码?</a></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 
     <div id="registerpage" data-role="page">
-        <div data-role="header">
-            <h1>注册</h1>
+        <div id="registerHeader" data-role="header">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="lrtabletd1"><label class="lrtitle">注册</label></td>
+                        <td class="lrtabletd2"><a href="#mainpage"><img class="backicon" src="../image/icon/close_icon.png" /></a></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
 
-        <div data-role="content">
-            <div>
-                <form id="registerForm" method="post" action="http://localhost:8080/taofang/webapi/user/register">
-                    <div>
-                        <input name="phoneNumber" type="text" placeholder="输入您的手机号码">
-                    </div>
-                    <div>
-                        <input name="userName" type="text" placeholder="设置您的名称">
-                    </div>
-                    <div>
-                        <input name="password" type="password" placeholder="设置您的密码,数字加字母安全性更高">
-                    </div>
-                    <div>
-                        <input name="confirmPassword" type="password" placeholder="再次输入您的密码">
-                    </div>
-                    <div class="ui-grid-a">
-                        <div class="ui-block-a">
-                            <input name="smsCode" type="text" placeholder="输入您收到的激活码">
-                        </div>
-                        <div class="ui-block-b">
-                            <button id="registerSMSCodeButton" type="button">免费获取短信激活码</button>
-                        </div>
-                    </div>
-                    <div>
-                        <button id="registerButton" type="button">立即注册</button>
-                    </div>
-                </form>
+        <div data-role="content" style="background-color: #FFFFFF">
+            <div id="register">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td colspan="2"><input data-role='none' class="npinput" type="text" name="phoneNumber" placeholder="输入您的手机号码" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><input data-role='none' class="npinput" type="text" name="userName" placeholder="设置您的名称" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><input data-role='none' class="npinput" type="password" name="password" placeholder="设置您的密码,数字加字母安全性更高" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><input data-role='none' class="npinput" type="password" name="confirmPassword" placeholder="再次输入您的密码" /></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 200px"><input data-role='none' class="npinput" name="smsCode" type="text" placeholder="输入您收到的激活码"></td>
+                            <td><button id="registerSMSCodeButton" data-role="none" type="button" onclick="registerSMSCode()">免费获取短信激活码</button></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><button data-role='none' id="registerButton" type="button" onclick="register()">立即注册</button></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="ui-grid-a">
-                <div class="ui-block-a">
-                    <a href="#">微信登录</a>
+            <div id="wxqqlogin1" class="ui-grid-c">
+                <div id="wxlogin1" class="ui-block-a">
+                    <table>
+                        <tbody>
+                        <tr onclick="doLoginByWxQQ(1);">
+                            <td class="wxqqicon"><img src="../image/icon/wx_icon.png"></td>
+                            <td class="wxqqfont">微信登录</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <div class="ui-block-b">
-                    <a href="#">QQ登录</a>
+                <div id="wxqqcontent1" class="ui-block-b">
+                </div>
+                <div id="qqlogin1" class="ui-block-c">
+                    <table>
+                        <tbody>
+                        <tr onclick="doLoginByWxQQ(2);">
+                            <td class="wxqqicon"><img src="../image/icon/qq_icon.png"></td>
+                            <td class="wxqqfont">QQ登录</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

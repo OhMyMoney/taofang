@@ -8,22 +8,50 @@
     <link rel="stylesheet" href="../../css/prescription.css">
     <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../../js/common.js"></script>
     <script src="../../js/prescription.js"></script>
     <script>
-        $(document).ready(function(){
-            // 点击搜索按钮
-            $("#search").click(function () {
-                var prescriptionName = $("input#prescriptionName").val();
-                $.ajax({
-                    url: "http://localhost:8080/taofang/webapi/prescriptions?name=" + prescriptionName +
-                    "&&page=1&&pageSize=10&&order=0",
-                    success: processPrescriptionPagination
-                });
-            });
+        window.onload = function(){
+            (function ($) {
+                $.getUrlParam = function (name) {
+                    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                    var r = window.location.search.substr(1).match(reg);
+                    if (r != null) return unescape(r[2]); return null;
+                }
+            })(jQuery);
+            var prescriptionName = $.getUrlParam('prescriptionName');
+            alert(prescriptionName);
+        }
+        $(function () {
+            (function ($) {
+                $.getUrlParam = function (name) {
+                    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                    var r = window.location.search.substr(1).match(reg);
+                    if (r != null) return unescape(r[2]); return null;
+                }
+            })(jQuery);
+            var prescriptionName = $.getUrlParam('prescriptionName');
+            alert(prescriptionName);
+        });
 
-            $("#orderId").click(function () {
-                $(".orderlist").toggle();
-            });
+        $(document).ready(function(){
+
+//
+//
+//
+//            // 点击搜索按钮
+//            $("#search").click(function () {
+//                var prescriptionName = $("input#prescriptionName").val();
+//                $.ajax({
+//                    url: "http://localhost:8080/taofang/webapi/prescriptions?name=" + prescriptionName +
+//                    "&&page=1&&pageSize=10&&order=0",
+//                    success: processPrescriptionPagination
+//                });
+//            });
+//
+//            $("#orderId").click(function () {
+//                $(".orderlist").toggle();
+//            });
         });
     </script>
 </head>

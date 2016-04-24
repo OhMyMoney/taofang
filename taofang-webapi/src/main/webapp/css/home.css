@@ -1,83 +1,247 @@
 #navigation{
     background-color: #434547;
-    width: 200px;
 }
-.paneldiv{
+#navigation table{
     width: 100%;
-    height: 40px;
+    font-size: 20px;
+    text-align: left;
     color: #CCCFD3;
-    font-size: 15px;
-    font-family: Heiti SC;
-    border-bottom-color: #CCCFD3;
+    border-collapse: collapse;
 }
-
+#navigation table tbody tr{
+    height: 3em;
+    border-bottom: 1px solid #F2ECE3;
+}
+#navigation table tbody tr td img{
+    height: 20px;
+    width: 20px;
+    margin-right: 15px;
+}
+#navigationCol1{
+    width: 35px;
+}
 #header{
     background-image: url("../image/home_header_background.png");
 }
-
-
-
-
-
-
-
-ul.timeline {
-    list-style-type: none;
-    background: url("../image/version_line.png") repeat-y scroll 120px 0 transparent;
-    margin: 50px 0;
-    padding: 0;
-}
-ul.timeline li {
-    position: relative;
-    margin-bottom: 20px;
-}
-ul.timeline li .time {
-    position: absolute;
-    width: 90px;
-    text-align: right;
-    left: 0;
-    top: 10px;
-    color: #999;
-}
-ul.timeline li .version {
-    position: absolute;
-    width: 290px;
-    text-align: right;
-    left: -200px;
-    top: 30px;
-    font-size: 40px;
-    line-height: 50px;
-    color: #3594cb;
-    overflow: hidden;
-}
-ul.timeline li .number {
-    position: absolute;
-    background: url("../image/version_dot.png") no-repeat scroll 0 0 transparent;
-    width: 56px;
-    height: 56px;
-    left: 97px;
-    line-height: 56px;
+#title table{
+    width: 100%;
     text-align: center;
-    color: #fff;
-    font-size: 18px;
 }
-ul.timeline li.alt .number {
-    background-image: url("../image/version_dot_alt.png");
+#title table tbody tr td{
+    height: 60px;
 }
-ul.timeline li .content {
-    margin-left: 180px;
+#title table tbody tr td a img{
+    height: 30px;
+    width: 30px;
 }
-ul.timeline li .content pre {
-    background-color: #3594cb;
-    padding: 20px;
-    color: #fff;
-    font-size: 13px;
-    line-height: 20px;
+#title table tbody tr td img{
+    height: 30px;
 }
-ul.timeline li.alt .content pre {
-    background-color: #43B1F1;
+#loginRegister{
+    margin-top: 20px;
+    background-color: rgba(255, 255, 255, 1);
+    width: 100px;
+    text-align: center;
+}
+#loginRegister table{
+    width: 100%;
+    text-align: center;
+    border-collapse: collapse;
+}
+#loginRegister table tbody tr{
+    height: 40px;
+    border-bottom: 1px solid #F2ECE3;
+}
+#loginRegister table tbody tr td a{
+    color: #56392F;
+    font-size: 16px;
+    display: inline-block;
+    width: 90px;
+    height: 40px;
+    line-height: 40px;
+}
+a:link{
+    text-decoration: none;
+}
+#prescription{
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 60px;
+}
+#prescription tbody tr{
+    height: 40px;
+}
+#prescription tbody tr td{
+    padding: 0px;
+}
+#prescription tbody tr td input{
+    margin: 0px;
+    height: 40px;
+}
+#prescription tbody tr td button{
+    margin: 0px;
+    height: 40px;
+    width: 100px;
+    text-align: center;
+    background-color: #F4A046;
+    border-color: #F4A046;
+    color: #FFFFFF;
+    font-size: 15px;
+}
+.ui-input-text, .ui-input-search {
+    margin: 0 0;
+    border-width: 0px;
+    padding: 2px;
+    height: 40px;
+}
+#prescriptionButton{
+    width: 100px;
 }
 
-.error{
-    color: red;
+
+
+
+
+
+/*登录*/
+#loginpageHeader, #registerHeader{
+    background-color: #F4A046;
+    height: 55px;
+}
+#loginpageHeader table, #registerHeader table{
+    width: 100%;
+    height: 40px;
+    padding: 5px 10px 0px 20px;
+    vertical-align:middle;
+}
+label.lrtitle{
+    font-size: 25px;
+    color: #FFFFFF;
+}
+.backicon{
+    width: 25px;
+    height: 25px;
+}
+.lrtabletd1{
+    text-align: left;
+}
+.lrtabletd2{
+    text-align: right;
+}
+a.ui-btn.ui-corner-all.ui-icon-delete.ui-btn-icon-notext.ui-btn-left{
+    display: none;
+}
+#login table{
+    width: 100%;
+}
+#login table tbody tr{
+    margin: 10px;
+    height: 60px;
+}
+input.npinput{
+    color: #B9B9B9;
+    font-size: 15px;
+    vertical-align: middle;
+    padding-left: 10px;
+    margin: 0px;
+    height: 40px;
+    border: 1px solid #B9B9B9;
+    width: 90%;
+    border-radius: 5px;
+}
+label#createdCode {
+    margin: 0;
+    border: 1px solid #B9B9B9;
+    border-radius: 5px;
+    height: 20px;
+    padding: 10px;
+}
+#refreshimg{
+    width: 30px;
+    height: 30px;
+}
+#loginButton{
+    background-color: #F4A046;
+    width: 95%;
+    height: 45px;
+    border: 1px solid #F4A046;
+    font-size: 18px;
+    font-weight: 800;
+    color: white;
+    border-radius: 5px;
+}
+#wxqqlogin, #wxqqlogin1{
+    margin-top: 20px;
+    width: 95%;
+}
+
+#wxlogin, #qqlogin, #wxlogin1, #qqlogin1{
+    border: 1px solid #B9B9B9;
+    width: 40%;
+    height: 50px;
+    border-radius: 5px;
+    vertical-align: middle;
+}
+
+#wxqqcontent, #wxqqcontent1{
+    width: 20%;
+}
+.wxqqicon{
+    width: 40px;
+    height: 40px;
+    padding-top: 5px;
+}
+.wxqqfont{
+    width: 80px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #57392E;
+}
+#repassword{
+    margin-top: 80px;
+    width: 95%;
+}
+#repassword table{
+    width: 100%;
+}
+#newuserreg{
+    text-align: left;
+    font-size: 13px;
+    font-weight: 400;
+}
+#forgetpassword{
+    text-align: right;
+    font-size: 13px;
+    font-weight: 400;
+}
+.ui-page-theme-a a, html .ui-bar-a a, html .ui-body-a a, html body .ui-group-theme-a a{
+    color: #57392E;
+}
+/*注册*/
+#register table{
+    width: 100%;
+}
+#register table tbody tr{
+    height: 60px;
+}
+#registerSMSCodeButton{
+    background-color: #57392E;
+    width: 95%;
+    height: 45px;
+    border: 1px solid #57392E;
+    font-size: 12px;
+    font-weight: 800;
+    color: white;
+    border-radius: 5px;
+}
+#registerButton{
+    background-color: #F4A046;
+    width: 95%;
+    height: 45px;
+    border: 1px solid #F4A046;
+    font-size: 18px;
+    font-weight: 800;
+    color: white;
+    border-radius: 5px;
 }

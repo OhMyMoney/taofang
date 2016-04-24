@@ -21,3 +21,56 @@
 #body{
     background-color: #F2ECE3;
 }
+
+#list{
+    background-color: white;
+}
+#list table{
+    width: 100%;
+    border-collapse: collapse;
+}
+#list table tr{
+    height: 50px;
+}
+#list table tr td{
+    align-content: center;
+    border-bottom: 1px solid #F2ECE3;
+}
+#list table tr td img{
+    padding-left: 10px;
+}
+#list table tr td a{
+    color: #56392F;
+    font-size: 14px;
+}
+a:link{
+    text-decoration: none;
+}
+#paging{
+    height: 100px;
+}
+#paging table{
+    width: 100%;
+    padding-top: 30px;
+    height: 40px;
+}
+#paging table tbody{
+    width: 80%;
+}
+#paging table tr td{
+    height: 40px;
+    font-size: 15px;
+    color: #56392F;
+}
+#previousPage{
+    background: url("../image/previous_page.png") center;
+    background-size: cover;
+}
+#nextPage{
+    background: url("../image/next_page.png") center;
+    background-size: cover;
+}
+#currentPage{
+    background: url("../image/current_page.png") center;
+    background-size: cover;
+}

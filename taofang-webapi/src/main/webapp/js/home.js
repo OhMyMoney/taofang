@@ -1,4 +1,34 @@
-// 生成验证码
+function doNavigationById(id) {
+    var url;
+    switch (id){
+        case 1:
+            url = "home.html";
+            break;
+        case 2:
+            url = "healthvoice/list.html";
+            break;
+        case 3:
+            url = "mystory/list.html";
+            break;
+        case 4:
+            url = "naturetherapy/list.html";
+            break;
+        case 5:
+            url = "ritucharya/list.html";
+            break;
+        case 6:
+            url = "healthinfo/list.html";
+            break;
+    }
+    location.href = url;
+}
+function doPrescriptionSearch() {
+    var prescriptionName = $('#prescriptionName').val()
+    location.href = 'prescription/list.html?prescriptionName=' + prescriptionName;
+}
+function login() {
+
+}
 function createVerificationCode() {
     var numbers = ['0','1','2','3','4','5','6','7','8','9'];
     var verificationCode = '';
@@ -7,6 +37,28 @@ function createVerificationCode() {
     }
     return verificationCode;
 }
+function register() {
+
+}
+function registerSMSCode() {
+
+}
+
+function doLoginByWxQQ(id) {
+    switch (id){
+        case 1:
+            alert("微信登录");
+            break;
+        case 2:
+            alert("QQ登录")
+            break;
+    }
+}
+
+
+
+
+
 
 // 登录验证
 function checkLoginForm(){

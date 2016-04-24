@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
  * @Author Remilia
  * @Create 2016-04-17
  */
-@Path("healthinfo")
+@Path("healthinfos")
 public class HealthInfoResource {
     private static final Logger LOGGER = LoggerFactory.getLogger(HealthInfoResource.class);
     @Autowired

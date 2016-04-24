@@ -26,7 +26,7 @@ public class HealthInfoPagination {
     public int getTotalCount() {
         return totalCount;
     }
-    @XmlElement(name="perPage")
+    @XmlElement(name="curPage")
     public int getCurPage() {
         return curPage;
     }

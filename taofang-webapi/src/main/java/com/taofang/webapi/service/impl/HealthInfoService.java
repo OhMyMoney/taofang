@@ -8,6 +8,7 @@ import com.taofang.webapi.service.IHealthInfoService;
 import com.taofang.webapi.util.PaginationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ import java.util.List;
  * @Author Remilia
  * @Create 2016-04-17
  */
+@Service
 public class HealthInfoService implements IHealthInfoService{
     private static final Logger LOGGER = LoggerFactory.getLogger(HealthInfoService.class);
 
