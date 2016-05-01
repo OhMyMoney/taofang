@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.taofang.webapi.dao.ArticleMapper" >
+  <resultMap id="BaseResultMap" type="com.taofang.webapi.model.Article" >
+    <result column="ArticleID" property="articleid" jdbcType="INTEGER" />
+    <result column="ArticleName" property="articlename" jdbcType="VARCHAR" />
+    <result column="ImageUrl" property="imageurl" jdbcType="VARCHAR" />
+    <result column="LinkUrl" property="linkurl" jdbcType="VARCHAR" />
+    <result column="Sequence" property="sequence" jdbcType="INTEGER" />
+    <result column="LastUpdateDate" property="lastupdatedate" jdbcType="TIMESTAMP" />
+    <result column="LastUpdateUser" property="lastupdateuser" jdbcType="VARCHAR" />
+    <result column="Title" property="title" jdbcType="VARCHAR" />
+    <result column="KeyWord" property="keyword" jdbcType="VARCHAR" />
+    <result column="Description" property="description" jdbcType="VARCHAR" />
+    <result column="CategoryID" property="categoryid" jdbcType="INTEGER" />
+    <result column="SetUrl" property="seturl" jdbcType="VARCHAR" />
+    <result column="IsProgramEncyclopedia" property="isprogramencyclopedia" jdbcType="CHAR" />
+    <result column="IsPrescriptionIndex" property="isprescriptionindex" jdbcType="INTEGER" />
+    <result column="Summary" property="summary" jdbcType="VARCHAR" />
+    <result column="Symptom" property="symptom" jdbcType="VARCHAR" />
+    <result column="Disease" property="disease" jdbcType="VARCHAR" />
+    <result column="Video" property="video" jdbcType="VARCHAR" />
+    <result column="VideoDate" property="videodate" jdbcType="TIMESTAMP" />
+    <result column="Category" property="category" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.taofang.webapi.model.Article" extends="BaseResultMap" >
+    <result column="ArticleContent" property="articlecontent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+  <select id="countHealthVoiceByVideoDate" resultType="java.lang.Integer">
+    select
+      count(*)
+    from
+      Article
+    where
+      Category = 4
+      <if test="videoDate != null">
+        and VideoDate = #{videoDate, jdbcType=TIMESTAMP}
+      </if>
+  </select>
+  <select id="selectHealthVoiceByVideoDate" resultMap="BaseResultMap">
+    select
+      ArticleID, ArticleName, Video
+    from
+      Article
+    where
+      Category = 4
+      <if test="videoDate != null">
+        and VideoDate = #{videoDate, jdbcType=TIMESTAMP}
+      </if>
+    order by VideoDate desc
+    limit #{start}, #{limit}
+  </select>
+</mapper>

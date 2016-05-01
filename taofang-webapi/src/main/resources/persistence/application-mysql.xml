@@ -4,7 +4,7 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd"
-       default-autowire="byName" default-lazy-init="true">
+       default-autowire="byName">
 
     <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
@@ -27,7 +27,7 @@
         </property>
     </bean>
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.taofang99.webapi.dao"/>
+        <property name="basePackage" value="com.taofang.webapi.dao"/>
         <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
     </bean>
 
