@@ -22,6 +22,16 @@ function doNavigationById(id) {
     }
     location.href = url;
 }
+// 页面跳转
+function goLoginRegisterPage(id) {
+    if (id == 1){
+        location.href = "login.html";
+    }else{
+        location.href = "register.html";
+    }
+}
+
+
 function doPrescriptionSearch() {
     var prescriptionName = $('#prescriptionName').val()
     location.href = 'prescription/list.html?prescriptionName=' + prescriptionName;

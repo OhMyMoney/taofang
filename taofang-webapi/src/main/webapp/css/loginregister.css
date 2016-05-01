@@ -1,0 +1,158 @@
+#loginpageheader, #registerpageheader{
+    background-color: #F4A046;
+    height: 50px;
+}
+#loginpageheader table, #registerpageheader table{
+    width: 100%;
+    height: 100%;
+    vertical-align:middle;
+    padding-top: 5px;
+}
+.lrtabletd1{
+    text-align: left;
+    width: 40px;
+}
+.lrtabletd2{
+    text-align: center;
+    font-size: 20px;
+    font-weight: 800;
+    color: #FFFFFF;
+    padding-right: 10px;
+    height: 30px;
+}
+.backimg{
+    height: 25px;
+    width: 20px;
+    padding-left: 5px;
+}
+a.ui-btn.ui-corner-all.ui-icon-delete.ui-btn-icon-notext.ui-btn-left{
+    display: none;
+}
+#login table{
+    width: 100%;
+}
+#login table tbody tr{
+    margin: 10px;
+    height: 55px;
+}
+#vcodetd2{
+    width: 100px;
+}
+#vcodetd3{
+    width: 40px;
+}
+.npinput{
+    color: #B9B9B9;
+    font-size: 12px;
+    vertical-align: middle;
+    padding-left: 5px;
+    margin: 0px;
+    height: 40px;
+    border: 1px solid #B9B9B9;
+    width: 90%;
+    border-radius: 5px;
+}
+.vcodeimg{
+    height: 44px;
+    width: 90%;
+    border-radius: 5px;
+}
+.refreshimg{
+    height: 30px;
+    width: 30px;
+}
+.lrbutton{
+    background-color: #F4A046;
+    width: 95%;
+    height: 45px;
+    border: 1px solid #F4A046;
+    font-size: 18px;
+    font-weight: 800;
+    color: white;
+    border-radius: 5px;
+}
+#wxqqlogin{
+    margin-top: 30px;
+    width: 95%;
+}
+.wxqqlogintable{
+    width: 140px;
+}
+#wxlogin{
+    vertical-align: middle;
+    margin-left: 5px;
+    border: 1px solid #B9B9B9;
+    border-radius: 5px;
+    width: 40%;
+}
+#qqlogin{
+    vertical-align: middle;
+    margin-left: 40px;
+    border: 1px solid #B9B9B9;
+    border-radius: 5px;
+    width: 40%;
+}
+.wxqqlogintable tbody tr {
+    height: 30px;
+    border-collapse: collapse;
+}
+.wxqqicon{
+    width: 30px;
+    height: 30px;
+    padding-top: 5px;
+}
+.wxqqfont{
+    font-size: 12px;
+    font-weight: 600;
+    color: #57392E;
+    text-align: left;
+}
+#repassword{
+    margin-top: 50px;
+    width: 95%;
+}
+#repassword table{
+    width: 100%;
+}
+#newuserreg{
+    text-align: left;
+    font-size: 14px;
+    font-weight: 900;
+    color: #57392E;
+}
+#forgetpassword{
+    text-align: right;
+    font-size: 14px;
+    font-weight: 900;
+    color: #57392E;
+}
+#register table{
+    width: 100%;
+}
+#register table tbody tr{
+    margin: 10px;
+    height: 55px;
+}
+#smscodetd1{
+    width: 150px;
+}
+#registerSMSCodeButton{
+    background-color: #57392E;
+    width: 90%;
+    height: 45px;
+    border: 1px solid #57392E;
+    font-size: 12px;
+    font-weight: 800;
+    color: white;
+    border-radius: 5px;
+}
+#registerButton{
+    background-color: #F4A046;
+    width: 95%;
+    height: 45px;
+    border: 1px solid #F4A046;
+    font-size: 18px;
+    font-weight: 800;
+    color: white;
+    border-radius: 5px;
+}
