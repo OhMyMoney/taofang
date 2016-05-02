@@ -3,7 +3,7 @@ function backhomepage() {
 }
 function refreshVCode() {
     $.ajax({
-        url: "http://192.168.31.199:8080/taofang/webapi/user/vcode",
+        url: "http://101.201.47.48/taofang/webapi/user/vcode",
         success: doVcodeRefresh
     });
 }
@@ -19,7 +19,7 @@ function login() {
         var passwordVal = $("#login").find($("[name='password']")).val();
         $.ajax({
             timeout: 5000,
-            url: "http://192.168.31.199:8080/taofang/webapi/user/login",
+            url: "http://101.201.47.48/taofang/webapi/user/login",
             contentType: "application/json",
             data: JSON.stringify({userName : userNameVal, password : passwordVal}),
             type: "post",
@@ -39,7 +39,7 @@ function register() {
         var smsCodeVal = $("#register").find($("[name='smsCode']")).val();
         $.ajax({
             timeout: 5000,
-            url: "http://192.168.31.199:8080/taofang/webapi/user/register",
+            url: "http://101.201.47.48/taofang/webapi/user/register",
             contentType: "application/json",
             data: JSON.stringify({phoneNumber:phoneNumberVal, userName:userNameVal, password:passwordVal, confirmPassword:confirmPasswordVal, smsCode:smsCodeVal}),
             type: "post",

@@ -8,9 +8,9 @@
 
     <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/taofang" />
+        <property name="jdbcUrl" value="jdbc:mysql://101.201.47.48:3306/taofang" />
         <property name="username" value="root" />
-        <property name="password" value="123456" />
+        <property name="password" value="Taofang99@101p201p47p48" />
         <property name="maximumPoolSize" value="100" />
         <property name="idleTimeout" value="60000" />
     </bean>

@@ -31,7 +31,7 @@ function goLoginRegisterPage(id) {
 }
 function getUserViewHistory(userName) {
     $.ajax({
-        url: "http://192.168.31.199:8080/taofang/webapi/user/view?userName=" + userName,
+        url: "http://101.201.47.48/taofang/webapi/user/view?userName=" + userName,
         success: doGetUserViewHistory
     });
 }
