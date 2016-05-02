@@ -4,8 +4,6 @@ import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
@@ -14,10 +12,10 @@ import redis.clients.jedis.JedisPool;
  * @Author Remilia
  * @Create 2016-04-11
  */
-@Repository
+//@Repository
 public class RedisDao {
     private static final Logger LOGGER = LoggerFactory.getLogger(RedisDao.class);
-    @Autowired
+//    @Autowired
     private JedisPool jedisPool;
 
     public String setKeyValue(String key, String value){
