@@ -1,4 +1,3 @@
-$(document).bind("mobileinit", function() {
-    // disable ajax nav
-    $.mobile.ajaxEnabled=false
-});
+function backhomepage() {
+    location.href = "../home.html";
+}

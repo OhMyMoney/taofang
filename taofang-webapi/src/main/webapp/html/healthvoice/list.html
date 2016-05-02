@@ -5,134 +5,108 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>九九淘方网</title>
     <link rel="stylesheet" href="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
-    <link rel="stylesheet" href="../../css/prescription.css">
+    <link href="../../css/mobiscroll.custom-2.6.2.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../../css/healthvoice.css">
     <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <script src="../../js/prescription.js"></script>
-    <script>
-        $(document).ready(function(){
-            // 点击搜索按钮
-            $("#search").click(function () {
-                var prescriptionName = $("input#prescriptionName").val();
-                $.ajax({
-                    url: "http://localhost:8080/taofang/webapi/prescriptions?name=" + prescriptionName +
-                    "&&page=1&&pageSize=10&&order=0",
-                    success: processPrescriptionPagination
-                });
-            });
+    <script src="../../js/mobiscroll.custom-2.6.2.min.js" type="text/javascript"></script>
+    <script src="../../js/healthvoice.js"></script>
+    <script src="../../js/common.js"></script>
 
-            $("#orderId").click(function () {
-                $(".orderlist").toggle();
+    <script type="text/javascript">
+        $(function () {
+            var opt = {}
+            opt.date = {preset : 'date'};
+            $("#dateselectbutton").show();
+            $('#date').val('').scroller('destroy').scroller($.extend(opt['date'], { theme: 'default',mode: 'scroller',
+                                display: 'modal', dateFormat: 'yyyymmdd', setText: '确定', cancelText: '取消', dateOrder: 'yyyymmdd',
+                                dayText: '日', monthText: '月', yearText: '年', endYear:2050, startYear:1970}));
+            $('#date').change(searchByDateChange);
+        });
+        $(document).ready(function () {
+            $('#dateselectresult label').html('');
+            $('#emptylist').hide();
+            $.ajax({
+                url: "http://localhost:8080/taofang/webapi/healthvoices?page=1&&pageSize=10",
+                success: processHealthVoicePagination
             });
         });
+
     </script>
 </head>
 <body>
-    <div data-role="page">
-        <div id="header">
-            <table class="headertable">
+    <div id="healthvoicepage" data-role="page">
+        <div id="healthvoiceheader" data-role="header">
+            <table>
+                <tbody>
                 <tr>
-                    <td style="width: 10%">
-                        <a href="../home.html">
-                            <img src="../../image/back.png" />
-                        </a>
+                    <td id="healthvoiceheadertd1" class="lrtabletd1" onclick="backhomepage();">
+                        <img class="backimg" src="../../image/common/back.png">
                     </td>
-                    <td style="width: 80%">
-                        <input id="prescriptionName" type="text" name="prescriptionName" />
-                    </td>
-                    <td style="width: 10%">
-                        <label id="search">搜索</label>
-                    </td>
+                    <td id="healthvoiceheadertd2" class="lrtabletd2">健康之声</td>
                 </tr>
+                </tbody>
             </table>
         </div>
-        <div id="prescription">
-            <div class="totalresult">
-                <table>
-                    <tr>
-                        <td style="width: 60%" >
-                            <a id="orderId" href="#" data-rel="popup">默认排序</a>
-                        </td>
-                        <td style="width: 40%">
-                            共32条搜索结果
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div class="orderlist">
-                <ul>
-                    <li>验证人数排序</li>
-                    <li>有效程度排序</li>
-                    <li>见效速度排序</li>
-                    <li>安全性由排序</li>
-                    <li>方便性由排序</li>
-                    <li>省钱程度排序</li>
-                </ul>
-            </div>
-            <div class="prescriptionlist">
-
-            </div>
-            <div class="prescriptionpage">
-                <table>
-                    <tr>
-                        <td>
-                            <label id="previousPage">上一页</label>
-                        </td>
-                        <td>
-                            <label id="currentPage">1/5</label>
-                        </td>
-                        <td>
-                            <label id="nextPage">下一页</label>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div>
-            <div class="more">
-                <div class="moretile">
-                    相关推荐
+        <div id="healthvoicecontent" class="content">
+            <div id="dateselect">
+                <div id="dateselectbutton">
+                    <label for="date">筛选日期</label>
+                    <input id="date" name="date" data-role="none" style="display: none" />
                 </div>
-                <div class="moreresult">
-
+                <div id="dateselectresult" class="dateselectresultclass1">
+                    <label class="dateselectlabelclass">搜索"2016年3月13日"</label>
                 </div>
             </div>
-            <div class="more">
-                <div class="moretile">
-                    自然疗法
-                </div>
-                <div class="moreresult">
-
-                </div>
-            </div>
-            <div class="more">
-                <div class="moretile">
-                    产品推荐
-                </div>
-                <div class="moreresult">
-
-                </div>
-            </div>
-            <div class="more">
-                <div class="moretile">
-                    食疗
-                </div>
-                <div class="moreresult">
-                </div>
-            </div>
-        </div>
-        <div data-role="footer">
             <div>
-                <div>
-                    <h1>广告区域</h1>
+                <div id="emptylist">
+                    <div id="emptyimg"><img src="../../image/common/note.png"></div>
+                    <div id="emptydate">没有"2016年3月13日"的相关内容</div>
+                    <div id="emptybutton" onclick="backtolist()">返回列表页</div>
                 </div>
-                <div class="ui-grid-a">
-                    <div class="ui-block-a">
-                        <a href="javascript:void(0)">触屏版</a>
-                    </div>
-                    <div class="ui-block-b">
-                        <a href="javascript:void(0)">电脑版</a>
-                    </div>
+                <div id="healthvoicelist">
+                    <table>
+                        <colgroup id="listtd1" span="1" />
+                        <colgroup id="listtd2" span="1" />
+                        <colgroup id="listtd3" span="1" />
+                        <tbody>
+                        <tr>
+                            <td><button id="1045" data-role="none" class="start" onclick="handleAudio('http://7xq88v.com2.z0.glb.qiniucdn.com/yp2015809.mp3', 1045, '2015年8月9日')"></button></td>
+                            <td id="label1045" class="label1">2015年8月9日</td>
+                            <td><img src="../../image/common/link.png" /></td>
+                        </tr>
+                        <tr>
+                            <td><button id="1044" data-role="none" class="start" onclick="handleAudio('http://7xq88v.com2.z0.glb.qiniucdn.com/yp2015808.mp3', 1044, '2015年8月8日')"></button></td>
+                            <td id="label1044" class="label1">2015年8月8日</td>
+                            <td><img src="../../image/common/link.png" /></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="prenextpage">
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <div><img id="previousimg" onclick="previousnextPage(1)" src="../../image/common/previous1.png" /></div>
+                        </td>
+                        <td>
+                            <div id="page">1/70</div>
+                        </td>
+                        <td>
+                            <div><img id="nextimg" onclick="previousnextPage(2)" src="../../image/common/next1.png" /></div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="healthvoicemp3">
+                <div id="audioname">
+                    2015年8月9日
+                </div>
+                <div id="audiomp3">
+                    <audio id="hvmp3" controls="controls" src="http://7xq88v.com2.z0.glb.qiniucdn.com/yp2015809.mp3" class="audiomp3class"></audio>
                 </div>
             </div>
         </div>
