@@ -1,7 +1,10 @@
 package com.taofang.webapi.service;
 
 import com.taofang.webapi.domain.User;
+import com.taofang.webapi.domain.ViewHistory;
 import com.taofang.webapi.result.Result;
+
+import java.util.List;
 
 /**
  * @Desc
@@ -22,4 +25,6 @@ public interface IUserService {
      * @return
      */
     Result checkUserRegister(User user);
+
+    List<ViewHistory> getUserViewHistoryByUserName(String userName);
 }

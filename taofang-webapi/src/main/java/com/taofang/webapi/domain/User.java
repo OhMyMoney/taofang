@@ -11,19 +11,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="user")
 public class User {
     // 用户名
-
     private String userName;
     // 密码
-
     private String password;
     // 确认密码
-
     private String confirmPassword;
     // 手机号码
-
     private String phoneNumber;
     // 短信激活码
-
     private String smsCode;
 
     @Override

@@ -6,9 +6,25 @@ function searchByDateChange() {
     $('#dateselectresult').attr("class", "dateselectresultclass2");
     $('#dateselectresult label').html('搜索"' + parseDate() + '"').attr("class", "dateselectlabelclass");
     $.ajax({
-        url: "http://localhost:8080/taofang/webapi/healthvoices/" + date + "?page=1&&pageSize=10",
+        url: "http://192.168.31.199:8080/taofang/webapi/healthvoices/" + date + "?page=1&&pageSize=10",
         success: processHealthVoicePagination
     });
+}
+function previousnextPage(id) {
+    var page = $('#page').text();
+    var currpage = page.split("/")[0];
+    var totalpage = page.split("/")[1];
+    if(id == 1 && currpage != 1){
+        $.ajax({
+            url: "http://192.168.31.199:8080/taofang/webapi/healthvoices?page=" + (parseInt(currpage) - 1) +"&&pageSize=10",
+            success: processHealthVoicePagination
+        });
+    }else if(id == 2 && (currpage < totalpage)){
+        $.ajax({
+            url: "http://192.168.31.199:8080/taofang/webapi/healthvoices?page=" + (parseInt(currpage) + 1) +"&&pageSize=10",
+            success: processHealthVoicePagination
+        });
+    }
 }
 function handleAudio(url, id, title) {
     var buttonClass = $('#'+id).attr("class");
@@ -73,23 +89,6 @@ function processHealthVoicePagination(data) {
         $("#healthvoicelist").html(healthVoiceElems);
         $("#audioname").html(healthVoices[0].title);
         $("#hvmp3").attr("src", healthVoices[0].url);
-    }
-}
-
-function previousnextPage(id) {
-    var page = $('#page').text();
-    var currpage = page.split("/")[0];
-    var totalpage = page.split("/")[1];
-    if(id == 1 && currpage != 1){
-        $.ajax({
-            url: "http://localhost:8080/taofang/webapi/healthvoices?page=" + (parseInt(currpage) - 1) +"&&pageSize=10",
-            success: processHealthVoicePagination
-        });
-    }else if(id == 2 && (currpage < totalpage)){
-        $.ajax({
-            url: "http://localhost:8080/taofang/webapi/healthvoices?page=" + (parseInt(currpage) + 1) +"&&pageSize=10",
-            success: processHealthVoicePagination
-        });
     }
 }
 

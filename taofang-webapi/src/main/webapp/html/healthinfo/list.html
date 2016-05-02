@@ -3,54 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>九九淘方网-健康资讯</title>
+    <title>九九淘方网</title>
     <link rel="stylesheet" href="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css" />
     <link rel="stylesheet" href="../../css/healthinfo.css" />
     <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <script src="../../js/data.js"></script>
-    <script>
-        $(document).ready(function(){
-            $.ajax({
-                url: "http://localhost:8080/taofang/webapi/healthinfos?page=1&&pageSize=10",
-                success: processHealthInfoPagination
-            });
-            // 上一页
-            $("#previousPage").click(function () {
-                var currentPage = $("#currentPage").text().split("/")[0];
-                $.ajax({
-                    url: "http://localhost:8080/taofang/webapi/healthinfos?pageSize=10&&page=" + (currentPage-1),
-                    success: processHealthInfoPagination
-                });
-            });
-            // 下一页
-            $("#nextPage").click(function () {
-                var currentPage = $("#currentPage").text().split("/")[0];
-                $.ajax({
-                    url: "http://localhost:8080/taofang/webapi/healthinfos?pageSize=10&&page=" + (parseInt(currentPage)+1),
-                    success: processHealthInfoPagination
-                });
-            });
-        });
-    </script>
+    <script src="../../js/healthinfo.js"></script>
+    <script src="../../js/common.js"></script>
 </head>
 <body>
-    <div data-role="page">
-        <div id="head">
+    <div id="healthinfopage" data-role="page">
+        <div id="healthinfoheader" data-role="header">
             <table>
+                <tbody>
                 <tr>
-                    <td>
-                        <a href="../home.html">
-                            <img id="back" src="../../image/icon/back_icon.png" />
-                        </a>
+                    <td id="healthinfoheadertd1" class="lrtabletd1" onclick="backhomepage();">
+                        <img class="backimg" src="../../image/common/back.png">
                     </td>
-                    <td>
-                        <label id="title">健康资讯</label>
-                    </td>
+                    <td id="healthinfoheadertd2" class="lrtabletd2">健康资讯</td>
                 </tr>
+                </tbody>
             </table>
         </div>
-        <div id="body">
+        <!--<div id="body">
             <div id="list"></div>
             <div id="paging">
                 <table>
@@ -69,8 +44,8 @@
                     </tr>
                 </table>
             </div>
-        </div>
-        <div data-role="footer">
+        </div>-->
+        <!--<div data-role="footer">
             <div>
                 <div>
                     <h1>广告区域</h1>
@@ -84,7 +59,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
     </div>
 </body>
 </html>

@@ -27,7 +27,7 @@
             $('#dateselectresult label').html('');
             $('#emptylist').hide();
             $.ajax({
-                url: "http://localhost:8080/taofang/webapi/healthvoices?page=1&&pageSize=10",
+                url: "http://192.168.31.199:8080/taofang/webapi/healthvoices?page=1&&pageSize=10",
                 success: processHealthVoicePagination
             });
         });

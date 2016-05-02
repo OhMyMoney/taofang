@@ -8,36 +8,21 @@
     <link rel="stylesheet" href="../css/home.css">
     <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <script src="../js/common.js"></script>
+    <script src="../js/jquery.cookie.js"></script>
     <script type="text/javascript" src="../js/home.js"></script>
     <script>
         $(document).ready(function () {
-            /*// 进入页面刷新验证码
-            $("#verificationCode").children().first().replaceWith($("<label id='createdCode'>" + createVerificationCode() + "</label>"));
-            // 点击刷新验证码按钮
-            $("#loginVerificationCodeButton").click(function () {
-                var newCodeElem = $("<label id='createdCode'>" + createVerificationCode() + "</label>")
-                $("#verificationCode").children().first().replaceWith(newCodeElem);
-            });
-            // 点击登录按钮
-            $("#loginButton").click(function () {
-                // 错误消息
-                var errorMessage = checkLoginForm();
-                $("#loginErrorMsg").addClass("error").text(errorMessage);
-                if(errorMessage == ""){
-                    var userNameVal = $("#loginForm").find($("[name='userName']")).val();
-                    var passwordVal = $("#loginForm").find($("[name='password']")).val();
-                    $.ajax({
-                        timeout: 5000,
-                        url: $("#loginForm").attr("action"),
-                        contentType: "application/json",
-                        data: JSON.stringify({userName : userNameVal, password : passwordVal}),
-                        type: "post",
-                        success: doLoginSuccess
-                    });
-                }
-            });
-            // 点击注册按钮*/
+            var userName = $.cookie('userName');
+            if(typeof(userName) == "undefined" || !userName || userName == ""){
+                $("#loginbutton1").show();
+                $("#loginbutton2").hide();
+                $("#viewhistory").hide();
+                $("#emptyviewhistory").show();
+            }else{
+                $("#loginbutton1").hide();
+                $("#loginbutton2").show();
+                getUserViewHistory(userName);
+            }
         });
     </script>
 </head>
@@ -78,10 +63,10 @@
                             </td>
                             <td><img src="../image/jiujiutaofang.png" /></td>
                             <td>
-                                <a href="#loginRegister" data-rel="popup"><img src="../image/common/login.png"></a>
+                                <a id="loginbutton1" href="#loginRegister" data-rel="popup"><img src="../image/common/login.png"></a>
                             </td>
                             <td>
-                                <a style="display: none" href="user.html"><img src="../image/common/login_ok.png"></a>
+                                <a id="loginbutton2" href="#"><img src="../image/common/login_ok.png"></a>
                             </td>
                         </tr>
                     </tbody>
@@ -98,10 +83,10 @@
             <div id="prescription">
                  <table>
                      <tbody>
-                         <tr>
-                             <td id="prescriptionName" ><input data-role="none" type="text" name="prescriptionName" placeholder="输入关键字寻找相关偏方"></td>
-                             <td id="prescriptionButton"><button onclick="doPrescriptionSearch()">立即搜索</button></td>
-                         </tr>
+                     <tr>
+                         <td id="prescriptionName" ><input data-role="none" type="text" name="prescriptionName" placeholder="输入关键字寻找相关偏方"></td>
+                         <td id="prescriptionButton"><button onclick="doPrescriptionSearch()">立即搜索</button></td>
+                     </tr>
                      </tbody>
                  </table>
             </div>
@@ -137,11 +122,11 @@
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td>上次浏览的偏方</td>
+                                        <td class="viewType">上次浏览的偏方</td>
                                         <td rowspan="2"><img src="../image/icon/time_view_icon.png"></td>
                                     </tr>
                                     <tr>
-                                        <td>aaaaaaaaa</td>
+                                        <td class="viewTitle">aaaaaaaaa</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -157,11 +142,11 @@
                             <table>
                                 <tbody>
                                 <tr>
-                                    <td>上次浏览的偏方</td>
+                                    <td class="viewType">上次浏览的偏方</td>
                                     <td rowspan="2"><img src="../image/icon/time_view_icon.png"></td>
                                 </tr>
                                 <tr>
-                                    <td>aaaaaaaaa</td>
+                                    <td class="viewTitle">aaaaaaaaa</td>
                                 </tr>
                                 </tbody>
                             </table>

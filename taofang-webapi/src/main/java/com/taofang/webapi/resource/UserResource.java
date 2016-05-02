@@ -1,15 +1,15 @@
 package com.taofang.webapi.resource;
 
+import com.google.common.base.Strings;
+import com.taofang.webapi.constant.VCode;
 import com.taofang.webapi.domain.User;
+import com.taofang.webapi.domain.UserViewHistory;
 import com.taofang.webapi.result.Result;
 import com.taofang.webapi.service.IUserService;
 import com.taofang.webapi.util.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -23,6 +23,17 @@ public class UserResource {
     private IUserService userService;
 
     /**
+     * 获取验证码
+     * @return
+     */
+    @Path("vcode")
+    @GET
+    @Produces({MediaType.TEXT_PLAIN})
+    public String getVCode(){
+        return VCode.getVCodeName();
+    }
+
+    /**
      * 用户登录
      * @param user
      */
@@ -33,7 +44,7 @@ public class UserResource {
     public String login(User user){
         Result result = userService.checkUserLogin(user);
         if(result.getCode() == ResultUtil.SUCCESS_CODE){
-            return "OK";
+            return "ok";
         }else{
             return result.getFailMessages().get(0);
         }
@@ -50,9 +61,21 @@ public class UserResource {
     public String register(User user){
         Result result = userService.checkUserRegister(user);
         if(result.getCode() == ResultUtil.SUCCESS_CODE){
-            return "OK";
+            return "ok";
         }else{
             return result.getFailMessages().get(0);
         }
+    }
+
+    @Path("view")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public UserViewHistory getUserViewHistory(@QueryParam("userName")String userName){
+        UserViewHistory userViewHistory = new UserViewHistory();
+        if(!Strings.isNullOrEmpty(userName)){
+            userViewHistory.setUserName(userName);
+            userViewHistory.setViewHistoryList(userService.getUserViewHistoryByUserName(userName));
+        }
+        return userViewHistory;
     }
 }

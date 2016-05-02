@@ -18,10 +18,17 @@ public interface MemberMapper {
     @ResultMap("BaseResultMap")
     List<Member> selectByMemberName(@Param("memberName") String memberName);
 
+    @Select({
+            "select MemberID",
+            "from member",
+            "order by MemberId desc limit 1"
+    })
+    Integer selectLastMemberId();
+
     @Insert({
-            "insert into member(MemberName, Password, RegisterDate, LastUpdateDate)",
+            "insert into member(MemberId, MemberName, Password, RegisterDate, LastUpdateDate)",
             "values(",
-            "#{membername, jdbcType=VARCHAR}, #{password, jdbcType=VARCHAR},",
+            "#{memberid, jdbcType=INTEGER}, #{membername, jdbcType=VARCHAR}, #{password, jdbcType=VARCHAR},",
             "now(), now())"
     })
     int insertMember(Member member);

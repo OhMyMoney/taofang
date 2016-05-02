@@ -13,6 +13,14 @@ public class Result {
     // 错误消息
     private List<String> failMessages;
 
+    @Override
+    public String toString() {
+        return "Result{" +
+                "failMessages=" + failMessages +
+                ", code=" + code +
+                '}';
+    }
+
     public Result() {
     }
 
