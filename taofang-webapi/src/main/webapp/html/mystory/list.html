@@ -5,134 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>九九淘方网</title>
     <link rel="stylesheet" href="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
-    <link rel="stylesheet" href="../../css/prescription.css">
+    <link href="../../css/mobiscroll.custom-2.6.2.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="../../css/mystory.css">
+    <link rel="stylesheet" href="../../css/common.css">
     <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <script src="../../js/prescription.js"></script>
-    <script>
-        $(document).ready(function(){
-            // 点击搜索按钮
-            $("#search").click(function () {
-                var prescriptionName = $("input#prescriptionName").val();
-                $.ajax({
-                    url: "http://localhost:8080/taofang/webapi/prescriptions?name=" + prescriptionName +
-                    "&&page=1&&pageSize=10&&order=0",
-                    success: processPrescriptionPagination
-                });
+    <script src="../../js/mystory.js"></script>
+    <script src="../../js/common.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#header').find($("[class='backdiv']")).click(function(){
+                location.href = "../home.html";
             });
 
-            $("#orderId").click(function () {
-                $(".orderlist").toggle();
-            });
+
+//            $('#dateselectresult label').html('');
+//            $('#emptylist').hide();
+//            $.ajax({
+//                url: "http://192.168.31.199:8080/taofang/webapi/healthvoices?page=1&&pageSize=10",
+//                success: processHealthVoicePagination
+//            });
         });
+
     </script>
 </head>
 <body>
-    <div data-role="page">
-        <div id="header">
-            <table class="headertable">
-                <tr>
-                    <td style="width: 10%">
-                        <a href="../home.html">
-                            <img src="../../image/back.png" />
-                        </a>
-                    </td>
-                    <td style="width: 80%">
-                        <input id="prescriptionName" type="text" name="prescriptionName" />
-                    </td>
-                    <td style="width: 10%">
-                        <label id="search">搜索</label>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div id="prescription">
-            <div class="totalresult">
-                <table>
-                    <tr>
-                        <td style="width: 60%" >
-                            <a id="orderId" href="#" data-rel="popup">默认排序</a>
-                        </td>
-                        <td style="width: 40%">
-                            共32条搜索结果
-                        </td>
-                    </tr>
-                </table>
+    <div id="mystorypage" data-role="page">
+        <div id="header" data-role="header">
+            <div class="blackheader" >
+                <div class="backdiv"><img class="back" src="../../image/common/back.png"></div>
+                <div class="titlediv"><div class="title">我的故事</div></div>
             </div>
-            <div class="orderlist">
+        </div>
+        <div id="content" class="content">
+            <div id="list" class="list">
                 <ul>
-                    <li>验证人数排序</li>
-                    <li>有效程度排序</li>
-                    <li>见效速度排序</li>
-                    <li>安全性由排序</li>
-                    <li>方便性由排序</li>
-                    <li>省钱程度排序</li>
+                    <li>
+                        <div class="listimgdiv"><img src="../../image/common/point.png"></div>
+                        <div class="listtitlediv">11111</div>
+                    </li>
                 </ul>
             </div>
-            <div class="prescriptionlist">
-
-            </div>
-            <div class="prescriptionpage">
-                <table>
-                    <tr>
-                        <td>
-                            <label id="previousPage">上一页</label>
-                        </td>
-                        <td>
-                            <label id="currentPage">1/5</label>
-                        </td>
-                        <td>
-                            <label id="nextPage">下一页</label>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div>
-            <div class="more">
-                <div class="moretile">
-                    相关推荐
+            <div id="page" class="page">
+                <div class="previouspagediv">
+                    <div class="previouspage" onclick="doPreviousPage()">上一页</div>
                 </div>
-                <div class="moreresult">
-
+                <div class="currentpagediv">
+                    <div class="currentpage">1/1</div>
                 </div>
-            </div>
-            <div class="more">
-                <div class="moretile">
-                    自然疗法
-                </div>
-                <div class="moreresult">
-
-                </div>
-            </div>
-            <div class="more">
-                <div class="moretile">
-                    产品推荐
-                </div>
-                <div class="moreresult">
-
-                </div>
-            </div>
-            <div class="more">
-                <div class="moretile">
-                    食疗
-                </div>
-                <div class="moreresult">
-                </div>
-            </div>
-        </div>
-        <div data-role="footer">
-            <div>
-                <div>
-                    <h1>广告区域</h1>
-                </div>
-                <div class="ui-grid-a">
-                    <div class="ui-block-a">
-                        <a href="javascript:void(0)">触屏版</a>
-                    </div>
-                    <div class="ui-block-b">
-                        <a href="javascript:void(0)">电脑版</a>
-                    </div>
+                <div class="nextpagediv">
+                    <div class="nextpage" onclick="doNextPage()">下一页</div>
                 </div>
             </div>
         </div>

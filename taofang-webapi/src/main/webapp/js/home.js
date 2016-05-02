@@ -67,6 +67,6 @@ function doGetUserViewHistory(data) {
 }
 
 function doPrescriptionSearch() {
-    var prescriptionName = $('#prescriptionName').val()
-    location.href = 'prescription/list.html?prescriptionName=' + prescriptionName;
+    // var prescriptionName = $('#prescriptionName').val()
+    // location.href = 'prescription/list.html?prescriptionName=' + prescriptionName;
 }

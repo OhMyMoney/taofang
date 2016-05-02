@@ -1,0 +1,18 @@
+#list ul {
+    margin-left: -20px;
+}
+#listul li {
+    position: relative;
+    list-style-type: none;
+    border-bottom: 1px solid black;
+}
+.listimgdiv{
+    width: 15px;
+    height: 15px;
+    float: left;
+}
+.listtitlediv{
+    width: 280px;
+    height: 20px;
+    float: left;
+}

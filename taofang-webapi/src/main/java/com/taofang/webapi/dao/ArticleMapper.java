@@ -2,6 +2,8 @@ package com.taofang.webapi.dao;
 
 import com.taofang.webapi.model.Article;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.ResultMap;
+import org.apache.ibatis.annotations.Select;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -24,4 +26,19 @@ public interface ArticleMapper {
     List<Article> selectHealthVoiceByVideoDate(@Param("videoDate")Timestamp videoDate,
                                                @Param("start")int start,
                                                @Param("limit")int limit);
+
+    @Select({
+            "select count(*) from article",
+            "where category = 0"
+    })
+    int countStoryInfo();
+
+    @Select({
+            "select ArticleID, ArticleName from article",
+            "where category = 0 order by ArticleID desc",
+            "limit #{start}, #{limit}"
+    })
+    @ResultMap("BaseResultMap")
+    List<Article> selectStoryInfoByPagination(@Param("start")int start,
+                                              @Param("limit")int limit);
 }
