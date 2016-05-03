@@ -41,4 +41,19 @@ public interface ArticleMapper {
     @ResultMap("BaseResultMap")
     List<Article> selectStoryInfoByPagination(@Param("start")int start,
                                               @Param("limit")int limit);
+
+    @Select({
+            "select count(*) from article",
+            "where category = 1"
+    })
+    int countHealthInfo();
+
+    @Select({
+            "select ArticleID, ArticleName from article",
+            "where category = 1 order by ArticleID desc",
+            "limit #{start}, #{limit}"
+    })
+    @ResultMap("BaseResultMap")
+    List<Article> selectHealthInfoByPagination(@Param("start")int start,
+                                               @Param("limit")int limit);
 }

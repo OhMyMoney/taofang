@@ -6,10 +6,12 @@
     <title>九九淘方网</title>
     <link rel="stylesheet" href="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="../css/common.css">
     <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script src="../js/jquery.cookie.js"></script>
     <script type="text/javascript" src="../js/home.js"></script>
+    <script type="text/javascript" src="../js/common.js"></script>
     <script>
         $(document).ready(function () {
             var userName = $.cookie('userName');
@@ -197,38 +199,27 @@
                 </table>
             </div>
         </div>
-        <div id="mainpagefooter" data-role="footer">
-            <div id="adspace"></div>
-            <div id="iphonepcbutton">
-                <table>
-                    <tbody>
-                    <tr>
-                        <td>
-                            <div id="iphonebutton" onclick="location.href = 'home.html'">
-                                <div class="ippcimg"><img src="../image/common/iphone.png"></div>
-                                <div class="ippcfont">触屏版</div>
-                            </div>
-                        </td>
-                        <td>
-                            <div id="pcbutton" onclick="location.href = 'http://www.99taofang.com/'">
-                                <div class="ippcimg"><img src="../image/common/pc.png"></div>
-                                <div class="ippcfont">电脑版</div>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+        <div id="footer" data-role="footer">
+            <div id="addiv" class="addiv"></div>
+            <div class="switchdiv">
+                <div class="phonediv">
+                    <div class="phone" onclick="goToHomePage('phone')">
+                        <div class="phoneimg"><img src="../../image/common/iphone.png"></div>
+                        <div class="phonetext">触屏版</div>
+                    </div>
+                </div>
+                <div class="phonepcdiv"></div>
+                <div class="pcdiv">
+                    <div class="pc" onclick="goToHomePage('pc')">
+                        <div class="pcimg"><img src="../../image/common/pc.png"></div>
+                        <div class="pctext">电脑版</div>
+                    </div>
+                </div>
             </div>
-            <div class="aboutusdiv">
-                <div class="aboutustitle">
-                    关于我们 | 法律声明
-                </div>
-                <div class="aboutuscontent">
-                    Copyright  ©  2015  WWW.99TAOFANG.COM  版权所有
-                </div>
-                <div class="aboutuscontent">
-                    本站信息仅供参考_不能作为诊断及医疗的依据
-                </div>
+            <div class="declarediv">
+                <div class="aboutustitle">关于我们 | 法律声明</div>
+                <div class="aboutuscontent">Copyright  ©  2015  WWW.99TAOFANG.COM  版权所有</div>
+                <div class="aboutuscontent">本站信息仅供参考_不能作为诊断及医疗的依据</div>
             </div>
         </div>
     </div>

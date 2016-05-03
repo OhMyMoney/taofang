@@ -13,7 +13,7 @@ import java.util.List;
  * @Author Remilia
  * @Create 2016-05-01
  */
-public class StoryInfoModelUtil {
+public class MyStoryModelUtil {
 
     public static StoryInfoPagination tranTotalCount(int page, int pageSize, int totalCount){
         StoryInfoPagination storyInfoPagination = new StoryInfoPagination();

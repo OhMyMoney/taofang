@@ -9,7 +9,7 @@ import java.util.List;
  * @Author Remilia
  * @Create 2016-05-02
  */
-public interface IStoryInfoService{
+public interface IMyStoryService {
 
     int getStoryInfoAmount();
 

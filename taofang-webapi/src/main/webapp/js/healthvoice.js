@@ -11,7 +11,7 @@ function searchByDateChange() {
     });
 }
 function previousnextPage(id) {
-    var page = $('#page').text();
+    var page = $("#page").find($("[class='currentpage']")).text();
     var currpage = page.split("/")[0];
     var totalpage = page.split("/")[1];
     if(id == 1 && currpage != 1){
@@ -61,16 +61,16 @@ function processHealthVoicePagination(data) {
         $('#healthvoicemp3').show();
         $("#healthvoicelist").show();
         var curPage = data.curPage;
-        $('#page').html(curPage + "/" + totalPage);
+        $("#page").find($("[class='currentpage']")).html(curPage + "/" + totalPage);
         if(curPage == 1){
-            $('#previousimg').attr("src", "../../image/common/previous1.png");
+            $('#previouspage').addClass("previouspage_opacity").removeClass("previouspage");
         }else{
-            $('#previousimg').attr("src", "../../image/common/previous2.png");
+            $('#previouspage').addClass("previouspage").removeClass("previouspage_opacity");
         }
         if(curPage == totalPage){
-            $('#nextimg').attr("src", "../../image/common/next2.png");
+            $('#nextpage').addClass("nextpage_opacity").removeClass("nextpage");
         }else{
-            $('#nextimg').attr("src", "../../image/common/next1.png");
+            $('#nextpage').addClass("nextpage").removeClass("nextpage_opacity");
         }
         var healthVoices = data.healthVoices;
         var healthVoiceElems = $("<table><colgroup id='listtd1' span='1' /><colgroup id='listtd2' span='1' /><colgroup id='listtd3' span='1' /><tbody></tbody></table>");

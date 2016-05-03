@@ -3,8 +3,8 @@ package com.taofang.webapi.service.impl;
 import com.taofang.webapi.dao.ArticleMapper;
 import com.taofang.webapi.domain.StoryInfo;
 import com.taofang.webapi.model.Article;
-import com.taofang.webapi.service.IStoryInfoService;
-import com.taofang.webapi.util.StoryInfoModelUtil;
+import com.taofang.webapi.service.IMyStoryService;
+import com.taofang.webapi.util.MyStoryModelUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +19,8 @@ import java.util.List;
  * @Create 2016-05-02
  */
 @Service
-public class StoryInfoService implements IStoryInfoService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(StoryInfoService.class);
+public class MyStoryService implements IMyStoryService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MyStoryService.class);
     @Autowired
     private ArticleMapper articleMapper;
 
@@ -42,7 +42,7 @@ public class StoryInfoService implements IStoryInfoService {
         List<StoryInfo> storyInfoList;
         try{
             List<Article> articleList = articleMapper.selectStoryInfoByPagination(start, limit);
-            storyInfoList = StoryInfoModelUtil.tranArticleList(articleList);
+            storyInfoList = MyStoryModelUtil.tranArticleList(articleList);
             LOGGER.info("查询数据库[start:" + start + ";limit:" + limit + "],我的故事的信息 ==> " + storyInfoList);
         }catch(Exception e){
             LOGGER.error("查询数据库[start:" + start + ";limit:" + limit + "],我的故事的信息 ==> error ==> " + e.getMessage(), e);
