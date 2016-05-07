@@ -88,4 +88,12 @@ public interface ArticleMapper {
     List<Article> selectNatureTherapyByPagination(@Param("start")int start,
                                                   @Param("limit")int limit);
 
+    @Select({
+            "select ArticleID, ArticleName, ImageUrl, ArticleContent",
+            "from Article",
+            "where Category = 2 and ArticleID = #{articleID, jdbcType=INTEGER}"
+    })
+    @ResultMap("ResultMapWithBLOBs")
+    List<Article> selectNatureTherapyById(@Param("articleID") int articleID);
+
 }

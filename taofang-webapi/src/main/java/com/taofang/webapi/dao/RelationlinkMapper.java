@@ -11,6 +11,14 @@ public interface RelationlinkMapper {
     @Select({
             "select id, LinkTitle, LinkUrl",
             "from RelationLink",
+            "where SourceType = 0"
+    })
+    @ResultMap("BaseResultMap")
+    List<Relationlink> selectStoryInfoLink();
+
+    @Select({
+            "select id, LinkTitle, LinkUrl",
+            "from RelationLink",
             "where SourceType = 1"
     })
     @ResultMap("BaseResultMap")
@@ -19,9 +27,8 @@ public interface RelationlinkMapper {
     @Select({
             "select id, LinkTitle, LinkUrl",
             "from RelationLink",
-            "where SourceType = 0"
+            "where SourceType = 2"
     })
     @ResultMap("BaseResultMap")
-    List<Relationlink> selectStoryInfoLink();
-
+    List<Relationlink> selectNatureTherapyLink();
 }

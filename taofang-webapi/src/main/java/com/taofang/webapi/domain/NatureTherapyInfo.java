@@ -14,6 +14,14 @@ public class NatureTherapyInfo {
 
     private String title;
 
+    private String content;
+
+    private String imageUrl;
+
+    private String videoUrl;
+
+    private int thumbCount;
+
     @XmlElement(name="id")
     public int getId() {
         return id;
@@ -22,6 +30,22 @@ public class NatureTherapyInfo {
     public String getTitle() {
         return title;
     }
+    @XmlElement(name="content")
+    public String getContent() {
+        return content;
+    }
+    @XmlElement(name="imageUrl")
+    public String getImageUrl() {
+        return imageUrl;
+    }
+    @XmlElement(name="videoUrl")
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+    @XmlElement(name="thumbCount")
+    public int getThumbCount() {
+        return thumbCount;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -29,5 +53,21 @@ public class NatureTherapyInfo {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
+    }
+
+    public void setThumbCount(int thumbCount) {
+        this.thumbCount = thumbCount;
     }
 }

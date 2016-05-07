@@ -13,16 +13,21 @@ function processPage(curPage, totalPage) {
 }
 
 function processRelationLink(relationLinks) {
-    var relationLinkElems = $("<table><tbody></tbody></table>");
-    for(var i=0; i<relationLinks.length; i++){
-        var relationLink = relationLinks[i];
-        var relationLinkTrElem = $("<tr></tr>");
-        relationLinkTrElem.append($("<td><div class='contentpointdiv'></div></td>"));
-        relationLinkTrElem.append($("<td><div><a data-role='none' class='contentlistdiv' href='" + relationLink.linkUrl + "'>" + relationLink.title +"</a></div></td>"));
-        relationLinkElems.append(relationLinkTrElem);
-    }
+    if(relationLinks.length > 0){
+        $('#relationlink').show();
+        var relationLinkElems = $("<table><tbody></tbody></table>");
+        for(var i=0; i<relationLinks.length; i++){
+            var relationLink = relationLinks[i];
+            var relationLinkTrElem = $("<tr></tr>");
+            relationLinkTrElem.append($("<td><div class='contentpointdiv'></div></td>"));
+            relationLinkTrElem.append($("<td><div><a data-role='none' class='contentlistdiv' href='" + relationLink.linkUrl + "'>" + relationLink.title +"</a></div></td>"));
+            relationLinkElems.append(relationLinkTrElem);
+        }
 
-    $('#relationlinklist').html(relationLinkElems);
+        $('#relationlinklist').html(relationLinkElems);
+    }else{
+        $('#relationlink').hide();
+    }
 }
 
 function goToHomePage(device){

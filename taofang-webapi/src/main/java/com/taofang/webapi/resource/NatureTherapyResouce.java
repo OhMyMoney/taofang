@@ -2,6 +2,7 @@ package com.taofang.webapi.resource;
 
 import com.taofang.webapi.domain.NatureTherapyInfo;
 import com.taofang.webapi.domain.NatureTherapyInfoPagination;
+import com.taofang.webapi.domain.NatureTherapyInfoWithLinks;
 import com.taofang.webapi.service.INatureTherapyService;
 import com.taofang.webapi.util.NatureTherapyModelUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,13 @@ public class NatureTherapyResouce {
         natureTherapyInfoPagination.setNatureTherapyInfoList(natureTherapyInfoList);
 
         return natureTherapyInfoPagination;
+    }
+
+    @GET
+    @Path("/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public NatureTherapyInfoWithLinks getHealthInfoById(@DefaultValue("0")@PathParam("id") int id){
+        NatureTherapyInfoWithLinks natureTherapyInfoWithLinks = natureTherapyService.getNatureTherapyInfoWithLinksById(id);
+        return natureTherapyInfoWithLinks;
     }
 }
