@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>九九淘方网</title>
     <link rel="stylesheet" href="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
-    <link href="../../css/mobiscroll.custom-2.6.2.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../css/plugin/mobiscroll.custom-2.6.2.min.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="../../css/healthvoice.css">
     <link rel="stylesheet" href="../../css/common.css">
     <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <script src="../../js/mobiscroll.custom-2.6.2.min.js" type="text/javascript"></script>
+    <script src="../../js/plugin/mobiscroll.custom-2.6.2.min.js" type="text/javascript"></script>
     <script src="../../js/healthvoice.js"></script>
     <script src="../../js/common.js"></script>
 
@@ -18,7 +18,7 @@
         $(function () {
             var opt = {}
             opt.date = {preset : 'date'};
-            $("#dateselectbutton").show();
+//            $("#dateselectbutton").show();
             $('#date').val('').scroller('destroy').scroller($.extend(opt['date'], { theme: 'default',mode: 'scroller',
                                 display: 'modal', dateFormat: 'yyyymmdd', setText: '确定', cancelText: '取消', dateOrder: 'yyyymmdd',
                                 dayText: '日', monthText: '月', yearText: '年', endYear:2050, startYear:1970}));
@@ -37,17 +37,11 @@
 </head>
 <body>
     <div id="healthvoicepage" data-role="page">
-        <div id="healthvoiceheader" data-role="header">
-            <table>
-                <tbody>
-                <tr>
-                    <td id="healthvoiceheadertd1" class="lrtabletd1" onclick="backhomepage();">
-                        <img class="backimg" src="../../image/common/back.png">
-                    </td>
-                    <td id="healthvoiceheadertd2" class="lrtabletd2">健康之声</td>
-                </tr>
-                </tbody>
-            </table>
+        <div id="header" data-role="header">
+            <div class="blackheader" >
+                <div class="backdiv"><img class="back" src="../../image/common/back.png"></div>
+                <div class="titlediv"><div class="title">健康之声</div></div>
+            </div>
         </div>
         <div id="healthvoicecontent" class="content">
             <div id="dateselect">

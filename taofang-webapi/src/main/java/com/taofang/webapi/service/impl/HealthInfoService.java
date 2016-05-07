@@ -1,10 +1,15 @@
 package com.taofang.webapi.service.impl;
 
 import com.taofang.webapi.dao.ArticleMapper;
+import com.taofang.webapi.dao.RelationlinkMapper;
 import com.taofang.webapi.domain.HealthInfo;
+import com.taofang.webapi.domain.HealthInfoWithLinks;
+import com.taofang.webapi.domain.RelationLinkInfo;
 import com.taofang.webapi.model.Article;
+import com.taofang.webapi.model.Relationlink;
 import com.taofang.webapi.service.IHealthInfoService;
 import com.taofang.webapi.util.HealthInfoModelUtil;
+import com.taofang.webapi.util.RelationLinkModelUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +28,8 @@ public class HealthInfoService implements IHealthInfoService{
     private static final Logger LOGGER = LoggerFactory.getLogger(HealthInfoService.class);
     @Autowired
     private ArticleMapper articleMapper;
+    @Autowired
+    private RelationlinkMapper relationlinkMapper;
 
     @Override
     public int getHealthInfoAmount() {
@@ -49,5 +56,26 @@ public class HealthInfoService implements IHealthInfoService{
             healthInfoList = new ArrayList<>();
         }
         return healthInfoList;
+    }
+
+    @Override
+    public HealthInfoWithLinks getHealthInfoWithLinksById(int id) {
+        HealthInfo healthInfo = new HealthInfo();
+        List<RelationLinkInfo> relationLinkInfoList = new ArrayList<>();
+        try{
+            List<Article> articleList = articleMapper.selectHealthInfoById(id);
+            if(articleList.size() > 0){
+                healthInfo = HealthInfoModelUtil.tranArticle(articleList.get(0));
+                List<Relationlink> relationlinkList = relationlinkMapper.selectHealthInfoLink();
+                relationLinkInfoList = RelationLinkModelUtil.tranRelationLinkList(relationlinkList);
+            }else{
+                healthInfo.setId(0);
+            }
+            LOGGER.info("根据Id:[" + id + "]查询数据库中健康资讯的详细信息 ==> " + healthInfo);
+        }catch(Exception e){
+            healthInfo.setId(0);
+            LOGGER.error("根据Id:[" + id + "]查询数据库中健康资讯的详细信息 ==> error ==> " + e.getMessage(), e);
+        }
+        return new HealthInfoWithLinks(healthInfo, relationLinkInfoList);
     }
 }

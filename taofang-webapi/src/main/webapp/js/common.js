@@ -1,6 +1,3 @@
-function backhomepage() {
-    location.href = "../home.html";
-}
 function processPage(curPage, totalPage) {
     $("#page").find($("[class='currentpage']")).html(curPage + "/" + totalPage);
     if(curPage == 1){
@@ -14,6 +11,20 @@ function processPage(curPage, totalPage) {
         $('#nextpage').addClass("nextpage").removeClass("nextpage_opacity");
     }
 }
+
+function processRelationLink(relationLinks) {
+    var relationLinkElems = $("<table><tbody></tbody></table>");
+    for(var i=0; i<relationLinks.length; i++){
+        var relationLink = relationLinks[i];
+        var relationLinkTrElem = $("<tr></tr>");
+        relationLinkTrElem.append($("<td><div class='contentpointdiv'></div></td>"));
+        relationLinkTrElem.append($("<td><div><a data-role='none' class='contentlistdiv' href='" + relationLink.linkUrl + "'>" + relationLink.title +"</a></div></td>"));
+        relationLinkElems.append(relationLinkTrElem);
+    }
+
+    $('#relationlinklist').html(relationLinkElems);
+}
+
 function goToHomePage(device){
     if(device == 'phone'){
         location.href = "http://192.168.31.199:8080/";

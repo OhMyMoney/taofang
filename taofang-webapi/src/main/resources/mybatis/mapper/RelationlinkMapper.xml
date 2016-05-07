@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.taofang.webapi.dao.RelationlinkMapper" >
+  <resultMap id="BaseResultMap" type="com.taofang.webapi.model.Relationlink" >
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="SourceType" property="sourcetype" jdbcType="INTEGER" />
+    <result column="LinkTitle" property="linktitle" jdbcType="VARCHAR" />
+    <result column="LinkURL" property="linkurl" jdbcType="VARCHAR" />
+    <result column="CreateBy" property="createby" jdbcType="VARCHAR" />
+    <result column="CreateDate" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="LastModify" property="lastmodify" jdbcType="VARCHAR" />
+    <result column="LastModifyDate" property="lastmodifydate" jdbcType="TIMESTAMP" />
+    <result column="PrescriptionID" property="prescriptionid" jdbcType="INTEGER" />
+    <result column="ArticleID" property="articleid" jdbcType="INTEGER" />
+  </resultMap>
+</mapper>

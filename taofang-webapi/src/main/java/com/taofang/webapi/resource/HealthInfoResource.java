@@ -2,6 +2,7 @@ package com.taofang.webapi.resource;
 
 import com.taofang.webapi.domain.HealthInfo;
 import com.taofang.webapi.domain.HealthInfoPagination;
+import com.taofang.webapi.domain.HealthInfoWithLinks;
 import com.taofang.webapi.service.IHealthInfoService;
 import com.taofang.webapi.util.HealthInfoModelUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,13 @@ public class HealthInfoResource {
         healthInfoPagination.setHealthInfoList(healthInfoList);
 
         return healthInfoPagination;
+    }
+
+    @GET
+    @Path("/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public HealthInfoWithLinks getHealthInfoById(@DefaultValue("0")@PathParam("id") int id){
+        HealthInfoWithLinks healthInfoWithLinks = healthInfoService.getHealthInfoWithLinksById(id);
+        return healthInfoWithLinks;
     }
 }
