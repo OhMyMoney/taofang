@@ -1,6 +1,6 @@
 package com.taofang.webapi.dao;
 
-import com.taofang.webapi.model.Article;
+import com.taofang.webapi.model.ArticleWithBLOBs;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
@@ -23,7 +23,7 @@ public interface ArticleMapper {
      * @param limit
      * @return
      */
-    List<Article> selectHealthVoiceByVideoDate(@Param("videoDate")Timestamp videoDate,
+    List<ArticleWithBLOBs> selectHealthVoiceByVideoDate(@Param("videoDate")Timestamp videoDate,
                                                @Param("start")int start,
                                                @Param("limit")int limit);
 
@@ -38,8 +38,8 @@ public interface ArticleMapper {
             "where category = 0 order by ArticleID desc",
             "limit #{start}, #{limit}"
     })
-    @ResultMap("BaseResultMap")
-    List<Article> selectStoryInfoByPagination(@Param("start")int start,
+    @ResultMap("ResultMapWithBLOBs")
+    List<ArticleWithBLOBs> selectStoryInfoByPagination(@Param("start")int start,
                                               @Param("limit")int limit);
 
     @Select({
@@ -48,7 +48,7 @@ public interface ArticleMapper {
             "where Category = 0 and ArticleID = #{articleID, jdbcType=INTEGER}"
     })
     @ResultMap("ResultMapWithBLOBs")
-    List<Article> selectStoryInfoById(@Param("articleID") int articleID);
+    List<ArticleWithBLOBs> selectStoryInfoById(@Param("articleID") int articleID);
 
     @Select({
             "select count(*) from article",
@@ -61,8 +61,8 @@ public interface ArticleMapper {
             "where category = 1 order by ArticleID desc",
             "limit #{start}, #{limit}"
     })
-    @ResultMap("BaseResultMap")
-    List<Article> selectHealthInfoByPagination(@Param("start")int start,
+    @ResultMap("ResultMapWithBLOBs")
+    List<ArticleWithBLOBs> selectHealthInfoByPagination(@Param("start")int start,
                                                @Param("limit")int limit);
 
     @Select({
@@ -71,7 +71,7 @@ public interface ArticleMapper {
             "where Category = 1 and ArticleID = #{articleID, jdbcType=INTEGER}"
     })
     @ResultMap("ResultMapWithBLOBs")
-    List<Article> selectHealthInfoById(@Param("articleID") int articleID);
+    List<ArticleWithBLOBs> selectHealthInfoById(@Param("articleID") int articleID);
 
     @Select({
             "select count(*) from article",
@@ -84,8 +84,8 @@ public interface ArticleMapper {
             "where category = 2 order by ArticleID desc",
             "limit #{start}, #{limit}"
     })
-    @ResultMap("BaseResultMap")
-    List<Article> selectNatureTherapyByPagination(@Param("start")int start,
+    @ResultMap("ResultMapWithBLOBs")
+    List<ArticleWithBLOBs> selectNatureTherapyByPagination(@Param("start")int start,
                                                   @Param("limit")int limit);
 
     @Select({
@@ -94,6 +94,13 @@ public interface ArticleMapper {
             "where Category = 2 and ArticleID = #{articleID, jdbcType=INTEGER}"
     })
     @ResultMap("ResultMapWithBLOBs")
-    List<Article> selectNatureTherapyById(@Param("articleID") int articleID);
+    List<ArticleWithBLOBs> selectNatureTherapyById(@Param("articleID") int articleID);
 
+    @Select({
+            "select ArticleId, ArticleName, ImageUrl, Summary, isDTS",
+            "from Article",
+            "where Category = 7 order by isDTS asc;"
+    })
+    @ResultMap("ResultMapWithBLOBs")
+    List<ArticleWithBLOBs> selectAllRitucharya();
 }

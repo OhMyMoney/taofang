@@ -1,6 +1,7 @@
 body {
     font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif
 }
+/*头部*/
 .blackheader{
     width: 100%;
     background-color: #474547;
@@ -42,63 +43,80 @@ body {
     height: 25px;
     width: 100px;
 }
-.pagecontentlist{
-    width: 100%;
-}
-#pagecontentlist table{
-    width: 100%;
-    border-collapse: collapse;
-}
-#pagecontentlist table tbody tr td{
+/*音频播放区域*/
+.videoplaydiv{
     height: 40px;
-    border-bottom: 1px solid #DFD7C8;
-}
-#pagecontentlist table tbody tr td:nth-child(1){
-    width: 10px;
-}
-.contentpointdiv{
-    width: 1px;
-    height: 1px;
-    border: 1px solid #56392F;
-    background-color: #56392F;
-    margin-left: 5px;
-}
-.contentlistdiv{
-    font-size: 14px;
-    font-weight: 500;
-    color: #56392F;
-}
-.ritucharyalistdiv{
-    min-height: 100px;
     width: 100%;
+    padding-left: 2%;
+}
+.videoplay{
+    width: 96%;
+    height: 30px;
     margin-top: 5px;
 }
-.ritucharyalistdiv table{
+/*音频列表页*/
+.videolistdiv{
+    min-height: 100px;
+    width: 100%;
+}
+.videolistdiv table{
     width: 100%;
     border-collapse: collapse;
 }
-.ritucharyalistdiv table tbody tr td{
-    height: 100px;
+.videolistdiv table tbody tr td{
+    height: 50px;
     border-bottom: 1px solid #DFD7C8;
 }
-.ritucharyalistdiv table tbody tr td:nth-child(1){
-    width: 70px;
+.videolistdiv table tbody tr td:nth-child(1){
+    width: 35px;
 }
-.ritucharyalistdiv table tbody tr td div img{
-    width: 60px;
-    height: 60px;
+.videolistdiv table tbody tr td:nth-child(3){
+    width: 30px;
+}
+.videolistdiv table tbody tr td img{
+    width: 20px;
+    height: 20px;
     padding-left: 5px;
 }
-.ritucharyatitle{
-    font-size: 18px;
-    font-weight: 900;
-    color: #56392F;
-}
-.ritucharyasummary{
-    font-size: 12px;
+.videotitle1{
+    font-size: 14px;
     font-weight: 400;
     color: #56392F;
+    padding-left: 5px;
 }
+.videotitle2{
+    font-size: 16px;
+    font-weight: 600;
+    color: #56392F;
+    padding-left: 5px;
+}
+.circlediv{
+    width: 25px;
+    height: 25px;
+    border-radius: 13px;
+    border: 1px solid #F39F51;
+    line-height: 25px;
+    text-align: center;
+    margin-left: 5px;
+}
+.trianglediv{
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-left: 10px solid #F39F51;
+    border-bottom: 5px solid transparent;
+    margin-left: 9px;
+    margin-top: 7px;
+}
+.paralleldiv{
+    width: 4px;
+    height: 10px;
+    border-left: 2px solid #F39F51;
+    border-right: 2px solid #F39F51;
+    margin-left: 8px;
+    margin-top: 7px;
+}
+/*翻页*/
 .page{
     width: 100%;
     height: 60px;
@@ -177,6 +195,7 @@ body {
     background-color: #FFFFFF;
     opacity: 0.6;
 }
+/*底部*/
 #footer{
     background-color: #F2ECE3;
 }

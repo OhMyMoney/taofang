@@ -5,7 +5,7 @@ import com.google.common.base.Strings;
 import com.taofang.webapi.constant.ImageConstant;
 import com.taofang.webapi.domain.StoryInfo;
 import com.taofang.webapi.domain.StoryInfoPagination;
-import com.taofang.webapi.model.Article;
+import com.taofang.webapi.model.ArticleWithBLOBs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class MyStoryModelUtil {
         return storyInfoPagination;
     }
 
-    public static StoryInfo tranArticle(Article article){
+    public static StoryInfo tranArticle(ArticleWithBLOBs article){
         StoryInfo storyInfo = new StoryInfo();
         storyInfo.setId(Optional.fromNullable(article.getArticleid()).or(0));
         storyInfo.setTitle(Optional.fromNullable(article.getArticlename()).or(""));
@@ -60,9 +60,9 @@ public class MyStoryModelUtil {
         return storyInfo;
     }
 
-    public static List<StoryInfo> tranArticleList(List<Article> articleList){
+    public static List<StoryInfo> tranArticleList(List<ArticleWithBLOBs> articleList){
         List<StoryInfo> storyInfoList = new ArrayList<>();
-        for(Article article : articleList){
+        for(ArticleWithBLOBs article : articleList){
             storyInfoList.add(tranArticle(article));
         }
 

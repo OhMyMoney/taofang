@@ -5,7 +5,7 @@ import com.taofang.webapi.dao.RelationlinkMapper;
 import com.taofang.webapi.domain.RelationLinkInfo;
 import com.taofang.webapi.domain.StoryInfo;
 import com.taofang.webapi.domain.StoryInfoWithLinks;
-import com.taofang.webapi.model.Article;
+import com.taofang.webapi.model.ArticleWithBLOBs;
 import com.taofang.webapi.model.Relationlink;
 import com.taofang.webapi.service.IMyStoryService;
 import com.taofang.webapi.util.MyStoryModelUtil;
@@ -48,7 +48,7 @@ public class MyStoryService implements IMyStoryService {
     public List<StoryInfo> getStoryInfoByPagination(int start, int limit) {
         List<StoryInfo> storyInfoList;
         try{
-            List<Article> articleList = articleMapper.selectStoryInfoByPagination(start, limit);
+            List<ArticleWithBLOBs> articleList = articleMapper.selectStoryInfoByPagination(start, limit);
             storyInfoList = MyStoryModelUtil.tranArticleList(articleList);
             LOGGER.info("查询数据库[start:" + start + ";limit:" + limit + "],我的故事的信息 ==> " + storyInfoList);
         }catch(Exception e){
@@ -63,7 +63,7 @@ public class MyStoryService implements IMyStoryService {
         StoryInfo storyInfo = new StoryInfo();
         List<RelationLinkInfo> relationLinkInfoList = new ArrayList<>();
         try{
-            List<Article> articleList = articleMapper.selectStoryInfoById(id);
+            List<ArticleWithBLOBs> articleList = articleMapper.selectStoryInfoById(id);
             if(articleList.size() > 0){
                 storyInfo = MyStoryModelUtil.tranArticle(articleList.get(0));
                 List<Relationlink> relationlinkList = relationlinkMapper.selectStoryInfoLink();

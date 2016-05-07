@@ -5,7 +5,7 @@ import com.google.common.base.Strings;
 import com.taofang.webapi.constant.ImageConstant;
 import com.taofang.webapi.domain.HealthInfo;
 import com.taofang.webapi.domain.HealthInfoPagination;
-import com.taofang.webapi.model.Article;
+import com.taofang.webapi.model.ArticleWithBLOBs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class HealthInfoModelUtil {
         return healthInfoPagination;
     }
 
-    public static HealthInfo tranArticle(Article article){
+    public static HealthInfo tranArticle(ArticleWithBLOBs article){
         HealthInfo healthInfo = new HealthInfo();
         healthInfo.setId(Optional.fromNullable(article.getArticleid()).or(0));
         healthInfo.setTitle(Optional.fromNullable(article.getArticlename()).or(""));
@@ -48,9 +48,9 @@ public class HealthInfoModelUtil {
         return healthInfo;
     }
 
-    public static List<HealthInfo> tranArticleList(List<Article> articleList){
+    public static List<HealthInfo> tranArticleList(List<ArticleWithBLOBs> articleList){
         List<HealthInfo> healthInfoList = new ArrayList<>();
-        for(Article article : articleList){
+        for(ArticleWithBLOBs article : articleList){
             healthInfoList.add(tranArticle(article));
         }
 

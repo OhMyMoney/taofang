@@ -3,7 +3,7 @@ package com.taofang.webapi.util;
 import com.google.common.base.Optional;
 import com.taofang.webapi.domain.HealthVoice;
 import com.taofang.webapi.domain.HealthVoicePagination;
-import com.taofang.webapi.model.Article;
+import com.taofang.webapi.model.ArticleWithBLOBs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ public class HealthVoiceModelUtil {
         return healthVoicePagination;
     }
 
-    public static HealthVoice tranArticle(Article article){
+    public static HealthVoice tranArticle(ArticleWithBLOBs article){
         HealthVoice healthVoice = new HealthVoice();
         healthVoice.setId(Optional.fromNullable(article.getArticleid()).or(0));
         healthVoice.setTitle(Optional.fromNullable(article.getArticlename()).or(""));
@@ -34,9 +34,9 @@ public class HealthVoiceModelUtil {
         return healthVoice;
     }
 
-    public static List<HealthVoice> tranArticleList(List<Article> articleList){
+    public static List<HealthVoice> tranArticleList(List<ArticleWithBLOBs> articleList){
         List<HealthVoice> healthVoiceList = new ArrayList<>();
-        for(Article article : articleList){
+        for(ArticleWithBLOBs article : articleList){
             healthVoiceList.add(tranArticle(article));
         }
 

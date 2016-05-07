@@ -18,7 +18,6 @@
         $(function () {
             var opt = {}
             opt.date = {preset : 'date'};
-//            $("#dateselectbutton").show();
             $('#date').val('').scroller('destroy').scroller($.extend(opt['date'], { theme: 'default',mode: 'scroller',
                                 display: 'modal', dateFormat: 'yyyymmdd', setText: '确定', cancelText: '取消', dateOrder: 'yyyymmdd',
                                 dayText: '日', monthText: '月', yearText: '年', endYear:2050, startYear:1970}));

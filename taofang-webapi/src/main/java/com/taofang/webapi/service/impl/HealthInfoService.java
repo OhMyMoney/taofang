@@ -5,7 +5,7 @@ import com.taofang.webapi.dao.RelationlinkMapper;
 import com.taofang.webapi.domain.HealthInfo;
 import com.taofang.webapi.domain.HealthInfoWithLinks;
 import com.taofang.webapi.domain.RelationLinkInfo;
-import com.taofang.webapi.model.Article;
+import com.taofang.webapi.model.ArticleWithBLOBs;
 import com.taofang.webapi.model.Relationlink;
 import com.taofang.webapi.service.IHealthInfoService;
 import com.taofang.webapi.util.HealthInfoModelUtil;
@@ -48,7 +48,7 @@ public class HealthInfoService implements IHealthInfoService{
     public List<HealthInfo> getHealthInfoByPagination(int start, int limit) {
         List<HealthInfo> healthInfoList;
         try{
-            List<Article> articleList = articleMapper.selectHealthInfoByPagination(start, limit);
+            List<ArticleWithBLOBs> articleList = articleMapper.selectHealthInfoByPagination(start, limit);
             healthInfoList = HealthInfoModelUtil.tranArticleList(articleList);
             LOGGER.info("查询数据库[start:" + start + ";limit:" + limit + "],健康资讯的信息 ==> " + healthInfoList);
         }catch(Exception e){
@@ -63,7 +63,7 @@ public class HealthInfoService implements IHealthInfoService{
         HealthInfo healthInfo = new HealthInfo();
         List<RelationLinkInfo> relationLinkInfoList = new ArrayList<>();
         try{
-            List<Article> articleList = articleMapper.selectHealthInfoById(id);
+            List<ArticleWithBLOBs> articleList = articleMapper.selectHealthInfoById(id);
             if(articleList.size() > 0){
                 healthInfo = HealthInfoModelUtil.tranArticle(articleList.get(0));
                 List<Relationlink> relationlinkList = relationlinkMapper.selectHealthInfoLink();

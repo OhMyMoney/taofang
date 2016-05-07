@@ -5,7 +5,7 @@ import com.taofang.webapi.dao.RelationlinkMapper;
 import com.taofang.webapi.domain.NatureTherapyInfo;
 import com.taofang.webapi.domain.NatureTherapyInfoWithLinks;
 import com.taofang.webapi.domain.RelationLinkInfo;
-import com.taofang.webapi.model.Article;
+import com.taofang.webapi.model.ArticleWithBLOBs;
 import com.taofang.webapi.model.Relationlink;
 import com.taofang.webapi.service.INatureTherapyService;
 import com.taofang.webapi.util.NatureTherapyModelUtil;
@@ -48,7 +48,7 @@ public class NatureTherapyService implements INatureTherapyService{
     public List<NatureTherapyInfo> getNatureTherapyByPagination(int start, int limit) {
         List<NatureTherapyInfo> natureTherapyInfoList;
         try{
-            List<Article> articleList = articleMapper.selectNatureTherapyByPagination(start, limit);
+            List<ArticleWithBLOBs> articleList = articleMapper.selectNatureTherapyByPagination(start, limit);
             natureTherapyInfoList = NatureTherapyModelUtil.tranArticleList(articleList);
             LOGGER.info("查询数据库[start:" + start + ";limit:" + limit + "],自然疗法的信息 ==> " + natureTherapyInfoList);
         }catch(Exception e){
@@ -63,7 +63,7 @@ public class NatureTherapyService implements INatureTherapyService{
         NatureTherapyInfo natureTherapyInfo = new NatureTherapyInfo();
         List<RelationLinkInfo> relationLinkInfoList = new ArrayList<>();
         try{
-            List<Article> articleList = articleMapper.selectNatureTherapyById(id);
+            List<ArticleWithBLOBs> articleList = articleMapper.selectNatureTherapyById(id);
             if(articleList.size() > 0){
                 natureTherapyInfo = NatureTherapyModelUtil.tranArticle(articleList.get(0));
                 List<Relationlink> relationlinkList = relationlinkMapper.selectNatureTherapyLink();

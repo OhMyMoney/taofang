@@ -36,7 +36,7 @@ function processPaginationData(data) {
     processPage(data.curPage, data.totalPage);
     // 列表页
     var storyInfos = data.storyInfos;
-    var storyInfoElems = $("<table><tbody></tbody></table>")
+    var storyInfoElems = $("<table><tbody></tbody></table>");
     for(var i=0; i<storyInfos.length; i++){
         var storyInfo = storyInfos[i];
         var onclickFunc = "showStoryDetail(" + storyInfo.id + ")";

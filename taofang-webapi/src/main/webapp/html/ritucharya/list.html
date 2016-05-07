@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../../css/common.css">
     <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <script src="../../js/mystory.js"></script>
+    <script src="../../js/ritucharya.js"></script>
     <script src="../../js/common.js"></script>
 
     <script type="text/javascript">
@@ -17,7 +17,7 @@
                 location.href = "../home.html";
             });
             // 取得分页信息
-            getStoryPagination(1, 10);
+            getRitucharya();
         });
     </script>
 </head>
@@ -30,26 +30,18 @@
             </div>
         </div>
         <div id="content" class="content">
-            <div id="pagecontentlist" class="pagecontentlist">
+            <div id="ritucharyalist" class="ritucharyalistdiv">
                 <table>
                     <tbody>
-                    <tr>
-                        <td><div class="contentpointdiv"></div></td>
-                        <td><div class="contentlistdiv" onclick="showStoryDetail(1)">坚持让我重获新生</div></td>
+                    <tr onclick="showRitucharyaDetailList(0)">
+                        <td><div class="ritucharyaimage"><!--<img src="" />--></div></td>
+                        <td>
+                            <div class="ritucharyatitle"></div>
+                            <div class="ritucharyasummary"></div>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
-            </div>
-            <div id="page" class="page">
-                <div class="previouspagediv">
-                    <div id="previouspage" class="previouspage_opacity" onclick="doPreviousPage()">上一页</div>
-                </div>
-                <div class="currentpagediv">
-                    <div class="currentpage">1/1</div>
-                </div>
-                <div class="nextpagediv">
-                    <div id="nextpage" class="nextpage" onclick="doNextPage()">下一页</div>
-                </div>
             </div>
         </div>
         <div id="footer" data-role="footer">

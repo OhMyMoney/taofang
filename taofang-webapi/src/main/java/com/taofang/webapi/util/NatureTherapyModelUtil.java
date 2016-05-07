@@ -5,7 +5,7 @@ import com.google.common.base.Strings;
 import com.taofang.webapi.constant.ImageConstant;
 import com.taofang.webapi.domain.NatureTherapyInfo;
 import com.taofang.webapi.domain.NatureTherapyInfoPagination;
-import com.taofang.webapi.model.Article;
+import com.taofang.webapi.model.ArticleWithBLOBs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class NatureTherapyModelUtil {
         return natureTherapyInfoPagination;
     }
 
-    public static NatureTherapyInfo tranArticle(Article article){
+    public static NatureTherapyInfo tranArticle(ArticleWithBLOBs article){
         NatureTherapyInfo natureTherapyInfo = new NatureTherapyInfo();
         natureTherapyInfo.setId(Optional.fromNullable(article.getArticleid()).or(0));
         natureTherapyInfo.setTitle(Optional.fromNullable(article.getArticlename()).or(""));
@@ -60,9 +60,9 @@ public class NatureTherapyModelUtil {
         return natureTherapyInfo;
     }
 
-    public static List<NatureTherapyInfo> tranArticleList(List<Article> articleList){
+    public static List<NatureTherapyInfo> tranArticleList(List<ArticleWithBLOBs> articleList){
         List<NatureTherapyInfo> natureTherapyInfoList = new ArrayList<>();
-        for(Article article : articleList){
+        for(ArticleWithBLOBs article : articleList){
             natureTherapyInfoList.add(tranArticle(article));
         }
 
