@@ -1,10 +1,15 @@
 package com.taofang.webapi.service.impl;
 
 import com.taofang.webapi.dao.ArticleMapper;
+import com.taofang.webapi.dao.RelationlinkMapper;
+import com.taofang.webapi.domain.RelationLinkInfo;
 import com.taofang.webapi.domain.StoryInfo;
+import com.taofang.webapi.domain.StoryInfoWithLinks;
 import com.taofang.webapi.model.Article;
+import com.taofang.webapi.model.Relationlink;
 import com.taofang.webapi.service.IMyStoryService;
 import com.taofang.webapi.util.MyStoryModelUtil;
+import com.taofang.webapi.util.RelationLinkModelUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +28,8 @@ public class MyStoryService implements IMyStoryService {
     private static final Logger LOGGER = LoggerFactory.getLogger(MyStoryService.class);
     @Autowired
     private ArticleMapper articleMapper;
+    @Autowired
+    private RelationlinkMapper relationlinkMapper;
 
     @Override
     public int getStoryInfoAmount() {
@@ -49,5 +56,26 @@ public class MyStoryService implements IMyStoryService {
             storyInfoList = new ArrayList<>();
         }
         return storyInfoList;
+    }
+
+    @Override
+    public StoryInfoWithLinks getStoryInfoWithLinksById(int id) {
+        StoryInfo storyInfo = new StoryInfo();
+        List<RelationLinkInfo> relationLinkInfoList = new ArrayList<>();
+        try{
+            List<Article> articleList = articleMapper.selectStoryInfoById(id);
+            if(articleList.size() > 0){
+                storyInfo = MyStoryModelUtil.tranArticle(articleList.get(0));
+                List<Relationlink> relationlinkList = relationlinkMapper.selectStoryInfoLink();
+                relationLinkInfoList = RelationLinkModelUtil.tranRelationLinkList(relationlinkList);
+            }else{
+                storyInfo.setId(0);
+            }
+            LOGGER.info("根据Id:[" + id + "]查询数据库中我的故事的详细信息 ==> " + storyInfo);
+        }catch(Exception e){
+            storyInfo.setId(0);
+            LOGGER.error("根据Id:[" + id + "]查询数据库中我的故事的详细信息 ==> error ==> " + e.getMessage(), e);
+        }
+        return new StoryInfoWithLinks(storyInfo, relationLinkInfoList);
     }
 }

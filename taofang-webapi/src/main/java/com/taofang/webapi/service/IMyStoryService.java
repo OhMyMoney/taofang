@@ -1,6 +1,7 @@
 package com.taofang.webapi.service;
 
 import com.taofang.webapi.domain.StoryInfo;
+import com.taofang.webapi.domain.StoryInfoWithLinks;
 
 import java.util.List;
 
@@ -14,4 +15,6 @@ public interface IMyStoryService {
     int getStoryInfoAmount();
 
     List<StoryInfo> getStoryInfoByPagination(int start, int limit);
+
+    StoryInfoWithLinks getStoryInfoWithLinksById(int id);
 }

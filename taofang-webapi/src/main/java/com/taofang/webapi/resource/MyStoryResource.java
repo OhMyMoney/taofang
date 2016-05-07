@@ -2,6 +2,7 @@ package com.taofang.webapi.resource;
 
 import com.taofang.webapi.domain.StoryInfo;
 import com.taofang.webapi.domain.StoryInfoPagination;
+import com.taofang.webapi.domain.StoryInfoWithLinks;
 import com.taofang.webapi.service.IMyStoryService;
 import com.taofang.webapi.util.MyStoryModelUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,13 @@ public class MyStoryResource {
         storyInfoPagination.setStoryInfoList(storyInfoList);
 
         return storyInfoPagination;
+    }
+
+    @GET
+    @Path("/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public StoryInfoWithLinks getHealthInfoById(@DefaultValue("0")@PathParam("id") int id){
+        StoryInfoWithLinks storyInfoWithLinks = myStoryService.getStoryInfoWithLinksById(id);
+        return storyInfoWithLinks;
     }
 }

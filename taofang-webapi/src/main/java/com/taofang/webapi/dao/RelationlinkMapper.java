@@ -16,4 +16,12 @@ public interface RelationlinkMapper {
     @ResultMap("BaseResultMap")
     List<Relationlink> selectHealthInfoLink();
 
+    @Select({
+            "select id, LinkTitle, LinkUrl",
+            "from RelationLink",
+            "where SourceType = 0"
+    })
+    @ResultMap("BaseResultMap")
+    List<Relationlink> selectStoryInfoLink();
+
 }

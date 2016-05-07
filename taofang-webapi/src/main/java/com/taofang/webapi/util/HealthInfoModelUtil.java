@@ -39,7 +39,7 @@ public class HealthInfoModelUtil {
         String articleContent = article.getArticlecontent();
         if(!Strings.isNullOrEmpty(articleContent)){
             articleContent = articleContent.substring(articleContent.indexOf("<h"));
-            articleContent = articleContent.substring(articleContent.indexOf("<p>"));
+            articleContent = articleContent.substring(articleContent.indexOf("<p"));
             articleContent = articleContent.replaceAll("/Content/Resources/", ImageConstant.IMAGE_BASE_URL);
             healthInfo.setContent(articleContent);
         }

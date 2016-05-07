@@ -43,6 +43,14 @@ public interface ArticleMapper {
                                               @Param("limit")int limit);
 
     @Select({
+            "select ArticleID, ArticleName, ImageUrl, ArticleContent",
+            "from Article",
+            "where Category = 0 and ArticleID = #{articleID, jdbcType=INTEGER}"
+    })
+    @ResultMap("ResultMapWithBLOBs")
+    List<Article> selectStoryInfoById(@Param("articleID") int articleID);
+
+    @Select({
             "select count(*) from article",
             "where category = 1"
     })

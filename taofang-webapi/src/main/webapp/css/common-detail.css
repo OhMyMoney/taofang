@@ -58,6 +58,14 @@ body {
     color: #56392F;
     padding-left: 10px;
 }
+.detailvideodiv{
+    width: 100%;
+    height: 40px;
+}
+.detailvideodiv audio{
+    width: 90%;
+    padding-left: 5%;
+}
 .detailimagediv{
     width: 100%;
 }
