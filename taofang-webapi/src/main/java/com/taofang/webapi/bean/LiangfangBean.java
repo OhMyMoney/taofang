@@ -15,7 +15,7 @@ public class LiangfangBean {
     private Double p_SaveMoney;
     private Double p_Score;
     private String p_Material;
-    private Integer d_id;
+    private String d_id;
     private String d_name;
     private String d_aliasname;
     private String s_name;
@@ -111,11 +111,11 @@ public class LiangfangBean {
         this.p_Material = p_Material;
     }
 
-    public Integer getD_id() {
+    public String getD_id() {
         return d_id;
     }
 
-    public void setD_id(Integer d_id) {
+    public void setD_id(String d_id) {
         this.d_id = d_id;
     }
 
