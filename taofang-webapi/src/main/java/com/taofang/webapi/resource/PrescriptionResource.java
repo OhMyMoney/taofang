@@ -2,7 +2,6 @@ package com.taofang.webapi.resource;
 
 import com.taofang.webapi.constant.PrecriptionOrderEnum;
 import com.taofang.webapi.domain.PrescriptionPagination;
-import com.taofang.webapi.domain.PrescriptionRelateInfo;
 import com.taofang.webapi.domain.PrescriptionWithLinks;
 import com.taofang.webapi.service.IPrescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,25 +41,19 @@ public class PrescriptionResource {
         return prescriptionPagination;
     }
 
-    /**
-     * 根据偏方名称查询偏方相关信息
-     * @param name
-     * @return
-     */
-    @GET
-    @Path("relate")
-    @Produces({MediaType.APPLICATION_JSON})
-    public PrescriptionRelateInfo getPrescriptionRelateInfo(@QueryParam("name") String name){
-        PrescriptionRelateInfo prescriptionRelateInfo = prescriptionService.getPrescriptionRelateInfoByName(name);
-
-        return prescriptionRelateInfo;
-    }
-
     @GET
     @Path("/{id}")
     @Produces({MediaType.APPLICATION_JSON})
     public PrescriptionWithLinks getPrecriptionById(@DefaultValue("0")@PathParam("id") int id){
         PrescriptionWithLinks prescriptionWithLinks = prescriptionService.getPrescriptionWithLinksById(id);
         return prescriptionWithLinks;
+    }
+
+    @GET
+    @Path("/{id}/material")
+    @Produces({MediaType.TEXT_PLAIN})
+    public String getPrecriptionMaterialById(@DefaultValue("0")@PathParam("id") int id){
+        String material = prescriptionService.getMaterialById(id);
+        return material;
     }
 }

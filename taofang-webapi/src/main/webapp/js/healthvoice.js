@@ -1,5 +1,5 @@
 function getHealthVoicePagination(date, page, pageSize) {
-    var ajaxUrl = "http://192.168.31.199:8080/taofang/webapi/healthvoices";
+    var ajaxUrl = "http://localhost:8080/taofang/webapi/healthvoices";
     if(date != ""){
         ajaxUrl += "/" + date
     }

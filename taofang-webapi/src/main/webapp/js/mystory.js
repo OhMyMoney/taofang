@@ -1,6 +1,6 @@
 function getStoryPagination(page, pageSize) {
     $.ajax({
-        url: "http://192.168.31.199:8080/taofang/webapi/story?page=" + page + "&&pageSize=" + pageSize,
+        url: "http://localhost:8080/taofang/webapi/story?page=" + page + "&&pageSize=" + pageSize,
         success: processPaginationData
     });
 }
@@ -9,7 +9,7 @@ function getStoryDetail(id) {
         id = 0;
     }
     $.ajax({
-        url: "http://192.168.31.199:8080/taofang/webapi/story/" + id,
+        url: "http://localhost:8080/taofang/webapi/story/" + id,
         success: processDetailData
     });
 }

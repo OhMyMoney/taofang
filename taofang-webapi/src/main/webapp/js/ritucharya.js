@@ -1,6 +1,6 @@
 function getRitucharya() {
     $.ajax({
-        url: "http://192.168.31.199:8080/taofang/webapi/ritucharya",
+        url: "http://localhost:8080/taofang/webapi/ritucharya",
         success: processListData
     });
 }
@@ -10,7 +10,7 @@ function showRitucharyaDetailList(id) {
 }
 function getRitucharyaDetailPagination(id, page, pageSize) {
     $.ajax({
-        url: "http://192.168.31.199:8080/taofang/webapi/ritucharya/" + id + "?page=" + page + "&&pageSize=" + pageSize,
+        url: "http://localhost:8080/taofang/webapi/ritucharya/" + id + "?page=" + page + "&&pageSize=" + pageSize,
         success: processDetailPaginationData
     });
 }
