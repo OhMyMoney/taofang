@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.taofang.webapi.dao.PrescriptionmessageMapper" >
+  <resultMap id="BaseResultMap" type="com.taofang.webapi.model.Prescriptionmessage" >
+    <result column="PrescriptionID" property="prescriptionid" jdbcType="INTEGER" />
+    <result column="Name" property="name" jdbcType="VARCHAR" />
+    <result column="AliasName" property="aliasname" jdbcType="VARCHAR" />
+    <result column="MaterialCollection" property="materialcollection" jdbcType="VARCHAR" />
+    <result column="Title" property="title" jdbcType="VARCHAR" />
+    <result column="KeyWord" property="keyword" jdbcType="VARCHAR" />
+    <result column="Description" property="description" jdbcType="VARCHAR" />
+    <result column="Audio" property="audio" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.taofang.webapi.model.PrescriptionmessageWithBLOBs" extends="BaseResultMap" >
+    <result column="Material" property="material" jdbcType="LONGVARCHAR" />
+    <result column="NotMeetTheCrowd" property="notmeetthecrowd" jdbcType="LONGVARCHAR" />
+    <result column="Indication" property="indication" jdbcType="LONGVARCHAR" />
+    <result column="Effect" property="effect" jdbcType="LONGVARCHAR" />
+    <result column="ProductionAndUsage" property="productionandusage" jdbcType="LONGVARCHAR" />
+    <result column="Attentions" property="attentions" jdbcType="LONGVARCHAR" />
+    <result column="OperatingSteps" property="operatingsteps" jdbcType="LONGVARCHAR" />
+    <result column="Story" property="story" jdbcType="LONGVARCHAR" />
+    <result column="ExpertComments" property="expertcomments" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+  <select id="selectPrescriptionInfoById" resultType="com.taofang.webapi.bean.PrescriptionInfoBean">
+    select
+      t1.ImageURL,
+      t1.CreateDate,
+      t1.CreatorName,
+      t2.PrescriptionID,
+      t2.Name,
+      t2.story,
+      t2.productionAndUsage,
+      t2.attentions,
+      t2.indication
+    from
+      Prescription t1
+        left join
+      PrescriptionMessage t2 ON t1.PrescriptionID = t2.PrescriptionID
+    where
+      t1.PrescriptionID = #{prescriptionId, jdbcType=INTEGER};
+  </select>
+</mapper>

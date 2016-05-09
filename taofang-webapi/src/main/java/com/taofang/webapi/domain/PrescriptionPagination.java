@@ -22,6 +22,14 @@ public class PrescriptionPagination {
     // 当前页数据
     private List<Prescription> prescriptionList;
 
+    public PrescriptionPagination() {
+    }
+
+    public PrescriptionPagination(int totalCount, List<Prescription> prescriptionList) {
+        this.totalCount = totalCount;
+        this.prescriptionList = prescriptionList;
+    }
+
     @Override
     public String toString() {
         return "PrescriptionPagination{" +

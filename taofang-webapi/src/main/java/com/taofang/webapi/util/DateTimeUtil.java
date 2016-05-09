@@ -30,7 +30,15 @@ public class DateTimeUtil {
         }
     }
 
+    public static String tranTimestamp(Timestamp timestamp, String format){
+        SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+        Date date = new Date(timestamp.getTime());
+        return dateFormat.format(date);
+    }
+
     public static void main(String[] args){
+        Timestamp timestamp = tranDate("2013-05-06 11:23:42", FORMAT_DEFAULT);
+        System.out.println(tranTimestamp(timestamp, FORMAT_DEFAULT));
         System.out.println(tranDate("20130506", FORMAT_DEFAULT_YMD_MIN));
     }
 }

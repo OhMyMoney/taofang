@@ -5,9 +5,145 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>九九淘方网</title>
     <link rel="stylesheet" href="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="../../css/prescription-detail.css">
     <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../../js/jquery.cookie.js"></script>
+    <script src="../../js/prescription.js"></script>
+    <script src="../../js/common.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // 返回按钮
+            $('#header').find($("[class='backdiv']")).click(function(){
+                location.href = "list.html?prescription=" + $.cookie('PrescriptionName');
+            });
+            (function ($) {
+                $.getUrlParam = function (name) {
+                    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                    var r = window.location.search.substr(1).match(reg);
+                    if (r != null){
+                        return decodeURI(r[2]);
+                    }
+                    return null;
+                }
+            })(jQuery);
+            var id = $.getUrlParam('id');
+            $.cookie('PrescriptionId', id, {expires: 1, path: '/'});
+            getPrescriptionDetail(id);
+        });
+    </script>
 </head>
 <body>
+<div id="healthinfodetailpage" data-role="page">
+    <div id="header" data-role="header">
+        <div class="blackheader" >
+            <div class="backdiv"><img class="back" src="../../image/common/back.png"></div>
+            <div class="titlediv"><div class="title">偏方</div></div>
+            <div class="morediv">
+                <a href="#collectsharediv" data-rel="popup"><img src="../../image/common/more.png"></a>
+            </div>
+        </div>
+        <div id="collectsharediv" data-role="popup">
+            <table>
+                <tbody>
+                <tr onclick="collectPrescription()">
+                    <td><img class="csimg" src="../../image/common/collect.png" /></td>
+                    <td><div class="cstitle">收藏</div></td>
+                </tr>
+                <tr onclick="sharePrescription()">
+                    <td><img class="csimg" src="../../image/common/share_black.png" /></td>
+                    <td><div class="cstitle">分享</div></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="content" class="content">
+        <div id="contenttitle" class="contenttitle"></div>
+        <div id="contentauthor" class="contentauthor"></div>
+        <div id="contentstory" class="contentstory"></div>
+        <div class="contentplacediv"></div>
+        <div id="contentimagediv" class="contentimagediv">
+            <div id="contentimage"></div>
+            <div onclick="showPrescriptionImages()" class="contentimagebutton">查看相关用料图片</div>
+        </div>
+        <div id="contentdetail">
+            <div id="productionAndUsagediv" class="contentdetaildiv">
+                <div class="contentdetailtitle">制作用法</div><div id="productionAndUsage" class="contentdetail"></div>
+            </div>
+            <div id="attentionsdiv" class="contentdetaildiv">
+                <div class="contentdetailtitle">注意事项</div><div id="attentions" class="contentdetail"></div>
+            </div>
+            <div id="diseaseNamesdiv" class="contentdetaildiv">
+                <div class="contentdetailtitle">相关疾病</div><div id="diseaseNames" class="contentdetail"></div>
+            </div>
+            <div id="indicationdiv" class="contentdetaildiv">
+                <div class="contentdetailtitle">适应症状</div><div id="indication" class="contentdetail"></div>
+            </div>
+        </div>
+        <div class="contentplacediv"></div>
+        <div id="comment">
+            <div class="commenttitlediv">
+                <div class="commentplacediv"></div>
+                <div id="commenttitle"></div>
+                <div class="commenttitleimg" onclick="showCommentDetail()"><img src="../../image/common/detail.png" /></div>
+            </div>
+            <div id="commentlistdiv">
+                <div id="commentlist">
+                    <!--<table>
+                        <tbody>
+                        <tr>
+                            <td><div><img src="" /></div></td>
+                            <td>
+                                <div class="commentmemberdiv">
+                                    <div class="commentmember"></div>
+                                    <div class="commentscore"></div>
+                                    <div class="commenttitme"></div>
+                                </div>
+                                <div class="commentexperiencediv"></div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>-->
+                </div>
+                <div class="commentbuttondiv"><div onclick="prescriptionComment()" class="commentbutton">我要评论</div></div>
+            </div>
+            <div onclick="backPrescriptionList()" class="commentbacklistbutton">换一个偏方</div>
+        </div>
+        <div id="contentrelation">
+            <div class="relationlinktitle">相关音频</div>
+            <div id="relationvideo"></div>
+            <div id="videodiv" class="prescriptionvideoplaydiv">
+                <audio id="videoplay" class="videoplay" controls="controls" src="" />
+            </div>
+            <div class="relationlinktitle">相关链接</div>
+            <div id="relationlink"></div>
+        </div>
+    </div>
+    <div id="footer" data-role="footer">
+       <div id="addiv" class="addiv"></div>
+       <div class="switchdiv">
+           <div class="phonediv">
+               <div class="phone" onclick="goToHomePage('phone')">
+                   <div class="phoneimg"><img src="../../image/common/iphone.png"></div>
+                   <div class="phonetext">触屏版</div>
+               </div>
+           </div>
+           <div class="phonepcdiv"></div>
+           <div class="pcdiv">
+               <div class="pc" onclick="goToHomePage('pc')">
+                   <div class="pcimg"><img src="../../image/common/pc.png"></div>
+                   <div class="pctext">电脑版</div>
+               </div>
+           </div>
+       </div>
+       <div class="declarediv">
+           <div class="aboutustitle">关于我们 | 法律声明</div>
+           <div class="aboutuscontent">Copyright  ©  2015  WWW.99TAOFANG.COM  版权所有</div>
+           <div class="aboutuscontent">本站信息仅供参考_不能作为诊断及医疗的依据</div>
+       </div>
+    </div>
+</div>
 </body>
 </html>

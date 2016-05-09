@@ -6,7 +6,6 @@
     <title>九九淘方网</title>
     <link rel="stylesheet" href="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" href="../css/home.css">
-    <link rel="stylesheet" href="../css/common.css">
     <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script src="../js/jquery.cookie.js"></script>
@@ -82,15 +81,11 @@
                     </table>
                 </div>
             </div>
-            <div id="prescription">
-                 <table>
-                     <tbody>
-                     <tr>
-                         <td id="prescriptionName" ><input data-role="none" type="text" name="prescriptionName" placeholder="输入关键字寻找相关偏方"></td>
-                         <td id="prescriptionButton"><button onclick="doPrescriptionSearch()">立即搜索</button></td>
-                     </tr>
-                     </tbody>
-                 </table>
+            <div id="prescriptiondiv">
+                <div id="prescriptionnamediv">
+                    <input data-role="none" class="prescriptionname" type="text" name="prescriptionName" placeholder="输入关键字寻找相关偏方">
+                </div>
+                <div class="prescriptionbutton" onclick="prescriptionSearch()">立即搜索</div>
             </div>
         </div>
         <div id="mainpagecontent" data-role="content">

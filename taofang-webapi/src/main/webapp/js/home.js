@@ -66,7 +66,9 @@ function doGetUserViewHistory(data) {
     }
 }
 
-function doPrescriptionSearch() {
-    // var prescriptionName = $('#prescriptionName').val()
-    // location.href = 'prescription/list.html?prescriptionName=' + prescriptionName;
+function prescriptionSearch() {
+    var prescriptionName = $("#prescriptionnamediv").find($("[name='prescriptionName']")).val();
+    if(prescriptionName != "" && prescriptionName != undefined){
+        location.href = 'prescription/list.html?prescription=' + prescriptionName;
+    }
 }

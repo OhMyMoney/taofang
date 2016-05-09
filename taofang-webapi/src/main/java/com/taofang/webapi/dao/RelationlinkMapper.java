@@ -1,6 +1,7 @@
 package com.taofang.webapi.dao;
 
 import com.taofang.webapi.model.Relationlink;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 
@@ -31,4 +32,12 @@ public interface RelationlinkMapper {
     })
     @ResultMap("BaseResultMap")
     List<Relationlink> selectNatureTherapyLink();
+
+    @Select({
+            "select id, LinkTitle, LinkUrl, PrescriptionID",
+            "from RelationLink",
+            "where SourceType = 5 and prescriptionID = #{id, jdbcType=INTEGER}",
+    })
+    @ResultMap("BaseResultMap")
+    List<Relationlink> selectPrescriptionLink(@Param("id") int id);
 }

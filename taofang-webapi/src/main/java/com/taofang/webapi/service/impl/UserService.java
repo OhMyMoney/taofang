@@ -3,7 +3,7 @@ package com.taofang.webapi.service.impl;
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 import com.taofang.webapi.dao.MemberMapper;
-import com.taofang.webapi.dao.RedisDao;
+import com.taofang.webapi.dao.persistence.RedisDao;
 import com.taofang.webapi.domain.User;
 import com.taofang.webapi.domain.ViewHistory;
 import com.taofang.webapi.model.Member;

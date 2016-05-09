@@ -7,4 +7,8 @@ package com.taofang.webapi.constant;
  */
 public class ImageConstant {
     public static final String IMAGE_BASE_URL = "http://www.99taofang.com/content/resources/";
+
+    public static final String HEAD_PORTRAIT_URL = "http://weibo.99taofang.com";
+
+    public static final String DEFAULT_HEAD_PORTRAIT_URL = "http://www.99taofang.com/Content/Images/user-pic.png";
 }

@@ -1,6 +1,6 @@
 function processPage(curPage, totalPage) {
     $("#page").find($("[class='currentpage']")).html(curPage + "/" + totalPage);
-    if(curPage == 1){
+    if(curPage == 1 || curPage == 0){
         $('#previouspage').addClass("previouspage_opacity").removeClass("previouspage");
     }else{
         $('#previouspage').addClass("previouspage").removeClass("previouspage_opacity");
