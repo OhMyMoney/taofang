@@ -8,16 +8,16 @@ function doNavigationById(id) {
             url = "healthvoice/list.html";
             break;
         case 3:
-            // url = "mystory/list.html";
+            url = "mystory/list.html";
             break;
         case 4:
-            // url = "naturetherapy/list.html";
+            url = "naturetherapy/list.html";
             break;
         case 5:
-            // url = "ritucharya/list.html";
+            url = "ritucharya/list.html";
             break;
         case 6:
-            // url = "healthinfo/list.html";
+            url = "healthinfo/list.html";
             break;
     }
     location.href = url;
@@ -66,7 +66,9 @@ function doGetUserViewHistory(data) {
     }
 }
 
-function doPrescriptionSearch() {
-    // var prescriptionName = $('#prescriptionName').val()
-    // location.href = 'prescription/list.html?prescriptionName=' + prescriptionName;
+function prescriptionSearch() {
+    var prescriptionName = $("#prescriptionnamediv").find($("[name='prescriptionName']")).val();
+    if(prescriptionName != "" && prescriptionName != undefined){
+        location.href = 'prescription/list.html?prescription=' + prescriptionName;
+    }
 }

@@ -1,0 +1,270 @@
+/*页头*/
+body {
+    font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif
+}
+.blackheader{
+    width: 100%;
+    background-color: #474547;
+    height: 50px;
+}
+.backdiv, .sharediv{
+    width: 10%;
+    height: 50px;
+    float:left;
+    position: relative;
+}
+.back, .share{
+    width: 15px;
+    height: 20px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+.titlediv{
+    height: 50px;
+    width: 80%;
+    float: left;
+    position: relative;
+    font-family: Tahoma,Verdana,STHeiTi,simsun,sans-serif;
+}
+.title{
+    font-size: 20px;
+    color: #FFFFFF;
+    font-weight: 400;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 25px;
+    width: 100px;
+}
+/*详细内容区*/
+.detailcontentdiv{
+    min-height: 100px;
+    width: 100%;
+    height: 100%;
+}
+.detailtitlediv{
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #56392F;
+    padding-left: 10px;
+}
+.detailmap3div{
+    width: 100%;
+    height: 40px;
+}
+.detailmap3div audio{
+    width: 96%;
+    padding-left: 2%;
+}
+.detailvideodiv{
+    width: 100%;
+    height: 220px;
+}
+.detailvideodiv video{
+    width: 96%;
+    height: 200px;
+    padding-left: 2%;
+}
+.detailimagediv{
+    width: 100%;
+}
+.detailimage{
+    width: 96%;
+    margin-left: 2%;
+}
+.detailcontentdiv p {
+    margin: 6px;
+    color: #56392F;
+    font-size: 14px;
+    font-weight: 500;
+}
+.detailcontentdiv img {
+    width: 90%;
+}
+/*点赞区*/
+.thumbdiv{
+    text-align: center;
+    width: 100%;
+    height: 110px;
+    padding-top: 10px;
+    border-top: 1px solid #DFD7C8;
+}
+.thumbimgdiv{
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+    position: relative;
+    background-color: #F39F51;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+.thumb{
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+.thumblabeldiv{
+    margin-top: 10px;
+    color: #F39F51;
+    font-size: 12px;
+    font-weight: 300;
+    opacity: 0.8;
+}
+.thumbcountdiv{
+    margin-top: 5px;
+    font-size: 15px;
+    color: #F39F51;
+    font-weight: 800;
+}
+/*相关链接*/
+.relationlinktitle{
+    font-size: 15px;
+    font-weight: 600;
+    color: #56392F;
+    background-color: #F2ECE3;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 10px;
+}
+.pagecontentlist{
+    width: 100%;
+}
+#relationlinklist table{
+    width: 100%;
+    border-collapse: collapse;
+}
+#relationlinklist table tbody tr td{
+    height: 40px;
+    border-bottom: 1px solid #DFD7C8;
+}
+#relationlinklist table tbody tr td:nth-child(1){
+    width: 10px;
+}
+.contentpointdiv{
+    width: 1px;
+    height: 1px;
+    border: 1px solid #56392F;
+    background-color: #56392F;
+    margin-left: 5px;
+}
+.contentlistdiv{
+    font-size: 14px;
+    font-weight: 500;
+    color: #56392F;
+}
+a:link {
+    text-decoration: none;
+    font-weight: 500;
+    color: #56392F;
+}
+a:visited {
+    text-decoration: none;
+    font-weight: 500;
+    color: #56392F;
+}
+a:hover {
+    text-decoration: none;
+    font-weight: 500;
+    color: #56392F;
+}
+a:active {
+    text-decoration: none;
+    font-weight: 500;
+    color: #56392F;
+}
+.ui-page-theme-a a:visited, html .ui-bar-a a:visited, html .ui-body-a a:visited, html body .ui-group-theme-a a:visited {
+    color: #56392F;
+}
+/*页脚*/
+#footer{
+    background-color: #F2ECE3;
+}
+.addiv{
+    height: 20px;
+    margin-bottom: 10px;
+}
+.switchdiv{
+    width: 95%;
+    margin: 0 auto;
+}
+.phonediv{
+    width: 45%;
+    height: 30px;
+    float: left;
+    text-align: right;
+}
+.pcdiv{
+    width: 45%;
+    height: 30px;
+    float: left;
+    text-align: right;
+}
+.phonepcdiv{
+    width: 10%;
+    float: left;
+    height: 30px;
+}
+.phone, .pc{
+    width: 100px;
+    height: 25px;
+    border: 2px solid #F39F51;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #F39F51;
+    margin:0 auto;
+    text-align: center;
+    vertical-align: middle;
+}
+.phoneimg, .pcimg{
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    float: left;
+    margin-left: 10px;
+}
+.phonetext, .pctext{
+    width: 50px;
+    float: left;
+    height: 30px;
+    line-height: 25px;
+}
+.phoneimg img, .pcimg img{
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+}
+.declarediv{
+    margin-top: 60px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+.aboutustitle{
+    color: #56392F;
+    font-size: 11px;
+    font-weight: 400;
+}
+.aboutuscontent{
+    color: #B8ACA4;
+    font-size: 10px;
+    font-weight: 200;
+    margin-top: 5px;
+}

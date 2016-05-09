@@ -317,3 +317,119 @@ ul.timeline li .content table tbody tr td img{
     font-weight: 200;
     margin-top: 5px;
 }
+/*搜索区域*/
+#prescriptiondiv{
+    width: 100%;
+    height: 50px;
+    padding-left: 4%;
+}
+#prescriptionnamediv{
+    float: left;
+    width: 68%;
+    border: 1px solid #DFD7C8;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    height: 40px;
+    line-height: 40px;
+    background-color: #FFFFFF;
+}
+.prescriptionname{
+    width: 95%;
+    height: 30px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border: none;
+    padding-left: 8px;
+    font-size: 14px;
+    font-weight: 400;
+}
+.prescriptionbutton{
+    float: left;
+    width: 24%;
+    height: 40px;
+    line-height: 40px;
+    border: 1px solid #F4A046;
+    background-color: #F4A046;
+    font-size: 16px;
+    font-weight: 400;
+    color: #FFFFFF;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    text-align: center;
+    font-family: Tahoma,Verdana,STHeiTi,simsun,sans-serif;
+}
+/*底部*/
+#footer{
+    background-color: #F2ECE3;
+}
+.addiv{
+    height: 20px;
+    margin-bottom: 10px;
+}
+.switchdiv{
+    width: 95%;
+    margin: 0 auto;
+}
+.phonediv{
+    width: 45%;
+    height: 30px;
+    float: left;
+    text-align: right;
+}
+.pcdiv{
+    width: 45%;
+    height: 30px;
+    float: left;
+    text-align: right;
+}
+.phonepcdiv{
+    width: 10%;
+    float: left;
+    height: 30px;
+}
+.phone, .pc{
+    width: 100px;
+    height: 25px;
+    border: 2px solid #F39F51;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #F39F51;
+    margin:0 auto;
+    text-align: center;
+    vertical-align: middle;
+}
+.phoneimg, .pcimg{
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    float: left;
+    margin-left: 10px;
+}
+.phonetext, .pctext{
+    width: 50px;
+    float: left;
+    height: 30px;
+    line-height: 25px;
+}
+.phoneimg img, .pcimg img{
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+}
+.declarediv{
+    margin-top: 60px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+.aboutustitle{
+    color: #56392F;
+    font-size: 11px;
+    font-weight: 400;
+}
+.aboutuscontent{
+    color: #B8ACA4;
+    font-size: 10px;
+    font-weight: 200;
+    margin-top: 5px;
+}

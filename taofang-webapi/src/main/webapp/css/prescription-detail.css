@@ -1,0 +1,485 @@
+/*页头*/
+body {
+    font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif
+}
+.blackheader{
+    width: 100%;
+    background-color: #474547;
+    height: 50px;
+}
+.backdiv, .morediv{
+    width: 10%;
+    height: 50px;
+    float:left;
+    position: relative;
+}
+.back{
+    width: 15px;
+    height: 20px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+.titlediv{
+    height: 50px;
+    width: 80%;
+    float: left;
+    position: relative;
+    font-family: Tahoma,Verdana,STHeiTi,simsun,sans-serif;
+}
+.title{
+    font-size: 20px;
+    color: #FFFFFF;
+    font-weight: 400;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 25px;
+    width: 100%;
+    text-align: center;
+}
+.morediv a img{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+#collectsharediv{
+    margin-top: 15px;
+    margin-left: 20px;
+    width: 90px;
+    opacity: 0.8;
+}
+#collectsharediv table{
+    width: 100%;
+    border-collapse: collapse;
+}
+#collectsharediv table tbody tr td{
+    height: 40px;
+    border-bottom: 1px solid #DFD7C8;
+}
+#collectsharediv table tbody tr td:nth-child(1){
+    width: 30px;
+}
+.csimg{
+    width: 20px;
+    height: 20px;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+.cstitle{
+    color: #56392F;
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+/*详细内容区*/
+.contenttitle{
+    height: 20px;
+    line-height: 20px;
+    padding-left: 8px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #56392F;
+    margin-top: 10px;
+}
+.contentauthor{
+    height: 20px;
+    line-height: 20px;
+    width: 100%;
+    padding-left: 15px;
+    font-weight: 200;
+    font-size: 12px;
+    color: #BCB1AD;
+    opacity: 0.8;
+}
+.contentstory{
+    min-height: 50px;
+    color: #56392F;
+    font-size: 12px;
+    font-weight: 400;
+}
+.contentstory p {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.contentstory img{
+    width: 100%;
+    height: 100px;
+}
+.contentplacediv{
+    width: 100%;
+    height: 5px;
+    background-color: #F2ECE3;
+}
+.contentimagediv{
+    width: 100%;
+    border-bottom: 1px solid #DFD7C8;
+}
+#contentimage img{
+    width: 96%;
+    padding-left: 2%;
+    padding-top: 5px;
+    height: 200px;
+}
+.contentimagebutton{
+    height: 40px;
+    line-height: 40px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 60%;
+    margin-left: 20%;
+    font-size: 16px;
+    color: #FFFFFF;
+    font-weight: 100;
+    background-color: #F39F51;
+    border-radius: 5px;
+    text-align: center;
+}
+#contentdetail{
+    width: 100%;
+}
+.contentdetaildiv{
+    width: 100%;
+    min-height: 50px;
+    border-bottom: 1px solid #DFD7C8;
+}
+.contentdetailtitle{
+    height: 30px;
+    line-height: 30px;
+    width: 80px;
+    font-size: 14px;
+    color: #FFFFFF;
+    background-color: #553930;
+    text-align: center;
+    margin-left: 5px;
+    border-radius: 15px;
+    margin-top: 5px;
+}
+.contentdetail{
+    color: #56392F;
+    font-size: 14px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.contentdetail p{
+    -webkit-margin-before: 0.5em;
+    -webkit-margin-after: 0.5em;
+}
+.contentdetail img{
+    width: 100%;
+    height: 100px;
+}
+.commenttitlediv{
+    height: 50px;
+    line-height: 50px;
+    width: 100%;
+    background-color: #F39F51;
+}
+.commentplacediv{
+    float: left;
+    width: 2%;
+    height: 50px;
+}
+#commenttitle{
+    float: left;
+    width: 88%;
+    font-size: 18px;
+    color: #FFFFFF;
+}
+.commenttitleimg{
+    float: left;
+    width: 10%;
+}
+.commenttitleimg img{
+    width: 20px;
+    height: 10px;
+    text-align: center;
+}
+#commentlist{
+    width: 100%;
+}
+#commentlist table{
+    width: 100%;
+    border-collapse: collapse;
+}
+#commentlist table tbody tr td{
+    height: 50px;
+    border-bottom: 1px solid #DFD7C8;
+}
+#commentlist table tbody tr td:nth-child(1){
+    width: 50px;
+    text-align: center;
+}
+#commentlist table tbody tr td div img{
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+}
+.commentmemberdiv{
+    width: 100%;
+}
+.commentmember{
+    float: left;
+    width: 45%;
+    color: #AA9c97;
+    font-size: 14px;
+    height: 30px;
+    line-height: 30px;
+}
+.commentscore{
+    float: left;
+    width: 15%;
+    color: #F39F51;
+    font-size: 16px;
+    font-weight: bold;
+    height: 30px;
+    line-height: 30px;
+}
+.commenttitme{
+    float: left;
+    width: 40%;
+    font-size: 10px;
+    color: #56392F;
+    height: 30px;
+    line-height: 30px;
+}
+.commentexperiencediv{
+    float: left;
+    font-size: 12px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    color: #56392F;
+}
+.commentbuttondiv{
+    height: 55px;
+    border-bottom: 1px solid #DFD7C8;
+}
+.commentbutton{
+    width: 50%;
+    height: 36px;
+    line-height: 36px;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-left: 25%;
+    background-color: #F39F51;
+    font-size: 15px;
+    color: #FFFFFF;
+    text-align: center;
+}
+.commentbacklistbutton{
+    height: 35px;
+    line-height: 35px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 50%;
+    margin-left: 25%;
+    font-size: 15px;
+    color: #F39F51;
+    font-weight: 100;
+    border: 1px solid #F39F51;
+    border-radius: 5px;
+    text-align: center;
+}
+/*相关链接*/
+.relationlinktitle{
+    font-size: 15px;
+    font-weight: 600;
+    color: #56392F;
+    background-color: #F2ECE3;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 10px;
+}
+#relationvideo, #relationlink{
+    min-height: 50px;
+    width: 100%;
+}
+#relationvideo table, #relationlink table{
+    width: 100%;
+    border-collapse: collapse;
+}
+#relationvideo table tbody tr td, #relationlink table tbody tr td{
+    height: 40px;
+    border-bottom: 1px solid #DFD7C8;
+}
+#relationvideo table tbody tr td:nth-child(1){
+    width: 10px;
+}
+#relationvideo table tbody tr td:nth-child(3){
+    width: 35px;
+}
+.videotitle1{
+    font-size: 14px;
+    font-weight: 400;
+    color: #56392F;
+    padding-left: 5px;
+}
+.videotitle2{
+    font-size: 16px;
+    font-weight: 600;
+    color: #56392F;
+    padding-left: 5px;
+}
+.circlediv{
+    width: 25px;
+    height: 25px;
+    border-radius: 13px;
+    border: 1px solid #F39F51;
+    line-height: 25px;
+    text-align: center;
+    margin-left: 5px;
+}
+.trianglediv{
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-left: 10px solid #F39F51;
+    border-bottom: 5px solid transparent;
+    margin-left: 9px;
+    margin-top: 7px;
+}
+.paralleldiv{
+    width: 4px;
+    height: 10px;
+    border-left: 2px solid #F39F51;
+    border-right: 2px solid #F39F51;
+    margin-left: 8px;
+    margin-top: 7px;
+}
+#relationlink table tbody tr td:nth-child(1){
+    width: 10px;
+}
+.contentpointdiv{
+    width: 1px;
+    height: 1px;
+    border: 1px solid #56392F;
+    background-color: #56392F;
+    margin-left: 5px;
+}
+.contentlistdiv{
+    font-size: 14px;
+    color: #56392F;
+}
+a:link {
+    text-decoration: none;
+    font-weight: 500;
+    color: #56392F;
+}
+a:visited {
+    text-decoration: none;
+    font-weight: 500;
+    color: #56392F;
+}
+a:hover {
+    text-decoration: none;
+    font-weight: 500;
+    color: #56392F;
+}
+a:active {
+    text-decoration: none;
+    font-weight: 500;
+    color: #56392F;
+}
+.ui-page-theme-a a:visited, html .ui-bar-a a:visited, html .ui-body-a a:visited, html body .ui-group-theme-a a:visited {
+    color: #56392F;
+}
+/*音频播放区域*/
+.videoplay{
+    width: 96%;
+    height: 30px;
+    background: #F4A046;
+    border-radius: 5px;
+    border: 1px solid #F2ECE3;
+}
+.prescriptionvideoplaydiv{
+    height: 40px;
+    width: 100%;
+    margin-left: 2%;
+}
+/*页脚*/
+#footer{
+    background-color: #F2ECE3;
+}
+.addiv{
+    height: 20px;
+    margin-bottom: 10px;
+}
+.switchdiv{
+    width: 95%;
+    margin: 0 auto;
+}
+.phonediv{
+    width: 45%;
+    height: 30px;
+    float: left;
+    text-align: right;
+}
+.pcdiv{
+    width: 45%;
+    height: 30px;
+    float: left;
+    text-align: right;
+}
+.phonepcdiv{
+    width: 10%;
+    float: left;
+    height: 30px;
+}
+.phone, .pc{
+    width: 100px;
+    height: 25px;
+    border: 2px solid #F39F51;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #F39F51;
+    margin:0 auto;
+    text-align: center;
+    vertical-align: middle;
+}
+.phoneimg, .pcimg{
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    float: left;
+    margin-left: 10px;
+}
+.phonetext, .pctext{
+    width: 50px;
+    float: left;
+    height: 30px;
+    line-height: 25px;
+}
+.phoneimg img, .pcimg img{
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+}
+.declarediv{
+    margin-top: 60px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+.aboutustitle{
+    color: #56392F;
+    font-size: 11px;
+    font-weight: 400;
+}
+.aboutuscontent{
+    color: #B8ACA4;
+    font-size: 10px;
+    font-weight: 200;
+    margin-top: 5px;
+}

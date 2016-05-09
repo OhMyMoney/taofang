@@ -3,7 +3,7 @@ package com.taofang.webapi.service.impl;
 import com.google.common.base.Strings;
 import com.taofang.webapi.dao.ArticleMapper;
 import com.taofang.webapi.domain.HealthVoice;
-import com.taofang.webapi.model.Article;
+import com.taofang.webapi.model.ArticleWithBLOBs;
 import com.taofang.webapi.service.IHealthVoiceService;
 import com.taofang.webapi.util.DateTimeUtil;
 import com.taofang.webapi.util.HealthVoiceModelUtil;
@@ -52,7 +52,7 @@ public class HealthVoiceService implements IHealthVoiceService{
             if(!Strings.isNullOrEmpty(dateStr)){
                 videoDate = DateTimeUtil.tranDate(dateStr, DateTimeUtil.FORMAT_DEFAULT_YMD_MIN);
             }
-            List<Article> articleList = articleMapper.selectHealthVoiceByVideoDate(videoDate, start, limit);
+            List<ArticleWithBLOBs> articleList = articleMapper.selectHealthVoiceByVideoDate(videoDate, start, limit);
             healthVoiceList = HealthVoiceModelUtil.tranArticleList(articleList);
             LOGGER.info("查询健康之声分页[日期" + (dateStr == null ? "全部" : dateStr) + ";start:" + start + ";limit:" + limit + "]的信息 ==> " + healthVoiceList);
         }catch(Exception e){

@@ -5,135 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>九九淘方网</title>
     <link rel="stylesheet" href="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
-    <link rel="stylesheet" href="../../css/prescription.css">
+    <link rel="stylesheet" href="../../css/common.css">
     <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <script src="../../js/prescription.js"></script>
-    <script>
-        $(document).ready(function(){
-            // 点击搜索按钮
-            $("#search").click(function () {
-                var prescriptionName = $("input#prescriptionName").val();
-                $.ajax({
-                    url: "http://localhost:8080/taofang/webapi/prescriptions?name=" + prescriptionName +
-                    "&&page=1&&pageSize=10&&order=0",
-                    success: processPrescriptionPagination
-                });
-            });
+    <script src="../../js/ritucharya.js"></script>
+    <script src="../../js/common.js"></script>
 
-            $("#orderId").click(function () {
-                $(".orderlist").toggle();
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#header').find($("[class='backdiv']")).click(function(){
+                location.href = "../home.html";
             });
+            // 取得分页信息
+            getRitucharya();
         });
     </script>
 </head>
 <body>
-    <div data-role="page">
-        <div id="header">
-            <table class="headertable">
-                <tr>
-                    <td style="width: 10%">
-                        <a href="../home.html">
-                            <img src="../../image/back.png" />
-                        </a>
-                    </td>
-                    <td style="width: 80%">
-                        <input id="prescriptionName" type="text" name="prescriptionName" />
-                    </td>
-                    <td style="width: 10%">
-                        <label id="search">搜索</label>
-                    </td>
-                </tr>
-            </table>
+    <div id="mystorypage" data-role="page">
+        <div id="header" data-role="header">
+            <div class="blackheader" >
+                <div class="backdiv"><img class="back" src="../../image/common/back.png"></div>
+                <div class="titlediv"><div class="title">季节养身</div></div>
+            </div>
         </div>
-        <div id="prescription">
-            <div class="totalresult">
+        <div id="content" class="content">
+            <div id="ritucharyalist" class="ritucharyalistdiv">
                 <table>
-                    <tr>
-                        <td style="width: 60%" >
-                            <a id="orderId" href="#" data-rel="popup">默认排序</a>
-                        </td>
-                        <td style="width: 40%">
-                            共32条搜索结果
+                    <tbody>
+                    <tr onclick="showRitucharyaDetailList(0)">
+                        <td><div class="ritucharyaimage"><!--<img src="" />--></div></td>
+                        <td>
+                            <div class="ritucharyatitle"></div>
+                            <div class="ritucharyasummary"></div>
                         </td>
                     </tr>
-                </table>
-            </div>
-            <div class="orderlist">
-                <ul>
-                    <li>验证人数排序</li>
-                    <li>有效程度排序</li>
-                    <li>见效速度排序</li>
-                    <li>安全性由排序</li>
-                    <li>方便性由排序</li>
-                    <li>省钱程度排序</li>
-                </ul>
-            </div>
-            <div class="prescriptionlist">
-
-            </div>
-            <div class="prescriptionpage">
-                <table>
-                    <tr>
-                        <td>
-                            <label id="previousPage">上一页</label>
-                        </td>
-                        <td>
-                            <label id="currentPage">1/5</label>
-                        </td>
-                        <td>
-                            <label id="nextPage">下一页</label>
-                        </td>
-                    </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
-        <div>
-            <div class="more">
-                <div class="moretile">
-                    相关推荐
-                </div>
-                <div class="moreresult">
-
-                </div>
-            </div>
-            <div class="more">
-                <div class="moretile">
-                    自然疗法
-                </div>
-                <div class="moreresult">
-
-                </div>
-            </div>
-            <div class="more">
-                <div class="moretile">
-                    产品推荐
-                </div>
-                <div class="moreresult">
-
-                </div>
-            </div>
-            <div class="more">
-                <div class="moretile">
-                    食疗
-                </div>
-                <div class="moreresult">
-                </div>
-            </div>
-        </div>
-        <div data-role="footer">
-            <div>
-                <div>
-                    <h1>广告区域</h1>
-                </div>
-                <div class="ui-grid-a">
-                    <div class="ui-block-a">
-                        <a href="javascript:void(0)">触屏版</a>
-                    </div>
-                    <div class="ui-block-b">
-                        <a href="javascript:void(0)">电脑版</a>
+        <div id="footer" data-role="footer">
+            <div id="addiv" class="addiv"></div>
+            <div class="switchdiv">
+                <div class="phonediv">
+                    <div class="phone" onclick="goToHomePage('phone')">
+                        <div class="phoneimg"><img src="../../image/common/iphone.png"></div>
+                        <div class="phonetext">触屏版</div>
                     </div>
                 </div>
+                <div class="phonepcdiv"></div>
+                <div class="pcdiv">
+                    <div class="pc" onclick="goToHomePage('pc')">
+                        <div class="pcimg"><img src="../../image/common/pc.png"></div>
+                        <div class="pctext">电脑版</div>
+                    </div>
+                </div>
+            </div>
+            <div class="declarediv">
+                <div class="aboutustitle">关于我们 | 法律声明</div>
+                <div class="aboutuscontent">Copyright  ©  2015  WWW.99TAOFANG.COM  版权所有</div>
+                <div class="aboutuscontent">本站信息仅供参考_不能作为诊断及医疗的依据</div>
             </div>
         </div>
     </div>

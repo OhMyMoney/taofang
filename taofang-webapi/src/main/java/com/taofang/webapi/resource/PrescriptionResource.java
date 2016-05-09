@@ -1,10 +1,10 @@
 package com.taofang.webapi.resource;
 
-import com.taofang.webapi.bean.PrescriptionCondition;
+import com.taofang.webapi.constant.PrecriptionOrderEnum;
 import com.taofang.webapi.domain.PrescriptionPagination;
 import com.taofang.webapi.domain.PrescriptionRelateInfo;
+import com.taofang.webapi.domain.PrescriptionWithLinks;
 import com.taofang.webapi.service.IPrescriptionService;
-import com.taofang.webapi.util.PrescriptionModelUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.*;
@@ -15,7 +15,7 @@ import javax.ws.rs.core.MediaType;
  * @Author Remilia
  * @Create 2016-04-14
  */
-@Path("prescriptions")
+@Path("prescription")
 public class PrescriptionResource {
     @Autowired
     private IPrescriptionService prescriptionService;
@@ -34,9 +34,11 @@ public class PrescriptionResource {
                                                         @DefaultValue("1") @QueryParam("page") int page,
                                                         @DefaultValue("5") @QueryParam("pageSize") int pageSize,
                                                         @DefaultValue("0") @QueryParam("order") int orderId){
-        PrescriptionCondition condition = PrescriptionModelUtil.tranPrescriptionCondition(name, page, pageSize, orderId);
-        PrescriptionPagination prescriptionPagination = prescriptionService.getPrescriptionPaginationByCondition(condition);
-
+        String orderName = PrecriptionOrderEnum.getOrderNameById(orderId);
+        int start = (page - 1) * pageSize;
+        PrescriptionPagination prescriptionPagination = prescriptionService.getPrescriptionPagination(name, orderName, start, pageSize);
+        prescriptionPagination.setCurPage(page);
+        prescriptionPagination.setPerPage(pageSize);
         return prescriptionPagination;
     }
 
@@ -52,5 +54,13 @@ public class PrescriptionResource {
         PrescriptionRelateInfo prescriptionRelateInfo = prescriptionService.getPrescriptionRelateInfoByName(name);
 
         return prescriptionRelateInfo;
+    }
+
+    @GET
+    @Path("/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public PrescriptionWithLinks getPrecriptionById(@DefaultValue("0")@PathParam("id") int id){
+        PrescriptionWithLinks prescriptionWithLinks = prescriptionService.getPrescriptionWithLinksById(id);
+        return prescriptionWithLinks;
     }
 }

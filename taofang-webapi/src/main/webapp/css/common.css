@@ -1,0 +1,253 @@
+body {
+    font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif
+}
+.blackheader{
+    width: 100%;
+    background-color: #474547;
+    height: 50px;
+}
+.backdiv{
+    width: 10%;
+    height: 50px;
+    float:left;
+    position: relative;
+}
+.back{
+    width: 15px;
+    height: 20px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+.titlediv{
+    height: 50px;
+    width: 90%;
+    float: left;
+    position: relative;
+    font-family: Tahoma,Verdana,STHeiTi,simsun,sans-serif;
+}
+.title{
+    font-size: 20px;
+    color: #FFFFFF;
+    font-weight: 400;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 25px;
+    width: 100px;
+}
+.pagecontentlist{
+    width: 100%;
+}
+#pagecontentlist table{
+    width: 100%;
+    border-collapse: collapse;
+}
+#pagecontentlist table tbody tr td{
+    height: 40px;
+    border-bottom: 1px solid #DFD7C8;
+}
+#pagecontentlist table tbody tr td:nth-child(1){
+    width: 10px;
+}
+.contentpointdiv{
+    width: 1px;
+    height: 1px;
+    border: 1px solid #56392F;
+    background-color: #56392F;
+    margin-left: 5px;
+}
+.contentlistdiv{
+    font-size: 14px;
+    font-weight: 500;
+    color: #56392F;
+}
+.ritucharyalistdiv{
+    min-height: 100px;
+    width: 100%;
+    margin-top: 5px;
+}
+.ritucharyalistdiv table{
+    width: 100%;
+    border-collapse: collapse;
+}
+.ritucharyalistdiv table tbody tr td{
+    height: 100px;
+    border-bottom: 1px solid #DFD7C8;
+}
+.ritucharyalistdiv table tbody tr td:nth-child(1){
+    width: 70px;
+}
+.ritucharyalistdiv table tbody tr td div img{
+    width: 60px;
+    height: 60px;
+    padding-left: 5px;
+}
+.ritucharyatitle{
+    font-size: 18px;
+    font-weight: 900;
+    color: #56392F;
+}
+.ritucharyasummary{
+    font-size: 12px;
+    font-weight: 400;
+    color: #56392F;
+}
+.page{
+    width: 100%;
+    height: 60px;
+    background-color: #F2ECE3;
+    text-align: center;
+}
+.previouspagediv, .currentpagediv, .nextpagediv{
+    width: 33.3%;
+    height: 60px;
+    float:left;
+    position: relative;
+    text-align: center;
+}
+.previouspage, .currentpage, .nextpage{
+    font-size: 15px;
+    color: #56392F;
+    font-weight: 500;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 30px;
+    width: 70px;
+    line-height: 30px;
+    border: 1px solid #DFD7CB;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+}
+.previouspage{
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+.previouspage_opacity{
+    font-size: 15px;
+    color: #56392F;
+    font-weight: 500;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 30px;
+    width: 70px;
+    line-height: 30px;
+    border: 1px solid #DFD7CB;
+    border-radius: 5px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: #FFFFFF;
+    opacity: 0.6;
+}
+.nextpage{
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+.nextpage_opacity{
+    font-size: 15px;
+    color: #56392F;
+    font-weight: 500;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 30px;
+    width: 70px;
+    line-height: 30px;
+    border: 1px solid #DFD7CB;
+    border-radius: 5px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-color: #FFFFFF;
+    opacity: 0.6;
+}
+#footer{
+    background-color: #F2ECE3;
+}
+.addiv{
+    height: 20px;
+    margin-bottom: 10px;
+}
+.switchdiv{
+    width: 95%;
+    margin: 0 auto;
+}
+.phonediv{
+    width: 45%;
+    height: 30px;
+    float: left;
+    text-align: right;
+}
+.pcdiv{
+    width: 45%;
+    height: 30px;
+    float: left;
+    text-align: right;
+}
+.phonepcdiv{
+    width: 10%;
+    float: left;
+    height: 30px;
+}
+.phone, .pc{
+    width: 100px;
+    height: 25px;
+    border: 2px solid #F39F51;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #F39F51;
+    margin:0 auto;
+    text-align: center;
+    vertical-align: middle;
+}
+.phoneimg, .pcimg{
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    float: left;
+    margin-left: 10px;
+}
+.phonetext, .pctext{
+    width: 50px;
+    float: left;
+    height: 30px;
+    line-height: 25px;
+}
+.phoneimg img, .pcimg img{
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+}
+.declarediv{
+    margin-top: 60px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+.aboutustitle{
+    color: #56392F;
+    font-size: 11px;
+    font-weight: 400;
+}
+.aboutuscontent{
+    color: #B8ACA4;
+    font-size: 10px;
+    font-weight: 200;
+    margin-top: 5px;
+}

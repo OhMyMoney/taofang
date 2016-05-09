@@ -1,0 +1,11 @@
+#list table{
+    width: 100%;
+    border-collapse: collapse;
+}
+#list table tbody tr td{
+    height: 40px;
+    border-bottom: 1px solid #DFD7C8;
+}
+#list table tbody tr td:nth-child(1){
+    width: 10px;
+}

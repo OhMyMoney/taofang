@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.taofang.webapi.dao.CommentstarMapper" >
+  <resultMap id="BaseResultMap" type="com.taofang.webapi.model.Commentstar" >
+    <result column="CommentID" property="commentid" jdbcType="DOUBLE" />
+    <result column="PrescriptionID" property="prescriptionid" jdbcType="INTEGER" />
+    <result column="Sequence" property="sequence" jdbcType="INTEGER" />
+    <result column="MemberID" property="memberid" jdbcType="INTEGER" />
+    <result column="IsShowName" property="isshowname" jdbcType="CHAR" />
+    <result column="EffectiveDegree" property="effectivedegree" jdbcType="DOUBLE" />
+    <result column="EffectiveSpeed" property="effectivespeed" jdbcType="DOUBLE" />
+    <result column="Security" property="security" jdbcType="DOUBLE" />
+    <result column="Convenience" property="convenience" jdbcType="DOUBLE" />
+    <result column="SaveMoney" property="savemoney" jdbcType="DOUBLE" />
+    <result column="CreatedDate" property="createddate" jdbcType="TIMESTAMP" />
+    <result column="Status" property="status" jdbcType="CHAR" />
+    <result column="LastUpdateUser" property="lastupdateuser" jdbcType="VARCHAR" />
+    <result column="LastUpdateDate" property="lastupdatedate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.taofang.webapi.model.CommentstarWithBLOBs" extends="BaseResultMap" >
+    <result column="Experience" property="experience" jdbcType="LONGVARCHAR" />
+    <result column="Images" property="images" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+  <select id="selectCommentByPrescriptionID" resultType="com.taofang.webapi.bean.CommentBean">
+    select
+      t1.CommentID,
+      t1.PrescriptionID,
+      t1.MemberID,
+      t2.MemberName,
+      t1.Experience,
+      t1.CreatedDate,
+      t2.icon,
+      (t1.EffectiveDegree+t1.EffectiveSpeed+t1.Security+t1.Convenience+t1.SaveMoney) as totalScore
+    from
+      CommentStar t1
+        left join
+      member t2 on t1.MemberId = t2.MemberId
+    where
+      PrescriptionID = #{prescriptionID, jdbcType=INTEGER}
+    order by CreatedDate desc;
+  </select>
+</mapper>

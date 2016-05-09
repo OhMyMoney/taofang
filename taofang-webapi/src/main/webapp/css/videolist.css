@@ -1,0 +1,353 @@
+body {
+    font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif
+}
+/*头部*/
+.blackheader{
+    width: 100%;
+    background-color: #474547;
+    height: 50px;
+}
+.backdiv{
+    width: 10%;
+    height: 50px;
+    float:left;
+    position: relative;
+}
+.back{
+    width: 15px;
+    height: 20px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+.titlediv{
+    height: 50px;
+    width: 90%;
+    float: left;
+    position: relative;
+    font-family: Tahoma,Verdana,STHeiTi,simsun,sans-serif;
+}
+.title{
+    font-size: 20px;
+    color: #FFFFFF;
+    font-weight: 400;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 25px;
+    width: 100px;
+}
+/*日期选择区域*/
+.dateconditiondiv{
+    width: 100%;
+}
+.datebuttondiv{
+    width: 100%;
+    height: 60px;
+    text-align: center;
+}
+.datebuttondiv label{
+    height: 35px;
+    width: 90%;
+    border: 1px solid #F4A046;
+    border-radius: 5px;
+    background-color: #F4A046;
+    font-size: 18px;
+    font-weight: 500;
+    color: #FFFFFF;
+    margin-top: 10px;
+    padding-top: 10px;
+    margin-left: 5%;
+}
+.dateselectdiv{
+    min-height: 10px;
+    width: 100%;
+    text-align: left;
+    background-color: #F2ECE3;
+}
+.dateselect{
+    font-size: 16px;
+    font-weight: 800;
+    color: #56392F;
+    padding-left: 10px;
+    height: 50px;
+    line-height: 50px;
+}
+/*搜索结果为空区域*/
+.emptylist{
+    text-align: center;
+    width: 100%;
+    margin-top: 30px;
+    height: 180px;
+}
+.emptylist div img{
+    height: 50px;
+    width: 50px;
+}
+.emptydate{
+    font-size: 16px;
+    font-weight: 500;
+    color: #56392F;
+    margin-top: 10px;
+}
+.emptybutton{
+    width: 50%;
+    height: 30px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #F4A046;
+    border: 1px solid #F4A046;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    margin-top: 10px;
+    margin-left: 25%;
+    padding-top: 5px;
+}
+/*音频播放区域*/
+.videoplaydiv{
+    height: 40px;
+    width: 100%;
+    padding-left: 2%;
+}
+.videoplay{
+    width: 96%;
+    height: 30px;
+    background: #F4A046;
+    border-radius: 5px;
+    border: 1px solid #F2ECE3;
+}
+.videotitlediv{
+    text-align: center;
+    margin-top: 5px;
+    font-size: 18px;
+    font-weight: 800;
+    color: #56392F;
+    height: 40px;
+    line-height: 40px;
+}
+.healthvoicevideoplaydiv{
+    height: 90px;
+    width: 100%;
+}
+/*音频列表页*/
+.videolistdiv{
+    min-height: 100px;
+    width: 100%;
+}
+.videolistdiv table{
+    width: 100%;
+    border-collapse: collapse;
+}
+.videolistdiv table tbody tr td{
+    height: 50px;
+    border-bottom: 1px solid #DFD7C8;
+}
+.videolistdiv table tbody tr td:nth-child(1){
+    width: 35px;
+}
+.videolistdiv table tbody tr td:nth-child(3){
+    width: 30px;
+}
+.videolistdiv table tbody tr td img{
+    width: 20px;
+    height: 20px;
+    padding-left: 5px;
+}
+.videotitle1{
+    font-size: 14px;
+    font-weight: 400;
+    color: #56392F;
+    padding-left: 5px;
+}
+.videotitle2{
+    font-size: 16px;
+    font-weight: 600;
+    color: #56392F;
+    padding-left: 5px;
+}
+.circlediv{
+    width: 25px;
+    height: 25px;
+    border-radius: 13px;
+    border: 1px solid #F39F51;
+    line-height: 25px;
+    text-align: center;
+    margin-left: 5px;
+}
+.trianglediv{
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-left: 10px solid #F39F51;
+    border-bottom: 5px solid transparent;
+    margin-left: 9px;
+    margin-top: 7px;
+}
+.paralleldiv{
+    width: 4px;
+    height: 10px;
+    border-left: 2px solid #F39F51;
+    border-right: 2px solid #F39F51;
+    margin-left: 8px;
+    margin-top: 7px;
+}
+/*翻页*/
+.page{
+    width: 100%;
+    height: 60px;
+    background-color: #F2ECE3;
+    text-align: center;
+}
+.previouspagediv, .currentpagediv, .nextpagediv{
+    width: 33.3%;
+    height: 60px;
+    float:left;
+    position: relative;
+    text-align: center;
+}
+.previouspage, .currentpage, .nextpage{
+    font-size: 15px;
+    color: #56392F;
+    font-weight: 500;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 30px;
+    width: 70px;
+    line-height: 30px;
+    border: 1px solid #DFD7CB;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+}
+.previouspage{
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+.previouspage_opacity{
+    font-size: 15px;
+    color: #56392F;
+    font-weight: 500;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 30px;
+    width: 70px;
+    line-height: 30px;
+    border: 1px solid #DFD7CB;
+    border-radius: 5px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: #FFFFFF;
+    opacity: 0.6;
+}
+.nextpage{
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+.nextpage_opacity{
+    font-size: 15px;
+    color: #56392F;
+    font-weight: 500;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 30px;
+    width: 70px;
+    line-height: 30px;
+    border: 1px solid #DFD7CB;
+    border-radius: 5px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background-color: #FFFFFF;
+    opacity: 0.6;
+}
+/*底部*/
+#footer{
+    background-color: #F2ECE3;
+}
+.addiv{
+    height: 20px;
+    margin-bottom: 10px;
+}
+.switchdiv{
+    width: 95%;
+    margin: 0 auto;
+}
+.phonediv{
+    width: 45%;
+    height: 30px;
+    float: left;
+    text-align: right;
+}
+.pcdiv{
+    width: 45%;
+    height: 30px;
+    float: left;
+    text-align: right;
+}
+.phonepcdiv{
+    width: 10%;
+    float: left;
+    height: 30px;
+}
+.phone, .pc{
+    width: 100px;
+    height: 25px;
+    border: 2px solid #F39F51;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #F39F51;
+    margin:0 auto;
+    text-align: center;
+    vertical-align: middle;
+}
+.phoneimg, .pcimg{
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    float: left;
+    margin-left: 10px;
+}
+.phonetext, .pctext{
+    width: 50px;
+    float: left;
+    height: 30px;
+    line-height: 25px;
+}
+.phoneimg img, .pcimg img{
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+}
+.declarediv{
+    margin-top: 60px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+.aboutustitle{
+    color: #56392F;
+    font-size: 11px;
+    font-weight: 400;
+}
+.aboutuscontent{
+    color: #B8ACA4;
+    font-size: 10px;
+    font-weight: 200;
+    margin-top: 5px;
+}

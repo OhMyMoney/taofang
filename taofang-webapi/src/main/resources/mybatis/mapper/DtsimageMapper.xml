@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.taofang.webapi.dao.DtsimageMapper" >
+  <resultMap id="BaseResultMap" type="com.taofang.webapi.model.Dtsimage" >
+    <result column="ID" property="id" jdbcType="INTEGER" />
+    <result column="Sequence" property="sequence" jdbcType="INTEGER" />
+    <result column="Title" property="title" jdbcType="VARCHAR" />
+    <result column="Image" property="image" jdbcType="VARCHAR" />
+    <result column="Music" property="music" jdbcType="VARCHAR" />
+    <result column="CreateBy" property="createby" jdbcType="VARCHAR" />
+    <result column="CreateDate" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="LastModify" property="lastmodify" jdbcType="VARCHAR" />
+    <result column="LastModifyDate" property="lastmodifydate" jdbcType="TIMESTAMP" />
+    <result column="Video" property="video" jdbcType="VARCHAR" />
+    <result column="Category" property="category" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.taofang.webapi.model.Dtsimage" extends="BaseResultMap" >
+    <result column="Detail" property="detail" jdbcType="LONGVARCHAR" />
+  </resultMap>
+</mapper>

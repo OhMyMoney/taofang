@@ -1,4 +1,4 @@
-package com.taofang.webapi.dao;
+package com.taofang.webapi.dao.persistence;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;

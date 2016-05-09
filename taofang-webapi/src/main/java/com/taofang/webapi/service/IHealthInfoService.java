@@ -1,7 +1,9 @@
 package com.taofang.webapi.service;
 
-import com.taofang.webapi.bean.HealthInfoCondition;
-import com.taofang.webapi.domain.HealthInfoPagination;
+import com.taofang.webapi.domain.HealthInfo;
+import com.taofang.webapi.domain.HealthInfoWithLinks;
+
+import java.util.List;
 
 /**
  * @Desc
@@ -9,6 +11,9 @@ import com.taofang.webapi.domain.HealthInfoPagination;
  * @Create 2016-04-17
  */
 public interface IHealthInfoService {
+    int getHealthInfoAmount();
 
-    HealthInfoPagination getHealthInfoPaginationByCondition(HealthInfoCondition condition);
+    List<HealthInfo> getHealthInfoByPagination(int start, int limit);
+
+    HealthInfoWithLinks getHealthInfoWithLinksById(int id);
 }

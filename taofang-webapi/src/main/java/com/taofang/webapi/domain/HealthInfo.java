@@ -14,6 +14,12 @@ public class HealthInfo {
 
     private String title;
 
+    private String content;
+
+    private String imageUrl;
+
+    private int thumbCount;
+
     @XmlElement(name="id")
     public int getId() {
         return id;
@@ -22,6 +28,18 @@ public class HealthInfo {
     public String getTitle() {
         return title;
     }
+    @XmlElement(name="content")
+    public String getContent() {
+        return content;
+    }
+    @XmlElement(name="imageUrl")
+    public String getImageUrl() {
+        return imageUrl;
+    }
+    @XmlElement(name="thumbCount")
+    public int getThumbCount() {
+        return thumbCount;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -29,5 +47,17 @@ public class HealthInfo {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public void setThumbCount(int thumbCount) {
+        this.thumbCount = thumbCount;
     }
 }

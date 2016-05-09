@@ -1,30 +1,31 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.taofang.webapi.dao.ArticleMapper" >
-  <resultMap id="BaseResultMap" type="com.taofang.webapi.model.Article" >
-    <result column="ArticleID" property="articleid" jdbcType="INTEGER" />
-    <result column="ArticleName" property="articlename" jdbcType="VARCHAR" />
-    <result column="ImageUrl" property="imageurl" jdbcType="VARCHAR" />
-    <result column="LinkUrl" property="linkurl" jdbcType="VARCHAR" />
-    <result column="Sequence" property="sequence" jdbcType="INTEGER" />
-    <result column="LastUpdateDate" property="lastupdatedate" jdbcType="TIMESTAMP" />
-    <result column="LastUpdateUser" property="lastupdateuser" jdbcType="VARCHAR" />
-    <result column="Title" property="title" jdbcType="VARCHAR" />
-    <result column="KeyWord" property="keyword" jdbcType="VARCHAR" />
-    <result column="Description" property="description" jdbcType="VARCHAR" />
-    <result column="CategoryID" property="categoryid" jdbcType="INTEGER" />
-    <result column="SetUrl" property="seturl" jdbcType="VARCHAR" />
-    <result column="IsProgramEncyclopedia" property="isprogramencyclopedia" jdbcType="CHAR" />
-    <result column="IsPrescriptionIndex" property="isprescriptionindex" jdbcType="INTEGER" />
-    <result column="Summary" property="summary" jdbcType="VARCHAR" />
-    <result column="Symptom" property="symptom" jdbcType="VARCHAR" />
-    <result column="Disease" property="disease" jdbcType="VARCHAR" />
-    <result column="Video" property="video" jdbcType="VARCHAR" />
-    <result column="VideoDate" property="videodate" jdbcType="TIMESTAMP" />
-    <result column="Category" property="category" jdbcType="INTEGER" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.taofang.webapi.dao.ArticleMapper">
+  <resultMap id="BaseResultMap" type="com.taofang.webapi.model.Article">
+    <result column="ArticleID" jdbcType="INTEGER" property="articleid" />
+    <result column="ArticleName" jdbcType="VARCHAR" property="articlename" />
+    <result column="ImageUrl" jdbcType="VARCHAR" property="imageurl" />
+    <result column="LinkUrl" jdbcType="VARCHAR" property="linkurl" />
+    <result column="Sequence" jdbcType="INTEGER" property="sequence" />
+    <result column="LastUpdateDate" jdbcType="TIMESTAMP" property="lastupdatedate" />
+    <result column="LastUpdateUser" jdbcType="VARCHAR" property="lastupdateuser" />
+    <result column="Title" jdbcType="VARCHAR" property="title" />
+    <result column="KeyWord" jdbcType="VARCHAR" property="keyword" />
+    <result column="Description" jdbcType="VARCHAR" property="description" />
+    <result column="CategoryID" jdbcType="INTEGER" property="categoryid" />
+    <result column="SetUrl" jdbcType="VARCHAR" property="seturl" />
+    <result column="IsProgramEncyclopedia" jdbcType="CHAR" property="isprogramencyclopedia" />
+    <result column="IsPrescriptionIndex" jdbcType="INTEGER" property="isprescriptionindex" />
+    <result column="Disease" jdbcType="VARCHAR" property="disease" />
+    <result column="Video" jdbcType="VARCHAR" property="video" />
+    <result column="VideoDate" jdbcType="TIMESTAMP" property="videodate" />
+    <result column="Category" jdbcType="INTEGER" property="category" />
+    <result column="IsDTS" jdbcType="INTEGER" property="isdts" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.taofang.webapi.model.Article" extends="BaseResultMap" >
-    <result column="ArticleContent" property="articlecontent" jdbcType="LONGVARCHAR" />
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.taofang.webapi.model.ArticleWithBLOBs">
+    <result column="ArticleContent" jdbcType="LONGVARCHAR" property="articlecontent" />
+    <result column="Summary" jdbcType="LONGVARCHAR" property="summary" />
+    <result column="Symptom" jdbcType="LONGVARCHAR" property="symptom" />
   </resultMap>
 
   <select id="countHealthVoiceByVideoDate" resultType="java.lang.Integer">
@@ -38,7 +39,7 @@
         and VideoDate = #{videoDate, jdbcType=TIMESTAMP}
       </if>
   </select>
-  <select id="selectHealthVoiceByVideoDate" resultMap="BaseResultMap">
+  <select id="selectHealthVoiceByVideoDate" resultMap="ResultMapWithBLOBs">
     select
       ArticleID, ArticleName, Video
     from
