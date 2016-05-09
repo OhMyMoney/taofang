@@ -3,7 +3,7 @@ function backhomepage() {
 }
 function getPrescriptionPagination(prescription, order, page, pageSize) {
     $.cookie('PrescriptionName', prescription, {expires: 1, path: '/'});
-    var url = "http://192.168.31.199:8080/taofang/webapi/prescription?name=" + prescription + "&order=" + order + "&page=" + page + "&pageSize=" + pageSize;
+    var url = "http://101.201.47.48/taofang/webapi/prescription?name=" + prescription + "&order=" + order + "&page=" + page + "&pageSize=" + pageSize;
     $.ajax({
         url: url,
         success: processPaginationData
@@ -64,7 +64,7 @@ function showPrescriptionDetail(id) {
 /*详细信息页面区域*/
 function getPrescriptionDetail(id) {
     $.ajax({
-        url: "http://192.168.31.199:8080/taofang/webapi/prescription/" + id,
+        url: "http://101.201.47.48/taofang/webapi/prescription/" + id,
         success: processDetailData
     });
 }

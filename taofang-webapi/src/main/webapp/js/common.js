@@ -32,7 +32,7 @@ function processRelationLink(relationLinks) {
 
 function goToHomePage(device){
     if(device == 'phone'){
-        location.href = "http://192.168.31.199:8080/";
+        location.href = "http://101.201.47.48/";
     }else if(device == 'pc'){
         location.href = "http://www.99taofang.com/";
     }
