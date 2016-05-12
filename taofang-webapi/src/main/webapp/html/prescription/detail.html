@@ -6,12 +6,12 @@
     <title>九九淘方网</title>
     <link rel="stylesheet" href="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" href="../../css/prescription-detail.css">
+    <link rel="stylesheet" href="../../css/font.css">
     <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script src="../../js/jquery.cookie.js"></script>
     <script src="../../js/prescription.js"></script>
     <script src="../../js/common.js"></script>
-
     <script type="text/javascript">
         $(document).ready(function () {
             // 返回按钮
@@ -29,7 +29,7 @@
                 }
             })(jQuery);
             var id = $.getUrlParam('id');
-            $.cookie('PrescriptionId', id, {expires: 1, path: '/'});
+            $.cookie('PrescriptionId', id, {expires: 7, path: '/'});
             getPrescriptionDetail(id);
         });
     </script>
@@ -39,7 +39,7 @@
     <div id="header" data-role="header">
         <div class="blackheader" >
             <div class="backdiv"><img class="back" src="../../image/common/back.png"></div>
-            <div class="titlediv"><div class="title">偏方</div></div>
+            <div class="titlediv"><div class="title web-font">偏方</div></div>
             <div class="morediv">
                 <a href="#collectsharediv" data-rel="popup"><img src="../../image/common/more.png"></a>
             </div>
@@ -107,7 +107,7 @@
                         </tbody>
                     </table>-->
                 </div>
-                <div class="commentbuttondiv"><div onclick="prescriptionComment()" class="commentbutton">我要评论</div></div>
+                <div class="commentbuttondiv"><div id="commentbutton" onclick="prescriptionComment()" class="commentbutton">我要评论</div></div>
             </div>
             <div onclick="backPrescriptionList()" class="commentbacklistbutton">换一个偏方</div>
         </div>

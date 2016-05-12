@@ -55,6 +55,15 @@ public class ElasticsearchDao{
         return diseaseNames;
     }
 
+    public String searchMaterialById(int prescriptionId) throws IOException {
+        String query = ElasticsearchModelUtil.createPrescriptionSimpleQuery(prescriptionId);
+        Search search = new Search.Builder(query).addIndex(ElasticsearchConstant.LIANGFANG_INDEX).build();
+        SearchResult result = client.execute(search);
+        SearchResult.Hit<LiangfangBean, Void> liangfangHit = result.getFirstHit(LiangfangBean.class);
+
+        return liangfangHit.source.getP_Material();
+    }
+
     @PostConstruct
     public void init(){
         JestClientFactory factory = new JestClientFactory();

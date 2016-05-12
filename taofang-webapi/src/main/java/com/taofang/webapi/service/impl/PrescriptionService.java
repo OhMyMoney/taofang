@@ -2,6 +2,7 @@ package com.taofang.webapi.service.impl;
 
 import com.taofang.webapi.bean.CommentBean;
 import com.taofang.webapi.bean.PrescriptionInfoBean;
+import com.taofang.webapi.constant.ImageConstant;
 import com.taofang.webapi.dao.CommentstarMapper;
 import com.taofang.webapi.dao.PrescriptionmessageMapper;
 import com.taofang.webapi.dao.RelationlinkMapper;
@@ -54,13 +55,6 @@ public class PrescriptionService implements IPrescriptionService{
     }
 
     @Override
-    public PrescriptionRelateInfo getPrescriptionRelateInfoByName(String prescriptionName) {
-        PrescriptionRelateInfo prescriptionRelateInfo = new PrescriptionRelateInfo();
-
-        return prescriptionRelateInfo;
-    }
-
-    @Override
     public PrescriptionWithLinks getPrescriptionWithLinksById(int id) {
         Prescription prescription = new Prescription();
         List<RelationLinkInfo> videoLinks = new ArrayList<>();
@@ -95,6 +89,37 @@ public class PrescriptionService implements IPrescriptionService{
             prescription.setId(0);
         }
         return new PrescriptionWithLinks(prescription, videoLinks, contentLinks, commentList);
+    }
+
+    @Override
+    public String getMaterialById(int id) {
+        String material;
+        try{
+            material = elasticsearchDao.searchMaterialById(id);
+            material = material.replaceAll("\\.\\./", "");
+            while(material.contains("/Content/Resources/")){
+                material = material.replaceAll("/Content/Resources/", "Content/Resources/");
+            }
+            while(material.contains("&nbsp; ")){
+                material = material.replaceAll("&nbsp; ", "&nbsp;");
+            }
+            material = material.replaceAll("&nbsp;", "");
+            material = material.replaceAll("Content/Resources/", ImageConstant.IMAGE_BASE_URL);
+            LOGGER.info("根据偏方ID[id:" + id + "],查询偏方的相关用料 ==> " + material);
+        }catch(Exception e){
+            LOGGER.error("根据偏方ID[id:" + id + "],查询偏方的相关用料 ==> error ==> " + e.getMessage(), e);
+            material = "";
+        }
+        return material;
+    }
+
+    public static void main(String[] args){
+        String material  = "../../../../Content/Resources/cbe56e33-d764-414c-b9c7-bdb2642ffaa9.jpg";
+        material = material.replaceAll("\\.\\./", "");
+        while(material.contains("/Content/Resources/")){
+            material = material.replaceAll("/Content/Resources/", "Content/Resources/");
+        }
+        System.out.println(material.replaceAll("Content/Resources/", ImageConstant.IMAGE_BASE_URL));
     }
 
 }

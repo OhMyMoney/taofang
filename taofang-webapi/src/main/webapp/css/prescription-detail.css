@@ -1,6 +1,7 @@
 /*页头*/
+@import "font.css";
 body {
-    font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif
+    font-family: "webfont" !important;
 }
 .blackheader{
     width: 100%;
@@ -33,7 +34,7 @@ body {
 .title{
     font-size: 20px;
     color: #FFFFFF;
-    font-weight: 400;
+    font-style: normal;
     position: absolute;
     left: 0;
     right: 0;
@@ -80,7 +81,6 @@ body {
 .cstitle{
     color: #56392F;
     font-size: 14px;
-    font-weight: bold;
     margin-left: 10px;
 }
 /*详细内容区*/
@@ -88,17 +88,16 @@ body {
     height: 20px;
     line-height: 20px;
     padding-left: 8px;
-    font-weight: bold;
     font-size: 18px;
     color: #56392F;
     margin-top: 10px;
+    font-weight: 800;
 }
 .contentauthor{
     height: 20px;
     line-height: 20px;
     width: 100%;
     padding-left: 15px;
-    font-weight: 200;
     font-size: 12px;
     color: #BCB1AD;
     opacity: 0.8;
@@ -107,7 +106,6 @@ body {
     min-height: 50px;
     color: #56392F;
     font-size: 12px;
-    font-weight: 400;
 }
 .contentstory p {
     padding-left: 10px;
@@ -141,10 +139,10 @@ body {
     margin-left: 20%;
     font-size: 16px;
     color: #FFFFFF;
-    font-weight: 100;
     background-color: #F39F51;
     border-radius: 5px;
     text-align: center;
+    font-family: webfontlight !important;
 }
 #contentdetail{
     width: 100%;
@@ -242,7 +240,6 @@ body {
     width: 15%;
     color: #F39F51;
     font-size: 16px;
-    font-weight: bold;
     height: 30px;
     line-height: 30px;
 }
@@ -287,7 +284,6 @@ body {
     margin-left: 25%;
     font-size: 15px;
     color: #F39F51;
-    font-weight: 100;
     border: 1px solid #F39F51;
     border-radius: 5px;
     text-align: center;
@@ -295,12 +291,12 @@ body {
 /*相关链接*/
 .relationlinktitle{
     font-size: 15px;
-    font-weight: 600;
     color: #56392F;
     background-color: #F2ECE3;
     height: 40px;
     line-height: 40px;
     padding-left: 10px;
+    font-weight: 800;
 }
 #relationvideo, #relationlink{
     min-height: 50px;
@@ -322,7 +318,6 @@ body {
 }
 .videotitle1{
     font-size: 14px;
-    font-weight: 400;
     color: #56392F;
     padding-left: 5px;
 }
@@ -374,22 +369,18 @@ body {
 }
 a:link {
     text-decoration: none;
-    font-weight: 500;
     color: #56392F;
 }
 a:visited {
     text-decoration: none;
-    font-weight: 500;
     color: #56392F;
 }
 a:hover {
     text-decoration: none;
-    font-weight: 500;
     color: #56392F;
 }
 a:active {
     text-decoration: none;
-    font-weight: 500;
     color: #56392F;
 }
 .ui-page-theme-a a:visited, html .ui-bar-a a:visited, html .ui-body-a a:visited, html body .ui-group-theme-a a:visited {
@@ -407,6 +398,88 @@ a:active {
     height: 40px;
     width: 100%;
     margin-left: 2%;
+}
+/*弹出窗*/
+.closediv{
+    width: 100%;
+    height: 40px;
+    text-align: right;
+}
+.closediv img{
+    height: 30px;
+    width: 30px;
+    margin-right: 4px;
+    margin-top: 4px;
+}
+.noteimagediv{
+    float: left;
+    width: 35%;
+    height: 70px;
+    line-height: 70px;
+    text-align: right;
+}
+.noteimagediv img{
+    width: 40px;
+    height: 40px;
+    padding-right: 10px;
+    margin-top: 15px;
+}
+.noteworlddiv{
+    float: left;
+    width: 65%;
+    height: 70px;
+    line-height: 70px;
+    text-align: left;
+    font-size: 16px;
+    font-weight: 800;
+    color: #333333;
+}
+.logindiv, .registerdiv{
+    float: left;
+    width: 50%;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+.logindiv div{
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 10px;
+    font-size: 16px;
+    color: #FFFFFF;
+    background: #F39F51;
+    border: 1px solid #F39F51;
+    height: 35px;
+    line-height: 35px;
+    border-radius: 5px;
+}
+.registerdiv div{
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 10px;
+    font-size: 16px;
+    color: #F39F51;
+    border: 1px solid #F39F51;
+    height: 35px;
+    line-height: 35px;
+    border-radius: 5px;
+}
+/*相关用料*/
+.imagediv{
+    min-height: 100px;
+    width: 100%;
+}
+#imagediv img {
+    width: 90%;
+}
+#imagediv p {
+    -webkit-margin-before: 0.5em;
+    -webkit-margin-after: 0.5em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    font-size: 15px;
+    font-weight: 800;
+    color: #56392F;
 }
 /*页脚*/
 #footer{
@@ -443,7 +516,6 @@ a:active {
     border: 2px solid #F39F51;
     border-radius: 5px;
     font-size: 12px;
-    font-weight: 500;
     color: #F39F51;
     margin:0 auto;
     text-align: center;
@@ -475,11 +547,10 @@ a:active {
 .aboutustitle{
     color: #56392F;
     font-size: 11px;
-    font-weight: 400;
 }
 .aboutuscontent{
     color: #B8ACA4;
     font-size: 10px;
-    font-weight: 200;
     margin-top: 5px;
+    font-weight: 100;
 }

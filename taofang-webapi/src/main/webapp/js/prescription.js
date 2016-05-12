@@ -2,7 +2,7 @@ function backhomepage() {
     location.href = "../home.html";
 }
 function getPrescriptionPagination(prescription, order, page, pageSize) {
-    $.cookie('PrescriptionName', prescription, {expires: 1, path: '/'});
+    $.cookie('PrescriptionName', prescription, {expires: 7, path: '/'});
     var url = "http://101.201.47.48/taofang/webapi/prescription?name=" + prescription + "&order=" + order + "&page=" + page + "&pageSize=" + pageSize;
     $.ajax({
         url: url,
@@ -70,6 +70,7 @@ function getPrescriptionDetail(id) {
 }
 function showPrescriptionImages(){
     var id = $.cookie('PrescriptionId');
+    location.href = "detailimage.html?id=" + id;
 }
 function showCommentDetail() {
     if($("#commentlistdiv").is(":hidden")){
@@ -80,6 +81,12 @@ function showCommentDetail() {
 }
 function prescriptionComment() {
     var id = $.cookie('PrescriptionId');
+    var userName = $.cookie('userName');
+    if(userName == "" || userName == undefined){
+        var toTop = $("#commentbutton").offset().top;
+        showpopup(toTop - 100);
+        $("#msgDiv").html(inertPopupEmum());
+    }
 }
 function backPrescriptionList(){
     location.href = "list.html?prescription=" + $.cookie('PrescriptionName');
@@ -127,7 +134,7 @@ function processDetailData(data) {
     var videoLinksEnum = $("<table><tbody></tbody></table>");
     for(var i=0; i<videoLinks.length; i++){
         var videoLink = videoLinks[i];
-        var onclickFunc = "playVideo('" + videoLink.url + "', " + videoLink.id + ", '" + videoLink.title +  "')";
+        var onclickFunc = "playVideo('" + videoLink.linkUrl + "', " + videoLink.id + ", '" + videoLink.title +  "')";
         var playimg = "playimg" + videoLink.id;
         var playtitle = "playtitle" + videoLink.id;
         var videoLinkTrEnum = $("<tr></tr>");
@@ -167,8 +174,40 @@ function playVideo(videoUrl, id, title) {
     }
 }
 function collectPrescription() {
-    alert(collectPrescription);
+    var userName = $.cookie('userName');
+    if(userName == "" || userName == undefined){
+        showpopup(100);
+        $("#msgDiv").html(inertPopupEmum());
+    }
 }
 function sharePrescription() {
-    alert(sharePrescription);
+    var userName = $.cookie('userName');
+    if(userName == "" || userName == undefined){
+        showpopup(100);
+        $("#msgDiv").html(inertPopupEmum());
+    }
+}
+function gologinpage() {
+    location.href = "../login.html";
+}
+function goregisterpage() {
+    location.href = "../register.html";
+}
+function inertPopupEmum() {
+    return $("<div class='closediv'><img onclick='closepopup()' src='../../image/common/close.png' /></div>"
+        + "<div><div class='noteimagediv'><img src='../../image/common/note_yellow.png' /></div><div class='noteworlddiv'>使用此功能前请登录</div></div>"
+        + "<div><div class='logindiv'><div onclick='gologinpage()'>马上去登录</div></div><div class='registerdiv'><div onclick='goregisterpage()'>新用户注册</div></div></div>");
+}
+/*相关用料页面*/
+function getPrescriptionImageDetail(id) {
+    if(id == null || id == "" || id == undefined){
+        id = 0;
+    }
+    $.ajax({
+        url: "http://localhost:8080/taofang/webapi/prescription/" + id + "/material",
+        success: processImageDetailData
+    });
+}
+function processImageDetailData(data) {
+    $("#imagediv").html(data);
 }

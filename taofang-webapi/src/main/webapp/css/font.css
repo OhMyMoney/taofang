@@ -1,0 +1,21 @@
+@font-face {font-family: "webfontbold";
+    src: url('font/webfont/bold/webfont.eot'); /* IE9*/
+    src: url('font/webfont/bold/webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('font/webfont/bold/webfont.woff') format('woff'), /* chrome、firefox */
+    url('font/webfont/bold/webfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('font/webfont/bold/webfont.svg#webfont') format('svg'); /* iOS 4.1- */
+}
+@font-face {font-family: "webfont";
+    src: url('font/webfont/normal/webfont.eot'); /* IE9*/
+    src: url('font/webfont/normal/webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('font/webfont/normal/webfont.woff') format('woff'), /* chrome、firefox */
+    url('font/webfont/normal/webfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('font/webfont/normal/webfont.svg#webfont') format('svg'); /* iOS 4.1- */
+}
+@font-face {font-family: "webfontlight";
+    src: url('font/webfont/light/webfont.eot'); /* IE9*/
+    src: url('font/webfont/light/webfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('font/webfont/light/webfont.woff') format('woff'), /* chrome、firefox */
+    url('font/webfont/light/webfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('font/webfont/light/webfont.svg#webfont') format('svg'); /* iOS 4.1- */
+}
