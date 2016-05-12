@@ -204,7 +204,7 @@ function getPrescriptionImageDetail(id) {
         id = 0;
     }
     $.ajax({
-        url: "http://localhost:8080/taofang/webapi/prescription/" + id + "/material",
+        url: "http://101.201.47.48/taofang/webapi/prescription/" + id + "/material",
         success: processImageDetailData
     });
 }
