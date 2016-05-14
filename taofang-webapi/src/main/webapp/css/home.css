@@ -1,6 +1,274 @@
 #navigation{
     background-color: #434547;
 }
+.navigationdiv{
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    border-bottom: 1px outset #F2ECE3;
+}
+.clickshowdiv{
+    float: left;
+    width: 2%;
+    height: 60px;
+}
+.clickshowdiv_home{
+    float: left;
+    width: 2%;
+    height: 60px;
+    background-color: #F39F45;
+}
+.navigationimgdiv{
+    float: left;
+    width: 18%;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+}
+.navigationimgdiv_home{
+    float: left;
+    width: 18%;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    background-color: #27292B;
+}
+.navigationimgdiv img, .navigationimgdiv_home img{
+    width: 20px;
+    height: 20px;
+    margin-top: 20px;
+}
+.navigationtitlediv{
+    float: left;
+    width: 80%;
+    height: 60px;
+    line-height: 60px;
+    font-size: 14px;
+    color: #CCCFD3;
+}
+.navigationtitlediv_home{
+    float: left;
+    width: 80%;
+    height: 60px;
+    line-height: 60px;
+    font-size: 14px;
+    color: #FFFFFF;
+    background-color: #27292B;
+}
+#header{
+    background-image: url("../image/home/headerbackground.png");
+    background-size: 100% 300px;
+    width: 100%;
+}
+#headertitlediv{
+    width: 100%;
+    height: 55px;
+    line-height: 55px;
+    text-align: center;
+}
+.headernldiv{
+    float: left;
+    width: 12%;
+    text-align: center;
+    height: 55px;
+}
+.headernldiv img{
+    height: 25px;
+    width: 25px;
+    margin-top: 15px;
+}
+.headerjiujiudiv{
+    float: left;
+    width: 76%;
+    text-align: center;
+    height: 55px;
+}
+.headerjiujiudiv img{
+    height: 30px;
+    width: 120px;
+    margin-top: 8px;
+}
+.loginregisternavigation{
+    top: 42px;
+    right: 8px;
+    height: 71px;
+    width: 90px;
+    position: absolute;
+    background-color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    opacity: 0.8;
+    z-index: 10000;
+}
+.lrnavigationldiv{
+    height: 35px;
+    line-height: 35px;
+    color: #56392F;
+    font-size: 14px;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid #F2ECE3;
+}
+.lrnavigationrdiv{
+    height: 35px;
+    line-height: 35px;
+    color: #56392F;
+    font-size: 14px;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+}
+#headerprescriptiondiv{
+    width: 100%;
+    height: 55px;
+    padding-left: 2%;
+}
+#prescriptionnamediv{
+    float: left;
+    width: 71%;
+    border: 1px solid #DFD7C8;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    height: 40px;
+    line-height: 40px;
+    background-color: #FFFFFF;
+}
+.prescriptionname{
+    width: 95%;
+    height: 30px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border: none;
+    padding-left: 8px;
+    font-size: 14px;
+    font-weight: 400;
+}
+.prescriptionbutton{
+    float: left;
+    width: 24%;
+    height: 40px;
+    line-height: 40px;
+    border: 1px solid #F4A046;
+    background-color: #F4A046;
+    font-size: 16px;
+    font-weight: 400;
+    color: #FFFFFF;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    text-align: center;
+}
+
+
+.contentblock{
+    width: 100%;
+    height: 4px;
+    background-color: #F2ECE3;
+}
+.onetotaldivclass{
+    margin-top: 20px;
+    width: 100%;
+}
+.contentnavigation1spacediv{
+    width: 94%;
+    margin-left: 3%;
+    height: 100px;
+    border: none;
+    border-radius: 8px;
+    background-size: 100% 100px;
+    text-align: center;
+    background-image: url("../image/home/healthvoicebackground.png");
+}
+.twototaldivclass{
+    margin-top: 10px;
+    width: 100%;
+    height: 100px;
+}
+.divtwoclass{
+    float: left;
+    width: 50%;
+}
+.contentnavigation2spaceleftdiv{
+    width: 92%;
+    margin-left: 6%;
+    height: 100px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    background-size: 100% 100px;
+}
+.contentnavigation2spacerightdiv{
+    width: 92%;
+    margin-right: 6%;
+    height: 100px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    background-size: 100% 100px;
+}
+.contentnavigation2spacediv_mystory{
+    background-image: url("../image/home/mystorybackground.png");
+}
+.contentnavigation2spacediv_naturaltherapy{
+    background-image: url("../image/home/naturaltherapybackground.png");
+}
+.contentnavigation2spacediv_ritucharya{
+    background-image: url("../image/home/ritucharyabackground.png");
+}
+.contentnavigation2spacediv_healthinfo{
+    background-image: url("../image/home/healthinfobackground.png");
+}
+.cncircle1{
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    background-color: rgba(100, 100, 100, 0.5);
+    display:inline-block;
+    margin-top: 10px;
+}
+.cncircle2{
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    background-color: rgba(244, 172, 71, 0.5);
+    display:inline-block;
+    margin-top: 10px;
+}
+.cncircleimg{
+    text-align: center;
+}
+.cncircleimg img{
+    width: 20px;
+    height: 20px;
+    padding-top: 15px;
+}
+.cncircletext{
+    text-align: center;
+    font-size: 13px;
+    color: white;
+    margin-top: 5px;
+}
+#contentnavigation{
+    margin-bottom: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #navigation table{
     width: 100%;
     font-size: 20px;
@@ -317,48 +585,7 @@ ul.timeline li .content table tbody tr td img{
     font-weight: 200;
     margin-top: 5px;
 }
-/*搜索区域*/
-#prescriptiondiv{
-    width: 100%;
-    height: 50px;
-    padding-left: 4%;
-}
-#prescriptionnamediv{
-    float: left;
-    width: 68%;
-    border: 1px solid #DFD7C8;
-    border-bottom-left-radius: 5px;
-    border-top-left-radius: 5px;
-    height: 40px;
-    line-height: 40px;
-    background-color: #FFFFFF;
-}
-.prescriptionname{
-    width: 95%;
-    height: 30px;
-    border-top-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-    border: none;
-    padding-left: 8px;
-    font-size: 14px;
-    font-weight: 400;
-}
-.prescriptionbutton{
-    float: left;
-    width: 24%;
-    height: 40px;
-    line-height: 40px;
-    border: 1px solid #F4A046;
-    background-color: #F4A046;
-    font-size: 16px;
-    font-weight: 400;
-    color: #FFFFFF;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    text-align: center;
-    font-family: Tahoma,Verdana,STHeiTi,simsun,sans-serif;
-}
-/*底部*/
+
 #footer{
     background-color: #F2ECE3;
 }

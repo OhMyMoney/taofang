@@ -9,6 +9,7 @@
     <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script src="../js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/common.js"></script>
     <script type="text/javascript" src="../js/loginregister.js"></script>
     <script>
         $(document).ready(function () {
@@ -17,7 +18,16 @@
     </script>
 </head>
 <body>
-    <div id="loginpage" data-role="page">
+    <div data-role="page">
+        <div id="header" data-role="header">
+            <div class="blackheader">
+                <div class="backdiv" onclick="backhomepage()"><img class="back" src="../../image/common/back.png"></div>
+                <div id="prescriptionnamediv">
+                    <input id="prescriptionname" data-role="none" class="prescriptionname" type="text" name="prescriptionName" placeholder="输入关键字寻找相关偏方">
+                </div>
+                <div class="prescriptionbutton" onclick="prescriptionSearch()">搜索</div>
+            </div>
+        </div>
         <div id="loginpageheader" data-role="header">
             <table>
                 <tbody>
