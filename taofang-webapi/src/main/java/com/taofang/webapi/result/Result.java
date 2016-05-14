@@ -13,6 +13,8 @@ public class Result {
     // 错误消息
     private List<String> failMessages;
 
+    private String data;
+
     @Override
     public String toString() {
         return "Result{" +
@@ -43,5 +45,13 @@ public class Result {
 
     public void setFailMessages(List<String> failMessages) {
         this.failMessages = failMessages;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
     }
 }

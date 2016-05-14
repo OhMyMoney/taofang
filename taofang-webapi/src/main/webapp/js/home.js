@@ -1,8 +1,9 @@
 var isShowLoginRegister = false;
+var countdown = 0;
 function initPage() {
+    initHeader();
     initPanelNavigation();
     initContentNavigation();
-    initHeader();
     initDisease();
     initViewHistory();
 }
@@ -80,13 +81,13 @@ function initDisease() {
 }
 /*浏览历史*/
 function initViewHistory() {
-
+    var userName = $.cookie('userName');
+    if(typeof(userName) == "undefined" || !userName || userName == ""){
+        insertEmptyViewHistoryElems();
+    }else{
+        insertUserViewHistoryElems();
+    }
 }
-
-
-
-
-
 
 function goNavigationPage(url) {
     location.href = url;
@@ -153,7 +154,7 @@ function insertLoginElems() {
         "<div class='inputvcodebuttondiv'><img onclick='refreshVCode()' src='../image/common/refresh.png' /></div>" +
         "</div></div>"));
     loginElems.append($("<div class='lrpopupbuttondiv'><div class='lrpopupbutton' onclick='login()'>立即登录</div></div>"));
-    loginElems.append($("<div id='loginregisterErrorMsg'></div>"));
+    loginElems.append($("<div id='loginregisterErrorMsg' class='error'></div>"));
     loginElems.append($("<div class='lrpopupwxqqlogindiv'>" +
         "<div class='wxqqlogindiv'><div class='wxqqlogin' onclick='loginByWX()'>" +
         "<div class='wxqqloginimgdiv'><img src='../image/home/weixin.png' /></div><div class='wxqqlogintextdiv'>微信登录</div></div></div>" +
@@ -168,19 +169,19 @@ function insertLoginElems() {
     $('#loginregisterdiv').html(loginElems);
 }
 function insertRegisterElems() {
-    var registerElems = $("<div id='logindiv'></div>");
+    var registerElems = $("<div id='registerdiv'></div>");
     registerElems.append($("<div class='lrpopupheaderdiv'><div class='lrpopupheadertitlediv'>注册</div>" +
         "<div class='lrpopupheaderimgdiv' onclick='closeLoginRegisterPopup()'><img src='../image/common/close_white.png' /></div></div>"));
     registerElems.append($("<div class='lrpopupinputdiv'>" +
         "<div class='inputdiv'><input class='npinput' type='text' name='phoneNumber' placeholder='输入您的手机号码' /></div>" +
         "<div class='inputdiv'><input class='npinput' type='text' name='userName' placeholder='设置您的名称' /></div>" +
         "<div class='inputdiv'><input class='npinput' type='password' name='password' placeholder='设置您的密码,数字加字母安全性更高' /></div>" +
-        "<div class='inputdiv'><input class='npinput' type='password' name='password' placeholder='再次输入您的密码' /></div>" +
+        "<div class='inputdiv'><input class='npinput' type='password' name='confirmPassword' placeholder='再次输入您的密码' /></div>" +
         "<div class='inputdiv1'><div class='inputsmscodediv'><input class='npinput' type='text' name='smsCode' placeholder='输入您收到的激活码' /></div>" +
-        "<div class='inputsmscodebuttondiv'><div class='inputsmscodebutton' onclick='registerSMSCode()'>免费获取短信激活码</div></div>" +
+        "<div class='inputsmscodebuttondiv'><div id='inputsmscodebutton' class='inputsmscodebutton' onclick='registerSMSCode(-1)'>免费获取短信激活码</div></div>" +
         "</div></div>"));
     registerElems.append($("<div class='lrpopupbuttondiv'><div class='lrpopupbutton' onclick='register()'>立即注册</div></div>"));
-    registerElems.append($("<div id='loginregisterErrorMsg'></div>"));
+    registerElems.append($("<div id='loginregisterErrorMsg' class='error'></div>"));
     registerElems.append($("<div class='lrpopupwxqqlogindiv'>" +
         "<div class='wxqqlogindiv'><div class='wxqqlogin' onclick='loginByWX()'>" +
         "<div class='wxqqloginimgdiv'><img src='../image/home/weixin.png' /></div><div class='wxqqlogintextdiv'>微信登录</div></div></div>" +
@@ -196,8 +197,25 @@ function insertForgetPasswordElems() {
 function closeLoginRegisterPopup() {
     $('#backgrounddiv').hide();
     $('#loginregisterdiv').hide();
-    $("#loginregisternavigation").hide();
+    $('#loginregisternavigation').hide();
     isShowLoginRegister = false;
+}
+function insertEmptyViewHistoryElems() {
+    var viewHistoryElems = $("<div class='emptyviewhistorydiv'></div>");
+    viewHistoryElems.append("<div class='viewhistorylinediv'>" +
+        "<div class='viewhistorylinetitle'>偏方</div>" +
+        "<div class='viewhistorylinepointdiv'><div class='viewhistorylinepoint'></div></div>" +
+        "<div class='viewhistorylinecontentdiv'><div class='viewhistorylinecontent'>您尚未浏览相关内容</div></div>" +
+    "</div>");
+    viewHistoryElems.append("<div class='viewhistorylinediv'>" +
+        "<div class='viewhistorylinetitle'>文章</div>" +
+        "<div class='viewhistorylinepointdiv'><div class='viewhistorylinepoint'></div></div>" +
+        "<div class='viewhistorylinecontentdiv'><div class='viewhistorylinecontent'>您尚未浏览相关内容</div></div>" +
+        "</div>");
+    $('#userviewhistory').html(viewHistoryElems);
+}
+function insertUserViewHistoryElems() {
+    getUserViewHistory($.cookie('userId'));
 }
 /*Ajax请求区域*/
 // 验证码
@@ -209,10 +227,40 @@ function refreshVCode() {
 }
 // 登录
 function login(){
-    $.ajax({
-        url: ajaxBaseUrl + "/user/vcode",
-        success: doVcodeRefresh
-    });
+    var errorMessage = checkLoginForm();
+    $("#loginregisterErrorMsg").addClass("error").text(errorMessage);
+    if(errorMessage == ""){
+        var userNameVal = $("#logindiv").find($("[name='userName']")).val();
+        var passwordVal = $("#logindiv").find($("[name='password']")).val();
+        $.ajax({
+            timeout: 5000,
+            url: ajaxBaseUrl + "/user/login",
+            contentType: "application/json",
+            data: JSON.stringify({userName : userNameVal, password : passwordVal}),
+            type: "post",
+            success: doLoginSuccess
+        });
+    }
+}
+// 注册
+function register() {
+    var errorMessage = checkRegisterForm();
+    $("#loginregisterErrorMsg").addClass("error").text(errorMessage);
+    if(errorMessage == ""){
+        var phoneNumberVal = $("#registerdiv").find($("[name='phoneNumber']")).val();
+        var userNameVal = $("#registerdiv").find($("[name='userName']")).val();
+        var passwordVal = $("#registerdiv").find($("[name='password']")).val();
+        var confirmPasswordVal = $("#registerdiv").find($("[name='confirmPassword']")).val();
+        var smsCodeVal = $("#registerdiv").find($("[name='smsCode']")).val();
+        $.ajax({
+            timeout: 5000,
+            url: ajaxBaseUrl + "/user/register",
+            contentType: "application/json",
+            data: JSON.stringify({phoneNumber:phoneNumberVal, userName:userNameVal, password:passwordVal, confirmPassword:confirmPasswordVal, smsCode:smsCodeVal}),
+            type: "post",
+            success: doRegisterSuccess
+        });
+    }
 }
 // 微信登录
 function loginByWX(){
@@ -222,25 +270,125 @@ function loginByWX(){
 function loginByQQ() {
 
 }
-// 注册
-function register() {
-
-}
 // 短信验证码
-function registerSMSCode() {
-
+function registerSMSCode(id) {
+    if(id == -1 && countdown > 0){
+        return;
+    }else if(id == -1){
+        countdown = 60;
+    }
+    if (countdown == 0) {
+        $("#inputsmscodebutton").attr("disabled", false)
+        $("#inputsmscodebutton").html("免费获取短信激活码");
+    } else {
+        $("#inputsmscodebutton").attr("disabled", true);
+        $("#inputsmscodebutton").html("重新发送(" + countdown + ")");
+        countdown--;
+    }
+    setTimeout(function() {
+        registerSMSCode(0);
+    }, 1000)
+}
+function getUserViewHistory(userId) {
+    $.ajax({
+        url: ajaxBaseUrl + "/user/viewhistory?userId=" + userId,
+        success: insertUserViewHistoryData
+    });
 }
 /*数据处理区域*/
 function doVcodeRefresh(data) {
     $("img.vcodeimg").attr("src", "../image/vcode/" + data + ".png");
 }
-
-function getUserViewHistory(userName) {
-    $.ajax({
-        url: "http://localhost:8080/taofang/webapi/user/view?userName=" + userName,
-        success: doGetUserViewHistory
-    });
+function checkLoginForm(){
+    var errorMessage = "";
+    var verificationCode = $("#logindiv").find($("[name='verificationCode']"));
+    var vcodeArr = $("img.vcodeimg").attr("src").split("/");
+    var vcode = vcodeArr[vcodeArr.length-1].split(".")[0];
+    if($.trim(verificationCode.val()) == ""){
+        errorMessage = "验证码不能为空";
+        verificationCode.focus();
+    }else if($.trim(verificationCode.val().toLocaleLowerCase()) != vcode.toLocaleLowerCase()){
+        errorMessage = "验证码输入错误,请重新输入";
+        verificationCode.val("");
+        verificationCode.focus();
+    }
+    var userName = $("#logindiv").find($("[name='userName']"));
+    var password = $("#logindiv").find($("[name='password']"));
+    if($.trim(userName.val()) == ""){
+        errorMessage = "用户名不能为空";
+        userName.focus();
+    }else if($.trim(password.val()) == ""){
+        errorMessage = "密码不能为空";
+        password.focus();
+    }
+    return errorMessage;
 }
+function checkRegisterForm() {
+    var errorMessage = "";
+    var phoneNumber = $("#registerdiv").find($("[name='phoneNumber']"));
+    var userName = $("#registerdiv").find($("[name='userName']"));
+    var password = $("#registerdiv").find($("[name='password']"));
+    var confirmPassword = $("#registerdiv").find($("[name='confirmPassword']"));
+    // 验证码=暂时不验证
+    var smsCode = $("#registerdiv").find($("[name='smsCode']"));
+    if($.trim(phoneNumber.val()) == ""){
+        errorMessage = "手机号码不能为空";
+        phoneNumber.focus();
+    }else if(isPhoneNumber(phoneNumber.val()) == false){
+        errorMessage = '手机号码不正确';
+        phoneNumber.focus();
+    }else if($.trim(userName.val()) == ""){
+        errorMessage = "用户名不能为空";
+        userName.focus();
+    }else if($.trim(password.val()) == ""){
+        errorMessage = "密码不能为空";
+        password.focus();
+    }else if($.trim(confirmPassword.val()) == ""){
+        errorMessage = "确认密码不能为空";
+        confirmPassword.focus();
+    }else if($.trim(password.val()) != $.trim(confirmPassword.val())){
+        errorMessage = "两次输入的密码不相等";
+        password.focus();
+        confirmPassword.focus();
+    }
+    return errorMessage;
+}
+function doLoginSuccess(data){
+    var dataArr = data.split(";");
+    if(dataArr[0].toLocaleLowerCase() == "ok"){
+        $.cookie('userName', $("#logindiv").find($("[name='userName']")).val(), {expires: 7, path: '/'});
+        $.cookie('userId', dataArr[1], {expires: 7, path: '/'});
+        location.href = "home.html";
+    }else{
+        $("#loginregisterErrorMsg").addClass("error").text(data);
+    }
+}
+function doRegisterSuccess(data){
+    var dataArr = data.split(";");
+    if(dataArr[0].toLocaleLowerCase() == "ok"){
+        $.cookie('userName', $("#registerdiv").find($("[name='userName']")).val(), {expires: 7, path: '/'});
+        $.cookie('userId', dataArr[1], {expires: 7, path: '/'});
+        location.href = "home.html";
+    }else{
+        $("#loginregisterErrorMsg").addClass("error").text(data);
+    }
+}
+function isPhoneNumber(phone) {
+    var pattern = /^1[34578]\d{9}$/;
+    return pattern.test(phone);
+}
+function insertUserViewHistoryData(data) {
+    var viewHistorys = data.viewHistorys;
+    if(viewHistorys.length == 0){
+        insertEmptyViewHistoryElems();
+    }else{
+        
+    }
+}
+
+
+
+
 function doGetUserViewHistory(data) {
     var viewHistorys = data.viewHistorys;
     if(viewHistorys.length == 0){

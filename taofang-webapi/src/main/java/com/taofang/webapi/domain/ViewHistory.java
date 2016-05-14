@@ -22,6 +22,10 @@ public class ViewHistory {
     private String viewDate;
     // 浏览的星期
     private String viewWeek;
+    private String viewYear;
+    private String viewMonth;
+    private String viewDay;
+    private String linkUrl;
 
     @Override
     public String toString() {
@@ -32,6 +36,9 @@ public class ViewHistory {
                 ", title='" + title + '\'' +
                 ", viewDate='" + viewDate + '\'' +
                 ", viewWeek='" + viewWeek + '\'' +
+                ", viewYear='" + viewYear + '\'' +
+                ", viewMonth='" + viewMonth + '\'' +
+                ", viewDay='" + viewDay + '\'' +
                 '}';
     }
 
@@ -59,6 +66,22 @@ public class ViewHistory {
     public String getViewWeek() {
         return viewWeek;
     }
+    @XmlElement(name="viewYear")
+    public String getViewYear() {
+        return viewYear;
+    }
+    @XmlElement(name="viewMonth")
+    public String getViewMonth() {
+        return viewMonth;
+    }
+    @XmlElement(name="viewDay")
+    public String getViewDay() {
+        return viewDay;
+    }
+    @XmlElement(name="linkUrl")
+    public String getLinkUrl() {
+        return linkUrl;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -82,5 +105,21 @@ public class ViewHistory {
 
     public void setViewWeek(String viewWeek) {
         this.viewWeek = viewWeek;
+    }
+
+    public void setViewYear(String viewYear) {
+        this.viewYear = viewYear;
+    }
+
+    public void setViewMonth(String viewMonth) {
+        this.viewMonth = viewMonth;
+    }
+
+    public void setViewDay(String viewDay) {
+        this.viewDay = viewDay;
+    }
+
+    public void setLinkUrl(String linkUrl) {
+        this.linkUrl = linkUrl;
     }
 }

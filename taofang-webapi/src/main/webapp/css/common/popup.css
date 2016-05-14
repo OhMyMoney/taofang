@@ -11,7 +11,7 @@
     top: 40px;
     left: 2%;
     width: 96%;
-    height: 500px;
+    height: 520px;
     border-radius: 10px;
     background-color: #FFFFFF;
     z-index: 10001;
@@ -131,7 +131,7 @@
 }
 .lrpopupbuttondiv{
     width: 100%;
-    height: 70px;
+    height: 50px;
 }
 .lrpopupbutton{
     width: 96%;
@@ -210,4 +210,7 @@
     font-weight: 500;
     text-align: center;
     color: red;
+    line-height: 40px;
+    height: 40px;
+    min-height: 30px;
 }

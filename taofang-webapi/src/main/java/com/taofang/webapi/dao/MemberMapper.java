@@ -11,7 +11,7 @@ import java.util.List;
 public interface MemberMapper {
 
     @Select({
-            "select MemberName, Password",
+            "select MemberID, MemberName, Password",
             "from member",
             "where MemberName = #{memberName,jdbcType=VARCHAR}"
     })

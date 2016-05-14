@@ -1,23 +1,29 @@
 package com.taofang.webapi.service.impl;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
+import com.taofang.webapi.bean.UserViewBean;
 import com.taofang.webapi.dao.MemberMapper;
-import com.taofang.webapi.dao.persistence.RedisDao;
 import com.taofang.webapi.domain.User;
 import com.taofang.webapi.domain.ViewHistory;
 import com.taofang.webapi.model.Member;
 import com.taofang.webapi.result.Result;
 import com.taofang.webapi.service.IUserService;
+import com.taofang.webapi.util.MD5Util;
 import com.taofang.webapi.util.ResultUtil;
 import com.taofang.webapi.util.UserModelUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @Desc
@@ -30,7 +36,7 @@ public class UserService implements IUserService{
     @Autowired
     private MemberMapper memberMapper;
     @Autowired
-    private RedisDao redisDao;
+    private JedisPool jedisPool;
 
     @Override
     public Result checkUserLogin(User user) {
@@ -47,8 +53,13 @@ public class UserService implements IUserService{
                 List<Member> members = memberMapper.selectByMemberName(userName);
                 if(members == null || members.size() == 0){
                     result = ResultUtil.failResult("用户名不存在");
-                }else if(!password.equals(members.get(0).getPassword())){
-                    result = ResultUtil.failResult("密码与用户名不匹配");
+                }else{
+                    String memberPassword = members.get(0).getPassword();
+                    if(!MD5Util.GetMD5Code(password).equals(memberPassword)){
+                        result = ResultUtil.failResult("密码与用户名不匹配");
+                    }else{
+                        result.setData(members.get(0).getMemberid() + "");
+                    }
                 }
             }
             LOGGER.info("验证用户[user:" + user + "]登录条件 ==> " + result);
@@ -93,6 +104,7 @@ public class UserService implements IUserService{
                     Member member = UserModelUtil.tranUserToMember(user);
                     member.setMemberid(Optional.fromNullable(lastMemberId).or(0) + 1);
                     memberMapper.insertMember(member);
+                    result.setData((Optional.fromNullable(lastMemberId).or(0) + 1) + "");
                 }
             }
             LOGGER.info("验证用户[user:" + user + "]注册条件 ==> " + result);
@@ -104,32 +116,43 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public List<ViewHistory> getUserViewHistoryByUserName(String userName) {
-        List<ViewHistory> viewHistoryList;
-        try{
-            viewHistoryList = new ArrayList<>();
-            ViewHistory viewHistory1 = new ViewHistory();
-            viewHistory1.setId(10037);
-            viewHistory1.setTypeId(1);
-            viewHistory1.setTypeName("文章");
-            viewHistory1.setTitle("自然疗法让我不再受疾病的折磨");
-            viewHistory1.setViewDate("2016-05-01");
-            viewHistory1.setViewWeek("星期日");
+    public String setUserView(String view) {
+        String result = "ok";
+        try(Jedis jedis = jedisPool.getResource()){
+            String[] viewArray = view.split(";");
+            String user = "user:" + viewArray[0];
+            long time = System.currentTimeMillis();
+            UserViewBean userViewBean = new UserViewBean();
+            userViewBean.setViewId(Integer.parseInt(viewArray[1]));
+            userViewBean.setViewType(viewArray[2]);
+            userViewBean.setViewSubType(viewArray[3]);
+            userViewBean.setViewTitle(viewArray[4]);
+            userViewBean.setTime(time);
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+            jedis.zadd(user, time, mapper.writeValueAsString(userViewBean));
+        }catch(Exception e){
+            result = "error";
+        }
+        return result;
+    }
 
-            ViewHistory viewHistory2 = new ViewHistory();
-            viewHistory2.setId(10086);
-            viewHistory2.setTypeId(2);
-            viewHistory2.setTypeName("偏方");
-            viewHistory2.setTitle("看八十岁老人如何玩转人生");
-            viewHistory2.setViewDate("2016-05-02");
-            viewHistory2.setViewWeek("星期一");
-
-            viewHistoryList.add(viewHistory1);
-            viewHistoryList.add(viewHistory2);
-            LOGGER.info("根据用户名[" + userName + "]查询用户的浏览历史 ==> " + viewHistoryList);
+    @Override
+    public List<ViewHistory> getUserViewHistoryByUserId(String userId) {
+        List<ViewHistory> viewHistoryList = new ArrayList<>();
+        try(Jedis jedis = jedisPool.getResource()){
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+            long viewLength = jedis.zcard("user:" + userId);
+            Set<String> viewStrSet = jedis.zrevrange("user:" + userId, 0, (viewLength > 15 ? 15 : -1));
+            for(String viewStr : viewStrSet){
+                UserViewBean userViewBean = mapper.readValue(viewStr, UserViewBean.class);
+                viewHistoryList.add(UserModelUtil.tranUserViewBean(userViewBean));
+            }
+            LOGGER.info("根据用户名[" + userId + "]查询用户的浏览历史 ==> " + viewHistoryList);
         }catch(Exception e){
             viewHistoryList = new ArrayList<>();
-            LOGGER.error("根据用户名[" + userName + "]查询用户的浏览历史 ==> error ==> " + e.getMessage(), e);
+            LOGGER.error("根据用户名[" + userId + "]查询用户的浏览历史 ==> error ==> " + e.getMessage(), e);
         }
         return viewHistoryList;
     }

@@ -26,5 +26,7 @@ public interface IUserService {
      */
     Result checkUserRegister(User user);
 
-    List<ViewHistory> getUserViewHistoryByUserName(String userName);
+    String setUserView(String view);
+
+    List<ViewHistory> getUserViewHistoryByUserId(String userId);
 }

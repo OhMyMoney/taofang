@@ -158,6 +158,114 @@
     border-bottom-right-radius: 5px;
     text-align: center;
 }
+.content{
+    padding: 0px;
+}
+.emptyviewhistorydiv{
+    margin-top: 20px;
+    width: 97%;
+    background-image: url("../image/home/line.png");
+    background-repeat: repeat-y;
+    background-position: 53px;
+    background-size: 20px 2000px;
+}
+.viewhistorylinediv{
+    width: 100%;
+    height: 55px;
+    margin-bottom: 10px;
+}
+.viewhistorylinetitle{
+    float: left;
+    width: 60px;
+    height: 55px;
+    line-height: 55px;
+    color: #57392E;
+    font-weight: bold;
+    font-size: 15px;
+    text-align: center;
+}
+.viewhistorylinepointdiv{
+    float: left;
+    height: 55px;
+    line-height: 55px;
+    width: 10px;
+    text-align: center;
+}
+.viewhistorylinepoint{
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    background-color: #F39F51;
+    border: none;
+    margin-top: 22px;
+}
+.viewhistorylinecontentdiv{
+    float: left;
+    width: 75%;
+    height: 55px;
+    line-height: 55px;
+    background-image: url("../image/home/content.png");
+    background-size: 100% 55px;
+}
+.viewhistorylinecontent{
+    height: 55px;
+    line-height: 55px;
+    color: #F8FFFF;
+    font-size: 15px;
+    padding-left: 20px;
+}
+
+
+
+.viewtimeline{
+    list-style-type: none;
+    background: url("../image/icon/line_icon.png") repeat-y scroll 50px transparent;
+    margin-top: -5px;
+    margin-left: -15px;
+    padding: 0;
+    background-size: 20px 2000px;
+}
+.viewtimeline li {
+    position: relative;
+    margin-bottom: 10px;
+}
+.viewpretitle{
+    position: absolute;
+    width: 50px;
+    text-align: left;
+    left: 20px;
+    top: 20px;
+    color: #57392E;
+    font-weight: 600;
+    font-size: 15px;
+}
+.viewpoint{
+    position: absolute;
+    background: url("../image/icon/point_icon.png") no-repeat;
+    background-size: 10px 10px;
+    width: 10px;
+    height: 10px;
+    left: 55px;
+    top: 25px;
+    line-height: 60px;
+    text-align: center;
+    color: #fff;
+}
+.viewcontent{
+    margin-left: 70px;
+    border-radius: 5px;
+    margin-right: 10px;
+    background: url("../image/content.png");
+    background-size: cover;
+    height: 70px;
+}
+.viewcontent pre {
+    padding: 20px;
+    color: #F8FFFF;
+    font-size: 15px;
+    line-height: 30px;
+}
+
 
 
 .contentblock{
@@ -200,6 +308,7 @@
 .contentnavigation2spacerightdiv{
     width: 92%;
     margin-right: 6%;
+    margin-left: 2%;
     height: 100px;
     border: none;
     border-radius: 5px;

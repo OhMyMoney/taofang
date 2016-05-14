@@ -44,7 +44,7 @@ public class UserResource {
     public String login(User user){
         Result result = userService.checkUserLogin(user);
         if(result.getCode() == ResultUtil.SUCCESS_CODE){
-            return "ok";
+            return "ok;" + result.getData();
         }else{
             return result.getFailMessages().get(0);
         }
@@ -61,20 +61,28 @@ public class UserResource {
     public String register(User user){
         Result result = userService.checkUserRegister(user);
         if(result.getCode() == ResultUtil.SUCCESS_CODE){
-            return "ok";
+            return "ok;" + result.getData();
         }else{
             return result.getFailMessages().get(0);
         }
     }
 
     @Path("view")
+    @POST
+    @Consumes({MediaType.TEXT_PLAIN})
+    @Produces({MediaType.TEXT_PLAIN})
+    public String setUserView(String view){
+        return userService.setUserView(view);
+    }
+
+    @Path("viewhistory")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public UserViewHistory getUserViewHistory(@QueryParam("userName")String userName){
+    public UserViewHistory getUserViewHistory(@QueryParam("userId")String userId){
         UserViewHistory userViewHistory = new UserViewHistory();
-        if(!Strings.isNullOrEmpty(userName)){
-            userViewHistory.setUserName(userName);
-            userViewHistory.setViewHistoryList(userService.getUserViewHistoryByUserName(userName));
+        if(!Strings.isNullOrEmpty(userId)){
+            userViewHistory.setUserName(userId);
+            userViewHistory.setViewHistoryList(userService.getUserViewHistoryByUserId(userId));
         }
         return userViewHistory;
     }
