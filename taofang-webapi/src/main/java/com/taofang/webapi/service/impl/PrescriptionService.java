@@ -3,11 +3,13 @@ package com.taofang.webapi.service.impl;
 import com.taofang.webapi.bean.CommentBean;
 import com.taofang.webapi.bean.PrescriptionInfoBean;
 import com.taofang.webapi.constant.ImageConstant;
+import com.taofang.webapi.dao.ArticleMapper;
 import com.taofang.webapi.dao.CommentstarMapper;
 import com.taofang.webapi.dao.PrescriptionmessageMapper;
 import com.taofang.webapi.dao.RelationlinkMapper;
 import com.taofang.webapi.dao.persistence.ElasticsearchDao;
 import com.taofang.webapi.domain.*;
+import com.taofang.webapi.model.ArticleWithBLOBs;
 import com.taofang.webapi.model.Relationlink;
 import com.taofang.webapi.service.IPrescriptionService;
 import com.taofang.webapi.util.PaginationUtil;
@@ -37,6 +39,8 @@ public class PrescriptionService implements IPrescriptionService{
     private PrescriptionmessageMapper prescriptionmessageMapper;
     @Autowired
     private CommentstarMapper commentstarMapper;
+    @Autowired
+    private ArticleMapper articleMapper;
 
     @Override
     public PrescriptionPagination getPrescriptionPagination(String prescription, String sort, int start, int limit) {
@@ -52,6 +56,23 @@ public class PrescriptionService implements IPrescriptionService{
             prescriptionPagination = new PrescriptionPagination(0, new ArrayList<>());
         }
         return prescriptionPagination;
+    }
+
+    @Override
+    public PrescriptionRelateInfo getPrescriptionRelateInfo(String prescription) {
+        PrescriptionRelateInfo prescriptionRelateInfo = new PrescriptionRelateInfo();
+        try{
+            prescriptionRelateInfo = elasticsearchDao.searchPrescriptionRelationInfos(prescription);
+            List<ArticleWithBLOBs> articleWithBLOBsList = articleMapper.selectNatureTherapyByPagination(0, 5);
+            List<RelateInfo> naturalRemedies = new ArrayList<>();
+            for(ArticleWithBLOBs articleWithBLOBs : articleWithBLOBsList){
+                naturalRemedies.add(new RelateInfo(articleWithBLOBs.getArticlename()));
+            }
+            prescriptionRelateInfo.setNaturalRemedies(naturalRemedies);
+        }catch(Exception e){
+            LOGGER.error("根据偏方或疾病名称[prescription:" + prescription + "]查询偏方相关信息 ==> error ==> " + e.getMessage(), e);
+        }
+        return prescriptionRelateInfo;
     }
 
     @Override
@@ -111,15 +132,6 @@ public class PrescriptionService implements IPrescriptionService{
             material = "";
         }
         return material;
-    }
-
-    public static void main(String[] args){
-        String material  = "../../../../Content/Resources/cbe56e33-d764-414c-b9c7-bdb2642ffaa9.jpg";
-        material = material.replaceAll("\\.\\./", "");
-        while(material.contains("/Content/Resources/")){
-            material = material.replaceAll("/Content/Resources/", "Content/Resources/");
-        }
-        System.out.println(material.replaceAll("Content/Resources/", ImageConstant.IMAGE_BASE_URL));
     }
 
 }

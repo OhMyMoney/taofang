@@ -1,5 +1,6 @@
 package com.taofang.webapi.service;
 
+import com.taofang.webapi.domain.ModuleInfo;
 import com.taofang.webapi.domain.User;
 import com.taofang.webapi.domain.ViewHistory;
 import com.taofang.webapi.result.Result;
@@ -29,4 +30,8 @@ public interface IUserService {
     String setUserView(String view);
 
     List<ViewHistory> getUserViewHistoryByUserId(String userId);
+
+    User getUserInfoById(String userId);
+
+    List<ModuleInfo> getModuleInfoByUserIdAndModuleName(String userId, String moduleName);
 }

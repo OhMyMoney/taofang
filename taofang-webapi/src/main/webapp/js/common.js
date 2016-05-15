@@ -1,5 +1,5 @@
 // Ajax请求域名
-var ajaxBaseUrl = "http://localhost:8080/taofang/webapi";
+var ajaxBaseUrl = "http://192.168.31.199:8080/taofang/webapi";
 
 function processPage(curPage, totalPage) {
     $("#page").find($("[class='currentpage']")).html(curPage + "/" + totalPage);

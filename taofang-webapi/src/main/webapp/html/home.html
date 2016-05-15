@@ -22,91 +22,47 @@
     <div data-role="page">
         <div id="navigation" data-role="panel">
         </div>
-            <div id="header" data-role="header">
-                <div id="headertitlediv"></div>
-                <div id="headerprescriptiondiv">
-                    <div id="prescriptionnamediv">
-                        <input data-role="none" class="prescriptionname" type="text" name="prescriptionName" placeholder="输入关键字寻找相关偏方">
-                    </div>
-                    <div class="prescriptionbutton" onclick="prescriptionSearch()">立即搜索</div>
+        <div id="header" data-role="header">
+            <div id="headertitlediv"></div>
+            <div id="headerprescriptiondiv">
+                <div id="prescriptionnamediv">
+                    <input data-role="none" class="prescriptionname" type="text" name="prescriptionName" placeholder="输入关键字寻找相关偏方">
                 </div>
-                <div id="headerdiseasediv"></div>
+                <div class="prescriptionbutton" onclick="prescriptionSearch()">立即搜索</div>
             </div>
-            <div id="content" data-role="content" class="content">
-                <div id="userviewhistory"></div>
-                <div class="contentblock"></div>
-                <div id="contentnavigation"></div>
-            </div>
-
-            <!--<div id="mainpagecontent" data-role="content">
-                <div id="viewhistory">
-                    <ul class="timeline">
-                        <li>
-                            <div class="time">
-                                <pre>星期日</pre>
-                                <pre>2016-04-24</pre>
-                            </div>
-                            <div class="point"></div>
-                            <div class="content">
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td class="viewType">上次浏览的偏方</td>
-                                            <td rowspan="2"><img src="../image/icon/time_view_icon.png"></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="viewTitle">aaaaaaaaa</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="time">
-                                <pre>星期日</pre>
-                                <pre>2016-04-24</pre>
-                            </div>
-                            <div class="point"></div>
-                            <div class="content">
-                                <table>
-                                    <tbody>
-                                    <tr>
-                                        <td class="viewType">上次浏览的偏方</td>
-                                        <td rowspan="2"><img src="../image/icon/time_view_icon.png"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="viewTitle">aaaaaaaaa</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </div>-->
-            <div id="footer" data-role="footer">
-                <div id="addiv" class="addiv"></div>
-                <div class="switchdiv">
-                    <div class="phonediv">
-                        <div class="phone" onclick="goToHomePage('phone')">
-                            <div class="phoneimg"><img src="../../image/common/iphone.png"></div>
-                            <div class="phonetext">触屏版</div>
-                        </div>
-                    </div>
-                    <div class="phonepcdiv"></div>
-                    <div class="pcdiv">
-                        <div class="pc" onclick="goToHomePage('pc')">
-                            <div class="pcimg"><img src="../../image/common/pc.png"></div>
-                            <div class="pctext">电脑版</div>
-                        </div>
+            <div id="headerdiseasediv"></div>
+        </div>
+        <div id="content" data-role="content" class="content">
+            <div id="userviewhistory"></div>
+            <div class="contentblock"></div>
+            <div id="contentnavigation"></div>
+        </div>
+        <div id="footer" data-role="footer">
+            <div id="addiv" class="addiv"></div>
+            <div class="switchdiv">
+                <div class="phonediv">
+                    <div class="phone" onclick="goToHomePage('phone')">
+                        <div class="phoneimg"><img src="../../image/common/iphone.png"></div>
+                        <div class="phonetext">触屏版</div>
                     </div>
                 </div>
-                <div class="declarediv">
-                    <div class="aboutustitle">关于我们 | 法律声明</div>
-                    <div class="aboutuscontent">Copyright  ©  2015  WWW.99TAOFANG.COM  版权所有</div>
-                    <div class="aboutuscontent">本站信息仅供参考_不能作为诊断及医疗的依据</div>
+                <div class="phonepcdiv"></div>
+                <div class="pcdiv">
+                    <div class="pc" onclick="goToHomePage('pc')">
+                        <div class="pcimg"><img src="../../image/common/pc.png"></div>
+                        <div class="pctext">电脑版</div>
+                    </div>
                 </div>
             </div>
+            <div class="declarediv">
+                <div class="aboutustitle">关于我们 | 法律声明</div>
+                <div class="aboutuscontent">Copyright  ©  2015  WWW.99TAOFANG.COM  版权所有</div>
+                <div class="aboutuscontent">本站信息仅供参考_不能作为诊断及医疗的依据</div>
+            </div>
+        </div>
     </div>
+    <script type="text/javascript">
+        initDisease();
+    </script>
 </body>
 </html>

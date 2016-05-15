@@ -32,4 +32,12 @@ public interface MemberMapper {
             "now(), now())"
     })
     int insertMember(Member member);
+
+    @Select({
+            "select MemberId, MemberName, icon",
+            "from member",
+            "where MemberId = #{memberId,jdbcType=INTEGER}"
+    })
+    @ResultMap("BaseResultMap")
+    List<Member> selectByMemberId(@Param("memberId") int memberId);
 }

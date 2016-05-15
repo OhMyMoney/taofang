@@ -3,7 +3,7 @@ function backhomepage() {
 }
 function getPrescriptionPagination(prescription, order, page, pageSize) {
     $.cookie('PrescriptionName', prescription, {expires: 7, path: '/'});
-    var url = "http://localhost:8080/taofang/webapi/prescription?name=" + prescription + "&order=" + order + "&page=" + page + "&pageSize=" + pageSize;
+    var url = ajaxBaseUrl + "/prescription?name=" + prescription + "&order=" + order + "&page=" + page + "&pageSize=" + pageSize;
     $.ajax({
         url: url,
         success: processPaginationData
@@ -64,7 +64,7 @@ function showPrescriptionDetail(id) {
 /*详细信息页面区域*/
 function getPrescriptionDetail(id) {
     $.ajax({
-        url: "http://localhost:8080/taofang/webapi/prescription/" + id,
+        url: ajaxBaseUrl + "/prescription/" + id,
         success: processDetailData
     });
 }
@@ -204,10 +204,103 @@ function getPrescriptionImageDetail(id) {
         id = 0;
     }
     $.ajax({
-        url: "http://localhost:8080/taofang/webapi/prescription/" + id + "/material",
+        url: ajaxBaseUrl + "/prescription/" + id + "/material",
         success: processImageDetailData
     });
 }
 function processImageDetailData(data) {
     $("#imagediv").html(data);
+}
+function showSelectDiv() {
+    if(!document.getElementById("selectdiv")){
+        createSelectDiv();
+    }else{
+        if($('#backgrounddiv').is(":hidden")){
+            $('#backgrounddiv').show();
+            $('#selectdiv').show();
+        }else{
+            $('#backgrounddiv').hide();
+            $('#selectdiv').hide();
+        }
+    }
+}
+function createSelectDiv() {
+    var sWidth = $(document).width();
+    var sHeight = $(document).height();
+    if($(document).scrollHeight > sHeight ){
+        sHeight = $(document).scrollHeight;
+    }
+    // 背景界面
+    var backgroundDivElem = $("<div id='backgrounddiv' class='backgrounddivclass'></div>");
+    var bgWH = "width:" + sWidth + "px;" + "height:" + sHeight + "px;";
+    backgroundDivElem.attr("style", bgWH);
+    $('body').append(backgroundDivElem);
+    // 内容界面
+    var selectDivElem = $("<div id='selectdiv' class='selectdivclass'></div>");
+    var selectTableElem = $("<table><tbody></tbody></table>");
+    selectTableElem
+        .append($("<tr id='selectdivtr1' onclick='doSearchByOrderId(1, \"验证人数\")'><td>验证人数排序</td><td><img src='../../image/common/selected.png'/></td></tr>"))
+        .append($("<tr id='selectdivtr2' onclick='doSearchByOrderId(2, \"有效程度\")'><td>有效程度排序</td><td><img src='../../image/common/selected.png'/></td></tr>"))
+        .append($("<tr id='selectdivtr3' onclick='doSearchByOrderId(3, \"见效速度\")'><td>见效速度排序</td><td><img src='../../image/common/selected.png'/></td></tr>"))
+        .append($("<tr id='selectdivtr4' onclick='doSearchByOrderId(4, \"安全性由\")'><td>安全性由排序</td><td><img src='../../image/common/selected.png'/></td></tr>"))
+        .append($("<tr id='selectdivtr5' onclick='doSearchByOrderId(5, \"方便性由\")'><td>方便性由排序</td><td><img src='../../image/common/selected.png'/></td></tr>"))
+        .append($("<tr id='selectdivtr6' onclick='doSearchByOrderId(6, \"省钱程度\")'><td>省钱程度排序</td><td><img src='../../image/common/selected.png'/></td></tr>"))
+    selectDivElem.append(selectTableElem);
+    $('body').append(selectDivElem);
+}
+function doSearchByOrderId(orderId, orderName) {
+    var prescription = $.cookie('PrescriptionName');
+    getPrescriptionPagination(prescription, orderId, 1, 5);
+    $("#searchselecttext").html(orderName);
+    $('#backgrounddiv').hide();
+    $('#selectdiv').hide();
+    $('#selectdiv table tbody tr td:nth-child(1)').attr("style", "color:#000000");
+    $('#selectdiv table tbody tr td:nth-child(2) img').attr("style", "display: none");
+    $('#selectdivtr' + orderId +' td:nth-child(1)').attr("style", "color:#F39F51");
+    $('#selectdivtr' + orderId +' td:nth-child(2) img').attr("style", "display: block");
+}
+function getPrescriptionRelation(prescription) {
+    $.ajax({
+        url: ajaxBaseUrl + "/prescription/relation?name=" + prescription,
+        success: processRelationData
+    });
+}
+function processRelationData(data) {
+    var jibing = data.recommends;
+    var zhenzhuang = data.products;
+    var liaofa = data.naturalRemedies;
+    var relationTableElem1 = $("<table><tbody></tbody></table>");
+    var length = 5;
+    if(jibing.length < 5){
+        length = jibing.length;
+    }
+    for(var i=0;i<length;i++){
+        var relationTrElem1 = $("<tr></tr>");
+        relationTrElem1.append("<td><div class='contentpointdiv'></div></td>")
+            .append("<td><div class='contentlistdiv'>" + jibing[i].title + "</div></td>");
+        relationTableElem1.append(relationTrElem1);
+    }
+    $("#prescriptionrelationlist1").html(relationTableElem1);
+    if(zhenzhuang.length < 5){
+        length = zhenzhuang.length;
+    }
+    var relationTableElem2 = $("<table><tbody></tbody></table>");
+    for(var i=0;i<length;i++){
+        var relationTrElem2 = $("<tr></tr>");
+        relationTrElem2.append("<td><div class='contentpointdiv'></div></td>")
+            .append("<td><div class='contentlistdiv'>" + zhenzhuang[i].title + "</div></td>");
+        relationTableElem2.append(relationTrElem2);
+    }
+    $("#prescriptionrelationlist2").html(relationTableElem2);
+    if(liaofa.length < 5){
+        length = liaofa.length;
+    }
+    var relationTableElem3 = $("<table><tbody></tbody></table>");
+    for(var i=0;i<length;i++){
+        var relationTrElem3 = $("<tr></tr>");
+        relationTrElem3.append("<td><div class='contentpointdiv'></div></td>")
+            .append("<td><div class='contentlistdiv'>" + liaofa[i].title + "</div></td>");
+        relationTableElem3.append(relationTrElem3);
+    }
+    $("#prescriptionrelationlist3").html(relationTableElem3);
 }

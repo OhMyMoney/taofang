@@ -24,7 +24,7 @@ public class DateTimeUtil {
         } catch (ParseException e) {
         }
         if (date == null){
-            return null;
+            return new Timestamp(System.currentTimeMillis());
         }else{
             return Timestamp.valueOf(new SimpleDateFormat(FORMAT_DEFAULT).format(date));
         }

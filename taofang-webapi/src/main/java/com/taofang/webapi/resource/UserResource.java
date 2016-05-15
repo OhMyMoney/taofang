@@ -3,6 +3,7 @@ package com.taofang.webapi.resource;
 import com.google.common.base.Strings;
 import com.taofang.webapi.constant.VCode;
 import com.taofang.webapi.domain.User;
+import com.taofang.webapi.domain.UserModuleInfo;
 import com.taofang.webapi.domain.UserViewHistory;
 import com.taofang.webapi.result.Result;
 import com.taofang.webapi.service.IUserService;
@@ -85,5 +86,28 @@ public class UserResource {
             userViewHistory.setViewHistoryList(userService.getUserViewHistoryByUserId(userId));
         }
         return userViewHistory;
+    }
+
+    @Path("info")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public User getUserInfoByUserId(@QueryParam("userId")String userId){
+        return userService.getUserInfoById(userId);
+    }
+
+    @Path("module")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public UserModuleInfo getUserModuleInfoByUserId(@QueryParam("userId")String userId,
+                                                    @QueryParam("module")String module){
+        UserModuleInfo userModuleInfo = new UserModuleInfo();
+        int userIdInteger = 0;
+        try{
+            userIdInteger = Integer.parseInt(userId);
+        }catch(Exception e){
+        }
+        userModuleInfo.setUserId(userIdInteger);
+        userModuleInfo.setModuleInfoList(userService.getModuleInfoByUserIdAndModuleName(userId, module));
+        return userModuleInfo;
     }
 }

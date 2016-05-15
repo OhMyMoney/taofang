@@ -1,6 +1,7 @@
 package com.taofang.webapi.service;
 
 import com.taofang.webapi.domain.PrescriptionPagination;
+import com.taofang.webapi.domain.PrescriptionRelateInfo;
 import com.taofang.webapi.domain.PrescriptionWithLinks;
 
 /**
@@ -10,6 +11,8 @@ import com.taofang.webapi.domain.PrescriptionWithLinks;
  */
 public interface IPrescriptionService {
     PrescriptionPagination getPrescriptionPagination(String prescription, String sort, int page, int pageSize);
+
+    PrescriptionRelateInfo getPrescriptionRelateInfo(String prescription);
 
     PrescriptionWithLinks getPrescriptionWithLinksById(int id);
 

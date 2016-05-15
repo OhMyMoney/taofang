@@ -3,11 +3,19 @@ package com.taofang.webapi.util;
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 import com.taofang.webapi.bean.UserViewBean;
+import com.taofang.webapi.constant.ImageConstant;
+import com.taofang.webapi.domain.ModuleInfo;
 import com.taofang.webapi.domain.User;
 import com.taofang.webapi.domain.ViewHistory;
+import com.taofang.webapi.model.CommentstarWithBLOBs;
+import com.taofang.webapi.model.Inquiryprescription;
 import com.taofang.webapi.model.Member;
+import com.taofang.webapi.model.Prescription;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
 
 /**
  * @Desc
@@ -22,6 +30,71 @@ public class UserModelUtil {
         member.setPassword(MD5Util.GetMD5Code((Optional.fromNullable(user.getPassword()).or("").trim())));
 
         return member;
+    }
+
+    public static User tranMember(Member member){
+        User user = new User();
+        user.setUserName(Optional.fromNullable(member.getMembername()).or(""));
+        if(Strings.isNullOrEmpty(member.getIcon())){
+            user.setIcon(ImageConstant.DEFAULT_HEAD_PORTRAIT_URL);
+        }else{
+            user.setIcon(ImageConstant.HEAD_PORTRAIT_URL + member.getIcon());
+        }
+        return user;
+    }
+
+    public static ModuleInfo tranInquiryprescription(Inquiryprescription inquiryprescription){
+        ModuleInfo moduleInfo = new ModuleInfo();
+        if(inquiryprescription.getInquiryid() == null){
+            moduleInfo.setId(0);
+        }
+        if(!Strings.isNullOrEmpty(inquiryprescription.getTitle())){
+            moduleInfo.setTitle(inquiryprescription.getTitle());
+        }
+        if(inquiryprescription.getCreateddate() != null){
+            moduleInfo.setDateTime(
+                    DateTimeUtil.tranTimestamp(
+                            Timestamp.valueOf(new SimpleDateFormat(DateTimeUtil.FORMAT_DEFAULT).format(inquiryprescription.getCreateddate())),
+                            DateTimeUtil.FORMAT_DEFAULT
+                    ));
+        }
+        moduleInfo.setUrlLink("");
+        moduleInfo.setModuleName("qiufang");
+        return moduleInfo;
+    }
+
+    public static ModuleInfo tranPrescription(Prescription prescription){
+        ModuleInfo moduleInfo = new ModuleInfo();
+        moduleInfo.setId(Optional.fromNullable(prescription.getPrescriptionid()).or(0));
+        moduleInfo.setTitle(Optional.fromNullable(prescription.getImageurl()).or(""));
+        if(prescription.getCreatedate() != null){
+            moduleInfo.setDateTime(
+                    DateTimeUtil.tranTimestamp(
+                            Timestamp.valueOf(new SimpleDateFormat(DateTimeUtil.FORMAT_DEFAULT).format(prescription.getCreatedate())),
+                            DateTimeUtil.FORMAT_DEFAULT
+                    ));
+        }
+        moduleInfo.setUrlLink("prescription/detail.html?id=" + moduleInfo.getId());
+        moduleInfo.setModuleName("xianfang");
+        return moduleInfo;
+    }
+
+    public static ModuleInfo tranCommentstarWithBLOBs(CommentstarWithBLOBs commentstar){
+        ModuleInfo moduleInfo = new ModuleInfo();
+        if(commentstar.getCommentid() == null){
+            moduleInfo.setId(0);
+        }
+        moduleInfo.setTitle(Optional.fromNullable(commentstar.getExperience()).or(""));
+        if(commentstar.getCreateddate() != null){
+            moduleInfo.setDateTime(
+                    DateTimeUtil.tranTimestamp(
+                            Timestamp.valueOf(new SimpleDateFormat(DateTimeUtil.FORMAT_DEFAULT).format(commentstar.getCreateddate())),
+                            DateTimeUtil.FORMAT_DEFAULT
+                    ));
+        }
+        moduleInfo.setUrlLink("");
+        moduleInfo.setModuleName("pinglun");
+        return moduleInfo;
     }
 
     public static ViewHistory tranUserViewBean(UserViewBean userViewBean){
@@ -63,14 +136,5 @@ public class UserModelUtil {
                 return "六";
         }
         return "日";
-    }
-
-    public static void main(String[] args){
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        System.out.println(calendar.get(Calendar.YEAR));
-        System.out.println(calendar.get(Calendar.MONTH));
-        System.out.println(calendar.get(Calendar.DAY_OF_MONTH));
-        System.out.println(calendar.get(Calendar.DAY_OF_WEEK));
     }
 }

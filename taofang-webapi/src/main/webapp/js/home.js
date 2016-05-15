@@ -4,7 +4,7 @@ function initPage() {
     initHeader();
     initPanelNavigation();
     initContentNavigation();
-    initDisease();
+    // initDisease();
     initViewHistory();
 }
 /*导航*/
@@ -77,7 +77,10 @@ function initHeader() {
 }
 /*疾病*/
 function initDisease() {
-
+    $.ajax({
+        url: ajaxBaseUrl + "/disease/statistics",
+        success: createDiseaseView
+    });
 }
 /*浏览历史*/
 function initViewHistory() {
@@ -215,7 +218,10 @@ function insertEmptyViewHistoryElems() {
     $('#userviewhistory').html(viewHistoryElems);
 }
 function insertUserViewHistoryElems() {
-    getUserViewHistory($.cookie('userId'));
+    $.ajax({
+        url: ajaxBaseUrl + "/user/viewhistory?userId=" + $.cookie('userId'),
+        success: insertUserViewHistoryData
+    });
 }
 /*Ajax请求区域*/
 // 验证码
@@ -288,12 +294,6 @@ function registerSMSCode(id) {
     setTimeout(function() {
         registerSMSCode(0);
     }, 1000)
-}
-function getUserViewHistory(userId) {
-    $.ajax({
-        url: ajaxBaseUrl + "/user/viewhistory?userId=" + userId,
-        success: insertUserViewHistoryData
-    });
 }
 /*数据处理区域*/
 function doVcodeRefresh(data) {
@@ -385,7 +385,27 @@ function insertUserViewHistoryData(data) {
         
     }
 }
-
+function createDiseaseView(data) {
+    var diseaseList = data.diseaseList;
+    var firstLineDivElems = $("<div class='diseasediv1'>" +
+        "<div class='flsubdiv1'><div>" + diseaseList[1].name + "</div></div>" +
+        "<div class='flsubdiv2'><div>" + diseaseList[3].name + "</div></div>" +
+        "<div class='flsubdiv3'><div>" + diseaseList[5].name + "</div></div>" +
+        "<div class='flsubdiv4'><div>" + diseaseList[7].name + "</div></div>" +
+        "</div>");
+    var secondLineDivElems = $("<div class='diseasediv2'>" +
+        "<div class='slsubdiv1'><div class='slsubdiv11'>" + diseaseList[10].name + "</div><div class='slsubdiv12'>" + diseaseList[11].name + "</div></div>" +
+        "<div class='slsubdiv2'><div>" + diseaseList[0].name + "</div></div>" +
+        "<div class='slsubdiv3'><div>" + diseaseList[9].name + "</div></div>" +
+        "</div>");
+    var thirdLineDivElems = $("<div class='diseasediv3'>" +
+        "<div class='tlsubdiv1'><div>" + diseaseList[2].name + "</div></div>" +
+        "<div class='tlsubdiv2'><div>" + diseaseList[4].name + "</div></div>" +
+        "<div class='tlsubdiv3'><div>" + diseaseList[6].name + "</div></div>" +
+        "<div class='tlsubdiv4'><div>" + diseaseList[8].name + "</div></div>" +
+        "</div>");
+    $("#headerdiseasediv").append(firstLineDivElems).append(secondLineDivElems).append(thirdLineDivElems);
+}
 
 
 

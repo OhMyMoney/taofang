@@ -5,10 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 import com.taofang.webapi.bean.UserViewBean;
+import com.taofang.webapi.dao.CommentstarMapper;
+import com.taofang.webapi.dao.InquiryprescriptionMapper;
 import com.taofang.webapi.dao.MemberMapper;
+import com.taofang.webapi.dao.PrescriptionMapper;
+import com.taofang.webapi.domain.ModuleInfo;
 import com.taofang.webapi.domain.User;
 import com.taofang.webapi.domain.ViewHistory;
-import com.taofang.webapi.model.Member;
+import com.taofang.webapi.model.*;
 import com.taofang.webapi.result.Result;
 import com.taofang.webapi.service.IUserService;
 import com.taofang.webapi.util.MD5Util;
@@ -37,6 +41,12 @@ public class UserService implements IUserService{
     private MemberMapper memberMapper;
     @Autowired
     private JedisPool jedisPool;
+    @Autowired
+    private InquiryprescriptionMapper inquiryprescriptionMapper;
+    @Autowired
+    private PrescriptionMapper prescriptionMapper;
+    @Autowired
+    private CommentstarMapper commentstarMapper;
 
     @Override
     public Result checkUserLogin(User user) {
@@ -155,6 +165,48 @@ public class UserService implements IUserService{
             LOGGER.error("根据用户名[" + userId + "]查询用户的浏览历史 ==> error ==> " + e.getMessage(), e);
         }
         return viewHistoryList;
+    }
+
+    @Override
+    public User getUserInfoById(String userId) {
+        User user = new User();
+        try{
+            List<Member> memberList = memberMapper.selectByMemberId(Integer.parseInt(userId));
+            if(memberList.size() > 0){
+                user = UserModelUtil.tranMember(memberList.get(0));
+            }
+        }catch(Exception e){
+            LOGGER.error("根据用户Id[" + userId + "]查询用户的基本信息 ==> error ==> " + e.getMessage(), e);
+        }
+        return user;
+    }
+
+    @Override
+    public List<ModuleInfo> getModuleInfoByUserIdAndModuleName(String userId, String moduleName) {
+        List<ModuleInfo> moduleInfoList = new ArrayList<>();
+        try{
+            if(moduleName.equals("qiufang")){
+                List<Inquiryprescription> inquiryprescriptionList = inquiryprescriptionMapper.selectByCreatedBy(Integer.parseInt(userId));
+                for(Inquiryprescription inquiryprescription : inquiryprescriptionList){
+                    moduleInfoList.add(UserModelUtil.tranInquiryprescription(inquiryprescription));
+                }
+            }else if(moduleName.equals("xianfang")){
+                List<Prescription> prescriptionList = prescriptionMapper.selectPrescriptionByCreator(Integer.parseInt(userId));
+                for(Prescription prescription : prescriptionList){
+                    moduleInfoList.add(UserModelUtil.tranPrescription(prescription));
+                }
+            }else if(moduleName.equals("shoucang")){
+
+            }else if(moduleName.equals("pinglun")){
+                List<CommentstarWithBLOBs> commentstarList = commentstarMapper.selectCommentByMemberId(Integer.parseInt(userId));
+                for(CommentstarWithBLOBs commentstarWithBLOBs : commentstarList){
+                    moduleInfoList.add(UserModelUtil.tranCommentstarWithBLOBs(commentstarWithBLOBs));
+                }
+            }
+        }catch(Exception e){
+            LOGGER.error("根据用户Id[" + userId + "]查询用户的模块信息 ==> error ==> " + e.getMessage(), e);
+        }
+        return moduleInfoList;
     }
 
 }

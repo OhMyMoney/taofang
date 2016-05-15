@@ -6,21 +6,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * @Desc
  * @Author Remilia
- * @Create 2016-04-14
+ * @Create 2016-05-15
  */
-@XmlRootElement(name="relateInfo")
-public class RelateInfo {
-    // 相关信息id
+@XmlRootElement(name="moduleInfo")
+public class ModuleInfo {
     private int id;
-    // 相关信息标题
+
     private String title;
-    // 链接
+
+    private String dateTime;
+
     private String urlLink;
 
-    public RelateInfo(String title) {
-        this.title = title;
-    }
-
+    private String moduleName;
     @XmlElement(name="id")
     public int getId() {
         return id;
@@ -29,9 +27,17 @@ public class RelateInfo {
     public String getTitle() {
         return title;
     }
+    @XmlElement(name="dateTime")
+    public String getDateTime() {
+        return dateTime;
+    }
     @XmlElement(name="urlLink")
     public String getUrlLink() {
         return urlLink;
+    }
+    @XmlElement(name="moduleName")
+    public String getModuleName() {
+        return moduleName;
     }
 
     public void setId(int id) {
@@ -42,7 +48,15 @@ public class RelateInfo {
         this.title = title;
     }
 
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
+    }
+
     public void setUrlLink(String urlLink) {
         this.urlLink = urlLink;
+    }
+
+    public void setModuleName(String moduleName) {
+        this.moduleName = moduleName;
     }
 }

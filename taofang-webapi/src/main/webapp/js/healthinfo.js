@@ -1,6 +1,6 @@
 function getHealthInfoPagination(page, pageSize) {
     $.ajax({
-        url: "http://localhost:8080/taofang/webapi/healthinfo?page=" + page + "&&pageSize=" + pageSize,
+        url: ajaxBaseUrl + "/healthinfo?page=" + page + "&&pageSize=" + pageSize,
         success: processPaginationData
     });
 }
@@ -9,7 +9,7 @@ function getHealthInfoDetail(id) {
         id = 0;
     }
     $.ajax({
-        url: "http://localhost:8080/taofang/webapi/healthinfo/" + id,
+        url: ajaxBaseUrl + "/healthinfo/" + id,
         success: processDetailData
     });
 }
