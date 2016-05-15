@@ -1,6 +1,6 @@
 function getNatureTherapyPagination(page, pageSize) {
     $.ajax({
-        url: "http://101.201.47.48/taofang/webapi/naturethearpy?page=" + page + "&&pageSize=" + pageSize,
+        url: ajaxBaseUrl + "/naturethearpy?page=" + page + "&&pageSize=" + pageSize,
         success: processPaginationData
     });
 }
@@ -9,7 +9,7 @@ function getNatureTherapyDetail(id) {
         id = 0;
     }
     $.ajax({
-        url: "http://101.201.47.48/taofang/webapi/naturethearpy/" + id,
+        url: ajaxBaseUrl + "/naturethearpy/" + id,
         success: processDetailData
     });
 }

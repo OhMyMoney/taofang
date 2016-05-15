@@ -20,6 +20,8 @@ public class User {
     private String phoneNumber;
     // 短信激活码
     private String smsCode;
+    // 头像
+    private String icon;
 
     @Override
     public String toString() {
@@ -70,5 +72,13 @@ public class User {
 
     public void setSmsCode(String smsCode) {
         this.smsCode = smsCode;
+    }
+    @XmlElement(name="icon")
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }

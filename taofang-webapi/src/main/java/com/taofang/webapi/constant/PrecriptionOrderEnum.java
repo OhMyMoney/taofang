@@ -6,12 +6,13 @@ package com.taofang.webapi.constant;
  * @Create 2016-04-16
  */
 public enum PrecriptionOrderEnum {
-    VerifyNumber(0, "", "验证人数排序"),
-    EffectiveLevel(1, "", "有效程度排序"),
-    WorkingSpeed(2, "", "见效速度排序"),
-    SecurityDegree(3, "", "安全性由排序"),
-    ConvenientDegree(4, "", "方便性由排序"),
-    SaveLevel(5, "", "省钱程度排序");
+    Default(0, "", "默认排序"),
+    VerifyNumber(1, "p_Score", "验证人数排序"),
+    EffectiveLevel(2, "p_EffectiveDegree", "有效程度排序"),
+    WorkingSpeed(3, "p_EffectiveSpeed", "见效速度排序"),
+    SecurityDegree(4, "p_Security", "安全性由排序"),
+    ConvenientDegree(5, "p_Convenience", "方便性由排序"),
+    SaveLevel(6, "p_SaveMoney", "省钱程度排序");
 
     public int orderId;
 

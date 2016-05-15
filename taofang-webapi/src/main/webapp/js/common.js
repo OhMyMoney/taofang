@@ -1,4 +1,5 @@
-var BASE_URL = "http://101.201.47.48/taofang/webapi/";
+// Ajax请求域名
+var ajaxBaseUrl = "http://101.201.47.48/taofang/webapi";
 
 function processPage(curPage, totalPage) {
     $("#page").find($("[class='currentpage']")).html(curPage + "/" + totalPage);
@@ -13,7 +14,6 @@ function processPage(curPage, totalPage) {
         $('#nextpage').addClass("nextpage").removeClass("nextpage_opacity");
     }
 }
-
 function processRelationLink(relationLinks) {
     if(relationLinks.length > 0){
         $('#relationlink').show();
@@ -31,7 +31,6 @@ function processRelationLink(relationLinks) {
         $('#relationlink').hide();
     }
 }
-
 function goToHomePage(device){
     if(device == 'phone'){
         location.href = "http://101.201.47.48/";
@@ -39,7 +38,6 @@ function goToHomePage(device){
         location.href = "http://www.99taofang.com/";
     }
 }
-
 /*创建弹窗口*/
 function creatediv(msgDivTop) {
     if(top.location == self.location){

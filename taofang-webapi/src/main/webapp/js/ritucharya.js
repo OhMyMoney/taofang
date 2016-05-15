@@ -1,6 +1,6 @@
 function getRitucharya() {
     $.ajax({
-        url: "http://101.201.47.48/taofang/webapi/ritucharya",
+        url: ajaxBaseUrl + "/ritucharya",
         success: processListData
     });
 }
@@ -10,7 +10,7 @@ function showRitucharyaDetailList(id) {
 }
 function getRitucharyaDetailPagination(id, page, pageSize) {
     $.ajax({
-        url: "http://101.201.47.48/taofang/webapi/ritucharya/" + id + "?page=" + page + "&&pageSize=" + pageSize,
+        url: ajaxBaseUrl + "/ritucharya/" + id + "?page=" + page + "&&pageSize=" + pageSize,
         success: processDetailPaginationData
     });
 }

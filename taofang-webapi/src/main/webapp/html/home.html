@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>九九淘方网</title>
     <link rel="stylesheet" href="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
-    <link rel="stylesheet" href="../css/home.css">
+    <link rel="stylesheet" href="../css/home.css" />
+    <link rel="stylesheet" href="../css/common/popup.css" />
     <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script src="../js/jquery.cookie.js"></script>
@@ -13,186 +14,28 @@
     <script type="text/javascript" src="../js/common.js"></script>
     <script>
         $(document).ready(function () {
-            var userName = $.cookie('userName');
-            if(typeof(userName) == "undefined" || !userName || userName == ""){
-                $("#loginbutton1").show();
-                $("#loginbutton2").hide();
-                $("#viewhistory").hide();
-                $("#emptyviewhistory").show();
-            }else{
-                $("#loginbutton1").hide();
-                $("#loginbutton2").show();
-                getUserViewHistory(userName);
-            }
+            initPage();
         });
     </script>
 </head>
 <body>
-    <div id="mainpage" data-role="page">
+    <div data-role="page">
         <div id="navigation" data-role="panel">
-            <table>
-                <colgroup id="navigationCol1" span="1" />
-                <tbody>
-                    <tr onclick="doNavigationById(1)">
-                        <td><img src="../image/icon/home_icon.png"></td><td>首页</td>
-                    </tr>
-                    <tr onclick="doNavigationById(2)">
-                        <td><img src="../image/icon/health_icon.png"></td><td>健康之声</td>
-                    </tr>
-                    <tr onclick="doNavigationById(3)">
-                        <td><img src="../image/icon/story_icon.png"></td><td>我的故事</td>
-                    </tr>
-                    <tr onclick="doNavigationById(4)">
-                        <td><img src="../image/icon/natural_icon.png"></td><td>自然疗法</td>
-                    </tr>
-                    <tr onclick="doNavigationById(5)">
-                        <td><img src="../image/icon/season_icon.png"></td><td>季节养身</td>
-                    </tr>
-                    <tr onclick="doNavigationById(6)">
-                        <td><img src="../image/icon/information_icon.png"></td><td>健康资讯</td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
-        <div id="mainpageheader" data-role="header">
-            <div id="title">
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <a href="#navigation"><img src="../image/common/navigation.png"></a>
-                            </td>
-                            <td><img src="../image/jiujiutaofang.png" /></td>
-                            <td>
-                                <a id="loginbutton1" href="#loginRegister" data-rel="popup"><img src="../image/common/login.png"></a>
-                            </td>
-                            <td>
-                                <a id="loginbutton2" href="#"><img src="../image/common/login_ok.png"></a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div id="loginRegister" data-role="popup">
-                    <table>
-                        <tbody>
-                            <tr><td><a href="#" onclick="goLoginRegisterPage(1);">登录</a></td></tr>
-                            <tr><td><a href="#" onclick="goLoginRegisterPage(2);">注册</a></td></tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div id="prescriptiondiv">
+        <div id="header" data-role="header">
+            <div id="headertitlediv"></div>
+            <div id="headerprescriptiondiv">
                 <div id="prescriptionnamediv">
                     <input data-role="none" class="prescriptionname" type="text" name="prescriptionName" placeholder="输入关键字寻找相关偏方">
                 </div>
                 <div class="prescriptionbutton" onclick="prescriptionSearch()">立即搜索</div>
             </div>
+            <div id="headerdiseasediv"></div>
         </div>
-        <div id="mainpagecontent" data-role="content">
-            <div id="emptyviewhistory">
-                <ul class="timeline">
-                    <li>
-                        <div class="pretitle">偏方</div>
-                        <div class="point"></div>
-                        <div class="content">
-                            <pre>您尚未浏览相关内容</pre>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="pretitle">文章</div>
-                        <div class="point"></div>
-                        <div class="content">
-                            <pre>您尚未浏览相关内容</pre>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div id="viewhistory">
-                <ul class="timeline">
-                    <li>
-                        <div class="time">
-                            <pre>星期日</pre>
-                            <pre>2016-04-24</pre>
-                        </div>
-                        <div class="point"></div>
-                        <div class="content">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="viewType">上次浏览的偏方</td>
-                                        <td rowspan="2"><img src="../image/icon/time_view_icon.png"></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="viewTitle">aaaaaaaaa</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="time">
-                            <pre>星期日</pre>
-                            <pre>2016-04-24</pre>
-                        </div>
-                        <div class="point"></div>
-                        <div class="content">
-                            <table>
-                                <tbody>
-                                <tr>
-                                    <td class="viewType">上次浏览的偏方</td>
-                                    <td rowspan="2"><img src="../image/icon/time_view_icon.png"></td>
-                                </tr>
-                                <tr>
-                                    <td class="viewTitle">aaaaaaaaa</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div id="hsnsicontent">
-                <table>
-                    <tbody>
-                    <tr>
-                        <td id="healthvoicetd" colspan="2" onclick="doNavigationById(2);">
-                            <div class="circlebg1">
-                                <div class="circleimg"><img src="../image/bg/healthvoice_icon.png"></div>
-                                <div class="circlefont">健康之声</div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td id="storytd" onclick="doNavigationById(3);">
-                            <div class="circlebg2">
-                                <div class="circleimg"><img src="../image/bg/story_icon.png"></div>
-                                <div class="circlefont">我的故事</div>
-                            </div>
-                        </td>
-                        <td id="naturaltd" onclick="doNavigationById(4);">
-                            <div class="circlebg2">
-                                <div class="circleimg"><img src="../image/bg/natural_icon.png"></div>
-                                <div class="circlefont">自然疗法</div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td id="seasontd" onclick="doNavigationById(5);">
-                            <div class="circlebg2">
-                                <div class="circleimg"><img src="../image/bg/season_icon.png"></div>
-                                <div class="circlefont">季节养身</div>
-                            </div>
-                        </td>
-                        <td id="informationtd" onclick="doNavigationById(6);">
-                            <div class="circlebg2">
-                                <div class="circleimg"><img src="../image/bg/information_icon.png"></div>
-                                <div class="circlefont">健康资讯</div>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+        <div id="content" data-role="content" class="content">
+            <div id="userviewhistory"></div>
+            <div class="contentblock"></div>
+            <div id="contentnavigation"></div>
         </div>
         <div id="footer" data-role="footer">
             <div id="addiv" class="addiv"></div>
@@ -218,5 +61,8 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        initDisease();
+    </script>
 </body>
 </html>

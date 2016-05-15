@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.taofang.webapi.dao.WordstatisticsMapper" >
+  <resultMap id="BaseResultMap" type="com.taofang.webapi.model.Wordstatistics" >
+    <result column="WordStatisticsID" property="wordstatisticsid" jdbcType="BIGINT" />
+    <result column="SearchCount" property="searchcount" jdbcType="BIGINT" />
+    <result column="WordHashCode" property="wordhashcode" jdbcType="BIGINT" />
+    <result column="Word" property="word" jdbcType="VARCHAR" />
+  </resultMap>
+</mapper>

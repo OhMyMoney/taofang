@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.taofang.webapi.dao.InquiryprescriptionMapper" >
+  <resultMap id="BaseResultMap" type="com.taofang.webapi.model.Inquiryprescription" >
+    <result column="InquiryID" property="inquiryid" jdbcType="DOUBLE" />
+    <result column="Title" property="title" jdbcType="VARCHAR" />
+    <result column="SymptomIDs" property="symptomids" jdbcType="VARCHAR" />
+    <result column="DiseaseIDs" property="diseaseids" jdbcType="VARCHAR" />
+    <result column="DiseaseNames" property="diseasenames" jdbcType="VARCHAR" />
+    <result column="UndergoneTreatment" property="undergonetreatment" jdbcType="CHAR" />
+    <result column="TreatmentOutcome" property="treatmentoutcome" jdbcType="VARCHAR" />
+    <result column="ForHelp" property="forhelp" jdbcType="VARCHAR" />
+    <result column="Sex" property="sex" jdbcType="CHAR" />
+    <result column="BirthYear" property="birthyear" jdbcType="INTEGER" />
+    <result column="BirthMonth" property="birthmonth" jdbcType="INTEGER" />
+    <result column="Phone" property="phone" jdbcType="VARCHAR" />
+    <result column="Anonymous" property="anonymous" jdbcType="CHAR" />
+    <result column="Status" property="status" jdbcType="CHAR" />
+    <result column="CreatedBy" property="createdby" jdbcType="INTEGER" />
+    <result column="CreatedDate" property="createddate" jdbcType="TIMESTAMP" />
+    <result column="LastUpdateUser" property="lastupdateuser" jdbcType="VARCHAR" />
+    <result column="LastUpdateDate" property="lastupdatedate" jdbcType="TIMESTAMP" />
+    <result column="Visited" property="visited" jdbcType="INTEGER" />
+    <result column="InquiryStatus" property="inquirystatus" jdbcType="CHAR" />
+    <result column="LastReplyDate" property="lastreplydate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.taofang.webapi.model.InquiryprescriptionWithBLOBs" extends="BaseResultMap" >
+    <result column="Description" property="description" jdbcType="LONGVARCHAR" />
+    <result column="Images" property="images" jdbcType="LONGVARCHAR" />
+  </resultMap>
+</mapper>

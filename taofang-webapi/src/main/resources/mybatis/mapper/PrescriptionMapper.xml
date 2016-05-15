@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.taofang.webapi.dao.PrescriptionMapper" >
+  <resultMap id="BaseResultMap" type="com.taofang.webapi.model.Prescription" >
+    <result column="PrescriptionID" property="prescriptionid" jdbcType="INTEGER" />
+    <result column="ImageURL" property="imageurl" jdbcType="VARCHAR" />
+    <result column="Letter" property="letter" jdbcType="CHAR" />
+    <result column="Status" property="status" jdbcType="CHAR" />
+    <result column="CreateDate" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="ISAuditing" property="isauditing" jdbcType="CHAR" />
+    <result column="LastUpdateUser" property="lastupdateuser" jdbcType="VARCHAR" />
+    <result column="LastUpdateDate" property="lastupdatedate" jdbcType="TIMESTAMP" />
+    <result column="CreatorName" property="creatorname" jdbcType="VARCHAR" />
+    <result column="IsAudited" property="isaudited" jdbcType="CHAR" />
+    <result column="IsFront" property="isfront" jdbcType="CHAR" />
+    <result column="InquiryID" property="inquiryid" jdbcType="DOUBLE" />
+    <result column="Score" property="score" jdbcType="DOUBLE" />
+    <result column="EffectiveDegree" property="effectivedegree" jdbcType="DOUBLE" />
+    <result column="EffectiveSpeed" property="effectivespeed" jdbcType="DOUBLE" />
+    <result column="Security" property="security" jdbcType="DOUBLE" />
+    <result column="Convenience" property="convenience" jdbcType="DOUBLE" />
+    <result column="SaveMoney" property="savemoney" jdbcType="DOUBLE" />
+    <result column="TotalEffectiveDegree" property="totaleffectivedegree" jdbcType="DOUBLE" />
+    <result column="TotalEffectiveSpeed" property="totaleffectivespeed" jdbcType="DOUBLE" />
+    <result column="TotalSecurity" property="totalsecurity" jdbcType="DOUBLE" />
+    <result column="TotalConvenience" property="totalconvenience" jdbcType="DOUBLE" />
+    <result column="TotalSaveMoney" property="totalsavemoney" jdbcType="DOUBLE" />
+    <result column="CommentNumber" property="commentnumber" jdbcType="DOUBLE" />
+    <result column="ED1Number" property="ed1number" jdbcType="DOUBLE" />
+    <result column="ED2Number" property="ed2number" jdbcType="DOUBLE" />
+    <result column="ED3Number" property="ed3number" jdbcType="DOUBLE" />
+    <result column="ED4Number" property="ed4number" jdbcType="DOUBLE" />
+    <result column="ED5Number" property="ed5number" jdbcType="DOUBLE" />
+    <result column="ES1Number" property="es1number" jdbcType="DOUBLE" />
+    <result column="ES2Number" property="es2number" jdbcType="DOUBLE" />
+    <result column="ES3Number" property="es3number" jdbcType="DOUBLE" />
+    <result column="ES4Number" property="es4number" jdbcType="DOUBLE" />
+    <result column="ES5Number" property="es5number" jdbcType="DOUBLE" />
+    <result column="Security1Number" property="security1number" jdbcType="DOUBLE" />
+    <result column="Security2Number" property="security2number" jdbcType="DOUBLE" />
+    <result column="Security3Number" property="security3number" jdbcType="DOUBLE" />
+    <result column="Security4Number" property="security4number" jdbcType="DOUBLE" />
+    <result column="Security5Number" property="security5number" jdbcType="DOUBLE" />
+    <result column="Convenience1Number" property="convenience1number" jdbcType="DOUBLE" />
+    <result column="Convenience2Number" property="convenience2number" jdbcType="DOUBLE" />
+    <result column="Convenience3Number" property="convenience3number" jdbcType="DOUBLE" />
+    <result column="Convenience4Number" property="convenience4number" jdbcType="DOUBLE" />
+    <result column="Convenience5Number" property="convenience5number" jdbcType="DOUBLE" />
+    <result column="Save1Number" property="save1number" jdbcType="DOUBLE" />
+    <result column="Save2Number" property="save2number" jdbcType="DOUBLE" />
+    <result column="Save3Number" property="save3number" jdbcType="DOUBLE" />
+    <result column="Save4Number" property="save4number" jdbcType="DOUBLE" />
+    <result column="Save5Number" property="save5number" jdbcType="DOUBLE" />
+    <result column="PrescriptionType" property="prescriptiontype" jdbcType="INTEGER" />
+    <result column="Hide" property="hide" jdbcType="CHAR" />
+    <result column="BrowseCount" property="browsecount" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.taofang.webapi.model.Prescription" extends="BaseResultMap" >
+    <result column="MaterialImageOne" property="materialimageone" jdbcType="LONGVARCHAR" />
+  </resultMap>
+</mapper>

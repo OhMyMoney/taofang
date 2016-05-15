@@ -14,6 +14,12 @@ public class RelateInfo {
     private int id;
     // 相关信息标题
     private String title;
+    // 链接
+    private String urlLink;
+
+    public RelateInfo(String title) {
+        this.title = title;
+    }
 
     @XmlElement(name="id")
     public int getId() {
@@ -23,6 +29,10 @@ public class RelateInfo {
     public String getTitle() {
         return title;
     }
+    @XmlElement(name="urlLink")
+    public String getUrlLink() {
+        return urlLink;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -30,5 +40,9 @@ public class RelateInfo {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public void setUrlLink(String urlLink) {
+        this.urlLink = urlLink;
     }
 }

@@ -2,12 +2,14 @@ package com.taofang.webapi.resource;
 
 import com.taofang.webapi.constant.PrecriptionOrderEnum;
 import com.taofang.webapi.domain.PrescriptionPagination;
+import com.taofang.webapi.domain.PrescriptionRelateInfo;
 import com.taofang.webapi.domain.PrescriptionWithLinks;
 import com.taofang.webapi.service.IPrescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.io.IOException;
 
 /**
  * @Desc 偏方资源类
@@ -30,15 +32,23 @@ public class PrescriptionResource {
     @GET
     @Produces({MediaType.APPLICATION_JSON})
     public PrescriptionPagination getPrescriptionPagination(@QueryParam("name") String name,
-                                                        @DefaultValue("1") @QueryParam("page") int page,
-                                                        @DefaultValue("5") @QueryParam("pageSize") int pageSize,
-                                                        @DefaultValue("0") @QueryParam("order") int orderId){
+                                                            @DefaultValue("1") @QueryParam("page") int page,
+                                                            @DefaultValue("5") @QueryParam("pageSize") int pageSize,
+                                                            @DefaultValue("0") @QueryParam("order") int orderId){
         String orderName = PrecriptionOrderEnum.getOrderNameById(orderId);
         int start = (page - 1) * pageSize;
         PrescriptionPagination prescriptionPagination = prescriptionService.getPrescriptionPagination(name, orderName, start, pageSize);
         prescriptionPagination.setCurPage(page);
         prescriptionPagination.setPerPage(pageSize);
         return prescriptionPagination;
+    }
+
+    @GET
+    @Path("/relation")
+    @Produces({MediaType.APPLICATION_JSON})
+    public PrescriptionRelateInfo getPrecriptionRelation(@QueryParam("name") String name) throws IOException {
+        PrescriptionRelateInfo prescriptionRelateInfo = prescriptionService.getPrescriptionRelateInfo(name);
+        return prescriptionRelateInfo;
     }
 
     @GET

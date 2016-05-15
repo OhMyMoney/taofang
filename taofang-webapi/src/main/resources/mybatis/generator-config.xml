@@ -22,8 +22,8 @@
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
-        <!--<table tableName="CommentStar">
-            <generatedKey column="CommentID" sqlStatement="Mysql" />
-        </table>-->
+        <table tableName="Prescription11">
+            <generatedKey column="PrescriptionID" sqlStatement="Mysql" />
+        </table>
     </context>
 </generatorConfiguration>
