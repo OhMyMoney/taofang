@@ -1,11 +1,11 @@
-#list table{
+#list table{text-shadow: none;
     width: 100%;
     border-collapse: collapse;
 }
-#list table tbody tr td{
+#list table tbody tr td{text-shadow: none;
     height: 40px;
     border-bottom: 1px solid #DFD7C8;
 }
-#list table tbody tr td:nth-child(1){
+#list table tbody tr td:nth-child(1){text-shadow: none;
     width: 10px;
 }

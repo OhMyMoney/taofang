@@ -1,20 +1,20 @@
 /*页头*/
 @import "font.css";
-body {
+body {text-shadow: none;
     font-family: "webfont" !important;
 }
-.blackheader{
+.blackheader{text-shadow: none;
     width: 100%;
     background-color: #474547;
     height: 50px;
 }
-.backdiv, .morediv{
+.backdiv, .morediv{text-shadow: none;
     width: 10%;
     height: 50px;
     float:left;
     position: relative;
 }
-.back{
+.back{text-shadow: none;
     width: 15px;
     height: 20px;
     position: absolute;
@@ -24,14 +24,14 @@ body {
     bottom: 0;
     margin: auto;
 }
-.titlediv{
+.titlediv{text-shadow: none;
     height: 50px;
     width: 80%;
     float: left;
     position: relative;
     font-family: Tahoma,Verdana,STHeiTi,simsun,sans-serif;
 }
-.title{
+.title{text-shadow: none;
     font-size: 20px;
     color: #FFFFFF;
     font-style: normal;
@@ -45,7 +45,7 @@ body {
     width: 100%;
     text-align: center;
 }
-.morediv a img{
+.morediv a img{text-shadow: none;
     width: 20px;
     height: 20px;
     position: absolute;
@@ -55,36 +55,36 @@ body {
     bottom: 0;
     margin: auto;
 }
-#collectsharediv{
+#collectsharediv{text-shadow: none;
     margin-top: 15px;
     margin-left: 20px;
     width: 90px;
     opacity: 0.8;
 }
-#collectsharediv table{
+#collectsharediv table{text-shadow: none;
     width: 100%;
     border-collapse: collapse;
 }
-#collectsharediv table tbody tr td{
+#collectsharediv table tbody tr td{text-shadow: none;
     height: 40px;
     border-bottom: 1px solid #DFD7C8;
 }
-#collectsharediv table tbody tr td:nth-child(1){
+#collectsharediv table tbody tr td:nth-child(1){text-shadow: none;
     width: 30px;
 }
-.csimg{
+.csimg{text-shadow: none;
     width: 20px;
     height: 20px;
     margin-top: 5px;
     margin-left: 5px;
 }
-.cstitle{
+.cstitle{text-shadow: none;
     color: #56392F;
     font-size: 14px;
     margin-left: 10px;
 }
 /*详细内容区*/
-.contenttitle{
+.contenttitle{text-shadow: none;
     height: 20px;
     line-height: 20px;
     padding-left: 8px;
@@ -93,7 +93,7 @@ body {
     margin-top: 10px;
     font-weight: 800;
 }
-.contentauthor{
+.contentauthor{text-shadow: none;
     height: 20px;
     line-height: 20px;
     width: 100%;
@@ -102,35 +102,35 @@ body {
     color: #BCB1AD;
     opacity: 0.8;
 }
-.contentstory{
+.contentstory{text-shadow: none;
     min-height: 50px;
     color: #56392F;
     font-size: 12px;
 }
-.contentstory p {
+.contentstory p {text-shadow: none;
     padding-left: 10px;
     padding-right: 10px;
 }
-.contentstory img{
+.contentstory img{text-shadow: none;
     width: 100%;
     height: 100px;
 }
-.contentplacediv{
+.contentplacediv{text-shadow: none;
     width: 100%;
     height: 5px;
     background-color: #F2ECE3;
 }
-.contentimagediv{
+.contentimagediv{text-shadow: none;
     width: 100%;
     border-bottom: 1px solid #DFD7C8;
 }
-#contentimage img{
+#contentimage img{text-shadow: none;
     width: 96%;
     padding-left: 2%;
     padding-top: 5px;
     height: 200px;
 }
-.contentimagebutton{
+.contentimagebutton{text-shadow: none;
     height: 40px;
     line-height: 40px;
     margin-top: 10px;
@@ -144,15 +144,15 @@ body {
     text-align: center;
     font-family: webfontlight !important;
 }
-#contentdetail{
+#contentdetail{text-shadow: none;
     width: 100%;
 }
-.contentdetaildiv{
+.contentdetaildiv{text-shadow: none;
     width: 100%;
     min-height: 50px;
     border-bottom: 1px solid #DFD7C8;
 }
-.contentdetailtitle{
+.contentdetailtitle{text-shadow: none;
     height: 30px;
     line-height: 30px;
     width: 80px;
@@ -164,70 +164,70 @@ body {
     border-radius: 15px;
     margin-top: 5px;
 }
-.contentdetail{
+.contentdetail{text-shadow: none;
     color: #56392F;
     font-size: 14px;
     padding-left: 5px;
     padding-right: 5px;
 }
-.contentdetail p{
+.contentdetail p{text-shadow: none;
     -webkit-margin-before: 0.5em;
     -webkit-margin-after: 0.5em;
 }
-.contentdetail img{
+.contentdetail img{text-shadow: none;
     width: 100%;
     height: 100px;
 }
-.commenttitlediv{
+.commenttitlediv{text-shadow: none;
     height: 50px;
     line-height: 50px;
     width: 100%;
     background-color: #F39F51;
 }
-.commentplacediv{
+.commentplacediv{text-shadow: none;
     float: left;
     width: 2%;
     height: 50px;
 }
-#commenttitle{
+#commenttitle{text-shadow: none;
     float: left;
     width: 88%;
     font-size: 18px;
     color: #FFFFFF;
 }
-.commenttitleimg{
+.commenttitleimg{text-shadow: none;
     float: left;
     width: 10%;
 }
-.commenttitleimg img{
+.commenttitleimg img{text-shadow: none;
     width: 20px;
     height: 10px;
     text-align: center;
 }
-#commentlist{
+#commentlist{text-shadow: none;
     width: 100%;
 }
-#commentlist table{
+#commentlist table{text-shadow: none;
     width: 100%;
     border-collapse: collapse;
 }
-#commentlist table tbody tr td{
+#commentlist table tbody tr td{text-shadow: none;
     height: 50px;
     border-bottom: 1px solid #DFD7C8;
 }
-#commentlist table tbody tr td:nth-child(1){
+#commentlist table tbody tr td:nth-child(1){text-shadow: none;
     width: 50px;
     text-align: center;
 }
-#commentlist table tbody tr td div img{
+#commentlist table tbody tr td div img{text-shadow: none;
     width: 40px;
     height: 40px;
     border-radius: 20px;
 }
-.commentmemberdiv{
+.commentmemberdiv{text-shadow: none;
     width: 100%;
 }
-.commentmember{
+.commentmember{text-shadow: none;
     float: left;
     width: 45%;
     color: #AA9c97;
@@ -235,7 +235,7 @@ body {
     height: 30px;
     line-height: 30px;
 }
-.commentscore{
+.commentscore{text-shadow: none;
     float: left;
     width: 15%;
     color: #F39F51;
@@ -243,7 +243,7 @@ body {
     height: 30px;
     line-height: 30px;
 }
-.commenttitme{
+.commenttitme{text-shadow: none;
     float: left;
     width: 40%;
     font-size: 10px;
@@ -251,7 +251,7 @@ body {
     height: 30px;
     line-height: 30px;
 }
-.commentexperiencediv{
+.commentexperiencediv{text-shadow: none;
     float: left;
     font-size: 12px;
     padding-right: 5px;
@@ -259,11 +259,11 @@ body {
     padding-top: 5px;
     color: #56392F;
 }
-.commentbuttondiv{
+.commentbuttondiv{text-shadow: none;
     height: 55px;
     border-bottom: 1px solid #DFD7C8;
 }
-.commentbutton{
+.commentbutton{text-shadow: none;
     width: 50%;
     height: 36px;
     line-height: 36px;
@@ -275,7 +275,7 @@ body {
     color: #FFFFFF;
     text-align: center;
 }
-.commentbacklistbutton{
+.commentbacklistbutton{text-shadow: none;
     height: 35px;
     line-height: 35px;
     margin-top: 10px;
@@ -289,7 +289,7 @@ body {
     text-align: center;
 }
 /*相关链接*/
-.relationlinktitle{
+.relationlinktitle{text-shadow: none;
     font-size: 15px;
     color: #56392F;
     background-color: #F2ECE3;
@@ -298,36 +298,36 @@ body {
     padding-left: 10px;
     font-weight: 800;
 }
-#relationvideo, #relationlink{
+#relationvideo, #relationlink{text-shadow: none;
     min-height: 50px;
     width: 100%;
 }
-#relationvideo table, #relationlink table{
+#relationvideo table, #relationlink table{text-shadow: none;
     width: 100%;
     border-collapse: collapse;
 }
-#relationvideo table tbody tr td, #relationlink table tbody tr td{
+#relationvideo table tbody tr td, #relationlink table tbody tr td{text-shadow: none;
     height: 40px;
     border-bottom: 1px solid #DFD7C8;
 }
-#relationvideo table tbody tr td:nth-child(1){
+#relationvideo table tbody tr td:nth-child(1){text-shadow: none;
     width: 10px;
 }
-#relationvideo table tbody tr td:nth-child(3){
+#relationvideo table tbody tr td:nth-child(3){text-shadow: none;
     width: 35px;
 }
-.videotitle1{
+.videotitle1{text-shadow: none;
     font-size: 14px;
     color: #56392F;
     padding-left: 5px;
 }
-.videotitle2{
+.videotitle2{text-shadow: none;
     font-size: 16px;
     font-weight: 600;
     color: #56392F;
     padding-left: 5px;
 }
-.circlediv{
+.circlediv{text-shadow: none;
     width: 25px;
     height: 25px;
     border-radius: 13px;
@@ -336,7 +336,7 @@ body {
     text-align: center;
     margin-left: 5px;
 }
-.trianglediv{
+.trianglediv{text-shadow: none;
     width: 0;
     height: 0;
     border-top: 5px solid transparent;
@@ -345,7 +345,7 @@ body {
     margin-left: 9px;
     margin-top: 7px;
 }
-.paralleldiv{
+.paralleldiv{text-shadow: none;
     width: 4px;
     height: 10px;
     border-left: 2px solid #F39F51;
@@ -353,78 +353,78 @@ body {
     margin-left: 8px;
     margin-top: 7px;
 }
-#relationlink table tbody tr td:nth-child(1){
+#relationlink table tbody tr td:nth-child(1){text-shadow: none;
     width: 10px;
 }
-.contentpointdiv{
+.contentpointdiv{text-shadow: none;
     width: 1px;
     height: 1px;
     border: 1px solid #56392F;
     background-color: #56392F;
     margin-left: 5px;
 }
-.contentlistdiv{
+.contentlistdiv{text-shadow: none;
     font-size: 14px;
     color: #56392F;
 }
-a:link {
+a:link {text-shadow: none;
     text-decoration: none;
     color: #56392F;
 }
-a:visited {
+a:visited {text-shadow: none;
     text-decoration: none;
     color: #56392F;
 }
-a:hover {
+a:hover {text-shadow: none;
     text-decoration: none;
     color: #56392F;
 }
-a:active {
+a:active {text-shadow: none;
     text-decoration: none;
     color: #56392F;
 }
-.ui-page-theme-a a:visited, html .ui-bar-a a:visited, html .ui-body-a a:visited, html body .ui-group-theme-a a:visited {
+.ui-page-theme-a a:visited, html .ui-bar-a a:visited, html .ui-body-a a:visited, html body .ui-group-theme-a a:visited {text-shadow: none;
     color: #56392F;
 }
 /*音频播放区域*/
-.videoplay{
+.videoplay{text-shadow: none;
     width: 96%;
     height: 30px;
     background: #F4A046;
     border-radius: 5px;
     border: 1px solid #F2ECE3;
 }
-.prescriptionvideoplaydiv{
+.prescriptionvideoplaydiv{text-shadow: none;
     height: 40px;
     width: 100%;
     margin-left: 2%;
 }
 /*弹出窗*/
-.closediv{
+.closediv{text-shadow: none;
     width: 100%;
     height: 40px;
     text-align: right;
 }
-.closediv img{
+.closediv img{text-shadow: none;
     height: 30px;
     width: 30px;
     margin-right: 4px;
     margin-top: 4px;
 }
-.noteimagediv{
+.noteimagediv{text-shadow: none;
     float: left;
     width: 35%;
     height: 70px;
     line-height: 70px;
     text-align: right;
 }
-.noteimagediv img{
+.noteimagediv img{text-shadow: none;
     width: 40px;
     height: 40px;
     padding-right: 10px;
     margin-top: 15px;
 }
-.noteworlddiv{
+.noteworlddiv{text-shadow: none;
     float: left;
     width: 65%;
     height: 70px;
@@ -434,14 +434,14 @@ a:active {
     font-weight: 800;
     color: #333333;
 }
-.logindiv, .registerdiv{
+.logindiv, .registerdiv{text-shadow: none;
     float: left;
     width: 50%;
     height: 50px;
     line-height: 50px;
     text-align: center;
 }
-.logindiv div{
+.logindiv div{text-shadow: none;
     width: 80%;
     margin-left: 10%;
     margin-top: 10px;
@@ -453,7 +453,7 @@ a:active {
     line-height: 35px;
     border-radius: 5px;
 }
-.registerdiv div{
+.registerdiv div{text-shadow: none;
     width: 80%;
     margin-left: 10%;
     margin-top: 10px;
@@ -465,14 +465,14 @@ a:active {
     border-radius: 5px;
 }
 /*相关用料*/
-.imagediv{
+.imagediv{text-shadow: none;
     min-height: 100px;
     width: 100%;
 }
-#imagediv img {
+#imagediv img {text-shadow: none;
     width: 90%;
 }
-#imagediv p {
+#imagediv p {text-shadow: none;
     -webkit-margin-before: 0.5em;
     -webkit-margin-after: 0.5em;
     -webkit-margin-start: 0px;
@@ -482,75 +482,113 @@ a:active {
     color: #56392F;
 }
 /*页脚*/
-#footer{
+#footer{text-shadow: none;
     background-color: #F2ECE3;
 }
-.addiv{
-    height: 20px;
+.addiv{text-shadow: none;
     margin-bottom: 10px;
 }
-.switchdiv{
+.switchdiv{text-shadow: none;
     width: 95%;
     margin: 0 auto;
 }
-.phonediv{
-    width: 45%;
+.phonediv{text-shadow: none;
+    width: 49%;
     height: 30px;
     float: left;
     text-align: right;
 }
-.pcdiv{
-    width: 45%;
+.pcdiv{text-shadow: none;
+    width: 49%;
     height: 30px;
     float: left;
     text-align: right;
 }
-.phonepcdiv{
-    width: 10%;
+.phonepcdiv{text-shadow: none;
+    width: 2%;
     float: left;
     height: 30px;
 }
-.phone, .pc{
-    width: 100px;
+.phone, .pc{text-shadow: none;
+    width: 120px;
     height: 25px;
-    border: 2px solid #F39F51;
+    border: 1px solid #F39F51;
     border-radius: 5px;
     font-size: 12px;
+    font-weight: 500;
     color: #F39F51;
     margin:0 auto;
     text-align: center;
     vertical-align: middle;
 }
-.phoneimg, .pcimg{
+.phoneimg, .pcimg{text-shadow: none;
     width: 30px;
     height: 30px;
     line-height: 30px;
     float: left;
     margin-left: 10px;
 }
-.phonetext, .pctext{
+.phonetext, .pctext{text-shadow: none;
     width: 50px;
     float: left;
     height: 30px;
     line-height: 25px;
 }
-.phoneimg img, .pcimg img{
+.phoneimg img{text-shadow: none;
+    width: 16px;
+    height: 20px;
+    margin-top: 2px;
+}
+.pcimg img{text-shadow: none;
     width: 20px;
     height: 20px;
     margin-top: 2px;
 }
-.declarediv{
+.declarediv{text-shadow: none;
     margin-top: 60px;
     margin-bottom: 5px;
     text-align: center;
 }
-.aboutustitle{
+.aboutustitle{text-shadow: none;
     color: #56392F;
     font-size: 11px;
+    font-weight: 400;
 }
-.aboutuscontent{
+.aboutuscontent{text-shadow: none;
     color: #B8ACA4;
     font-size: 10px;
+    font-weight: 200;
     margin-top: 5px;
-    font-weight: 100;
+}
+a{text-shadow: none;
+    text-decoration:none;
+    color:#B9B9B9
+}
+.slide{text-shadow: none;
+    width: 100%;
+    height: 150px;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+}
+.slide .img-div{text-shadow: none;
+    position:absolute;top:0;left:0;width:1500px;
+}
+.slide .img-div img{text-shadow: none;
+    float:left;
+}
+.slide img{text-shadow: none;
+    width:500px;
+}
+.slide-btn{text-shadow: none;
+    width: 100%;
+    height: 20px;
+    line-height: 20px;
+    position: absolute;
+    bottom: 10px;
+    z-index: 11;
+    text-align: center;
+}
+.slide-btn a.hover{text-shadow: none;
+    color:#F39F51;
 }

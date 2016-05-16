@@ -1,18 +1,18 @@
-#healthvoiceheader{
+#healthvoiceheader{text-shadow: none;
     background-color: #434547;
     height: 50px;
 }
-#healthvoiceheader table{
+#healthvoiceheader table{text-shadow: none;
     width: 100%;
     height: 100%;
     vertical-align:middle;
     padding-top: 5px;
 }
-.lrtabletd1{
+.lrtabletd1{text-shadow: none;
     text-align: left;
     width: 20px;
 }
-.lrtabletd2{
+.lrtabletd2{text-shadow: none;
     text-align: center;
     font-size: 20px;
     font-weight: 800;
@@ -20,20 +20,20 @@
     height: 30px;
     padding-right: 20px;
 }
-.backimg{
+.backimg{text-shadow: none;
     height: 25px;
     width: 20px;
     padding-left: 5px;
 }
-a.ui-btn.ui-corner-all.ui-icon-delete.ui-btn-icon-notext.ui-btn-left{
+a.ui-btn.ui-corner-all.ui-icon-delete.ui-btn-icon-notext.ui-btn-left{text-shadow: none;
     display: none;
 }
-#dateselectbutton{
+#dateselectbutton{text-shadow: none;
     width: 100%;
     height: 60px;
     text-align: center;
 }
-#dateselectbutton label{
+#dateselectbutton label{text-shadow: none;
     height: 35px;
     width: 90%;
     border: 1px solid #F4A046;
@@ -46,44 +46,44 @@ a.ui-btn.ui-corner-all.ui-icon-delete.ui-btn-icon-notext.ui-btn-left{
     padding-top: 10px;
     margin-left: 5%;
 }
-.dateselectresultclass1{
+.dateselectresultclass1{text-shadow: none;
     width: 100%;
     height: 10px;
     background-color: #F2ECE3;
 }
-.dateselectresultclass2{
+.dateselectresultclass2{text-shadow: none;
     width: 100%;
     height: 50px;
     line-height:50px;
     text-align: left;
     background-color: #F2ECE3;
 }
-.dateselectlabelclass{
+.dateselectlabelclass{text-shadow: none;
     font-size: 16px;
     font-weight: 800;
     color: #56392F;
     padding-left: 10px;
 }
-#emptylist{
+#emptylist{text-shadow: none;
     text-align: center;
     width: 100%;
     margin-top: 30px;
 }
-#emptyimg img{
+#emptyimg img{text-shadow: none;
     height: 50px;
     width: 50px;
 }
-#healthvoicelist table{
+#healthvoicelist table{text-shadow: none;
     width: 100%;
     border-collapse: collapse;
 }
-#emptydate{
+#emptydate{text-shadow: none;
     font-size: 16px;
     font-weight: 500;
     color: #56392F;
     margin-top: 10px;
 }
-#emptybutton{
+#emptybutton{text-shadow: none;
     width: 50%;
     height: 30px;
     font-size: 16px;
@@ -96,35 +96,35 @@ a.ui-btn.ui-corner-all.ui-icon-delete.ui-btn-icon-notext.ui-btn-left{
     margin-left: 25%;
     padding-top: 5px;
 }
-#healthvoicelist table tbody tr td{
+#healthvoicelist table tbody tr td{text-shadow: none;
     height: 50px;
     align-content: center;
     border-bottom: 1px solid #DFD7CB;
 }
-#healthvoicelist table tbody tr td img{
+#healthvoicelist table tbody tr td img{text-shadow: none;
     width: 20px;
     height: 20px;
 }
-#listtd1{
+#listtd1{text-shadow: none;
     width: 40px;
 }
-#listtd2{
+#listtd2{text-shadow: none;
     width: 200px;
 }
-#listtd3{
+#listtd3{text-shadow: none;
     width: 40px;
 }
-.label1{
+.label1{text-shadow: none;
     font-size: 14px;
     font-weight: 400;
     color: #56392F;
 }
-.label2{
+.label2{text-shadow: none;
     font-size: 18px;
     font-weight: 800;
     color: #56392F;
 }
-.start{
+.start{text-shadow: none;
     height: 20px;
     width: 20px;
     border-radius: 10px;
@@ -134,7 +134,7 @@ a.ui-btn.ui-corner-all.ui-icon-delete.ui-btn-icon-notext.ui-btn-left{
     background-color: white;
     margin-left: 10px;
 }
-.pause{
+.pause{text-shadow: none;
     height: 20px;
     width: 20px;
     border-radius: 10px;
@@ -144,7 +144,7 @@ a.ui-btn.ui-corner-all.ui-icon-delete.ui-btn-icon-notext.ui-btn-left{
     background-color: white;
     margin-left: 10px;
 }
-#healthvoicemp3{
+#healthvoicemp3{text-shadow: none;
     height: 70px;
     width: 100%;
     border: 1px solid #F2ECE3;
@@ -152,7 +152,7 @@ a.ui-btn.ui-corner-all.ui-icon-delete.ui-btn-icon-notext.ui-btn-left{
     margin-top: 10px;
     border-radius: 5px;
 }
-#audioname{
+#audioname{text-shadow: none;
     margin-bottom: 5px;
     text-align: center;
     margin-top: 5px;
@@ -160,10 +160,10 @@ a.ui-btn.ui-corner-all.ui-icon-delete.ui-btn-icon-notext.ui-btn-left{
     font-weight: 500;
     color: #56392F;
 }
-#audiomp3 {
+#audiomp3 {text-shadow: none;
     text-align: center;
 }
-.audiomp3class {
+.audiomp3class {text-shadow: none;
     width: 90%;
     background: #F4A046;
     border-radius: 5px;

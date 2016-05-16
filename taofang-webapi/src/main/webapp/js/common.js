@@ -1,5 +1,30 @@
 // Ajax请求域名
-var ajaxBaseUrl = "http://192.168.31.199:8080/taofang/webapi";
+var ajaxBaseUrl = "http://localhost:8080/taofang/webapi";
+
+function addUserView(viewType, title, id) {
+    var userId = $.cookie('userId');
+    if(typeof(userId) == "undefined" || !userId || userId == ""){
+    }else{
+        var view = userId + ";" + id + ";" + viewType + ";" + viewType + ";" + title;
+        $.ajax({
+            timeout: 5000,
+            url: ajaxBaseUrl + "/user/view",
+            contentType: "text/plain",
+            data: view,
+            type: "post",
+            success: doNothing
+        });
+    }
+}
+function addUserCollect(collectType, title, id) {
+    var userId = $.cookie('userId');
+
+}
+function doNothing(data) {
+    location.href = "/html/home.html";
+}
+
+
 
 function processPage(curPage, totalPage) {
     $("#page").find($("[class='currentpage']")).html(curPage + "/" + totalPage);

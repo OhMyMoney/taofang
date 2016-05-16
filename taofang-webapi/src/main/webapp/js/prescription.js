@@ -46,7 +46,7 @@ function processPaginationData(data) {
         var prescriptionsEnum = $("<table><tbody></tbody></table>");
         for(var i=0; i<prescriptions.length; i++){
             var prescription = prescriptions[i];
-            var onclickFunc = "showPrescriptionDetail(" + prescription.id +")";
+            var onclickFunc = "showPrescriptionDetail(" + prescription.id + ",\"" + prescription.title + "\")";
             var score = prescription.score + "分";
             var prescriptionTrEnum = $("<tr></tr>");
             prescriptionTrEnum.append($("<td><div class='contentpointdiv'></div></td>"));
@@ -58,7 +58,8 @@ function processPaginationData(data) {
         $("#pagecontentlist").html(prescriptionsEnum);
     }
 }
-function showPrescriptionDetail(id) {
+function showPrescriptionDetail(id, title) {
+    addUserView("prescription", title, id);
     location.href = "detail.html?id=" + id;
 }
 /*详细信息页面区域*/
