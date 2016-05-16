@@ -39,7 +39,7 @@ function initPanelNavigation() {
 function initContentNavigation() {
     $("#contentnavigation").append("<div class='onetotaldivclass'><div class='contentnavigation1spacediv' onclick='goNavigationPage(\"healthvoice/list.html\")'>" +
         "<div class='cncircle1'><div class='cncircleimg'><img src='../image/home/healthvoice.png'/></div>" +
-        "<div class='cncircletext'>健康之声</div></div>" + 
+        "<div class='cncircletext'>健康之声</div></div>" +
         "</div></div>").
     append("<div class='twototaldivclass'>" +
         "<div class='divtwoclass'><div class='contentnavigation2spaceleftdiv contentnavigation2spacediv_mystory' onclick='goNavigationPage(\"mystory/list.html\")'>" +
@@ -388,25 +388,31 @@ function insertUserViewHistoryData(data) {
 function createDiseaseView(data) {
     var diseaseList = data.diseaseList;
     var firstLineDivElems = $("<div class='diseasediv1'>" +
-        "<div class='flsubdiv1'><div>" + diseaseList[1].name + "</div></div>" +
-        "<div class='flsubdiv2'><div>" + diseaseList[3].name + "</div></div>" +
-        "<div class='flsubdiv3'><div>" + diseaseList[5].name + "</div></div>" +
-        "<div class='flsubdiv4'><div>" + diseaseList[7].name + "</div></div>" +
+        "<div class='flsubdiv1'>" +
+            "<div onclick='goPrescriptionPage(\"" + diseaseList[1].name + "\")'>" +
+                "" +diseaseList[1].name + "" +
+            "</div>" +
+        "</div>" +
+        "<div class='flsubdiv2'><div onclick='goPrescriptionPage(\"" + diseaseList[3].name + "\")'>" + diseaseList[3].name + "</div></div>" +
+        "<div class='flsubdiv3'><div onclick='goPrescriptionPage(\"" + diseaseList[5].name + "\")'>" + diseaseList[5].name + "</div></div>" +
+        "<div class='flsubdiv4'><div onclick='goPrescriptionPage(\"" + diseaseList[7].name + "\")'>" + diseaseList[7].name + "</div></div>" +
         "</div>");
     var secondLineDivElems = $("<div class='diseasediv2'>" +
-        "<div class='slsubdiv1'><div class='slsubdiv11'>" + diseaseList[10].name + "</div><div class='slsubdiv12'>" + diseaseList[11].name + "</div></div>" +
-        "<div class='slsubdiv2'><div>" + diseaseList[0].name + "</div></div>" +
-        "<div class='slsubdiv3'><div>" + diseaseList[9].name + "</div></div>" +
+        "<div class='slsubdiv1'><div onclick='goPrescriptionPage(\"" + diseaseList[10].name + "\")' class='slsubdiv11'>" + diseaseList[10].name + "</div><div onclick='goPrescriptionPage(\"" + diseaseList[11].name + "\")' class='slsubdiv12'>" + diseaseList[11].name + "</div></div>" +
+        "<div class='slsubdiv2'><div onclick='goPrescriptionPage(\"" + diseaseList[0].name + "\")'>" + diseaseList[0].name + "</div></div>" +
+        "<div class='slsubdiv3'><div onclick='goPrescriptionPage(\"" + diseaseList[9].name + "\")'>" + diseaseList[9].name + "</div></div>" +
         "</div>");
     var thirdLineDivElems = $("<div class='diseasediv3'>" +
-        "<div class='tlsubdiv1'><div>" + diseaseList[2].name + "</div></div>" +
-        "<div class='tlsubdiv2'><div>" + diseaseList[4].name + "</div></div>" +
-        "<div class='tlsubdiv3'><div>" + diseaseList[6].name + "</div></div>" +
-        "<div class='tlsubdiv4'><div>" + diseaseList[8].name + "</div></div>" +
+        "<div class='tlsubdiv1'><div onclick='goPrescriptionPage(\"" + diseaseList[2].name + "\")'>" + diseaseList[2].name + "</div></div>" +
+        "<div class='tlsubdiv2'><div onclick='goPrescriptionPage(\"" + diseaseList[4].name + "\")'>" + diseaseList[4].name + "</div></div>" +
+        "<div class='tlsubdiv3'><div onclick='goPrescriptionPage(\"" + diseaseList[6].name + "\")'>" + diseaseList[6].name + "</div></div>" +
+        "<div class='tlsubdiv4'><div onclick='goPrescriptionPage(\"" + diseaseList[8].name + "\")'>" + diseaseList[8].name + "</div></div>" +
         "</div>");
     $("#headerdiseasediv").append(firstLineDivElems).append(secondLineDivElems).append(thirdLineDivElems);
 }
-
+function goPrescriptionPage(prescriptionName) {
+    location.href = 'prescription/list.html?prescription=' + prescriptionName;
+}
 
 
 function doGetUserViewHistory(data) {

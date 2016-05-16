@@ -1,4 +1,4 @@
-.backgrounddivclass{
+.backgrounddivclass{text-shadow: none;
     position: absolute;
     top: 0;
     left: 0;
@@ -6,7 +6,7 @@
     opacity: 0.6;
     z-index: 10000;
 }
-.loginregisterdivclass{
+.loginregisterdivclass{text-shadow: none;
     position: absolute;
     top: 40px;
     left: 2%;
@@ -16,7 +16,7 @@
     background-color: #FFFFFF;
     z-index: 10001;
 }
-.lrpopupheaderdiv{
+.lrpopupheaderdiv{text-shadow: none;
     width: 100%;
     height: 50px;
     line-height: 50px;
@@ -24,30 +24,30 @@
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
-.lrpopupheadertitlediv{
+.lrpopupheadertitlediv{text-shadow: none;
     float: left;
     width: 80%;
     font-size: 18px;
     color: #FFFFFF;
     margin-left: 5%;
 }
-.lrpopupheaderimgdiv{
+.lrpopupheaderimgdiv{text-shadow: none;
     float: left;
     width: 15%;
     text-align: right;
 }
-.lrpopupheaderimgdiv img{
+.lrpopupheaderimgdiv img{text-shadow: none;
     width: 20px;
     height: 20px;
     margin-right: 10px;
     margin-top: 15px;
 }
-.lrpopupinputdiv{
+.lrpopupinputdiv{text-shadow: none;
     margin-top: 10px;
     margin-bottom: 10px;
     width: 100%;
 }
-.inputdiv {
+.inputdiv {text-shadow: none;
     margin-left: 3%;
     margin-bottom: 10px;
     width: 94%;
@@ -56,7 +56,7 @@
     border-radius: 5px;
     border: 1px solid #B9B9B9;
 }
-.inputdiv1 {
+.inputdiv1 {text-shadow: none;
     margin-left: 3%;
     margin-bottom: 10px;
     width: 94%;
@@ -64,7 +64,7 @@
     line-height: 46px;
     border-radius: 5px;
 }
-.npinput {
+.npinput {text-shadow: none;
     height: 36px;
     line-height: 36px;
     width: 88%;
@@ -75,7 +75,7 @@
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
 }
-.inputvcodediv{
+.inputvcodediv{text-shadow: none;
     float: left;
     width: 45%;
     height: 46px;
@@ -83,31 +83,31 @@
     border-radius: 5px;
     border: 1px solid #B9B9B9;
 }
-.inputvcodeimgdiv{
+.inputvcodeimgdiv{text-shadow: none;
     float: left;
     width: 40%;
     height: 48px;
     line-height: 48px;
     text-align: center;
 }
-.vcodeimg {
+.vcodeimg {text-shadow: none;
     width: 100px;
     height: 48px;
     border: none;
     border-radius: 5px;
 }
-.inputvcodebuttondiv{
+.inputvcodebuttondiv{text-shadow: none;
     float: left;
     width: 10%;
     height: 48px;
     line-height: 48px;
 }
-.inputvcodebuttondiv img{
+.inputvcodebuttondiv img{text-shadow: none;
     width: 28px;
     height: 28px;
     margin-top: 10px;
 }
-.inputsmscodediv{
+.inputsmscodediv{text-shadow: none;
     float: left;
     height: 46px;
     width: 56%;
@@ -115,12 +115,12 @@
     border-radius: 5px;
     border: 1px solid #B9B9B9;
 }
-.inputsmscodebuttondiv{
+.inputsmscodebuttondiv{text-shadow: none;
     float: left;
     width: 42%;
     text-align: center;
 }
-.inputsmscodebutton{
+.inputsmscodebutton{text-shadow: none;
     background-color: #57392E;
     width: 100%;
     height: 46px;
@@ -129,11 +129,11 @@
     color: white;
     border-radius: 5px;
 }
-.lrpopupbuttondiv{
+.lrpopupbuttondiv{text-shadow: none;
     width: 100%;
     height: 50px;
 }
-.lrpopupbutton{
+.lrpopupbutton{text-shadow: none;
     width: 96%;
     height: 45px;
     line-height: 45px;
@@ -145,35 +145,35 @@
     text-align: center;
     border-radius: 5px;
 }
-.lrpopupwxqqlogindiv{
+.lrpopupwxqqlogindiv{text-shadow: none;
     width: 100%;
     height: 60px;
     line-height: 60px;
 }
-.wxqqlogindiv{
+.wxqqlogindiv{text-shadow: none;
     float: left;
     width: 40%;
     margin-left: 6%;
     height: 50px;
     line-height: 50px;
 }
-.wxqqlogin{
+.wxqqlogin{text-shadow: none;
     width: 120px;
     height: 45px;
     border: 1px solid #B9B9B9;
     border-radius: 5px;
 }
-.wxqqloginimgdiv{
+.wxqqloginimgdiv{text-shadow: none;
     float: left;
     width: 50px;
     text-align: center;
 }
-.wxqqloginimgdiv img{
+.wxqqloginimgdiv img{text-shadow: none;
     width: 25px;
     height: 25px;
     margin-top: 10px;
 }
-.wxqqlogintextdiv{
+.wxqqlogintextdiv{text-shadow: none;
     float: left;
     width: 65px;
     font-size: 12px;
@@ -183,11 +183,11 @@
     height: 45px;
     line-height: 45px;
 }
-.lrpopupfooterdiv{
+.lrpopupfooterdiv{text-shadow: none;
     margin-top: 80px;
     width: 100%;
 }
-.lrfooterregisterdiv{
+.lrfooterregisterdiv{text-shadow: none;
     float: left;
     width: 46%;
     margin-left: 4%;
@@ -196,7 +196,7 @@
     color: #57392E;
     text-align: left;
 }
-.lrfooterforgetpassworddiv{
+.lrfooterforgetpassworddiv{text-shadow: none;
     float: left;
     width: 46%;
     margin-right: 4%;
@@ -205,7 +205,7 @@
     color: #57392E;
     text-align: right;
 }
-.error{
+.error{text-shadow: none;
     font-size: 15px;
     font-weight: 500;
     text-align: center;

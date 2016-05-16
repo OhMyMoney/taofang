@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>九九淘方网</title>
+    <link rel="stylesheet" href="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="../../css/prescription.css">
+    <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../../js/jquery.cookie.js"></script>
+    <script src="../../js/common.js"></script>
+    <script src="../../js/prescription.js"></script>
+    <script>
+        $(document).ready(function () {
+            (function ($) {
+                $.getUrlParam = function (name) {
+                    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                    var r = window.location.search.substr(1).match(reg);
+                    if (r != null){
+                        return decodeURI(r[2]);
+                    }
+                    return null;
+                }
+            })(jQuery);
+            // 查询列表
+            var prescription = $.getUrlParam('prescription');
+            $('#prescriptionname').val(prescription);
+            getPrescriptionPagination(prescription, 0, 1, 5);
+            getPrescriptionRelation(prescription);
+        });
+    </script>
+</head>
+<body>
+    <div id="prescriptionpage" data-role="page">
+        <div id="header" data-role="header">
+            <div class="blackheader" >
+                <div class="backdiv" onclick="backhomepage()"><img class="back" src="../../image/common/back.png"></div>
+                <div id="prescriptionnamediv">
+                    <input id="prescriptionname" data-role="none" class="prescriptionname" type="text" name="prescriptionName" placeholder="输入关键字寻找相关偏方">
+                </div>
+                <div class="prescriptionbutton" onclick="prescriptionSearch()">搜索</div>
+            </div>
+        </div>
+        <div id="content" class="content">
+            <div id="result" class="resultdiv">
+                <div class="searchselectdiv">
+                    <div id="searchselecttext" class="searchselecttext">默认排序</div>
+                    <div class="searchselectimg" onclick="showSelectDiv()"><img src="../../image/common/select.png" /></div>
+                </div>
+                <div id="searchresult" class="searchresultdiv"></div>
+            </div>
+            <div id="pagecontentlist" class="pagecontentlistdiv">
+                <table>
+                    <tbody>
+                    <tr>
+                        <td><div class="contentpointdiv"></div></td>
+                        <td><div class="contentlistdiv" onclick="showPrescriptionDetail(1)"></div></td>
+                        <td><div class="contentscoretitlediv"></div></td>
+                        <td><div class="contentscorediv"></div></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="page" class="page">
+                <div class="previouspagediv">
+                    <div id="previouspage" class="previouspage_opacity" onclick="doPreviousPage()">上一页</div>
+                </div>
+                <div class="currentpagediv">
+                    <div class="currentpage">0/0</div>
+                </div>
+                <div class="nextpagediv">
+                    <div id="nextpage" class="nextpage" onclick="doNextPage()">下一页</div>
+                </div>
+            </div>
+            <div id="prescriptionrelationdiv">
+                <div class="prescriptionrelationtitlediv">相关疾病</div>
+                <div id="prescriptionrelationlist1" class="prescriptionrelationlistdiv"></div>
+                <div class="prescriptionrelationtitlediv">相关症状</div>
+                <div id="prescriptionrelationlist2" class="prescriptionrelationlistdiv"></div>
+                <div class="prescriptionrelationtitlediv">自然疗法</div>
+                <div id="prescriptionrelationlist3" class="prescriptionrelationlistdiv"></div>
+            </div>
+        </div>
+        <div id="footer" data-role="footer">
+            <div id="addiv" class="addiv"></div>
+            <div class="switchdiv">
+                <div class="phonediv">
+                    <div class="phone" onclick="goToHomePage('phone')">
+                        <div class="phoneimg"><img src="../../image/common/iphone.png"></div>
+                        <div class="phonetext">触屏版</div>
+                    </div>
+                </div>
+                <div class="phonepcdiv"></div>
+                <div class="pcdiv">
+                    <div class="pc" onclick="goToHomePage('pc')">
+                        <div class="pcimg"><img src="../../image/common/pc.png"></div>
+                        <div class="pctext">电脑版</div>
+                    </div>
+                </div>
+            </div>
+            <div class="declarediv">
+                <div class="aboutustitle">关于我们 | 法律声明</div>
+                <div class="aboutuscontent">Copyright  ©  2015  WWW.99TAOFANG.COM  版权所有</div>
+                <div class="aboutuscontent">本站信息仅供参考_不能作为诊断及医疗的依据</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
