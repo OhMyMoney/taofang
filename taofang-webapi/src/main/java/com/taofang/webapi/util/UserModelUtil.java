@@ -53,9 +53,9 @@ public class UserModelUtil {
         }
         if(inquiryprescription.getCreateddate() != null){
             moduleInfo.setDateTime(
-                    DateTimeUtil.tranTimestamp(
-                            Timestamp.valueOf(new SimpleDateFormat(DateTimeUtil.FORMAT_DEFAULT).format(inquiryprescription.getCreateddate())),
-                            DateTimeUtil.FORMAT_DEFAULT
+                    DatetimeUtil.tranTimestamp(
+                            Timestamp.valueOf(new SimpleDateFormat(DatetimeUtil.FORMAT_DEFAULT).format(inquiryprescription.getCreateddate())),
+                            DatetimeUtil.FORMAT_DEFAULT
                     ));
         }
         moduleInfo.setUrlLink("");
@@ -69,9 +69,9 @@ public class UserModelUtil {
         moduleInfo.setTitle(Optional.fromNullable(prescription.getImageurl()).or(""));
         if(prescription.getCreatedate() != null){
             moduleInfo.setDateTime(
-                    DateTimeUtil.tranTimestamp(
-                            Timestamp.valueOf(new SimpleDateFormat(DateTimeUtil.FORMAT_DEFAULT).format(prescription.getCreatedate())),
-                            DateTimeUtil.FORMAT_DEFAULT
+                    DatetimeUtil.tranTimestamp(
+                            Timestamp.valueOf(new SimpleDateFormat(DatetimeUtil.FORMAT_DEFAULT).format(prescription.getCreatedate())),
+                            DatetimeUtil.FORMAT_DEFAULT
                     ));
         }
         moduleInfo.setUrlLink("prescription/detail.html?id=" + moduleInfo.getId());
@@ -87,9 +87,9 @@ public class UserModelUtil {
         moduleInfo.setTitle(Optional.fromNullable(commentstar.getExperience()).or(""));
         if(commentstar.getCreateddate() != null){
             moduleInfo.setDateTime(
-                    DateTimeUtil.tranTimestamp(
-                            Timestamp.valueOf(new SimpleDateFormat(DateTimeUtil.FORMAT_DEFAULT).format(commentstar.getCreateddate())),
-                            DateTimeUtil.FORMAT_DEFAULT
+                    DatetimeUtil.tranTimestamp(
+                            Timestamp.valueOf(new SimpleDateFormat(DatetimeUtil.FORMAT_DEFAULT).format(commentstar.getCreateddate())),
+                            DatetimeUtil.FORMAT_DEFAULT
                     ));
         }
         moduleInfo.setUrlLink("");

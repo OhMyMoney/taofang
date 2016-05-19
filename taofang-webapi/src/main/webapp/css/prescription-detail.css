@@ -110,6 +110,8 @@ body {text-shadow: none;
 .contentstory p {text-shadow: none;
     padding-left: 10px;
     padding-right: 10px;
+    line-height: 1.8em;
+    font-size: 13.5px;
 }
 .contentstory img{text-shadow: none;
     width: 100%;
@@ -166,9 +168,10 @@ body {text-shadow: none;
 }
 .contentdetail{text-shadow: none;
     color: #56392F;
-    font-size: 14px;
+    font-size: 13px;
     padding-left: 5px;
     padding-right: 5px;
+    line-height: 1.5em;
 }
 .contentdetail p{text-shadow: none;
     -webkit-margin-before: 0.5em;

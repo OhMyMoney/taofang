@@ -9,6 +9,46 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public interface ArticleMapper {
+    @Select({
+            "select count(*) from article",
+            "where category = #{category, jdbcType=INTEGER}"
+    })
+    int countByCategory(@Param("category") int category);
+
+    @Select({
+            "select ArticleID, ArticleName, Category, ImageUrl, Video, Summary, isDTS",
+            "from article",
+            "where category = #{category, jdbcType=INTEGER}",
+            "order by isDTS, ArticleID desc",
+            "limit #{start}, #{limit}"
+    })
+    @ResultMap("ResultMapWithBLOBs")
+    List<ArticleWithBLOBs> selectByCategoryLimit(@Param("category") int category,
+                                                 @Param("start")int start,
+                                                 @Param("limit")int limit);
+
+    @Select({
+            "select count(*) from article",
+            "where category = 4 and",
+            "(videodate between #{beginTime, jdbcType=TIMESTAMP} and #{endTime, jdbcType=TIMESTAMP})"
+    })
+    int countJKZSByVideodate(@Param("beginTime") Timestamp beginTime,
+                             @Param("endTime") Timestamp endTime);
+
+    @Select({
+            "select ArticleID, ArticleName, Category, ImageUrl, Video, Summary, isDTS",
+            "from article",
+            "where category = 4 and ",
+            "(videodate between #{beginTime, jdbcType=TIMESTAMP} and #{endTime, jdbcType=TIMESTAMP})",
+            "order by ArticleID desc",
+            "limit #{start}, #{limit}"
+    })
+    @ResultMap("ResultMapWithBLOBs")
+    List<ArticleWithBLOBs> selectJKZSByVideodate(@Param("beginTime") Timestamp beginTime,
+                                                 @Param("endTime") Timestamp endTime,
+                                                 @Param("start")int start,
+                                                 @Param("limit")int limit);
+
     /**
      * 查询健康之声的数据总数(Category=4)
      * @param videoDate

@@ -85,8 +85,8 @@ body {text-shadow: none;
 .detailcontentdiv p {text-shadow: none;
     margin: 6px;
     color: #56392F;
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 13.5px;
+    line-height: 1.8em;
 }
 .detailcontentdiv img {text-shadow: none;
     width: 90%;

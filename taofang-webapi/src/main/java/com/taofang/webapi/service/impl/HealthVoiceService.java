@@ -5,7 +5,7 @@ import com.taofang.webapi.dao.ArticleMapper;
 import com.taofang.webapi.domain.HealthVoice;
 import com.taofang.webapi.model.ArticleWithBLOBs;
 import com.taofang.webapi.service.IHealthVoiceService;
-import com.taofang.webapi.util.DateTimeUtil;
+import com.taofang.webapi.util.DatetimeUtil;
 import com.taofang.webapi.util.HealthVoiceModelUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +33,7 @@ public class HealthVoiceService implements IHealthVoiceService{
         try{
             Timestamp videoDate = null;
             if(!Strings.isNullOrEmpty(dateStr)){
-                videoDate = DateTimeUtil.tranDate(dateStr, DateTimeUtil.FORMAT_DEFAULT_YMD_MIN);
+                videoDate = DatetimeUtil.tranDate(dateStr, DatetimeUtil.FORMAT_DEFAULT_YMD_MIN);
             }
             count = articleMapper.countHealthVoiceByVideoDate(videoDate);
             LOGGER.info("查询日期[" + (dateStr == null ? "全部" : dateStr) + "]的健康之声数量 ==> " + count);
@@ -50,7 +50,7 @@ public class HealthVoiceService implements IHealthVoiceService{
         try{
             Timestamp videoDate = null;
             if(!Strings.isNullOrEmpty(dateStr)){
-                videoDate = DateTimeUtil.tranDate(dateStr, DateTimeUtil.FORMAT_DEFAULT_YMD_MIN);
+                videoDate = DatetimeUtil.tranDate(dateStr, DatetimeUtil.FORMAT_DEFAULT_YMD_MIN);
             }
             List<ArticleWithBLOBs> articleList = articleMapper.selectHealthVoiceByVideoDate(videoDate, start, limit);
             healthVoiceList = HealthVoiceModelUtil.tranArticleList(articleList);

@@ -153,7 +153,7 @@
     font-size: 16px;
     color: #F5A046;
     margin-left: 20%;
-    border: 2px solid #F5A046;
+    border: 1px solid #F5A046;
     top: 30px;
     border-radius: 10px;
 }
@@ -219,7 +219,7 @@
     font-size: 16px;
     color: #F5A046;
     margin-left: 20%;
-    border: 2px solid #F5A046;
+    border: 1px solid #F5A046;
     top: 30px;
     border-radius: 10px;
 }
@@ -230,7 +230,7 @@
 .viewhistorybutton{text-shadow: none;
     width: 90%;
     margin-left: 5%;
-    border: 2px solid #F39F51;
+    border: 1px solid #F39F51;
     border-radius: 8px;
     margin-top: 20px;
     height: 35px;

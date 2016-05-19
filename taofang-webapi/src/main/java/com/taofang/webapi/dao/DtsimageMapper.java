@@ -15,9 +15,9 @@ public interface DtsimageMapper {
     int countByCategory(@Param("categoryId") int categoryId);
 
     @Select({
-            "select id, Title, Music from DTSImage",
-            "where Category = #{categoryId, jdbcType=INTEGER} and Music is not null order by Sequence",
-            "limit #{start}, #{limit}"
+            "select id, Title, Image, Music from DTSImage",
+            "where Category = #{categoryId, jdbcType=INTEGER} and Music is not null",
+            "order by Sequence limit #{start}, #{limit}"
     })
     @ResultMap("BaseResultMap")
     List<Dtsimage> selectByCategoryPagination(@Param("categoryId")int categoryId,

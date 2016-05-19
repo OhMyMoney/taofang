@@ -50,7 +50,7 @@ public class PrescriptionModelUtil {
             prescription.setImageUrl("");
         }
         if(prescriptionInfoBean.getCreateDate() != null){
-            prescription.setCreateTime(DateTimeUtil.tranTimestamp(prescriptionInfoBean.getCreateDate(), DateTimeUtil.FORMAT_DEFAULT));
+            prescription.setCreateTime(DatetimeUtil.tranTimestamp(prescriptionInfoBean.getCreateDate(), DatetimeUtil.FORMAT_DEFAULT));
         }
         return prescription;
     }
@@ -66,7 +66,7 @@ public class PrescriptionModelUtil {
         prescriptionComment.setExperience(Optional.fromNullable(commentBean.getExperience()).or(""));
         prescriptionComment.setScore(Optional.fromNullable(commentBean.getTotalScore()).or(0.0) / 5.0);
         if(commentBean.getCreatedDate() != null){
-            prescriptionComment.setCreatedDate(DateTimeUtil.tranTimestamp(commentBean.getCreatedDate(), DateTimeUtil.FORMAT_DEFAULT));
+            prescriptionComment.setCreatedDate(DatetimeUtil.tranTimestamp(commentBean.getCreatedDate(), DatetimeUtil.FORMAT_DEFAULT));
         }
 
         return prescriptionComment;

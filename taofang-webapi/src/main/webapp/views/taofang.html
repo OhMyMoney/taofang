@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>九九淘方网</title>
+    <link rel="stylesheet" href="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="/css/plugin/mobiscroll.custom-2.6.2.min.css" />
+    <link rel="stylesheet" href="/css/plugin/audioplayer.css" />
+    <link rel="stylesheet" href="/css/taofang-navigation.css" />
+    <link rel="stylesheet" href="/css/taofang-common.css" />
+    <link rel="stylesheet" href="/css/taofang-popup.css" />
+    <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript" src="/js/plugin/jquery.cookie.js"></script>
+    <script type="text/javascript" src="/js/plugin/audioplayer.min.js"></script>
+    <script type="text/javascript" src="/js/plugin/mobiscroll.custom-2.6.2.min.js"></script>
+    <script type="text/javascript" src="/js/taofang-html.js"></script>
+    <script type="text/javascript" src="/js/taofang-ajax.js"></script>
+    <script type="text/javascript" src="/js/taofang-common.js"></script>
+    <script type="text/javascript" src="/js/taofang-popup.js"></script>
+    <script>
+        $(document).ready(function () {
+            createHomePage();
+        });
+    </script>
+</head>
+<body>
+    <div data-role="page">
+        <div id="navigation" data-role="panel">
+        </div>
+        <div id="header" data-role="header">
+        </div>
+        <div id="content" data-role="content" class="content">
+            <div id="contentbodydiv">
+            </div>
+            <div class="contentfooterdiv">
+                <div id="contentfooteraddiv" class="contentfooteraddiv">
+                </div>
+                <div id="contentfooterswitchdiv" class="contentfooterswitchdiv">
+                </div>
+                <div class="declarediv">
+                    <div class="aboutustitle">关于我们 | 法律声明</div>
+                    <div class="aboutuscontent">Copyright  ©  2015  WWW.99TAOFANG.COM  版权所有</div>
+                    <div class="aboutuscontent">本站信息仅供参考_不能作为诊断及医疗的依据</div>
+                </div>
+            </div>
+        </div>
+        <div id="footer" data-role="footer">
+            <div>
+                <audio id="audiomp3" preload="auto" controls src="senya.mp3">
+                </audio>
+                <script>$( function() { $( 'audio' ).audioPlayer(); } );</script>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

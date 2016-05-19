@@ -10,11 +10,25 @@ import java.util.Date;
  * @Author Remilia
  * @Create 2016-05-01
  */
-public class DateTimeUtil {
+public class DatetimeUtil {
     public static String FORMAT_DEFAULT_YMD = "yyyy-MM-dd";
     public static String FORMAT_DEFAULT_YMD_MIN = "yyyyMMdd";
     public static String FORMAT_DEFAULT_MIN = "yyyyMMddHHmmss";
     public static String FORMAT_DEFAULT = "yyyy-MM-dd HH:mm:ss";
+
+    public static Timestamp tranDatetimeStr(String datetimeStr, String format){
+        SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+        Date date = null;
+        try {
+            date = dateFormat.parse(datetimeStr);
+        } catch (ParseException e) {
+        }
+        if (date == null){
+            return new Timestamp(System.currentTimeMillis());
+        }else{
+            return Timestamp.valueOf(new SimpleDateFormat(FORMAT_DEFAULT).format(date));
+        }
+    }
 
     public static Timestamp tranDate(String dateStr, String format){
         SimpleDateFormat dateFormat = new SimpleDateFormat(format);

@@ -12,6 +12,8 @@
     <script src="../../js/plugin/mobiscroll.custom-2.6.2.min.js" type="text/javascript"></script>
     <script src="../../js/healthvoice.js"></script>
     <script src="../../js/common.js"></script>
+    <script src="audioplayer.min.js"></script>
+    <link rel="stylesheet" href="audioplayer.css" />
 
     <script type="text/javascript">
         $(function () {
@@ -80,7 +82,12 @@
             <div id="videodiv" class="healthvoicevideoplaydiv">
                 <div id="videotitlediv" class="videotitlediv"></div>
                 <div id="videoplaydiv" class="videoplaydiv">
-                    <audio id="videoplay" class="videoplay" controls="controls" src="" />
+                    <!--<audio id="videoplay" class="videoplay" controls="controls" src="" />-->
+                    <div>
+                        <audio id="videoplay" preload="auto" controls src="senya.mp3">
+                        </audio>
+                        <script>$( function() { $( 'audio' ).audioPlayer(); } );</script>
+                    </div>
                 </div>
             </div>
         </div>
