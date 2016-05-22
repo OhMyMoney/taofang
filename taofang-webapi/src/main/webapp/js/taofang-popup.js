@@ -126,6 +126,10 @@ function registerSMSCode(id) {
 function doVcodeRefresh(data) {
     $("img.vcodeimg").attr("src", "/image/vcode/" + data + ".png");
 }
+function isPhoneNumber(phone) {
+    var pattern = /^1[34578]\d{9}$/;
+    return pattern.test(phone);
+}
 function checkLoginForm(){
     var errorMessage = "";
     var verificationCode = $("#logindiv").find($("[name='verificationCode']"));

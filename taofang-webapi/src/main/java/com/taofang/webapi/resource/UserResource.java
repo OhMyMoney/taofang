@@ -44,6 +44,12 @@ public class UserResource {
         return userService.getUserViewDomainById(userId);
     }
 
+//    @POST
+//    @Path("/view/{userId}")
+//    @Consumes({MediaType.APPLICATION_JSON})
+//    @Produces({MediaType.TEXT_PLAIN})
+//    public String updateUserViewByPath()
+
 
     /**
      * 获取验证码
