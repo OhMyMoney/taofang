@@ -1,9 +1,8 @@
 package com.taofang.webapi.service;
 
-import com.taofang.webapi.domain.*;
+import com.taofang.webapi.domain.UserDetailDomain;
+import com.taofang.webapi.domain.UserDomain;
 import com.taofang.webapi.result.Result;
-
-import java.util.List;
 
 /**
  * @Desc
@@ -20,21 +19,15 @@ public interface IUserService {
      * @param user
      * @return
      */
-    Result checkUserLogin(User user);
+    Result checkUserLogin(UserDomain user);
 
     /**
      * 验证用户注册条件
      * @param user
      * @return
      */
-    Result checkUserRegister(User user);
+    Result checkUserRegister(UserDomain user);
 
     String setUserView(String view);
-
-    List<ViewHistory> getUserViewHistoryByUserId(String userId);
-
-    User getUserInfoById(String userId);
-
-    List<ModuleInfo> getModuleInfoByUserIdAndModuleName(String userId, String moduleName);
 
 }

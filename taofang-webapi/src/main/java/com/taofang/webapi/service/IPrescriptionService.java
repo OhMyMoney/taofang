@@ -15,13 +15,4 @@ public interface IPrescriptionService {
     PrescriptionCommentDomain getPrescriptionCommentDomain(int prescriptionId);
 
     PrescriptionMaterialDomain getPrescriptionMaterialDomain(int prescriptionId);
-
-
-    PrescriptionPagination getPrescriptionPagination(String prescription, String sort, int page, int pageSize);
-
-    PrescriptionRelateInfo getPrescriptionRelateInfo(String prescription);
-
-    PrescriptionWithLinks getPrescriptionWithLinksById(int id);
-
-    String getMaterialById(int id);
 }

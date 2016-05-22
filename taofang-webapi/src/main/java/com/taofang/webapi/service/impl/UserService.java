@@ -9,9 +9,11 @@ import com.taofang.webapi.dao.CommentstarMapper;
 import com.taofang.webapi.dao.InquiryprescriptionMapper;
 import com.taofang.webapi.dao.MemberMapper;
 import com.taofang.webapi.dao.PrescriptionMapper;
-import com.taofang.webapi.domain.*;
-import com.taofang.webapi.model.*;
-import com.taofang.webapi.model.Prescription;
+import com.taofang.webapi.domain.UserDetailDomain;
+import com.taofang.webapi.domain.UserDomain;
+import com.taofang.webapi.domain.UserModuleDomain;
+import com.taofang.webapi.model.CommentstarWithBLOBs;
+import com.taofang.webapi.model.Member;
 import com.taofang.webapi.result.Result;
 import com.taofang.webapi.service.IUserService;
 import com.taofang.webapi.util.CommentModelUtil;
@@ -27,7 +29,6 @@ import redis.clients.jedis.JedisPool;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @Desc
@@ -89,7 +90,7 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public Result checkUserLogin(User user) {
+    public Result checkUserLogin(UserDomain user) {
         String userName = Optional.fromNullable(user.getUserName()).or("").trim();
         String password = Optional.fromNullable(user.getPassword()).or("").trim();
         Result result = ResultUtil.successResult();
@@ -120,7 +121,7 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public Result checkUserRegister(User user) {
+    public Result checkUserRegister(UserDomain user) {
         Result result = ResultUtil.successResult();
         String userName = Optional.fromNullable(user.getUserName()).or("").trim();
         String password = Optional.fromNullable(user.getPassword()).or("").trim();
@@ -151,7 +152,7 @@ public class UserService implements IUserService{
                     result = ResultUtil.failResult("用户名已经存在,请重新输入");
                 }else{
                     Integer lastMemberId = memberMapper.selectLastMemberId();
-                    Member member = UserModelUtil.tranUserToMember(user);
+                    Member member = UserModelUtil.tranUserDomainAsMember(user);
                     member.setMemberid(Optional.fromNullable(lastMemberId).or(0) + 1);
                     memberMapper.insertMember(member);
                     result.setData((Optional.fromNullable(lastMemberId).or(0) + 1) + "");
@@ -186,67 +187,4 @@ public class UserService implements IUserService{
         }
         return result;
     }
-
-    @Override
-    public List<ViewHistory> getUserViewHistoryByUserId(String userId) {
-        List<ViewHistory> viewHistoryList = new ArrayList<>();
-        try(Jedis jedis = jedisPool.getResource()){
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-            long viewLength = jedis.zcard("user:" + userId);
-            Set<String> viewStrSet = jedis.zrevrange("user:" + userId, 0, (viewLength > 15 ? 15 : -1));
-            for(String viewStr : viewStrSet){
-                UserViewBean userViewBean = mapper.readValue(viewStr, UserViewBean.class);
-                viewHistoryList.add(UserModelUtil.tranUserViewBean(userViewBean));
-            }
-            LOGGER.info("根据用户名[" + userId + "]查询用户的浏览历史 ==> " + viewHistoryList);
-        }catch(Exception e){
-            viewHistoryList = new ArrayList<>();
-            LOGGER.error("根据用户名[" + userId + "]查询用户的浏览历史 ==> error ==> " + e.getMessage(), e);
-        }
-        return viewHistoryList;
-    }
-
-    @Override
-    public User getUserInfoById(String userId) {
-        User user = new User();
-        try{
-            List<Member> memberList = memberMapper.selectByMemberId(Integer.parseInt(userId));
-            if(memberList.size() > 0){
-                user = UserModelUtil.tranMember(memberList.get(0));
-            }
-        }catch(Exception e){
-            LOGGER.error("根据用户Id[" + userId + "]查询用户的基本信息 ==> error ==> " + e.getMessage(), e);
-        }
-        return user;
-    }
-
-    @Override
-    public List<ModuleInfo> getModuleInfoByUserIdAndModuleName(String userId, String moduleName) {
-        List<ModuleInfo> moduleInfoList = new ArrayList<>();
-        try{
-            if(moduleName.equals("qiufang")){
-                List<Inquiryprescription> inquiryprescriptionList = inquiryprescriptionMapper.selectByCreatedBy(Integer.parseInt(userId));
-                for(Inquiryprescription inquiryprescription : inquiryprescriptionList){
-                    moduleInfoList.add(UserModelUtil.tranInquiryprescription(inquiryprescription));
-                }
-            }else if(moduleName.equals("xianfang")){
-                List<Prescription> prescriptionList = prescriptionMapper.selectPrescriptionByCreator(Integer.parseInt(userId));
-                for(Prescription prescription : prescriptionList){
-                    moduleInfoList.add(UserModelUtil.tranPrescription(prescription));
-                }
-            }else if(moduleName.equals("shoucang")){
-
-            }else if(moduleName.equals("pinglun")){
-                List<CommentstarWithBLOBs> commentstarList = commentstarMapper.selectCommentByMemberId(Integer.parseInt(userId));
-                for(CommentstarWithBLOBs commentstarWithBLOBs : commentstarList){
-                    moduleInfoList.add(UserModelUtil.tranCommentstarWithBLOBs(commentstarWithBLOBs));
-                }
-            }
-        }catch(Exception e){
-            LOGGER.error("根据用户Id[" + userId + "]查询用户的模块信息 ==> error ==> " + e.getMessage(), e);
-        }
-        return moduleInfoList;
-    }
-
 }
