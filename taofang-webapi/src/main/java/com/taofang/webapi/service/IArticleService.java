@@ -1,5 +1,6 @@
 package com.taofang.webapi.service;
 
+import com.taofang.webapi.domain.ArticleDetailDomain;
 import com.taofang.webapi.domain.ArticlePaginationDomain;
 import com.taofang.webapi.domain.RitucharyaPaginationDomain;
 
@@ -15,4 +16,6 @@ public interface IArticleService {
     RitucharyaPaginationDomain getRitucharyaPaginationDomain(int ritucharya, int page, int pageSize);
 
     ArticlePaginationDomain getJKZSPaginationDomain(String queryDateStr, int page, int pageSize);
+
+    ArticleDetailDomain getArticleDetailById(int categoryId, int articleId);
 }

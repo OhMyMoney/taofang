@@ -2,6 +2,7 @@ package com.taofang.webapi.resource;
 
 import com.google.common.base.Strings;
 import com.taofang.webapi.constant.ArticleCategory;
+import com.taofang.webapi.domain.ArticleDetailDomain;
 import com.taofang.webapi.domain.ArticlePaginationDomain;
 import com.taofang.webapi.domain.RitucharyaPaginationDomain;
 import com.taofang.webapi.service.IArticleService;
@@ -21,7 +22,7 @@ public class ArticleResource {
     private IArticleService articleService;
 
     @GET
-    @Path("list/{category}")
+    @Path("/list/{category}")
     @Produces({MediaType.APPLICATION_JSON})
     public ArticlePaginationDomain getArticlePaginationByPath(@DefaultValue("") @PathParam("category") String category,
                                                               @DefaultValue("1") @QueryParam("page") int page,
@@ -39,7 +40,7 @@ public class ArticleResource {
     }
 
     @GET
-    @Path("ritucharya/list/{ritucharya}")
+    @Path("/ritucharya/list/{ritucharya}")
     @Produces({MediaType.APPLICATION_JSON})
     public RitucharyaPaginationDomain getRitucharyaPaginationByPath(@DefaultValue("0") @PathParam("ritucharya") int ritucharya,
                                                                     @DefaultValue("1") @QueryParam("page") int page,
@@ -47,6 +48,17 @@ public class ArticleResource {
         RitucharyaPaginationDomain ritucharyaPagination = articleService.getRitucharyaPaginationDomain(ritucharya, page, pageSize);
 
         return ritucharyaPagination;
+    }
+
+    @GET
+    @Path("/detail/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public ArticleDetailDomain getArticleDetailById(@DefaultValue("0")@PathParam("id")int id,
+                                                    @DefaultValue("") @QueryParam("category") String category){
+        int categoryId = ArticleCategory.getCategoryIdByName(category);
+        ArticleDetailDomain articleDetail = articleService.getArticleDetailById(categoryId, id);
+
+        return articleDetail;
     }
 
 }

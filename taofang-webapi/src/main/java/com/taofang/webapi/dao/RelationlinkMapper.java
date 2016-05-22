@@ -8,6 +8,25 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 public interface RelationlinkMapper {
+    @Select({
+            "select id, LinkTitle, LinkUrl",
+            "from RelationLink",
+            "where SourceType = #{sourceType, jdbcType=INTEGER}"
+    })
+    @ResultMap("BaseResultMap")
+    List<Relationlink> selectBySourceType(@Param("sourceType")int sourceType);
+
+    @Select({
+            "select id, LinkTitle, LinkUrl, PrescriptionID",
+            "from RelationLink",
+            "where SourceType = 5 and prescriptionID = #{prescriptionID, jdbcType=INTEGER}",
+    })
+    @ResultMap("BaseResultMap")
+    List<Relationlink> selectPrescriptionLink(@Param("prescriptionID") int prescriptionID);
+
+
+
+
 
     @Select({
             "select id, LinkTitle, LinkUrl",
@@ -33,11 +52,5 @@ public interface RelationlinkMapper {
     @ResultMap("BaseResultMap")
     List<Relationlink> selectNatureTherapyLink();
 
-    @Select({
-            "select id, LinkTitle, LinkUrl, PrescriptionID",
-            "from RelationLink",
-            "where SourceType = 5 and prescriptionID = #{id, jdbcType=INTEGER}",
-    })
-    @ResultMap("BaseResultMap")
-    List<Relationlink> selectPrescriptionLink(@Param("id") int id);
+
 }

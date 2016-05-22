@@ -7,11 +7,12 @@ function createHomePage() {
     createFooter();
 }
 function createUserPage() {
-
+    insertUserinfoHeader();
+    insertUserinfoContent();
 }
-function createLiangfangPage() {
-    var prescription = $("#homeheaderprescriptioninput").val();
-    getLiangfangList(prescription, 0, 1, 5);
+function createLiangfangPage(role, page, pageSize, prescription, order) {
+    insertLiangfangHeader(role, prescription);
+    insertLiangfangContent(role, page, pageSize, prescription, order);
 }
 function createJKZSPage(role, page, pageSize, articleId) {
     insertArticleHeader("JKZS", "健康之声", role);
@@ -49,7 +50,19 @@ function gotoBackPage(role) {
             location.href = "/views/taofang.html";
         }else{
             var lastPageArray = lastPage.split(";");
-            gotoArticlePage(lastPageArray[0], lastPageArray[1], lastPageArray[2]);
+            if(lastPageArray[0] == "liangfang"){
+                createLiangfangPage("LIST", lastPageArray[1], lastPageArray[2], lastPageArray[3], lastPageArray[4])
+            }else{
+                gotoArticlePage(lastPageArray[0], lastPageArray[1], lastPageArray[2]);
+            }
+        }
+    }else if(role == "DETAIL_IMAGE"){
+        var imagePageDetail = $.cookie('imagePageDetail');
+        if(typeof(imagePageDetail) == "undefined" || !imagePageDetail || imagePageDetail == ""){
+            location.href = "/views/taofang.html";
+        }else{
+            var imagePageArray = imagePageDetail.split(";");
+            createLiangfangPage("DETAIL", 0, 0, imagePageArray[1], 0);
         }
     }
 }
@@ -140,6 +153,32 @@ function navigationDiv(id, title) {
 
     return navigationDivElem;
 }
+function homeNavigationDiv(id, title) {
+    var onclickFunc = "gotoArticlePage(\"" + id + "\", 1, 10)";
+    var imageUrl = "/image/home/" + id + ".png";
+    var navigationDivElem;
+    var navigationOnclickDivElem;
+    if(id == "JKZS"){
+        navigationDivElem = $("<div class='homenavigationjkzsdiv'></div>");
+        navigationOnclickDivElem = ($("<div class='homenavigationjkzs' onclick='" + onclickFunc + "'></div>"))
+            .append($("<div class='homenavigationjkzscircle'>" +
+                    "<div class='homenavigationcircleimg'><img src='" + imageUrl + "'/></div>" +
+                    "<div class='homenavigationcircletext'>" + title + "</div></div>"));
+    }else if(id == "WDGS" || id == "JJYS"){
+        navigationDivElem = $("<div class='homenavigationotherdiv'></div>");
+        navigationOnclickDivElem = ($("<div class='homenavigationotherdiv_left homenavigationotherdiv_" + id + "' onclick='" + onclickFunc + "'></div>"))
+            .append($("<div class='homenavigationothercircle'>" +
+                    "<div class='homenavigationcircleimg'><img src='" + imageUrl + "'/></div>" +
+                    "<div class='homenavigationcircletext'>" + title + "</div></div>"));
+    }else if(id == "ZRLF" || id == "JKZX"){
+        navigationDivElem = $("<div class='homenavigationotherdiv'></div>");
+        navigationOnclickDivElem = ($("<div class='homenavigationotherdiv_right homenavigationotherdiv_" + id + "' onclick='" + onclickFunc + "'></div>"))
+        .append($("<div class='homenavigationothercircle'>" +
+                "<div class='homenavigationcircleimg'><img src='" + imageUrl + "'/></div>" +
+                "<div class='homenavigationcircletext'>" + title + "</div></div>"));
+    }
+    return navigationDivElem.append(navigationOnclickDivElem);
+}
 /*首页*/
 function insertHomeHeader() {
     var headerElems = $("<div class='homeheaderdiv'></div>");
@@ -157,9 +196,9 @@ function insertHomeHeader() {
     headerPrescriptionDivElem
         .append($("<div class='homeheaderprescription1'>" +
                 "<div class='homeheaderprescriptionimg'><img src='/image/home/search.png'/></div>" +
-                "<input id='homeheaderprescriptioninput' data-role='none' class='homeheaderprescriptioninput' type='text' name='prescription' placeholder='输入关键字寻找相关偏方'/>" +
+                "<input id='prescriptioninput' data-role='none' class='homeheaderprescriptioninput' type='text' name='prescription' placeholder='输入关键字寻找相关偏方'/>" +
             "</div>"))
-        .append($("<div class='homeheaderprescription2' onclick='createLiangfangPage()'>立即搜索</div>"));
+        .append($("<div class='homeheaderprescription2' onclick='searchPrescription(0)'>立即搜索</div>"));
     var headerDiseaseDivElem = $("<div class='homeheaderdiseasediv'></div>");
 
     headerElems
@@ -170,11 +209,153 @@ function insertHomeHeader() {
     $("#header").html(headerElems);
 }
 function insertHomeContentBody() {
+    var contentBodyElems = $("<div class='contentbody'></div>");
+    // 浏览历史
+    var contentViewElems = $("<div id='homecontentviewdiv' class='homecontentviewdiv'></div>");
 
+    // 导航
+    var contentNavigationElems = $("<div class='homecontentnavigationdiv'></div>");
+    contentNavigationElems.append(homeNavigationDiv("JKZS", "健康之声"));
+    var contentWDGSZRLFElems = $("<div class='homenavigationother2div'></div>")
+        .append(homeNavigationDiv('WDGS', '我的故事'))
+        .append(homeNavigationDiv('ZRLF', '自然疗法'));
+    contentNavigationElems.append(contentWDGSZRLFElems);
+    var contentJJYSJKZXElems = $("<div class='homenavigationother2div'></div>")
+        .append(homeNavigationDiv('JJYS', '季节养身'))
+        .append(homeNavigationDiv('JKZX', '健康资讯'));
+    contentNavigationElems.append(contentJJYSJKZXElems);
+
+    contentBodyElems.append(contentViewElems).append(contentNavigationElems);
+    $("#contentbodydiv").html(contentBodyElems);
 }
 /*良方*/
-function createLiangfangHeader(role) {
+function searchPrescription(orderId) {
+    var prescription = $("#prescriptioninput").val();
+    var isPrescription = typeof(prescription) == "undefined" || !prescription || prescription == "";
+    if(!isPrescription){
+        createLiangfangPage("LIST", 1, 5, prescription, orderId);
+    }
+}
+function insertLiangfangHeader(role, prescription) {
+    var headerElems = $("<div class='liangfangblackheader'></div>");
+    headerElems
+        .append($("<div class='liangfangblackheaderimg' onclick='gotoBackPage(\"" + role + "\")'><img src='/image/common/back.png'></div>"))
+    if (role == "LIST"){
+        headerElems
+            .append($("<div class='liangfangprescriptiondiv'>" +
+                "<input id='prescriptioninput' data-role='none' class='liangfangprescriptioninput' type='text' name='prescription'/>" +
+                "</div>"))
+            .append($("<div class='liangfangprescriptionbutton' onclick='searchPrescription(0)'>搜索</div>"));
 
+    }else if (role == "DETAIL"){
+        headerElems
+            .append($("<div class='liangfangheadertitle_detail'>偏方</div>"))
+            .append($("<div class='liangfangheadershare_detail' onclick='createSCFXPopup()'><img src='/image/common/more.png'></div>"));
+    }else if(role == "DETAIL_IMAGE"){
+        headerElems
+            .append($("<div class='liangfangheadertitle_detailimage'>相关用料</div>"))
+    }
+    $("#header").html(headerElems);
+    if (role == "LIST"){
+        $("#prescriptioninput").val(prescription);
+    }
+}
+function insertLiangfangContent(role, page, pageSize, prescription, order) {
+    var liangfangContentBodyElems = $("<div class='liangfangcontentbodydiv'></div>");
+    if(role == "LIST"){
+        $.cookie('orderId', order, {expires: 7, path: '/'});
+        var liangfangSearchOrderElems = $("<div class='liangfangsearchcountdiv'></div>")
+            .append("<div class='liangfangsearchcountorderdiv'>" +
+                    "<div id='liangfangsearchcountorder' class='liangfangsearchcountorder'>默认排序</div>" +
+                    "<div class='liangfangsearchcountimg' onclick='createOrderPopup()'><img src='/image/common/select.png'/></div>" +
+                "</div>")
+            .append($("<div id='liangfangsearchcountresult' class='liangfangsearchcountresult'></div>"));
+        var liangfangContentListElems = $("<div id='liangfangcontentlist' class='liangfangcontentlistdiv'></div>");
+        var liangfangRelationElems = $("<div class='liangfangcontentrelationdiv'></div>")
+            .append("<div class='liangfangrelationdiv'>" +
+                    "<div class='liangfangrelationtitle'>相关疾病</div>" +
+                    "<div id='liangfangrelationdiseaselist' class='liangfangrelationlist'></div>" +
+                "</div>")
+            .append("<div class='liangfangrelationdiv'>" +
+                "<div class='liangfangrelationtitle'>相关症状</div>" +
+                "<div id='liangfangrelationsymptomlist' class='liangfangrelationlist'></div>" +
+                "</div>")
+            .append("<div class='liangfangrelationdiv'>" +
+                "<div class='liangfangrelationtitle'>自然疗法</div>" +
+                "<div id='liangfangrelationnataropathylist' class='liangfangrelationlist'></div>" +
+                "</div>");
+        liangfangContentBodyElems.append(liangfangSearchOrderElems).append(liangfangContentListElems)
+            .append(createContentPageElems("liangfang", prescription)).append(liangfangRelationElems);
+    }else if (role == "DETAIL"){
+        liangfangContentBodyElems
+            .append($("<div id='liangfangcontentdetailtitle'></div>"))
+            .append($("<div id='liangfangcontentdetailauthor'></div>"))
+            .append($("<div id='liangfangcontentdetailstory'></div>"))
+            .append($("<div class='liangfangcontentdetailplacediv'></div>"))
+            .append($("<div class='liangfangcontentdetailimagediv'>" +
+                        "<div id='liangfangcontentdetailimage'></div>" +
+                        "<div class='liangfangcontentdetailbutton' onclick='createLiangfangPage(\"DETAIL_IMAGE\", 0, 0, " + prescription + ", 0)'>" +
+                        "查看相关用料图片</div>" +
+                    "</div>"))
+            .append($("<div class='liangfangcontentdetailmorediv'>" +
+                        "<div class='liangfangcontentdetailmore'>" +
+                            "<div class='liangfangcontentdetailmoretitle'>制作用法</div>" +
+                            "<div id='liangfangcontentdetailmore_zzyf' class='liangfangcontentdetailmorecontent'></div>" +
+                        "</div>" +
+                        "<div class='liangfangcontentdetailmore'>" +
+                            "<div class='liangfangcontentdetailmoretitle'>注意事项</div>" +
+                            "<div id='liangfangcontentdetailmore_zysx' class='liangfangcontentdetailmorecontent'></div>" +
+                        "</div>" +
+                        "<div class='liangfangcontentdetailmore'>" +
+                            "<div class='liangfangcontentdetailmoretitle'>相关疾病</div>" +
+                            "<div id='liangfangcontentdetailmore_xgjb' class='liangfangcontentdetailmorecontent'></div>" +
+                        "</div>" +
+                        "<div class='liangfangcontentdetailmore'>" +
+                            "<div class='liangfangcontentdetailmoretitle'>适应症状</div>" +
+                            "<div id='liangfangcontentdetailmore_syzz' class='liangfangcontentdetailmorecontent'></div>" +
+                        "</div>" +
+                    "</div>"))
+            .append($("<div class='liangfangcontentdetailplacediv'></div>"))
+            .append($("<div class='liangfangcontentdetailcommentdiv'>" +
+                        "<div class='liangfangcontentdetailcommenttitlediv'>" +
+                            "<div class='liangfangcontentdetailcommenttitlespace'></div>" +
+                            "<div id='liangfangcontentdetailcommenttitle'></div>" +
+                            "<div class='liangfangcontentdetailcommenttitleimg' onclick='showLiangfangComment(" + prescription + ")'><img src='/image/common/detail.png'/></div>" +
+                        "</div>" +
+                        "<div id='liangfangcontentdetailcommentlistdiv' class='liangfangcontentdetailcommentlistdiv'>" +
+                            "<div id='liangfangcontentdetailcommentlist'></div>" +
+                            "<div class='liangfangcontentdetailcommentbuttondiv'><div class='liangfangcontentdetailcommentbutton' onclick='createWYPLPopup()'>我要评论</div></div>" +
+                        "</div>" +
+                        "<div class='liangfangcontentdetailcommentbackdiv'>" +
+                            "<div onclick='gotoBackPage(\"DETAIL\")' class='liangfangcontentdetailcommentbackbutton'>换一个偏方</div>" +
+                        "</div>" +
+                    "</div>"))
+            .append($("<div class='liangfangcontentdetailrelationdiv'>" +
+                        "<div class='liangfangrelationtitle'>相关音频</div>" +
+                        "<div id='liangfangrelationvideolist' class='liangfangrelationlist'></div>" +
+                        "<div class='liangfangrelationtitle'>相关链接</div>" +
+                        "<div id='liangfangrelationlinklist' class='liangfangrelationlist'></div>" +
+                    "</div>"));
+
+    }else if (role == "DETAIL_IMAGE"){
+        liangfangContentBodyElems.append($("<div id='liangfangmateriallistdiv'></div>"));
+    }
+    $("#contentbodydiv").html(liangfangContentBodyElems);
+    if(role == "LIST"){
+        getLiangfangList(prescription, order, page, pageSize);
+    }else if(role == "DETAIL"){
+        getLiangfangDetail(prescription);
+    }else if (role == "DETAIL_IMAGE"){
+        getLiangfangMaterial(prescription);
+    }
+}
+function showLiangfangComment(prescriptionId) {
+    if($('#liangfangcontentdetailcommentlistdiv').is(":hidden")){
+        $('#liangfangcontentdetailcommentlistdiv').show();
+        getLiangfangComment(prescriptionId);
+    }else{
+        $('#liangfangcontentdetailcommentlistdiv').hide();
+    }
 }
 /*文章*/
 function insertArticleHeader(id, title, role) {
@@ -215,6 +396,23 @@ function insertArticleContent(article, role, page, pageSize, articleId){
         if(article == "JJYS"){
             contentBodyElems.append($("<div id='contentbodylist' class='contentbodylist'></div>"));
             contentBodyElems.append(createContentPageElems(article, articleId));
+        }else if(article == "JKZX" || article == "ZRLF" || article == "WDGS"){
+            contentBodyElems
+                .append($("<div class='articledetailcontentdiv'>" + 
+                        "<div id='articledetailcontenttitle'></div>" +
+                        "<div id='articledetailcontentvideo'></div>" +
+                        "<div id='articledetailcontentimage'></div>" +
+                        "<div id='articledetailcontenttext'></div>" +
+                        "</div>"))
+                .append($("<div class='articledetailthumbdiv'>" +
+                            "<div class='articledetailthumbimg'><img src='/image/common/thumb.png'></div>" +
+                            "<div class='articledetailthumblabel'>写得好,赞一个</div>" +
+                            "<div id='articledetailthumbtext' class='articledetailthumbtext'></div>" +
+                        "</div>"))
+                .append($("<div class='articledetailrelationlinkdiv'>" +
+                            "<div class='articledetailrelationtitle'>相关链接</div>" +
+                            "<div id='articledetailrelationlist'></div>" +
+                        "</div>"));
         }
         
     }
@@ -229,95 +427,99 @@ function insertArticleContent(article, role, page, pageSize, articleId){
     }else if(role == "DETAIL"){
         if(article == "JJYS"){
             getRitucharyaPagination(articleId, page, pageSize);
+        }else if(article == "JKZX" || article == "ZRLF" || article == "WDGS"){
+            getArticleDetail(article, articleId);
         }
     }
 }
-function processArticlePaginationData(data) {
-    var contentListTableElems;
-    var articleList = data.articleList;
-    var pagination = data.pagination;
-    var category;
-    if(articleList.length > 0){
-        category = articleList[0].category;
-    }else{
-        category = "JKZS";
-    }
+function insertUserinfoHeader(){
+    $.cookie('lastUserClick', "", {expires: 1, path: '/'});
+    var headerElems = $("<div class='articleblackheader'></div>");
+    headerElems
+        .append($("<div class='articleblackheaderback' onclick='gotoBackPage(\"LIST\")'><img src='/image/common/back.png'></div>"))
+        .append($("<div class='articleblackheadertitle'>个人中心</div>"));
+    $("#header").html(headerElems);
+}
+function insertUserinfoContent(){
+    var userInfoElems = $("<div class='userinfodiv'></div>");
+    var userOpperateElems = $("<div id='useropperatediv' class='useropperatediv'></div>")
+        .append(userOpperateDiv("qiufang", "我的求方"))
+        .append(userOpperateDiv("xianfang", "我的献方"))
+        .append(userOpperateDiv("shoucang", "我的收藏"))
+        .append(userOpperateDiv("pinglun", "我的评论"));
+    userInfoElems
+        .append($("<div id='userinfoicon'></div>"))
+        .append($("<div id='userinfoname'></div>"))
+        .append(userOpperateElems);
 
-    var lastPageDate = category + ";" + pagination.page + ";" + pagination.pageSize;
-    $.cookie('lastPage', lastPageDate, {expires: 7, path: '/'});
+    var userinfoconentElems = $("<div class='userinfocontentdiv'></div>")
+        .append(userInfoElems)
+        .append($("<div id='usercenter' class='usercenter'></div>"))
+        .append($("<div class='userviewhistorydiv'>" +
+                    "<div class='userviewhistorytitle'>最近浏览</div>" +
+                    "<div id='userviewhistorylist'></div>" +
+                    "<div class='userviewhistorymorebuttondiv'>" +
+                        "<div class='userviewhistorymorebutton'>" +
+                            "<div class='userviewhistorybuttontext'>更多</div>" +
+                            "<div class='userviewhistorybuttonimg'><img src='/image/user/more.png' /></div>" +
+                        "</div>" +
+                    "</div>" +
+                "</div>"));
+    $("#content").html(userinfoconentElems);
+    $("#usercenter").hide();
+    getUserInfo();
+}
+function userOpperateDiv(id, title) {
+    var onclickFun = "showUserCenter(\"" + id + "\")";
+    var divid = id + "25div";
+    var imgid = id + "image";
+    var titleid = id + "title";
+    var buttonid = id + "button";
+    var elem = $("<div id='" + divid + "' class='useropperateunclick25div' onclick='" + onclickFun + "'></div>")
+        .append($("<div class='useropperate25img'><img id='" + imgid + "' src='/image/user/" + id + ".png'/></div>"))
+        .append($("<div class='useropperate25title'>" +
+                    "<div id='" + titleid + "' class='userunclicktitle'>" + title + "</div>" +
+                    "<div class='userbuttondiv'><div id='" + buttonid + "' class='userunclickbutton'></div></div>" +
+                "</div>"));
 
-    if(category == "WDGS" || category == "JKZX" || category == "ZRLF"){
-        contentListTableElems = $("<table id='wdgsjkzxzrlflisttable'><tbody></tbody></table>");
-        for(var i=0; i<articleList.length; i++){
-            var article = articleList[i];
-            var onclickFunc = "gotoArticleDetailPage(\"" + category + "\", " + article.articleId + ")";
-            var contentListTrElems = $("<tr></tr>")
-                .append($("<td><div class='contentpointdiv'></div></td>"))
-                .append($("<td><div class='wdgsjkzxzrlflistlistdiv' onclick='" + onclickFunc + "'>" + article.articleTitle + "</div></td>"));
-            contentListTableElems.append(contentListTrElems);
-        }
-        // 翻页区域
-        processPage(pagination.page, pagination.totalPage);
-    }else if(category == "JJYS"){
-        contentListTableElems = $("<table id='jjyslisttable'><tbody></tbody></table>");
-        for(var i=0; i<articleList.length; i++){
-            var article = articleList[i];
-            var onclickFunc = "gotoArticleDetailPage(\"" + category + "\", " + article.ritucharya + ")";
-            var contentListTrElems = $("<tr onclick='" + onclickFunc + "'></tr>")
-                .append($("<td><div class='jjyscontentimagediv'><img src='" + article.imageUrl + "' /></div></td>"))
-                .append($("<td><div class='jjyscontentlisttitle'>" + article.articleTitle + "</div><div class='jjyscontentlistsummary'>" + article.summary + "</div></td>"));
-            contentListTableElems.append(contentListTrElems);
-        }
-    }else if(category == "JKZS"){
-        if(articleList.length == 0){
-            contentListTableElems = $("<div class='jkzscontentemptylist'></div>")
-                .append($("<div><img src='/image/common/note.png'></div>"))
-                .append($("<div class='jkzscontentemptydate'>没有\"" + parseDate() + "\"的相关内容</div>"))
-                .append($("<div class='jkzscontentemptybutton' onclick='gotoArticlePage(\"JKZS\", 1, 10)'>返回列表页</div>"));
+    return elem;
+}
+function showUserCenter(module) {
+    getUserDetail(module);
+    var lastUserClick = $.cookie('lastUserClick');
+    if(typeof(lastUserClick) == "undefined" || !lastUserClick || lastUserClick == ""){
+        $("#" + module + "25div").removeClass("useropperateunclick25div").addClass("useropperateclick25div");
+        $("#" + module + "image").attr("src", "/image/user/" + module + "_click.png");
+        $("#" + module + "title").removeClass("userunclicktitle").addClass("userclicktitle");
+        $("#" + module + "button").removeClass("userunclickbutton").addClass("userclickbutton");
+        $("#usercenter").show();
+    }else if(lastUserClick != module){
+        $("#" + module + "25div").removeClass("useropperateunclick25div").addClass("useropperateclick25div");
+        $("#" + module + "image").attr("src", "/image/user/" + module + "_click.png");
+        $("#" + module + "title").removeClass("userunclicktitle").addClass("userclicktitle");
+        $("#" + module + "button").removeClass("userunclickbutton").addClass("userclickbutton");
+        $("#" + lastUserClick + "25div").removeClass("useropperateclick25div").addClass("useropperateunclick25div");
+        $("#" + lastUserClick + "image").attr("src", "/image/user/" + lastUserClick + ".png");
+        $("#" + lastUserClick + "title").removeClass("userclicktitle").addClass("userunclicktitle");
+        $("#" + lastUserClick + "button").removeClass("userclickbutton").addClass("userunclickbutton");
+        $("#usercenter").show();
+    }else if(lastUserClick == module){
+        if($("#usercenter").is(":hidden")){
+            $("#usercenter").show();
+            $("#" + module + "25div").removeClass("useropperateunclick25div").addClass("useropperateclick25div");
+            $("#" + module + "image").attr("src", "/image/user/" + module + "_click.png");
+            $("#" + module + "title").removeClass("userunclicktitle").addClass("userclicktitle");
+            $("#" + module + "button").removeClass("userunclickbutton").addClass("userclickbutton");
         }else{
-            contentListTableElems
-        }
-        // 翻页区域
-        processPage(pagination.page, pagination.totalPage);
-    }
-
-    $(".contentbodylist").html(contentListTableElems);
-}
-function processRitucharyaPaginationData(data) {
-    var contentListTableElems = $("<table id='jjysjkzslisttable'><tbody></tbody></table>");
-    var ritucharyaList = data.ritucharyaList;
-    var pagination = data.pagination;
-
-    if($("#footer").is(':hidden') && ritucharyaList.length > 0){
-        var videoIndex = 0;
-        while (videoIndex < ritucharyaList.length){
-            if(ritucharyaList[videoIndex].videoUrl != ""){
-                $.cookie('videoUrl', ritucharyaList[videoIndex].videoUrl, {expires: 7, path: '/'});
-                createFooter();
-                break;
-            }
-            videoIndex += 1;
+            $("#usercenter").hide();
+            $("#" + lastUserClick + "25div").removeClass("useropperateclick25div").addClass("useropperateunclick25div");
+            $("#" + lastUserClick + "image").attr("src", "/image/user/" + lastUserClick + ".png");
+            $("#" + lastUserClick + "title").removeClass("userclicktitle").addClass("userunclicktitle");
+            $("#" + lastUserClick + "button").removeClass("userclickbutton").addClass("userunclickbutton");
         }
     }
-
-    for(var i=0; i<ritucharyaList.length; i++){
-        var ritucharya = ritucharyaList[i];
-        var videoPlayButtonId = "videoPlayButton" + ritucharya.ritucharyaId;
-        var videoPlayTitleId = "videoPlayTitle" + ritucharya.ritucharyaId;
-        var onclickFunc = "playVideo(\"" + ritucharya.videoUrl + "\", \"" + ritucharya.ritucharyaTitle + "\", " + ritucharya.ritucharyaId + ")";
-
-        var contentListTrElems = $("<tr></tr>")
-            .append($("<td><div class='jjysjkzscirclediv' onclick='" + onclickFunc + "'><div id='" + videoPlayButtonId + "' class='jjysjkzstrianglediv'></div></div></td>"))
-            .append($("<td><div id='" + videoPlayTitleId + "' class='jjysjkzsvideotitle1'>" + ritucharya.ritucharyaTitle + "</div></td>"))
-            .append($("<td><img src='/image/common/link.png' /></td>"));
-        contentListTableElems.append(contentListTrElems);
-    }
-    // 翻页区域
-    processPage(pagination.page, pagination.totalPage);
-
-    $(".contentbodylist").html(contentListTableElems);
+    $.cookie('lastUserClick', module, {expires: 1, path: '/'});
 }
-
 
 /*底部*/
 function createFooter(){

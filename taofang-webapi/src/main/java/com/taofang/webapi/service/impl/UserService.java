@@ -9,12 +9,12 @@ import com.taofang.webapi.dao.CommentstarMapper;
 import com.taofang.webapi.dao.InquiryprescriptionMapper;
 import com.taofang.webapi.dao.MemberMapper;
 import com.taofang.webapi.dao.PrescriptionMapper;
-import com.taofang.webapi.domain.ModuleInfo;
-import com.taofang.webapi.domain.User;
-import com.taofang.webapi.domain.ViewHistory;
+import com.taofang.webapi.domain.*;
 import com.taofang.webapi.model.*;
+import com.taofang.webapi.model.Prescription;
 import com.taofang.webapi.result.Result;
 import com.taofang.webapi.service.IUserService;
+import com.taofang.webapi.util.CommentModelUtil;
 import com.taofang.webapi.util.MD5Util;
 import com.taofang.webapi.util.ResultUtil;
 import com.taofang.webapi.util.UserModelUtil;
@@ -47,6 +47,46 @@ public class UserService implements IUserService{
     private PrescriptionMapper prescriptionMapper;
     @Autowired
     private CommentstarMapper commentstarMapper;
+
+    @Override
+    public UserDomain getUserDomainById(int userId) {
+        UserDomain userDomain = new UserDomain();
+        try{
+            List<Member> memberList = memberMapper.selectByMemberId(userId);
+            if(memberList.size() > 0){
+                userDomain = UserModelUtil.tranMemberAsUserDomain(memberList.get(0));
+            }
+        }catch(Exception e){
+            userDomain.setUserId(0);
+            LOGGER.error(e.getMessage(), e);
+        }
+        return userDomain;
+    }
+
+    @Override
+    public UserDetailDomain getUserDetailDomainById(int userId, String module) {
+        UserDetailDomain userDetail;
+        List<UserModuleDomain> userModuleList;
+        try{
+            if(module.equals("qiufang")){
+                userModuleList = new ArrayList<>();
+            }else if(module.equals("xianfang")){
+                userModuleList = new ArrayList<>();
+            }else if(module.equals("shoucang")){
+                userModuleList = new ArrayList<>();
+            }else if(module.equals("pinglun")){
+                List<CommentstarWithBLOBs> commentstarList = commentstarMapper.selectCommentByMemberId(userId);
+                userModuleList = CommentModelUtil.tranCommentstarWithBLOBListAsPinglun(commentstarList);
+            }else{
+                userModuleList = new ArrayList<>();
+            }
+            userDetail = new UserDetailDomain(userId, module, userModuleList);
+        }catch(Exception e){
+            userDetail = new UserDetailDomain(userId, module, new ArrayList<>());
+            LOGGER.error(e.getMessage(), e);
+        }
+        return userDetail;
+    }
 
     @Override
     public Result checkUserLogin(User user) {

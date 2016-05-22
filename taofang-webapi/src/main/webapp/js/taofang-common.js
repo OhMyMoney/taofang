@@ -2,11 +2,11 @@ function createContentPageElems(article, articleId) {
     var contentPageElems = $("<div id='contentbodypage' class='contentbodypage'></div>");
     contentPageElems
         .append($("<div class='previouspagediv'>" +
-            "<div id='previouspage' class='previouspage_opacity' onclick='getPreviousPagination(\"" + article + "\", " + articleId + ")'>" +
+            "<div id='previouspage' class='previouspage_opacity' onclick='getPreviousPagination(\"" + article + "\", \"" + articleId + "\")'>" +
             "上一页</div></div>"))
         .append($("<div class='currentpagediv'><div class='currentpage'>0/0</div></div>"))
         .append($("<div class='nextpagediv'>" +
-            "<div id='nextpage' class='nextpage' onclick='getNextPagination(\"" + article + "\", " + articleId + ")'>" +
+            "<div id='nextpage' class='nextpage' onclick='getNextPagination(\"" + article + "\", \"" + articleId + "\")'>" +
             "下一页</div></div>"));
     return contentPageElems;
 }
@@ -17,9 +17,15 @@ function getPreviousPagination(category, articleId){
         if(category == "WDGS" || category == "ZRLF" || category == "JKZX"){
             getArticlePagination(category, parseInt(current) - 1, 10);
         }else if(category == "JJYS"){
-            getRitucharyaPagination(articleId, parseInt(current) - 1, 10);
+            getRitucharyaPagination(parseInt(articleId), parseInt(current) - 1, 10);
         }else if(category == "JKZS"){
             getJKZSPagination(parseInt(current) - 1, 10, $("#date").val());
+        }else if(category == "liangfang"){
+            var orderId = $.cookie('orderId');
+            if(typeof(orderId) == "undefined" || !orderId || orderId == ""){
+                orderId = 0;
+            }
+            getLiangfangList(articleId, orderId, parseInt(current) - 1, 5);
         }
     }
 }
@@ -31,9 +37,15 @@ function getNextPagination(category, articleId){
         if(category == "WDGS" || category == "ZRLF" || category == "JKZX"){
             getArticlePagination(category, parseInt(current) + 1, 10);
         }else if(category == "JJYS"){
-            getRitucharyaPagination(articleId, parseInt(current) + 1, 10);
+            getRitucharyaPagination(parseInt(articleId), parseInt(current) + 1, 10);
         }else if(category == "JKZS"){
             getJKZSPagination(parseInt(current) + 1, 10, $("#date").val());
+        }else if(category == "liangfang"){
+            var orderId = $.cookie('orderId');
+            if(typeof(orderId) == "undefined" || !orderId || orderId == ""){
+                orderId = 0;
+            }
+            getLiangfangList(articleId, orderId, parseInt(current) + 1, 5);
         }
     }
 }

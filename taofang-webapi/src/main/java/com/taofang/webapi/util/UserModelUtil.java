@@ -6,6 +6,7 @@ import com.taofang.webapi.bean.UserViewBean;
 import com.taofang.webapi.constant.ImageConstant;
 import com.taofang.webapi.domain.ModuleInfo;
 import com.taofang.webapi.domain.User;
+import com.taofang.webapi.domain.UserDomain;
 import com.taofang.webapi.domain.ViewHistory;
 import com.taofang.webapi.model.CommentstarWithBLOBs;
 import com.taofang.webapi.model.Inquiryprescription;
@@ -23,6 +24,18 @@ import java.util.Calendar;
  * @Create 2016-04-11
  */
 public class UserModelUtil {
+
+    public static UserDomain tranMemberAsUserDomain(Member member){
+        UserDomain userDomain = new UserDomain();
+        userDomain.setUserId(Optional.fromNullable(member.getMemberid()).or(0));
+        userDomain.setUserName(Optional.fromNullable(member.getMembername()).or(""));
+        if(Strings.isNullOrEmpty(member.getIcon())){
+            userDomain.setIcon(ImageConstant.DEFAULT_HEAD_PORTRAIT_URL);
+        }else{
+            userDomain.setIcon(ImageConstant.HEAD_PORTRAIT_URL + member.getIcon());
+        }
+        return userDomain;
+    }
 
     public static Member tranUserToMember(User user){
         Member member = new Member();

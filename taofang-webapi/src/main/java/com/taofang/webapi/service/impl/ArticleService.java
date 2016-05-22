@@ -1,13 +1,17 @@
 package com.taofang.webapi.service.impl;
 
+import com.taofang.webapi.constant.ArticleCategory;
 import com.taofang.webapi.dao.ArticleMapper;
 import com.taofang.webapi.dao.DtsimageMapper;
+import com.taofang.webapi.dao.RelationlinkMapper;
 import com.taofang.webapi.domain.*;
 import com.taofang.webapi.model.ArticleWithBLOBs;
 import com.taofang.webapi.model.Dtsimage;
+import com.taofang.webapi.model.Relationlink;
 import com.taofang.webapi.service.IArticleService;
 import com.taofang.webapi.util.ArticleModelUtil;
 import com.taofang.webapi.util.DatetimeUtil;
+import com.taofang.webapi.util.RelationLinkModelUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +31,8 @@ public class ArticleService implements IArticleService{
     private static final Logger LOGGER = LoggerFactory.getLogger(ArticleService.class);
     @Autowired
     private ArticleMapper articleMapper;
+    @Autowired
+    private RelationlinkMapper relationlinkMapper;
     @Autowired
     private DtsimageMapper dtsimageMapper;
 
@@ -72,8 +78,8 @@ public class ArticleService implements IArticleService{
         List<ArticleDomain> articleDomainList;
         PaginationDomain pagination;
         try{
-            Timestamp beginTime = DatetimeUtil.tranDatetimeStr(queryDateStr + "000000", DatetimeUtil.FORMAT_DEFAULT_YMD_MIN);
-            Timestamp endTime = DatetimeUtil.tranDatetimeStr(queryDateStr + "235959", DatetimeUtil.FORMAT_DEFAULT_YMD_MIN);
+            Timestamp beginTime = DatetimeUtil.tranDatetimeStr(queryDateStr + "000000", DatetimeUtil.FORMAT_DEFAULT_MIN);
+            Timestamp endTime = DatetimeUtil.tranDatetimeStr(queryDateStr + "235959", DatetimeUtil.FORMAT_DEFAULT_MIN);
             int totalCount = articleMapper.countJKZSByVideodate(beginTime, endTime);
             pagination = new PaginationDomain(page, pageSize, totalCount);
             int start = (page - 1) * pageSize;
@@ -85,5 +91,26 @@ public class ArticleService implements IArticleService{
             LOGGER.error(e.getMessage(), e);
         }
         return new ArticlePaginationDomain(pagination, articleDomainList);
+    }
+
+    @Override
+    public ArticleDetailDomain getArticleDetailById(int categoryId, int articleId) {
+        ArticleDetailDomain articleDetail;
+        try{
+            List<ArticleWithBLOBs> articleWithBLOBsList = articleMapper.selectByCategoryArticleId(categoryId, articleId);
+            if(articleWithBLOBsList.size() > 0){
+                articleDetail = ArticleModelUtil.tranArticleWithBLOBAsDetail(articleWithBLOBsList.get(0));
+                articleDetail.setCategory(ArticleCategory.getCategoryNameById(categoryId));
+                // 相关链接
+                List<Relationlink> relationlinkList = relationlinkMapper.selectBySourceType(categoryId);
+                articleDetail.setRelationlinkList(RelationLinkModelUtil.tranRelationLinkListAsDomain(relationlinkList));
+            }else{
+                articleDetail = new ArticleDetailDomain(0);
+            }
+        }catch(Exception e){
+            articleDetail = new ArticleDetailDomain(0);
+            LOGGER.error(e.getMessage(), e);
+        }
+        return articleDetail;
     }
 }

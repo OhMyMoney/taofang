@@ -1,9 +1,7 @@
 package com.taofang.webapi.resource;
 
-import com.taofang.webapi.constant.PrecriptionOrderEnum;
-import com.taofang.webapi.domain.PrescriptionPagination;
-import com.taofang.webapi.domain.PrescriptionRelateInfo;
-import com.taofang.webapi.domain.PrescriptionWithLinks;
+import com.taofang.webapi.constant.PrecriptionOrder;
+import com.taofang.webapi.domain.*;
 import com.taofang.webapi.service.IPrescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,6 +19,47 @@ public class PrescriptionResource {
     @Autowired
     private IPrescriptionService prescriptionService;
 
+    @GET
+    @Path("/list")
+    @Produces({MediaType.APPLICATION_JSON})
+    public PrescriptionPaginationDomain getPrescriptionPaginationByPath(@QueryParam("prescription") String prescription,
+                                                                        @DefaultValue("1") @QueryParam("page") int page,
+                                                                        @DefaultValue("5") @QueryParam("pageSize") int pageSize,
+                                                                        @DefaultValue("0") @QueryParam("order") int orderId){
+        String orderName = PrecriptionOrder.getOrderNameById(orderId);
+
+        PrescriptionPaginationDomain prescriptionPagination = prescriptionService.getPrescriptionPaginationDomain(prescription, orderName, page, pageSize);
+
+        return  prescriptionPagination;
+    }
+
+    @GET
+    @Path("/detail/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public PrescriptionDetailDomain getPrescriptionDetailById(@DefaultValue("0") @PathParam("id") int id){
+        PrescriptionDetailDomain prescriptionDetail = prescriptionService.getPrescriptionDetailDomain(id);
+
+        return prescriptionDetail;
+    }
+
+    @GET
+    @Path("/comment/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public PrescriptionCommentDomain getPrescriptionCommentById(@DefaultValue("0") @PathParam("id") int id){
+        PrescriptionCommentDomain prescriptionComment = prescriptionService.getPrescriptionCommentDomain(id);
+
+        return prescriptionComment;
+    }
+
+    @GET
+    @Path("/material/{id}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public PrescriptionMaterialDomain getPrescriptionMaterialById(@DefaultValue("0") @PathParam("id") int id){
+        PrescriptionMaterialDomain prescriptionMaterial = prescriptionService.getPrescriptionMaterialDomain(id);
+
+        return prescriptionMaterial;
+    }
+
     /**
      * 查询偏方分页信息
      * @param name
@@ -35,7 +74,7 @@ public class PrescriptionResource {
                                                             @DefaultValue("1") @QueryParam("page") int page,
                                                             @DefaultValue("5") @QueryParam("pageSize") int pageSize,
                                                             @DefaultValue("0") @QueryParam("order") int orderId){
-        String orderName = PrecriptionOrderEnum.getOrderNameById(orderId);
+        String orderName = PrecriptionOrder.getOrderNameById(orderId);
         int start = (page - 1) * pageSize;
         PrescriptionPagination prescriptionPagination = prescriptionService.getPrescriptionPagination(name, orderName, start, pageSize);
         prescriptionPagination.setCurPage(page);

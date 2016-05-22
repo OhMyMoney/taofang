@@ -2,10 +2,8 @@ package com.taofang.webapi.dao.persistence;
 
 import com.taofang.webapi.bean.LiangfangBean;
 import com.taofang.webapi.constant.ElasticsearchConstant;
-import com.taofang.webapi.domain.Prescription;
-import com.taofang.webapi.domain.PrescriptionPagination;
-import com.taofang.webapi.domain.PrescriptionRelateInfo;
-import com.taofang.webapi.domain.RelateInfo;
+import com.taofang.webapi.constant.PrecriptionOrder;
+import com.taofang.webapi.domain.*;
 import com.taofang.webapi.util.ElasticsearchModelUtil;
 import com.taofang.webapi.util.PrescriptionModelUtil;
 import io.searchbox.client.JestClient;
@@ -31,6 +29,42 @@ import java.util.Set;
 public class ElasticsearchDao{
     // ES客户端
     private JestClient client;
+
+    public PrescriptionPaginationDomain searchPrescriptionPagination(String prescription, String orderName, int page, int start, int limit) throws IOException {
+        PrescriptionPaginationDomain prescriptionPagination = new PrescriptionPaginationDomain(prescription, PrecriptionOrder.getOrderIdByName(orderName));
+        List<PrescriptionDomain> prescriptionList = new ArrayList<>();
+        List<RelationlinkDomain> diseaselinkList = new ArrayList<>();
+        List<RelationlinkDomain> symptomlinkList = new ArrayList<>();
+
+        String query = ElasticsearchModelUtil.createPrescriptionQuery(prescription, orderName, start, limit);
+        Search search = new Search.Builder(query).addIndex(ElasticsearchConstant.LIANGFANG_INDEX).build();
+
+        SearchResult result = client.execute(search);
+        int totalCount = result.getTotal();
+        prescriptionPagination.setPagination(new PaginationDomain(page, limit, totalCount));
+        List<SearchResult.Hit<LiangfangBean, Void>> liangfangHitList = result.getHits(LiangfangBean.class);
+        for(SearchResult.Hit<LiangfangBean, Void> liangfangHit : liangfangHitList){
+            prescriptionList.add(PrescriptionModelUtil.tranLiangfangBeanAsPrescription(liangfangHit.source));
+            if(diseaselinkList.size() <= 5){
+                RelationlinkDomain relationlink = PrescriptionModelUtil.tranLiangfangBeanAsDisease(liangfangHit.source);
+                if(relationlink != null){
+                    diseaselinkList.add(relationlink);
+                }
+            }
+            if(symptomlinkList.size() <= 5){
+                RelationlinkDomain relationlink = PrescriptionModelUtil.tranLiangfangBeanAsSymptom(liangfangHit.source);
+                if(relationlink != null){
+                    symptomlinkList.add(relationlink);
+                }
+            }
+        }
+
+        prescriptionPagination.setPrescriptionList(prescriptionList);
+        prescriptionPagination.setDiseaselinkList(diseaselinkList);
+        prescriptionPagination.setSymptomlinkList(symptomlinkList);
+        return prescriptionPagination;
+    }
+
 
     public PrescriptionPagination searchPrescription(String name, String sortName, int start, int limit) throws IOException {
         List<Prescription> prescriptionList = new ArrayList<>();

@@ -2,9 +2,7 @@ package com.taofang.webapi.resource;
 
 import com.google.common.base.Strings;
 import com.taofang.webapi.constant.VCode;
-import com.taofang.webapi.domain.User;
-import com.taofang.webapi.domain.UserModuleInfo;
-import com.taofang.webapi.domain.UserViewHistory;
+import com.taofang.webapi.domain.*;
 import com.taofang.webapi.result.Result;
 import com.taofang.webapi.service.IUserService;
 import com.taofang.webapi.util.ResultUtil;
@@ -22,6 +20,22 @@ import javax.ws.rs.core.MediaType;
 public class UserResource {
     @Autowired
     private IUserService userService;
+
+    @GET
+    @Path("/userinfo/{userId}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public UserDomain getUserByPath(@DefaultValue("0")@PathParam("userId")int userId){
+        return userService.getUserDomainById(userId);
+    }
+
+    @GET
+    @Path("/detail/{userId}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public UserDetailDomain getUserDetailByPath(@DefaultValue("0")@PathParam("userId")int userId,
+                                                @DefaultValue("")@QueryParam("module") String module){
+        return userService.getUserDetailDomainById(userId, module);
+    }
+
 
     /**
      * 获取验证码

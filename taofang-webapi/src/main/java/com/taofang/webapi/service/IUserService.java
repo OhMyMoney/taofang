@@ -1,8 +1,6 @@
 package com.taofang.webapi.service;
 
-import com.taofang.webapi.domain.ModuleInfo;
-import com.taofang.webapi.domain.User;
-import com.taofang.webapi.domain.ViewHistory;
+import com.taofang.webapi.domain.*;
 import com.taofang.webapi.result.Result;
 
 import java.util.List;
@@ -13,6 +11,10 @@ import java.util.List;
  * @Create 2016-04-10
  */
 public interface IUserService {
+    UserDomain getUserDomainById(int userId);
+
+    UserDetailDomain getUserDetailDomainById(int userId, String module);
+
     /**
      * 验证用户登录条件
      * @param user
@@ -34,4 +36,5 @@ public interface IUserService {
     User getUserInfoById(String userId);
 
     List<ModuleInfo> getModuleInfoByUserIdAndModuleName(String userId, String moduleName);
+
 }

@@ -49,6 +49,20 @@ public interface ArticleMapper {
                                                  @Param("start")int start,
                                                  @Param("limit")int limit);
 
+    @Select({
+            "select ArticleID, ArticleName, ImageUrl, ArticleContent",
+            "from Article",
+            "where category = #{category, jdbcType=INTEGER}",
+            "and ArticleID = #{articleID, jdbcType=INTEGER}"
+    })
+    @ResultMap("ResultMapWithBLOBs")
+    List<ArticleWithBLOBs> selectByCategoryArticleId(@Param("category") int category,
+                                                     @Param("articleID") int articleId);
+
+
+
+
+
     /**
      * 查询健康之声的数据总数(Category=4)
      * @param videoDate

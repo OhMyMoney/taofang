@@ -5,8 +5,7 @@ import com.google.common.base.Strings;
 import com.taofang.webapi.constant.ArticleCategory;
 import com.taofang.webapi.constant.ImageConstant;
 import com.taofang.webapi.constant.Ritucharya;
-import com.taofang.webapi.domain.ArticleDomain;
-import com.taofang.webapi.domain.RitucharyaDomain;
+import com.taofang.webapi.domain.*;
 import com.taofang.webapi.model.ArticleWithBLOBs;
 import com.taofang.webapi.model.Dtsimage;
 
@@ -75,5 +74,55 @@ public class ArticleModelUtil {
         }
 
         return ritucharyaDomainList;
+    }
+
+    public static RelationlinkDomain tranArticleWithBLOBAsRelationlink(ArticleWithBLOBs articleWithBLOBs){
+        RelationlinkDomain relationlink = new RelationlinkDomain();
+        relationlink.setRelationId(Optional.fromNullable(articleWithBLOBs.getArticleid()).or(0));
+        relationlink.setRelationTitle(Optional.fromNullable(articleWithBLOBs.getArticlename()).or(""));
+        return relationlink;
+    }
+
+    public static List<RelationlinkDomain> tranArticleWithBLOBListAsRelationlink(List<ArticleWithBLOBs> articleWithBLOBsList){
+        List<RelationlinkDomain> relationlinkList = new ArrayList<>();
+        for(ArticleWithBLOBs articleWithBLOBs : articleWithBLOBsList){
+            relationlinkList.add(tranArticleWithBLOBAsRelationlink(articleWithBLOBs));
+        }
+
+        return relationlinkList;
+    }
+
+    public static ArticleDetailDomain tranArticleWithBLOBAsDetail(ArticleWithBLOBs articleWithBLOBs){
+        ArticleDetailDomain articleDetail = new ArticleDetailDomain();
+        articleDetail.setArticleId(Optional.fromNullable(articleWithBLOBs.getArticleid()).or(0));
+        articleDetail.setArticleTitle(Optional.fromNullable(articleWithBLOBs.getArticlename()).or(""));
+        // 文章图片
+        if(!Strings.isNullOrEmpty(articleWithBLOBs.getImageurl())){
+            articleDetail.setImageUrl(ImageConstant.IMAGE_BASE_URL + "Article/" + articleWithBLOBs.getImageurl());
+        }
+        // 文章内容
+        String articleContent = articleWithBLOBs.getArticlecontent();
+        if(!Strings.isNullOrEmpty(articleContent)){
+            articleContent = articleContent.substring(articleContent.indexOf("<h"));
+            int videoIndex = articleContent.indexOf("</object></p>");
+            if(videoIndex > 0){
+                // mp3
+                String videoContent = articleContent.substring(0, videoIndex);
+                int srcIndex = videoContent.indexOf("src=");
+                int typeIndex = videoContent.indexOf("type=");
+                String videoUrl = videoContent.substring(srcIndex+4, typeIndex).trim().replaceAll("\"", "");
+                articleDetail.setVideoUrl(videoUrl);
+                articleContent = articleContent.substring(videoIndex + 13);
+            }else{
+                articleDetail.setVideoUrl("");
+            }
+            articleContent = articleContent.substring(articleContent.indexOf("<p"));
+            articleContent = articleContent.replaceAll("/Content/Resources/", ImageConstant.IMAGE_BASE_URL);
+            articleDetail.setArticleContent(articleContent);
+        }
+        // 点赞数
+        articleDetail.setThumbCount((int) (Math.random() * 100));
+        return articleDetail;
+
     }
 }

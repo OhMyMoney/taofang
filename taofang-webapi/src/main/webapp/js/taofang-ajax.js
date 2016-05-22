@@ -1,6 +1,33 @@
 var ajaxBaseUrl = "http://localhost:8080/taofang/webapi";
 
 function getLiangfangList(prescription, order, page, pageSize) {
+    var ajaxUrl = ajaxBaseUrl + "/prescription/list?prescription=" + prescription + "&page=" + page + "&pageSize=" + pageSize;
+    ajaxUrl += "&order=" + order;
+    $.ajax({
+        url: ajaxUrl,
+        success: processLiangfangPaginationData
+    });
+}
+function getLiangfangDetail(prescriptionId) {
+    var ajaxUrl = ajaxBaseUrl + "/prescription/detail/" + prescriptionId;
+    $.ajax({
+        url: ajaxUrl,
+        success: processLiangfangDetailData
+    });
+}
+function getLiangfangComment(prescriptionId) {
+    var ajaxUrl = ajaxBaseUrl + "/prescription/comment/" + prescriptionId;
+    $.ajax({
+        url: ajaxUrl,
+        success: processLiangfangCommentData
+    });
+}
+function getLiangfangMaterial(prescriptionId) {
+    var ajaxUrl = ajaxBaseUrl + "/prescription/material/" + prescriptionId;
+    $.ajax({
+        url: ajaxUrl,
+        success: processLiangfangMaterialData
+    });
 }
 
 function getArticlePagination(category, page, pageSize) {
@@ -29,6 +56,79 @@ function getRitucharyaPagination(category, page, pageSize) {
     });
 }
 function getArticleDetail(category, id) {
+    var ajaxUrl = ajaxBaseUrl + "/article/detail/" + id + "?category=" + category;
+    $.ajax({
+        url: ajaxUrl,
+        success: processArticleDetailData
+    });
+}
+function getUserInfo() {
+    var userId = $.cookie('userId');
+    var ajaxUrl = ajaxBaseUrl + "/user/userinfo/" + userId;
+    $.ajax({
+        url: ajaxUrl,
+        success: processUserInfoData
+    });
+}
+function getUserDetail(module) {
+    var userId = $.cookie('userId');
+    var ajaxUrl = ajaxBaseUrl + "/user/detail/" + userId + "?module=" + module;
+    $.ajax({
+        url: ajaxUrl,
+        success: processUserDetailData
+    });
+}
+
+
+function refreshVCode() {
+    $.ajax({
+        url: ajaxBaseUrl + "/user/vcode",
+        success: doVcodeRefresh
+    });
+}
+// 登录
+function login(){
+    var errorMessage = checkLoginForm();
+    $("#loginregisterErrorMsg").addClass("error").text(errorMessage);
+    if(errorMessage == ""){
+        var userNameVal = $("#logindiv").find($("[name='userName']")).val();
+        var passwordVal = $("#logindiv").find($("[name='password']")).val();
+        $.ajax({
+            timeout: 5000,
+            url: ajaxBaseUrl + "/user/login",
+            contentType: "application/json",
+            data: JSON.stringify({userName : userNameVal, password : passwordVal}),
+            type: "post",
+            success: doLoginSuccess
+        });
+    }
+}
+// 注册
+function register() {
+    var errorMessage = checkRegisterForm();
+    $("#loginregisterErrorMsg").addClass("error").text(errorMessage);
+    if(errorMessage == ""){
+        var phoneNumberVal = $("#registerdiv").find($("[name='phoneNumber']")).val();
+        var userNameVal = $("#registerdiv").find($("[name='userName']")).val();
+        var passwordVal = $("#registerdiv").find($("[name='password']")).val();
+        var confirmPasswordVal = $("#registerdiv").find($("[name='confirmPassword']")).val();
+        var smsCodeVal = $("#registerdiv").find($("[name='smsCode']")).val();
+        $.ajax({
+            timeout: 5000,
+            url: ajaxBaseUrl + "/user/register",
+            contentType: "application/json",
+            data: JSON.stringify({phoneNumber:phoneNumberVal, userName:userNameVal, password:passwordVal, confirmPassword:confirmPasswordVal, smsCode:smsCodeVal}),
+            type: "post",
+            success: doRegisterSuccess
+        });
+    }
+}
+// 微信登录
+function loginByWX(){
+
+}
+// QQ登录
+function loginByQQ() {
 
 }
 function shareArticleDetail() {

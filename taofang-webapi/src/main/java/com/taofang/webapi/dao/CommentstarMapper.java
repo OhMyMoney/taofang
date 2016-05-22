@@ -9,10 +9,17 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 public interface CommentstarMapper {
+
+    @Select({
+            "select count(*) from CommentStar",
+            "where PrescriptionID = #{prescriptionID, jdbcType=INTEGER}"
+    })
+    int countCommentByPrescriptionID(@Param("prescriptionID") int PrescriptionID);
+
     List<CommentBean> selectCommentByPrescriptionID(@Param("prescriptionID") int PrescriptionID);
 
     @Select({
-            "select CommentID, Experience,CreatedDate from CommentStar",
+            "select CommentID, Experience, CreatedDate from CommentStar",
             "where memberId = #{memberId, jdbcType=INTEGER}"
     })
     @ResultMap("ResultMapWithBLOBs")
