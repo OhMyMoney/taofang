@@ -16,6 +16,17 @@ public class RelationlinkDomain {
 
     private String relationLink;
 
+    private String relationArticleCategory;
+
+    private int relationArticleId;
+
+    public RelationlinkDomain() {
+    }
+
+    public RelationlinkDomain(String relationTitle) {
+        this.relationTitle = relationTitle;
+    }
+
     @XmlElement(name="relationId")
     public int getRelationId() {
         return relationId;
@@ -27,6 +38,22 @@ public class RelationlinkDomain {
     @XmlElement(name="relationLink")
     public String getRelationLink() {
         return relationLink;
+    }
+    @XmlElement(name="relationArticleCategory")
+    public String getRelationArticleCategory() {
+        return relationArticleCategory;
+    }
+    @XmlElement(name="relationArticleId")
+    public int getRelationArticleId() {
+        return relationArticleId;
+    }
+
+    public void setRelationArticleCategory(String relationArticleCategory) {
+        this.relationArticleCategory = relationArticleCategory;
+    }
+
+    public void setRelationArticleId(int relationArticleId) {
+        this.relationArticleId = relationArticleId;
     }
 
     public void setRelationId(int relationId) {

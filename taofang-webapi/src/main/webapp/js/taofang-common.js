@@ -64,19 +64,56 @@ function processPage(curPage, totalPage) {
 }
 function playVideo(videoUrl, title, id) {
     $.cookie('videoUrl', videoUrl, {expires: 7, path: '/'});
+    $.cookie('videoTitle', title, {expires: 7, path: '/'});
     var videoPlayButtonClass = $('#videoPlayButton' + id).attr("class");
     if(videoPlayButtonClass == "jjysjkzsparalleldiv"){
         $('#videoPlayButton' + id).attr("class", "jjysjkzstrianglediv");
         $('#videoPlayTitle' + id).attr("class", "jjysjkzsvideotitle1");
-        var videoplay = document.getElementById("audiomp3");
-        videoplay.pause();
+        $("#footervideobutton").attr("class", "footervideostop");
+        document.getElementById("audiomp3").pause();
     }else{
-        $('#audiomp3').attr("src", videoUrl);
+        $("div.footervideotitle").html(title);
+        $("#audiomp3").attr("src", videoUrl);
         $('div.jjysjkzscirclediv div').attr("class", "jjysjkzstrianglediv");
         $('#jjysjkzslisttable tbody tr td:nth-child(2) div').attr("class", "jjysjkzsvideotitle1");
         $('#videoPlayButton' + id).attr("class", "jjysjkzsparalleldiv");
         $('#videoPlayTitle' + id).attr("class", "jjysjkzsvideotitle2");
-        var videoplay = document.getElementById("audiomp3");
+        if($("#footer").is(":hidden")){
+            $("#footer").show();
+            isFirstLoad = false;
+        }
+        $("#footervideobutton").attr("class", "footervideoplay");
+        document.getElementById("audiomp3").play();
+    }
+}
+function playWDGSVideo(videoUrl, title) {
+    $.cookie('videoUrl', videoUrl, {expires: 7, path: '/'});
+    $.cookie('videoTitle', title, {expires: 7, path: '/'});
+    var videoPlayButtonClass = $('#wdgsarticledetailcontentbutton div').attr("class");
+    if(videoPlayButtonClass == "jjysjkzsparalleldiv"){
+        $('#wdgsarticledetailcontentbutton div').attr("class", "jjysjkzstrianglediv");
+        $("#footervideobutton").attr("class", "footervideostop");
+        document.getElementById("audiomp3").pause();
+    }else{
+        $("div.footervideotitle").html(title);
+        $("#audiomp3").attr("src", videoUrl);
+        $('#wdgsarticledetailcontentbutton div').attr("class", "jjysjkzsparalleldiv");
+        if($("#footer").is(":hidden")){
+            $("#footer").show();
+            isFirstLoad = false;
+        }
+        $("#footervideobutton").attr("class", "footervideoplay");
+        document.getElementById("audiomp3").play();
+    }
+}
+function playFooterVideo(){
+    var footervideobuttonClass = $("#footervideobutton").attr("class");
+    var videoplay = document.getElementById("audiomp3");
+    if(footervideobuttonClass == "footervideostop"){
+        $("#footervideobutton").attr("class", "footervideoplay");
         videoplay.play();
+    }else{
+        $("#footervideobutton").attr("class", "footervideostop");
+        videoplay.pause();
     }
 }

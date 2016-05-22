@@ -1,4 +1,3 @@
-
 function processArticlePaginationData(data) {
     var contentListTableElems;
     var articleList = data.articleList;
@@ -65,7 +64,17 @@ function processArticlePaginationData(data) {
 }
 function processArticleDetailData(data) {
     $('#articledetailcontenttitle').html(data.articleTitle);
-    // $('#articledetailcontentvideo').html(data.articleTitle);
+    if(data.category == "WDGS" && data.videoUrl != ""){
+        var onclickFunc = "playWDGSVideo(\"" + data.videoUrl + "\", \"" + data.articleTitle + "\")";
+        $("#wdgsarticledetailcontentbutton").attr("onclick", onclickFunc);
+    }else{
+        $("#wdgsarticledetailcontentbutton").hide();
+    }
+    if(data.category == "ZRLF"){
+        $('#articledetailcontentvideo').html($("<video controls></video>").attr("src", data.videoUrl));
+    }else{
+        $('#articledetailcontentvideo').hide();
+    }
     $('#articledetailcontentimage').html($("<img />").attr("src", data.imageUrl));
     $('#articledetailcontenttext').html(data.articleContent);
     $('#articledetailthumbtext').html(data.thumbCount + "个表扬");
@@ -74,9 +83,14 @@ function processArticleDetailData(data) {
     var relationlinkListEnums = $("<table><tbody></tbody></table>");
     for(var i=0; i< relationlinkList.length; i++){
         var link = relationlinkList[i];
+        var onclickFunc="gotoArticleDetailPage(\"" + link.relationArticleCategory + "\", " + link.relationArticleId + ")";
         var trEnum = $("<tr></tr>")
-            .append($("<td><div class='contentpointdiv'></div></td>"))
-            .append($("<td><div>" + link.relationTitle + "</div></td>"));
+            .append($("<td><div class='contentpointdiv'></div></td>"));
+        if(data.category == "WDGS"){
+            trEnum.append($("<td onclick='" + onclickFunc + "'><div>" + link.relationTitle + "</div></td>"));
+        }else{
+            trEnum.append($("<td><div>" + link.relationTitle + "</div></td>"));
+        }
         relationlinkListEnums.append(trEnum);
     }
     $('#articledetailrelationlist').html(relationlinkListEnums);
@@ -86,18 +100,6 @@ function processRitucharyaPaginationData(data) {
     var contentListTableElems = $("<table id='jjysjkzslisttable'><tbody></tbody></table>");
     var ritucharyaList = data.ritucharyaList;
     var pagination = data.pagination;
-
-    if($("#footer").is(':hidden') && ritucharyaList.length > 0){
-        var videoIndex = 0;
-        while (videoIndex < ritucharyaList.length){
-            if(ritucharyaList[videoIndex].videoUrl != ""){
-                $.cookie('videoUrl', ritucharyaList[videoIndex].videoUrl, {expires: 7, path: '/'});
-                createFooter();
-                break;
-            }
-            videoIndex += 1;
-        }
-    }
 
     for(var i=0; i<ritucharyaList.length; i++){
         var ritucharya = ritucharyaList[i];
@@ -164,10 +166,12 @@ function processLiangfangPaginationData(data) {
         var nataropathylinkList = data.nataropathylinkList;
         var nataropathylinkListEnums = $("<table><tbody></tbody></table>");
         for(var ni=0; ni<nataropathylinkList.length; ni++){
+            var onclickFunc = "gotoArticleDetailPage(\"ZRLF\", " + link.relationId + ")";
+
             var link = nataropathylinkList[ni];
             var trEnum = $("<tr></tr>")
                 .append($("<td><div class='contentpointdiv'></div></td>"))
-                .append($("<td><div>" + link.relationTitle + "</div></td>"));
+                .append($("<td onclick='" + onclickFunc + "'><div>" + link.relationTitle + "</div></td>"));
             nataropathylinkListEnums.append(trEnum);
         }
         $("#liangfangrelationnataropathylist").html(nataropathylinkListEnums);
@@ -257,6 +261,20 @@ function processUserDetailData(data) {
         }
         $("#usercenter").html(userCenterTableElem);
     }
+}
+function processUserViewData(data) {
+    var viewList = data.viewList;
+    if(viewList.length == 0){
+        $("#userviewhistorylist").html($("<div class='userviewhistorylistemptyblockdiv'></div>" +
+            "<div class='userviewhistorylistemptydiv'>你尚未浏览相关内容</div>"));
+    }
+}
+function processHomeUserViewData(data) {
+
+}
+function processWordStatisticsData(data) {
+    var wordSearchList = data.wordSearchList;
+    mockBubbleChart(wordSearchList);
 }
 function insertEmptyModuleElems() {
     var lastUserClick = $.cookie('lastUserClick');

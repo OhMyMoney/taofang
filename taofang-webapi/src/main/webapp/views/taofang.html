@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/css/taofang-navigation.css" />
     <link rel="stylesheet" href="/css/taofang-common.css" />
     <link rel="stylesheet" href="/css/taofang-popup.css" />
+    <link rel="stylesheet" href="/css/taofang-bubble.css" />
     <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script type="text/javascript" src="/js/plugin/jquery.cookie.js"></script>
@@ -20,6 +21,7 @@
     <script type="text/javascript" src="/js/taofang-common.js"></script>
     <script type="text/javascript" src="/js/taofang-popup.js"></script>
     <script type="text/javascript" src="/js/taofang-data.js"></script>
+    <script type="text/javascript" src="/js/taofang-bubble.js"></script>
     <script>
         $(document).ready(function () {
             createHomePage();
@@ -35,7 +37,7 @@
         <div id="content" data-role="content" class="content">
             <div id="contentbodydiv">
             </div>
-            <div class="contentfooterdiv">
+            <div id="contentfooterdiv" class="contentfooterdiv">
                 <div id="contentfooteraddiv" class="contentfooteraddiv">
                 </div>
                 <div id="contentfooterswitchdiv" class="contentfooterswitchdiv">
@@ -48,10 +50,25 @@
             </div>
         </div>
         <div id="footer" data-role="footer">
-            <div>
-               <!-- <audio id="audiomp3" preload="auto" controls src="senya.mp3">
-                </audio>
-                <script>$( function() { $( 'audio' ).audioPlayer(); } );</script>-->
+            <div class="footervideodiv">
+                <div class="footervideoplaydiv">
+                    <div class="footervideoplaycicle" onclick="playFooterVideo()"><div id="footervideobutton" class="footervideostop"></div></div>
+                </div>
+                <div class="footervideourldiv">
+                    <div class="footervideotitle"></div>
+                    <div class="footervideourl">
+                        <audio id="audiomp3" src="senya.mp3" controls></audio>
+                    </div>
+                </div>
+                <script>
+                    $(function(){
+                        $('audio').audioPlayer();
+                        $('div.audioplayer-playpause').hide();
+                        $('div.audioplayer-time').hide();
+                        $('div.audioplayer-volume').hide();
+                        $('div.audioplayer-time-duration').show();
+                    });
+                </script>
             </div>
         </div>
     </div>

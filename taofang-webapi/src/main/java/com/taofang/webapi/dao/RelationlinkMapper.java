@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface RelationlinkMapper {
     @Select({
-            "select id, LinkTitle, LinkUrl",
+            "select id, LinkTitle, LinkUrl, SourceType",
             "from RelationLink",
             "where SourceType = #{sourceType, jdbcType=INTEGER}"
     })
@@ -17,40 +17,10 @@ public interface RelationlinkMapper {
     List<Relationlink> selectBySourceType(@Param("sourceType")int sourceType);
 
     @Select({
-            "select id, LinkTitle, LinkUrl, PrescriptionID",
+            "select id, LinkTitle, LinkUrl, PrescriptionID, SourceType",
             "from RelationLink",
             "where SourceType = 5 and prescriptionID = #{prescriptionID, jdbcType=INTEGER}",
     })
     @ResultMap("BaseResultMap")
     List<Relationlink> selectPrescriptionLink(@Param("prescriptionID") int prescriptionID);
-
-
-
-
-
-    @Select({
-            "select id, LinkTitle, LinkUrl",
-            "from RelationLink",
-            "where SourceType = 0"
-    })
-    @ResultMap("BaseResultMap")
-    List<Relationlink> selectStoryInfoLink();
-
-    @Select({
-            "select id, LinkTitle, LinkUrl",
-            "from RelationLink",
-            "where SourceType = 1"
-    })
-    @ResultMap("BaseResultMap")
-    List<Relationlink> selectHealthInfoLink();
-
-    @Select({
-            "select id, LinkTitle, LinkUrl",
-            "from RelationLink",
-            "where SourceType = 2"
-    })
-    @ResultMap("BaseResultMap")
-    List<Relationlink> selectNatureTherapyLink();
-
-
 }

@@ -34,6 +34,7 @@ public enum  ArticleCategory {
         for(ArticleCategory articleCategory : ArticleCategory.values()){
             if(Optional.fromNullable(categoryName).or("").equals(articleCategory.categoryName)){
                 category = articleCategory.category;
+                break;
             }
         }
         return category;
@@ -44,8 +45,20 @@ public enum  ArticleCategory {
         for(ArticleCategory articleCategory : ArticleCategory.values()){
             if(articleCategory.category == category){
                 categoryName = articleCategory.categoryName;
+                break;
             }
         }
         return categoryName;
+    }
+
+    public static ArticleCategory getArticleCategoryById(int category){
+        ArticleCategory article = ArticleCategory.WDGS;
+        for(ArticleCategory articleCategory : ArticleCategory.values()){
+            if(articleCategory.category == category){
+                article = articleCategory;
+                break;
+            }
+        }
+        return article;
     }
 }

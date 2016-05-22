@@ -9,9 +9,7 @@ import com.taofang.webapi.dao.CommentstarMapper;
 import com.taofang.webapi.dao.InquiryprescriptionMapper;
 import com.taofang.webapi.dao.MemberMapper;
 import com.taofang.webapi.dao.PrescriptionMapper;
-import com.taofang.webapi.domain.UserDetailDomain;
-import com.taofang.webapi.domain.UserDomain;
-import com.taofang.webapi.domain.UserModuleDomain;
+import com.taofang.webapi.domain.*;
 import com.taofang.webapi.model.CommentstarWithBLOBs;
 import com.taofang.webapi.model.Member;
 import com.taofang.webapi.result.Result;
@@ -87,6 +85,18 @@ public class UserService implements IUserService{
             LOGGER.error(e.getMessage(), e);
         }
         return userDetail;
+    }
+
+    @Override
+    public UserViewDomain getUserViewDomainById(int userId) {
+        List<ViewDomain> viewDomainList;
+        try{
+            viewDomainList = new ArrayList<>();
+        }catch(Exception e){
+            viewDomainList = new ArrayList<>();
+            LOGGER.error(e.getMessage(), e);
+        }
+        return new UserViewDomain(userId, viewDomainList);
     }
 
     @Override

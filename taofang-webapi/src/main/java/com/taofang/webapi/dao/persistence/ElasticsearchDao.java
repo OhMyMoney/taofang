@@ -1,5 +1,6 @@
 package com.taofang.webapi.dao.persistence;
 
+import com.google.common.base.Strings;
 import com.taofang.webapi.bean.LiangfangBean;
 import com.taofang.webapi.constant.ElasticsearchConstant;
 import com.taofang.webapi.constant.PrecriptionOrder;
@@ -19,7 +20,9 @@ import org.springframework.stereotype.Repository;
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @Desc
@@ -36,6 +39,8 @@ public class ElasticsearchDao{
         List<PrescriptionDomain> prescriptionList = new ArrayList<>();
         List<RelationlinkDomain> diseaselinkList = new ArrayList<>();
         List<RelationlinkDomain> symptomlinkList = new ArrayList<>();
+        Set<String> diseaseNameSet = new HashSet<>();
+        Set<String> symptomNameSet = new HashSet<>();
 
         String query = ElasticsearchModelUtil.createPrescriptionQuery(prescription, orderName, start, limit);
         Search search = new Search.Builder(query).addIndex(ElasticsearchConstant.LIANGFANG_INDEX).build();
@@ -45,18 +50,30 @@ public class ElasticsearchDao{
         prescriptionPagination.setPagination(new PaginationDomain(page, limit, totalCount));
         List<SearchResult.Hit<LiangfangBean, Void>> liangfangHitList = result.getHits(LiangfangBean.class);
         for(SearchResult.Hit<LiangfangBean, Void> liangfangHit : liangfangHitList){
-            prescriptionList.add(PrescriptionModelUtil.tranLiangfangBeanAsPrescription(liangfangHit.source));
-            if(diseaselinkList.size() <= 5){
-                RelationlinkDomain relationlink = PrescriptionModelUtil.tranLiangfangBeanAsDisease(liangfangHit.source);
-                if(relationlink != null){
-                    diseaselinkList.add(relationlink);
+            LiangfangBean liangfangBean = liangfangHit.source;
+            prescriptionList.add(PrescriptionModelUtil.tranLiangfangBeanAsPrescription(liangfangBean));
+
+            if(!Strings.isNullOrEmpty(liangfangBean.getD_name())){
+                String[] dNames = liangfangBean.getD_name().split(",");
+                for(String dName : dNames){
+                    diseaseNameSet.add(dName);
                 }
             }
-            if(symptomlinkList.size() <= 5){
-                RelationlinkDomain relationlink = PrescriptionModelUtil.tranLiangfangBeanAsSymptom(liangfangHit.source);
-                if(relationlink != null){
-                    symptomlinkList.add(relationlink);
+            if(!Strings.isNullOrEmpty(liangfangBean.getS_name())){
+                String[] sNames = liangfangBean.getS_name().split(",");
+                for(String sName : sNames){
+                    symptomNameSet.add(sName);
                 }
+            }
+        }
+        for(String dName : diseaseNameSet){
+            if(diseaselinkList.size() < 5){
+                diseaselinkList.add(new RelationlinkDomain(dName));
+            }
+        }
+        for(String sName : symptomNameSet){
+            if(symptomlinkList.size() < 5){
+                symptomlinkList.add(new RelationlinkDomain(sName));
             }
         }
 

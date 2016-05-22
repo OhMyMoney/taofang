@@ -3,6 +3,7 @@ package com.taofang.webapi.resource;
 import com.taofang.webapi.constant.VCode;
 import com.taofang.webapi.domain.UserDetailDomain;
 import com.taofang.webapi.domain.UserDomain;
+import com.taofang.webapi.domain.UserViewDomain;
 import com.taofang.webapi.result.Result;
 import com.taofang.webapi.service.IUserService;
 import com.taofang.webapi.util.ResultUtil;
@@ -34,6 +35,13 @@ public class UserResource {
     public UserDetailDomain getUserDetailByPath(@DefaultValue("0")@PathParam("userId")int userId,
                                                 @DefaultValue("")@QueryParam("module") String module){
         return userService.getUserDetailDomainById(userId, module);
+    }
+
+    @GET
+    @Path("/view/{userId}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public UserViewDomain getUserViewDomainByPath(@DefaultValue("0")@PathParam("userId")int userId){
+        return userService.getUserViewDomainById(userId);
     }
 
 

@@ -2,7 +2,7 @@ var isShowLoginRegister = false;
 var countdown = 0;
 function createDLZCPopup() {
     if(!document.getElementById("loginregisternavigation")){
-        var loginRegisterNavigationElem = $("<div class='loginregisternavigation'></div>");
+        var loginRegisterNavigationElem = $("<div id='loginregisternavigation' class='loginregisternavigation'></div>");
         loginRegisterNavigationElem.append($("<div class='lrnavigationldiv' onclick='showLoginRegisterPopup(\"login\")'>登录</div>"));
         loginRegisterNavigationElem.append($("<div class='lrnavigationrdiv' onclick='showLoginRegisterPopup(\"register\")'>注册</div>"));
         $("body").append(loginRegisterNavigationElem);

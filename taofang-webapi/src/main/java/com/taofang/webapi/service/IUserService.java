@@ -2,6 +2,7 @@ package com.taofang.webapi.service;
 
 import com.taofang.webapi.domain.UserDetailDomain;
 import com.taofang.webapi.domain.UserDomain;
+import com.taofang.webapi.domain.UserViewDomain;
 import com.taofang.webapi.result.Result;
 
 /**
@@ -13,6 +14,8 @@ public interface IUserService {
     UserDomain getUserDomainById(int userId);
 
     UserDetailDomain getUserDetailDomainById(int userId, String module);
+
+    UserViewDomain getUserViewDomainById(int userId);
 
     /**
      * 验证用户登录条件

@@ -103,6 +103,7 @@ public class ArticleService implements IArticleService{
                 articleDetail.setCategory(ArticleCategory.getCategoryNameById(categoryId));
                 // 相关链接
                 List<Relationlink> relationlinkList = relationlinkMapper.selectBySourceType(categoryId);
+                System.out.println(relationlinkList);
                 articleDetail.setRelationlinkList(RelationLinkModelUtil.tranRelationLinkListAsDomain(relationlinkList));
             }else{
                 articleDetail = new ArticleDetailDomain(0);

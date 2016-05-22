@@ -1,3 +1,4 @@
+var isFirstLoad = true;
 function createHomePage() {
     $("#navigation").panel("close");
     insertPanelNavigation();
@@ -43,6 +44,7 @@ function gotoPageByType(type) {
 }
 function gotoBackPage(role) {
     if(role == "LIST"){
+        $("#contentfooterdiv").show();
         createHomePage();
     }else if(role == "DETAIL"){
         var lastPage = $.cookie('lastPage');
@@ -199,20 +201,23 @@ function insertHomeHeader() {
                 "<input id='prescriptioninput' data-role='none' class='homeheaderprescriptioninput' type='text' name='prescription' placeholder='输入关键字寻找相关偏方'/>" +
             "</div>"))
         .append($("<div class='homeheaderprescription2' onclick='searchPrescription(0)'>立即搜索</div>"));
-    var headerDiseaseDivElem = $("<div class='homeheaderdiseasediv'></div>");
+    var headerDiseaseDivElem = $("<div id='homeheaderdiseasediv'></div>");
 
     headerElems
         .append(headerTitleDivElem)
         .append(headerPrescriptionDivElem)
         .append(headerDiseaseDivElem);
-
     $("#header").html(headerElems);
+    getWordStatistics();
 }
 function insertHomeContentBody() {
     var contentBodyElems = $("<div class='contentbody'></div>");
     // 浏览历史
     var contentViewElems = $("<div id='homecontentviewdiv' class='homecontentviewdiv'></div>");
-
+    var contentViewHistoryElems = $("<div class='homeemptyviewhistorydiv'></div>");
+    contentViewHistoryElems.append(homeEmptyViewElems("偏方"));
+    contentViewHistoryElems.append(homeEmptyViewElems("文章"));
+    contentViewElems.append(contentViewHistoryElems);
     // 导航
     var contentNavigationElems = $("<div class='homecontentnavigationdiv'></div>");
     contentNavigationElems.append(homeNavigationDiv("JKZS", "健康之声"));
@@ -225,8 +230,18 @@ function insertHomeContentBody() {
         .append(homeNavigationDiv('JKZX', '健康资讯'));
     contentNavigationElems.append(contentJJYSJKZXElems);
 
-    contentBodyElems.append(contentViewElems).append(contentNavigationElems);
+    contentBodyElems.append(contentViewElems).append($("<div class='contentblock'></div>")).append(contentNavigationElems);
     $("#contentbodydiv").html(contentBodyElems);
+    getHomeUserView();
+}
+function homeEmptyViewElems(title) {
+    var elem = $("<div class='homeviewhistorylinediv'></div>")
+        .append($("<div class='homeviewhistorylinetitle'>" + title + "</div>"))
+        .append($("<div class='homeviewhistorylinepointdiv'><div class='homeviewhistorylinepoint'></div></div>"))
+        .append($("<div class='homeviewhistorylinecontentdiv'>" +
+                    "<div class='homeviewhistorylinecontent'>您尚未浏览相关内容</div>" +
+                "</div>"));
+    return elem;
 }
 /*良方*/
 function searchPrescription(orderId) {
@@ -397,13 +412,29 @@ function insertArticleContent(article, role, page, pageSize, articleId){
             contentBodyElems.append($("<div id='contentbodylist' class='contentbodylist'></div>"));
             contentBodyElems.append(createContentPageElems(article, articleId));
         }else if(article == "JKZX" || article == "ZRLF" || article == "WDGS"){
-            contentBodyElems
-                .append($("<div class='articledetailcontentdiv'>" + 
-                        "<div id='articledetailcontenttitle'></div>" +
+            if(article == "WDGS"){
+                contentBodyElems
+                    .append($("<div class='articledetailcontentdiv'>" +
+                            "<div class='wdgsarticledetailtitlediv'>" +
+                                "<div id='articledetailcontenttitle' class='wdgsarticledetailcontenttitle'></div>" +
+                                "<div class='wdgsarticledetailcontentbutton'>" +
+                                    "<div id='wdgsarticledetailcontentbutton' class='jjysjkzscirclediv'><div class='jjysjkzstrianglediv'></div></div>" +
+                                "</div>" +
+                            "</div>" +
+                            "<div id='articledetailcontentvideo'></div>" +
+                            "<div id='articledetailcontentimage'></div>" +
+                            "<div id='articledetailcontenttext'></div>" +
+                        "</div>"))
+            }else{
+                contentBodyElems
+                    .append($("<div class='articledetailcontentdiv'>" +
+                        "<div id='articledetailcontenttitle' class='articledetailcontenttitle'></div>" +
                         "<div id='articledetailcontentvideo'></div>" +
                         "<div id='articledetailcontentimage'></div>" +
                         "<div id='articledetailcontenttext'></div>" +
                         "</div>"))
+            }
+            contentBodyElems
                 .append($("<div class='articledetailthumbdiv'>" +
                             "<div class='articledetailthumbimg'><img src='/image/common/thumb.png'></div>" +
                             "<div class='articledetailthumblabel'>写得好,赞一个</div>" +
@@ -414,7 +445,6 @@ function insertArticleContent(article, role, page, pageSize, articleId){
                             "<div id='articledetailrelationlist'></div>" +
                         "</div>"));
         }
-        
     }
     $("#contentbodydiv").html(contentBodyElems);
 
@@ -465,9 +495,11 @@ function insertUserinfoContent(){
                         "</div>" +
                     "</div>" +
                 "</div>"));
-    $("#content").html(userinfoconentElems);
+    $("#contentbodydiv").html(userinfoconentElems);
+    $("#contentfooterdiv").hide();
     $("#usercenter").hide();
     getUserInfo();
+    getUserView();
 }
 function userOpperateDiv(id, title) {
     var onclickFun = "showUserCenter(\"" + id + "\")";
@@ -524,14 +556,14 @@ function showUserCenter(module) {
 /*底部*/
 function createFooter(){
     var videoUrl = $.cookie('videoUrl');
+    var videoTitle = $.cookie('videoTitle');
     if(typeof(videoUrl) == "undefined" || !videoUrl || videoUrl == ""){
         $("#footer").hide();
-        $("#footer").removeClass("ui-footer-fixed").removeClass("slideup");
-        $("#footer").removeAttr("data-position");
     }else{
-        $("#footer").show();
-        $("#footer").attr("data-position", "fixed");
-        $("#footer").addClass("ui-footer-fixed").addClass("slideup");
-        $("#audiomp3").attr("src", videoUrl);
+        if(isFirstLoad){
+            $("div.footervideotitle").html(videoTitle);
+            $("#audiomp3").attr("src", videoUrl);
+            isFirstLoad = false;
+        }
     }
 }

@@ -7,6 +7,11 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 public interface WordstatisticsMapper {
+    @Select({
+            "select count(*) from WordStatistics",
+            "where SearchCount >= 50"
+    })
+    int countByMorefifty();
 
     @Select({
             "select WordStatisticsID, SearchCount, Word from WordStatistics",

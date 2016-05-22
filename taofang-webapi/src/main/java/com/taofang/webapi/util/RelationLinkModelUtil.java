@@ -1,6 +1,8 @@
 package com.taofang.webapi.util;
 
 import com.google.common.base.Optional;
+import com.google.common.base.Strings;
+import com.taofang.webapi.constant.ArticleCategory;
 import com.taofang.webapi.domain.RelationlinkDomain;
 import com.taofang.webapi.model.Relationlink;
 
@@ -19,6 +21,13 @@ public class RelationLinkModelUtil {
         relationlinkDomain.setRelationId(relationlink.getId());
         relationlinkDomain.setRelationTitle(Optional.fromNullable(relationlink.getLinktitle()).or(""));
         relationlinkDomain.setRelationLink(Optional.fromNullable(relationlink.getLinkurl()).or(""));
+        if(relationlink.getSourcetype() == 0){
+            String articleIdStr = relationlinkDomain.getRelationLink().replaceAll("http://99taofang.com/Article/", "").replaceAll(".html", "");
+            if(!Strings.isNullOrEmpty(articleIdStr)){
+                relationlinkDomain.setRelationArticleCategory(ArticleCategory.getCategoryNameById(2));
+                relationlinkDomain.setRelationArticleId(Integer.parseInt(articleIdStr));
+            }
+        }
 
         return relationlinkDomain;
     }
