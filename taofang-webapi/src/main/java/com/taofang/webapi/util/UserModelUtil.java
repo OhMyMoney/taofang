@@ -2,9 +2,15 @@ package com.taofang.webapi.util;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
+import com.taofang.webapi.bean.UserArticleBean;
 import com.taofang.webapi.constant.ImageConstant;
+import com.taofang.webapi.constant.TaofangModule;
+import com.taofang.webapi.domain.UserClickDomain;
 import com.taofang.webapi.domain.UserDomain;
+import com.taofang.webapi.domain.ViewDomain;
 import com.taofang.webapi.model.Member;
+
+import java.util.Calendar;
 
 
 /**
@@ -33,30 +39,34 @@ public class UserModelUtil {
         return member;
     }
 
-    /*public static ViewHistory tranUserViewBean(UserViewBean userViewBean){
-        ViewHistory viewHistory = new ViewHistory();
-        viewHistory.setId(Optional.fromNullable(userViewBean.getViewId()).or(0));
-        viewHistory.setTitle(Optional.fromNullable(userViewBean.getViewTitle()).or(""));
-        long times = Optional.fromNullable(userViewBean.getTime()).or(System.currentTimeMillis());
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(times);
-        viewHistory.setViewYear(calendar.get(Calendar.YEAR) + "");
-        viewHistory.setViewMonth((calendar.get(Calendar.MONTH) + 1) + "");
-        viewHistory.setViewDay(calendar.get(Calendar.DAY_OF_MONTH) + "");
-        viewHistory.setViewWeek("周" + getChinaWorldByInt(calendar.get(Calendar.DAY_OF_WEEK)));
-        String viewType = userViewBean.getViewType();
-        if(!Strings.isNullOrEmpty(viewType) && viewType.equals("article")){
-            viewHistory.setTypeName("文章");
-            viewHistory.setLinkUrl(userViewBean.getViewSubType() + "/detail.html?id=" + viewHistory.getId());
-        }else{
-            viewHistory.setTypeName("偏方");
-            viewHistory.setLinkUrl("prescription/detail.html?id=" + viewHistory.getId());
-        }
+    public static UserArticleBean tranUserClickDomainAsUserArticleBean(UserClickDomain userClick){
+        UserArticleBean userArticle = new UserArticleBean();
+        userArticle.setArticleId(userClick.getClickId());
+        userArticle.setArticleTitle(userClick.getClickTitle());
+        userArticle.setArticleCategory(userClick.getViewModuleName());
 
-        return viewHistory;
+        return userArticle;
     }
 
-    private static String getChinaWorldByInt(int i){
+    public static ViewDomain tranUserArticleBeanAsViewDomain(UserArticleBean userArticle){
+        ViewDomain viewDomain = new ViewDomain();
+        viewDomain.setArticleId(userArticle.getArticleId());
+        viewDomain.setArticleTitle(userArticle.getArticleTitle());
+        viewDomain.setCategoryName(userArticle.getArticleCategory());
+        viewDomain.setCategoryDesc(TaofangModule.getEnumByName(userArticle.getArticleCategory()).moduleDesc);
+        long times = Optional.fromNullable(userArticle.getDateTime()).or(System.currentTimeMillis());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(times);
+        viewDomain.setViewDateYear(calendar.get(Calendar.YEAR) + "");
+        viewDomain.setViewDateMonth((calendar.get(Calendar.MONTH) + 1) + "");
+        viewDomain.setViewDateDay(calendar.get(Calendar.DAY_OF_MONTH) + "");
+        viewDomain.setViewDate(viewDomain.getViewDateYear() + "-" + viewDomain.getViewDateMonth() + "-" + viewDomain.getViewDateDay());
+        viewDomain.setViewTime(calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE) + ":" + calendar.get(Calendar.SECOND));
+        viewDomain.setViewDateWeek("周" + getChinaWordByInt(calendar.get(Calendar.DAY_OF_WEEK) - 1));
+        return viewDomain;
+    }
+
+    private static String getChinaWordByInt(int i){
         switch (i){
             case 1:
                 return "一";
@@ -72,5 +82,5 @@ public class UserModelUtil {
                 return "六";
         }
         return "日";
-    }*/
+    }
 }

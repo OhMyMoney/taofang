@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
-import com.taofang.webapi.bean.UserViewBean;
+import com.taofang.webapi.bean.UserArticleBean;
 import com.taofang.webapi.dao.CommentstarMapper;
 import com.taofang.webapi.dao.InquiryprescriptionMapper;
 import com.taofang.webapi.dao.MemberMapper;
@@ -25,8 +25,10 @@ import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @Desc
@@ -36,6 +38,8 @@ import java.util.List;
 @Service
 public class UserService implements IUserService{
     private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
+
+    private ObjectMapper mapper;
     @Autowired
     private MemberMapper memberMapper;
     @Autowired
@@ -89,14 +93,53 @@ public class UserService implements IUserService{
 
     @Override
     public UserViewDomain getUserViewDomainById(int userId) {
-        List<ViewDomain> viewDomainList;
-        try{
-            viewDomainList = new ArrayList<>();
+        List<ViewDomain> viewDomainList = new ArrayList<>();
+        String viewKey = "userId:" + userId + ":view";
+        try(Jedis jedis = jedisPool.getResource()){
+            Set<String> viewSet = jedis.zrevrange(viewKey, 0, 19);
+            for(String view : viewSet){
+                viewDomainList.add(UserModelUtil.tranUserArticleBeanAsViewDomain(mapper.readValue(view, UserArticleBean.class)));
+            }
         }catch(Exception e){
             viewDomainList = new ArrayList<>();
             LOGGER.error(e.getMessage(), e);
         }
         return new UserViewDomain(userId, viewDomainList);
+    }
+
+    @Override
+    public boolean updateUserView(UserClickDomain userClick) {
+        boolean isUpdated;
+        String viewKey = "userId:" + userClick.getUserId() + ":view";
+        UserArticleBean userArticle = UserModelUtil.tranUserClickDomainAsUserArticleBean(userClick);
+        userArticle.setDateTime(System.currentTimeMillis());
+        try(Jedis jedis = jedisPool.getResource()){
+            jedis.zadd(viewKey, userArticle.getDateTime(), mapper.writeValueAsString(userArticle));
+            long viewCount = jedis.zcard(viewKey);
+            if(viewCount > 50){
+                jedis.zremrangeByRank(viewKey, 0, viewCount - 50);
+            }
+            isUpdated = true;
+        }catch(Exception e){
+            isUpdated = false;
+            LOGGER.error(e.getMessage(), e);
+        }
+        return isUpdated;
+    }
+
+    @Override
+    public boolean updateUserCollect(UserClickDomain userClick) {
+        boolean isUpdated;
+        String collectKey = "userId:" + userClick.getUserId() + ":collect";
+        UserArticleBean userArticle = UserModelUtil.tranUserClickDomainAsUserArticleBean(userClick);
+        try(Jedis jedis = jedisPool.getResource()){
+            jedis.zadd(collectKey, System.currentTimeMillis(), mapper.writeValueAsString(userArticle));
+            isUpdated = true;
+        }catch(Exception e){
+            isUpdated = false;
+            LOGGER.error(e.getMessage(), e);
+        }
+        return isUpdated;
     }
 
     @Override
@@ -176,25 +219,10 @@ public class UserService implements IUserService{
         return result;
     }
 
-    @Override
-    public String setUserView(String view) {
-        String result = "ok";
-        try(Jedis jedis = jedisPool.getResource()){
-            String[] viewArray = view.split(";");
-            String user = "user:" + viewArray[0];
-            long time = System.currentTimeMillis();
-            UserViewBean userViewBean = new UserViewBean();
-            userViewBean.setViewId(Integer.parseInt(viewArray[1]));
-            userViewBean.setViewType(viewArray[2]);
-            userViewBean.setViewSubType(viewArray[3]);
-            userViewBean.setViewTitle(viewArray[4]);
-            userViewBean.setTime(time);
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-            jedis.zadd(user, time, mapper.writeValueAsString(userViewBean));
-        }catch(Exception e){
-            result = "error";
-        }
-        return result;
+    @PostConstruct
+    public void init(){
+        mapper = new ObjectMapper();
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
     }
+
 }

@@ -1,4 +1,4 @@
-var ajaxBaseUrl = "http://101.201.47.48/taofang/webapi";
+var ajaxBaseUrl = "http://localhost:8080/taofang/webapi";
 var wordStatisticsPage = 1;
 
 function getLiangfangList(prescription, order, page, pageSize) {

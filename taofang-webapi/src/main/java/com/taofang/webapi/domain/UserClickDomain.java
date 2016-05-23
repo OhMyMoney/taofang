@@ -1,10 +1,14 @@
 package com.taofang.webapi.domain;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * @Desc
  * @Author Remilia
  * @Create 2016-05-22
  */
+@XmlRootElement(name="userClick")
 public class UserClickDomain {
     private int userId;
 
@@ -12,57 +16,48 @@ public class UserClickDomain {
 
     private String viewModuleName;
 
-    private long clickTime;
-
     private int clickId;
 
-    private int clickTitle;
+    private String clickTitle;
 
+    @XmlElement(name="userId")
     public int getUserId() {
         return userId;
+    }
+    @XmlElement(name="viewModuleId")
+    public int getViewModuleId() {
+        return viewModuleId;
+    }
+    @XmlElement(name="viewModuleName")
+    public String getViewModuleName() {
+        return viewModuleName;
+    }
+    @XmlElement(name="clickId")
+    public int getClickId() {
+        return clickId;
+    }
+    @XmlElement(name="clickTitle")
+    public String getClickTitle() {
+        return clickTitle;
     }
 
     public void setUserId(int userId) {
         this.userId = userId;
     }
 
-    public int getViewModuleId() {
-        return viewModuleId;
-    }
-
     public void setViewModuleId(int viewModuleId) {
         this.viewModuleId = viewModuleId;
-    }
-
-    public String getViewModuleName() {
-        return viewModuleName;
     }
 
     public void setViewModuleName(String viewModuleName) {
         this.viewModuleName = viewModuleName;
     }
 
-    public long getClickTime() {
-        return clickTime;
-    }
-
-    public void setClickTime(long clickTime) {
-        this.clickTime = clickTime;
-    }
-
-    public int getClickId() {
-        return clickId;
-    }
-
     public void setClickId(int clickId) {
         this.clickId = clickId;
     }
 
-    public int getClickTitle() {
-        return clickTitle;
-    }
-
-    public void setClickTitle(int clickTitle) {
+    public void setClickTitle(String clickTitle) {
         this.clickTitle = clickTitle;
     }
 }

@@ -48,7 +48,7 @@ public class ViewDomain {
     public String getCategoryName() {
         return categoryName;
     }
-    @XmlElement(name="userName")
+    @XmlElement(name="categoryDesc")
     public String getCategoryDesc() {
         return categoryDesc;
     }

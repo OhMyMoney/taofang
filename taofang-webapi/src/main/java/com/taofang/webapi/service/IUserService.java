@@ -1,5 +1,6 @@
 package com.taofang.webapi.service;
 
+import com.taofang.webapi.domain.UserClickDomain;
 import com.taofang.webapi.domain.UserDetailDomain;
 import com.taofang.webapi.domain.UserDomain;
 import com.taofang.webapi.domain.UserViewDomain;
@@ -17,6 +18,10 @@ public interface IUserService {
 
     UserViewDomain getUserViewDomainById(int userId);
 
+    boolean updateUserView(UserClickDomain userClick);
+
+    boolean updateUserCollect(UserClickDomain userClick);
+
     /**
      * 验证用户登录条件
      * @param user
@@ -30,7 +35,5 @@ public interface IUserService {
      * @return
      */
     Result checkUserRegister(UserDomain user);
-
-    String setUserView(String view);
 
 }

@@ -1,6 +1,7 @@
 package com.taofang.webapi.resource;
 
 import com.taofang.webapi.constant.VCode;
+import com.taofang.webapi.domain.UserClickDomain;
 import com.taofang.webapi.domain.UserDetailDomain;
 import com.taofang.webapi.domain.UserDomain;
 import com.taofang.webapi.domain.UserViewDomain;
@@ -44,11 +45,29 @@ public class UserResource {
         return userService.getUserViewDomainById(userId);
     }
 
-//    @POST
-//    @Path("/view/{userId}")
-//    @Consumes({MediaType.APPLICATION_JSON})
-//    @Produces({MediaType.TEXT_PLAIN})
-//    public String updateUserViewByPath()
+    @POST
+    @Path("/view/{userId}")
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.TEXT_PLAIN})
+    public String updateUserViewByPath(UserClickDomain userClick){
+        if(userService.updateUserView(userClick)){
+            return "success";
+        }else{
+            return "fail";
+        }
+    }
+
+    @POST
+    @Path("/collect/{userId}")
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.TEXT_PLAIN})
+    public String updateUserCollectByPath(UserClickDomain userClick){
+        if(userService.updateUserCollect(userClick)){
+            return "success";
+        }else{
+            return "fail";
+        }
+    }
 
 
     /**
@@ -94,13 +113,5 @@ public class UserResource {
         }else{
             return result.getFailMessages().get(0);
         }
-    }
-
-    @Path("view")
-    @POST
-    @Consumes({MediaType.TEXT_PLAIN})
-    @Produces({MediaType.TEXT_PLAIN})
-    public String setUserView(String view){
-        return userService.setUserView(view);
     }
 }
