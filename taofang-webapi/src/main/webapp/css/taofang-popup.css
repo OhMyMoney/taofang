@@ -78,6 +78,14 @@
     opacity: 0.6;
     z-index: 10000;
 }
+.popupbgdiv{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #7b7b7b;
+    opacity: 0.6;
+    z-index: 10000;
+}
 .loginregisterdivclass{
     position: absolute;
     top: 40px;

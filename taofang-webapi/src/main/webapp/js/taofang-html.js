@@ -140,7 +140,7 @@ function insertPanelNavigation() {
         .append(navigationDiv('JKZS', '健康之声'))
         .append(navigationDiv('WDGS', '我的故事'))
         .append(navigationDiv('ZRLF', '自然疗法'))
-        .append(navigationDiv('JJYS', '季节养身'))
+        .append(navigationDiv('JJYS', '季节养生'))
         .append(navigationDiv('JKZX', '健康资讯'));
 
     $("#navigation").html(navigationElems);
@@ -239,7 +239,7 @@ function insertHomeContentBody() {
         .append(homeNavigationDiv('ZRLF', '自然疗法'));
     contentNavigationElems.append(contentWDGSZRLFElems);
     var contentJJYSJKZXElems = $("<div class='homenavigationother2div'></div>")
-        .append(homeNavigationDiv('JJYS', '季节养身'))
+        .append(homeNavigationDiv('JJYS', '季节养生'))
         .append(homeNavigationDiv('JKZX', '健康资讯'));
     contentNavigationElems.append(contentJJYSJKZXElems);
 

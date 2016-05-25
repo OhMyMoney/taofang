@@ -37,7 +37,7 @@
         left join
       member t2 on t1.MemberId = t2.MemberId
     where
-      t1.PrescriptionID = #{prescriptionID, jdbcType=INTEGER}
+      t1.PrescriptionID = ${prescriptionID}
     order by CreatedDate desc;
   </select>
 </mapper>

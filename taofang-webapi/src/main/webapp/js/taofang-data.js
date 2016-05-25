@@ -74,10 +74,14 @@ function processArticleDetailData(data) {
         $('#articledetailcontentvideo').html($("<video controls></video>").attr("src", data.videoUrl));
     }else{
         $('#articledetailcontentvideo').hide();
+        $('#articledetailcontentimage').html($("<img />").attr("src", data.imageUrl));
     }
-    $('#articledetailcontentimage').html($("<img />").attr("src", data.imageUrl));
     $('#articledetailcontenttext').html(data.articleContent);
-    $('#articledetailthumbtext').html(data.thumbCount + "个表扬");
+    if(data.category == "WDGS"){
+        var onClickFunc =  "postArticleThumb(" + data.articleId + ",\"" + data.category + "\")";
+        $('div.articledetailthumbimg').attr("onclick", onClickFunc);
+        $('#articledetailthumbtext').html(data.thumbCount + "个表扬");
+    }
 
     var relationlinkList = data.relationlinkList;
     var relationlinkListEnums = $("<table><tbody></tbody></table>");
@@ -94,7 +98,10 @@ function processArticleDetailData(data) {
         relationlinkListEnums.append(trEnum);
     }
     $('#articledetailrelationlist').html(relationlinkListEnums);
-
+    // 增加浏览
+    if(data.category == "WDGS" || data.category == "JKZX" || data.category == "ZRLF"){
+        postUserView(data.category, data.articleId, data.articleTitle)
+    }
 }
 function processRitucharyaPaginationData(data) {
     var contentListTableElems = $("<table id='jjysjkzslisttable'><tbody></tbody></table>");
@@ -307,6 +314,13 @@ function processWordStatisticsData(data) {
 }
 function doUserViewData(data) {
     console.log(data);
+}
+function doArticleThumbData(data) {
+    if(date == "success"){
+        
+    }else{
+        
+    }
 }
 function insertEmptyModuleElems() {
     var lastUserClick = $.cookie('lastUserClick');

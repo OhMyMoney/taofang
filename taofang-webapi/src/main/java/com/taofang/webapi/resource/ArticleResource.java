@@ -4,6 +4,7 @@ import com.google.common.base.Strings;
 import com.taofang.webapi.constant.ArticleCategory;
 import com.taofang.webapi.domain.ArticleDetailDomain;
 import com.taofang.webapi.domain.ArticlePaginationDomain;
+import com.taofang.webapi.domain.ArticleThumbDomain;
 import com.taofang.webapi.domain.RitucharyaPaginationDomain;
 import com.taofang.webapi.service.IArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,4 +62,15 @@ public class ArticleResource {
         return articleDetail;
     }
 
+    @POST
+    @Path("/thumb")
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.TEXT_PLAIN})
+    public String updateArticleThumb(ArticleThumbDomain articleThumb){
+        if(articleService.updateArticleThumb(articleThumb)){
+            return "success";
+        }else{
+            return "fail";
+        }
+    }
 }

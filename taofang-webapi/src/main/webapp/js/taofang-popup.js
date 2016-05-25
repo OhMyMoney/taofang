@@ -31,6 +31,14 @@ function showLoginRegisterPopup(role) {
         insertRegisterElems();
     }
 }
+function showArticleThumbPopup(role) {
+    if(!document.getElementById("articlethumbdiv")){
+        createArticleThumbDiv();
+    }else{
+        $('#articlethumbbgdiv').show();
+        $('#articlethumbdiv').show();
+    }
+}
 function createLoginRegisterDiv() {
     var sWidth = $(document).width();
     var sHeight = $(document).height();
@@ -39,12 +47,24 @@ function createLoginRegisterDiv() {
     }
     // 背景界面
     var backgroundDivElem = $("<div id='loginregisterbgdiv' class='loginregisterbgdiv'></div>");
-    var bgWH = "width:" + sWidth + "px;" + "height:" + sHeight + "px;"
+    var bgWH = "width:" + sWidth + "px;" + "height:" + sHeight + "px;";
     backgroundDivElem.attr("style", bgWH);
     $('body').append(backgroundDivElem);
     // 内容界面
     var loginRegisterDivElem = $("<div id='loginregisterdiv' class='loginregisterdivclass'></div>");
     $('body').append(loginRegisterDivElem);
+}
+function createArticleThumbDiv() {
+    var sWidth = $(document).width();
+    var sHeight = $(document).height();
+    if($(document).scrollHeight > sHeight ){
+        sHeight = $(document).scrollHeight;
+    }
+    // 背景界面
+    var backgroundDivElem = $("<div id='articlethumbbgdiv' class='popupbgdiv'></div>");
+    var bgWH = "width:" + sWidth + "px;" + "height:" + sHeight + "px;";
+    backgroundDivElem.attr("style", bgWH);
+    $('body').append(backgroundDivElem);
 }
 function insertLoginElems() {
     var loginElems = $("<div id='logindiv'></div>");

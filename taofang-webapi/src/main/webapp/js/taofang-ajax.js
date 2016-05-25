@@ -118,6 +118,20 @@ function postUserView(moduleName, clickId, clickTitle) {
         });
     }
 }
+function postArticleThumb(articleId, articleCategory) {
+    var userId = $.cookie('userId');
+    if(typeof(userId) == "undefined" || !userId || userId == ""){
+        userId = "0";
+    }
+    $.ajax({
+        timeout: 5000,
+        url: ajaxBaseUrl + "/article/thumb",
+        contentType: "application/json",
+        data: JSON.stringify({userId:parseInt(userId), articleId:articleId, articleCategory:articleCategory}),
+        type: "post",
+        success: doArticleThumbData
+    });
+}
 
 
 function refreshVCode() {

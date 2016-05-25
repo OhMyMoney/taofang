@@ -11,7 +11,7 @@ public interface RelationlinkMapper {
     @Select({
             "select id, LinkTitle, LinkUrl, SourceType",
             "from RelationLink",
-            "where SourceType = #{sourceType, jdbcType=INTEGER}"
+            "where SourceType = ${sourceType}"
     })
     @ResultMap("BaseResultMap")
     List<Relationlink> selectBySourceType(@Param("sourceType")int sourceType);
@@ -19,7 +19,7 @@ public interface RelationlinkMapper {
     @Select({
             "select id, LinkTitle, LinkUrl, PrescriptionID, SourceType",
             "from RelationLink",
-            "where SourceType = 5 and prescriptionID = #{prescriptionID, jdbcType=INTEGER}",
+            "where SourceType = 5 and prescriptionID = ${prescriptionID}",
     })
     @ResultMap("BaseResultMap")
     List<Relationlink> selectPrescriptionLink(@Param("prescriptionID") int prescriptionID);

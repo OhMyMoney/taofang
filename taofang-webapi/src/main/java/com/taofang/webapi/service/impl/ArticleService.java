@@ -1,5 +1,6 @@
 package com.taofang.webapi.service.impl;
 
+import com.google.common.base.Strings;
 import com.taofang.webapi.constant.ArticleCategory;
 import com.taofang.webapi.dao.ArticleMapper;
 import com.taofang.webapi.dao.DtsimageMapper;
@@ -16,6 +17,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -29,12 +32,16 @@ import java.util.List;
 @Service
 public class ArticleService implements IArticleService{
     private static final Logger LOGGER = LoggerFactory.getLogger(ArticleService.class);
+
+    private static final String THUMB_HASH_KEY = "article:thumb:hash";
     @Autowired
     private ArticleMapper articleMapper;
     @Autowired
     private RelationlinkMapper relationlinkMapper;
     @Autowired
     private DtsimageMapper dtsimageMapper;
+    @Autowired
+    private JedisPool jedisPool;
 
     @Override
     public ArticlePaginationDomain getArticlePaginationDomain(int categoryId, int page, int pageSize) {
@@ -96,14 +103,17 @@ public class ArticleService implements IArticleService{
     @Override
     public ArticleDetailDomain getArticleDetailById(int categoryId, int articleId) {
         ArticleDetailDomain articleDetail;
-        try{
+        try(Jedis jedis = jedisPool.getResource()){
             List<ArticleWithBLOBs> articleWithBLOBsList = articleMapper.selectByCategoryArticleId(categoryId, articleId);
             if(articleWithBLOBsList.size() > 0){
                 articleDetail = ArticleModelUtil.tranArticleWithBLOBAsDetail(articleWithBLOBsList.get(0));
                 articleDetail.setCategory(ArticleCategory.getCategoryNameById(categoryId));
+                // 点赞
+                if(articleDetail.getCategory().equals(ArticleCategory.WDGS.categoryName)){
+                    articleDetail.setThumbCount(getArticleThumb(articleDetail.getArticleId()));
+                }
                 // 相关链接
                 List<Relationlink> relationlinkList = relationlinkMapper.selectBySourceType(categoryId);
-                System.out.println(relationlinkList);
                 articleDetail.setRelationlinkList(RelationLinkModelUtil.tranRelationLinkListAsDomain(relationlinkList));
             }else{
                 articleDetail = new ArticleDetailDomain(0);
@@ -113,5 +123,37 @@ public class ArticleService implements IArticleService{
             LOGGER.error(e.getMessage(), e);
         }
         return articleDetail;
+    }
+
+    @Override
+    public boolean updateArticleThumb(ArticleThumbDomain articleThumbDomain) {
+        String thumbHashField = "article:" + articleThumbDomain.getArticleId();
+        String thumbSetKey = "article:" + articleThumbDomain.getArticleId() + ":" + DatetimeUtil.tranCurrentStrMIN();
+        String thumbSetMember = "user:" + articleThumbDomain.getUserId();
+        try(Jedis jedis = jedisPool.getResource()){
+            if(!jedis.exists(thumbSetKey)){
+                jedis.expire(thumbSetKey, 24*3600);
+            }
+            if(jedis.sadd(thumbSetKey, thumbSetMember) == 1){
+                jedis.hincrBy(THUMB_HASH_KEY, thumbHashField, 1);
+            }else{
+                return false;
+            }
+        }catch(Exception e){
+            LOGGER.error(e.getMessage(), e);
+            return false;
+        }
+        return true;
+    }
+
+    private int getArticleThumb(int articleId){
+        try(Jedis jedis = jedisPool.getResource()){
+            String thumbHashField = "article:" + articleId;
+            String thumbCnt = jedis.hget(THUMB_HASH_KEY, thumbHashField);
+            return Strings.isNullOrEmpty(thumbCnt) ? 0 : Integer.parseInt(thumbCnt);
+        }catch (Exception e){
+            LOGGER.error(e.getMessage(), e);
+            return 0;
+        }
     }
 }

@@ -23,9 +23,9 @@
     <result column="IsDTS" jdbcType="INTEGER" property="isdts" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.taofang.webapi.model.ArticleWithBLOBs">
-    <result column="ArticleContent" jdbcType="LONGVARCHAR" property="articlecontent" />
-    <result column="Summary" jdbcType="LONGVARCHAR" property="summary" />
-    <result column="Symptom" jdbcType="LONGVARCHAR" property="symptom" />
+    <result column="ArticleContent" jdbcType="NVARCHAR" property="articlecontent" />
+    <result column="Summary" jdbcType="NVARCHAR" property="summary" />
+    <result column="Symptom" jdbcType="NVARCHAR" property="symptom" />
   </resultMap>
 
   <select id="countHealthVoiceByVideoDate" resultType="java.lang.Integer">

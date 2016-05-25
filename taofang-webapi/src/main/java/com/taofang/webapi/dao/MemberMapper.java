@@ -13,7 +13,7 @@ public interface MemberMapper {
     @Select({
             "select MemberID, MemberName, Password",
             "from member",
-            "where MemberName = #{memberName,jdbcType=VARCHAR}"
+            "where MemberName = ${memberName}"
     })
     @ResultMap("BaseResultMap")
     List<Member> selectByMemberName(@Param("memberName") String memberName);
@@ -28,7 +28,7 @@ public interface MemberMapper {
     @Insert({
             "insert into member(MemberId, MemberName, Password, RegisterDate, LastUpdateDate)",
             "values(",
-            "#{memberid, jdbcType=INTEGER}, #{membername, jdbcType=VARCHAR}, #{password, jdbcType=VARCHAR},",
+            "${memberid}, ${membername}, ${password},",
             "now(), now())"
     })
     int insertMember(Member member);
@@ -36,7 +36,7 @@ public interface MemberMapper {
     @Select({
             "select MemberId, MemberName, icon",
             "from member",
-            "where MemberId = #{memberId,jdbcType=INTEGER}"
+            "where MemberId = ${memberId}"
     })
     @ResultMap("BaseResultMap")
     List<Member> selectByMemberId(@Param("memberId") int memberId);

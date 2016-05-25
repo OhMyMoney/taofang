@@ -50,9 +50,15 @@ public class DatetimeUtil {
         return dateFormat.format(date);
     }
 
+    public static String tranCurrentStrMIN(){
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat(FORMAT_DEFAULT_YMD_MIN);
+        return dateFormat.format(date);
+    }
+
     public static void main(String[] args){
         Timestamp timestamp = tranDate("2013-05-06 11:23:42", FORMAT_DEFAULT);
         System.out.println(tranTimestamp(timestamp, FORMAT_DEFAULT));
-        System.out.println(tranDate("20130506", FORMAT_DEFAULT_YMD_MIN));
+        System.out.println(tranCurrentStrMIN());
     }
 }

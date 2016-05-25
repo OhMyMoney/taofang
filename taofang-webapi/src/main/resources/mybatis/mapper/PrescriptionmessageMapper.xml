@@ -39,6 +39,6 @@
         left join
       PrescriptionMessage t2 ON t1.PrescriptionID = t2.PrescriptionID
     where
-      t1.PrescriptionID = #{prescriptionId, jdbcType=INTEGER};
+      t1.PrescriptionID = ${prescriptionId}
   </select>
 </mapper>

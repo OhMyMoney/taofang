@@ -2,6 +2,7 @@ package com.taofang.webapi.service;
 
 import com.taofang.webapi.domain.ArticleDetailDomain;
 import com.taofang.webapi.domain.ArticlePaginationDomain;
+import com.taofang.webapi.domain.ArticleThumbDomain;
 import com.taofang.webapi.domain.RitucharyaPaginationDomain;
 
 /**
@@ -18,4 +19,6 @@ public interface IArticleService {
     ArticlePaginationDomain getJKZSPaginationDomain(String queryDateStr, int page, int pageSize);
 
     ArticleDetailDomain getArticleDetailById(int categoryId, int articleId);
+
+    boolean updateArticleThumb(ArticleThumbDomain articleThumbDomain);
 }
