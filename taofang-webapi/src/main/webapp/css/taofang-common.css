@@ -1,9 +1,9 @@
 /*header*/
 .homeheaderdiv{
     background-image: url("/image/home/headerbackground.png");
-    background-size: 100% 400px;
+    background-size: 100% 425px;
     width: 100%;
-    height: 400px;
+    height: 425px;
 }
 .homeheadertitlediv{
     width: 100%;
@@ -98,17 +98,37 @@
     text-align: center;
     text-shadow: none;
 }
-#homeheaderdiseasediv{
+.homeheaderdiseasediv{
+    height: 300px;
     margin-left: 2%;
     border: none;
     border-radius: 8px;
-    background-image: url("/image/home/paopao.jpg");
+    background-image: url("/image/bg/paopaobg4.png");
     background-size: 100% 300px;
     width: 96%;
-    height: 280px;
-    text-shadow: none;
+    position: absolute;
 }
-
+.homeheaderdiseaseshow{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.homeheaderdisease{
+    text-shadow: none;
+    float: left;
+}
+.homeheaderdiseasebutt{
+    width: 96%;
+    height: 20px;
+    line-height: 20px;
+    position: absolute;
+    bottom: 10px;
+    z-index: 11;
+    text-align: center;
+}
+.homeheaderdiseasebutt a.hoverhearer{
+    color:#F39F51;
+}
 
 .liangfangblackheader{
     width: 100%;
@@ -773,6 +793,112 @@
     font-weight: normal;
     padding-left: 20px;
 }
+.homelistviewdiv{
+    margin-top: 20px;
+    width: 97%;
+    margin-left: 1%;
+    background-image: url("/image/home/line.png");
+    background-repeat: repeat-y;
+    background-position: 48px;
+    background-size: 20px 2000px;
+}
+.homelistview{
+    width: 100%;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    height: 60px;
+}
+.homelistviewtimediv{
+    float: left;
+    width: 55px;
+    height: 60px;
+}
+.homelistviewtimedayweek{
+    width: 50px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 10px;
+    color: #D5C1A3;
+    font-weight: lighter;
+    text-shadow: none;
+}
+.homelistviewtimeday{
+    float: left;
+    width: 20px;
+    text-align: right;
+}
+.homelistviewtimeweek{
+    float: left;
+    width: 30px;
+    text-align: center;
+}
+.homelistviewtimeyearmonth{
+    text-align: center;
+    width: 50px;
+    height: 30px;
+    color: #D5C1A3;
+    font-size: 11px;
+    text-shadow: none;
+    font-weight: lighter;
+}
+.homelistviewpointdiv{
+    float: left;
+    height: 50px;
+    width: 10px;
+}
+.homelistviewpoint{
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    background-color: #F39F51;
+    border: none;
+    margin-top: 22px;
+}
+.homelistviewcontentdiv{
+    text-shadow: none;
+    float: left;
+    width: 78%;
+    height: 60px;
+    line-height: 60px;
+    background-image: url("/image/home/content.png");
+    background-size: 100% 60px;
+}
+.homelistviewcontent{
+    float: left;
+    width: 75%;
+    height: 50px;
+    padding-left: 15px;
+}
+.homelistviewtitle{
+    width: 100%;
+    height: 20px;
+    line-height: 30px;
+    font-size: 12px;
+    color: #F8FFFF;
+    font-weight: lighter;
+    text-shadow: none;
+}
+.homelistviewtext{
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    color: #F8FFFF;
+    font-weight: bold;
+    text-shadow: none;
+}
+.homelistviewimage{
+    float: left;
+    width: 15%;
+    height: 50px;
+    text-align: center;
+}
+.homelistviewimage img{
+    width: 26px;
+    height: 26px;
+    margin-top: 17px;
+}
+
 .contentblock{
     width: 100%;
     height: 4px;

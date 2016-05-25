@@ -79,6 +79,9 @@ function playVideo(videoUrl, title, id) {
         $('#videoPlayButton' + id).attr("class", "jjysjkzsparalleldiv");
         $('#videoPlayTitle' + id).attr("class", "jjysjkzsvideotitle2");
         if($("#footer").is(":hidden")){
+            $("#footer").attr("data-position", "fixed");
+            $("#footer").addClass("ui-footer-fixed").addClass("slideup");
+            $("div.declarediv").attr("style", "height:140px");
             $("#footer").show();
             isFirstLoad = false;
         }
@@ -99,6 +102,9 @@ function playWDGSVideo(videoUrl, title) {
         $("#audiomp3").attr("src", videoUrl);
         $('#wdgsarticledetailcontentbutton div').attr("class", "jjysjkzsparalleldiv");
         if($("#footer").is(":hidden")){
+            $("#footer").attr("data-position", "fixed");
+            $("#footer").addClass("ui-footer-fixed").addClass("slideup");
+            $("div.declarediv").attr("style", "height:140px");
             $("#footer").show();
             isFirstLoad = false;
         }

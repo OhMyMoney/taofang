@@ -1,5 +1,4 @@
 var ajaxBaseUrl = "http://localhost:8080/taofang/webapi";
-var wordStatisticsPage = 1;
 
 function getLiangfangList(prescription, order, page, pageSize) {
     var ajaxUrl = ajaxBaseUrl + "/prescription/list?prescription=" + prescription + "&page=" + page + "&pageSize=" + pageSize;
@@ -99,18 +98,25 @@ function getHomeUserView() {
     }
 }
 function getWordStatistics() {
-    var ajaxUrl = ajaxBaseUrl + "/word/statistics?pageSize=10&page=" + wordStatisticsPage;
-    wordStatisticsPage += 1;
+    var ajaxUrl = ajaxBaseUrl + "/word/statistics?pageSize=30&page=1";
     $.ajax({
         url: ajaxUrl,
         success: processWordStatisticsData
     });
-    setTimeout(function() {
-        if(wordStatisticsPage > 30){
-            wordStatisticsPage = 1;
-        }
-        getWordStatistics();
-    }, 60000)
+}
+function postUserView(moduleName, clickId, clickTitle) {
+    var userId = $.cookie('userId');
+    var notPost = typeof(userId) == "undefined" || !userId || userId == "";
+    if (!notPost){
+        $.ajax({
+            timeout: 5000,
+            url: ajaxBaseUrl + "/user/view/" + userId,
+            contentType: "application/json",
+            data: JSON.stringify({userId:parseInt(userId), viewModuleId:0, viewModuleName:moduleName, clickId:clickId, clickTitle:clickTitle}),
+            type: "post",
+            success: doUserViewData
+        });
+    }
 }
 
 

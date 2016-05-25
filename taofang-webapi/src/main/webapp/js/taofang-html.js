@@ -201,7 +201,20 @@ function insertHomeHeader() {
                 "<input id='prescriptioninput' data-role='none' class='homeheaderprescriptioninput' type='text' name='prescription' placeholder='输入关键字寻找相关偏方'/>" +
             "</div>"))
         .append($("<div class='homeheaderprescription2' onclick='searchPrescription(0)'>立即搜索</div>"));
-    var headerDiseaseDivElem = $("<div id='homeheaderdiseasediv'></div>");
+    var headerDiseaseDivElem = $("<div id='homeheaderdiseasediv' class='homeheaderdiseasediv'></div>");
+
+    var headerDiseaseShowDivElem = $("<div class='homeheaderdiseaseshow'></div>")
+        .append($("<div id='homeheaderdiseasediv1' class='homeheaderdisease'></div>"))
+        .append($("<div id='homeheaderdiseasediv2' class='homeheaderdisease'></div>"))
+        .append($("<div id='homeheaderdiseasediv3' class='homeheaderdisease'></div>"));
+    var headerDiseaseButtDivElem = $("<div class='homeheaderdiseasebutt'></div>")
+        .append($("<a data-role='none' href='#' class='hoverhearer'>●</a>"))
+        .append($("<a data-role='none' href='#'>●</a>"))
+        .append($("<a data-role='none' href='#'>●</a>"));
+    headerDiseaseDivElem
+        .append(headerDiseaseShowDivElem)
+        .append(headerDiseaseButtDivElem)
+        .append("<script src='/js/taofang-bubble.js'></script>");
 
     headerElems
         .append(headerTitleDivElem)
@@ -360,6 +373,7 @@ function insertLiangfangContent(role, page, pageSize, prescription, order) {
         getLiangfangList(prescription, order, page, pageSize);
     }else if(role == "DETAIL"){
         getLiangfangDetail(prescription);
+        
     }else if (role == "DETAIL_IMAGE"){
         getLiangfangMaterial(prescription);
     }
@@ -558,11 +572,16 @@ function createFooter(){
     var videoUrl = $.cookie('videoUrl');
     var videoTitle = $.cookie('videoTitle');
     if(typeof(videoUrl) == "undefined" || !videoUrl || videoUrl == ""){
+        $("#footer").attr("data-position", "none");
+        $("#footer").removeClass("ui-footer-fixed").removeClass("slideup");
         $("#footer").hide();
     }else{
         if(isFirstLoad){
             $("div.footervideotitle").html(videoTitle);
             $("#audiomp3").attr("src", videoUrl);
+            $("#footer").attr("data-position", "fixed");
+            $("#footer").addClass("ui-footer-fixed").addClass("slideup");
+            $("div.declarediv").attr("style", "height:140px");
             isFirstLoad = false;
         }
     }

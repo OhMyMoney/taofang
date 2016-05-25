@@ -218,6 +218,8 @@ function processLiangfangDetailData(data) {
         contentlinkListEnums.append(trEnum);
     }
     $("#liangfangrelationlinklist").html(contentlinkListEnums);
+    // 增加浏览
+    postUserView("liangfang", data.prescriptionId, data.prescriptionTitle)
 }
 function processLiangfangCommentData(data) {
     var commentList = data.commentList;
@@ -270,11 +272,41 @@ function processUserViewData(data) {
     }
 }
 function processHomeUserViewData(data) {
-
+    var viewList = data.viewList;
+    var len = viewList.length > 10 ? 10 : viewList.length;
+    var homeListViewHistoryElems = $("<div class='homelistviewdiv'></div>");
+    for(var i=0; i<len; i++){
+        var onclickFunc;
+        var view = viewList[i];
+        if(view.categoryName == 'liangfang'){
+            onclickFunc = "createLiangfangPage(\"DETAIL\", 0, 0, " + view.articleId + ", 0)";
+        }
+        var homeListViewHistoryElem = $("<div class='homelistview'></div>")
+            .append($("<div class='homelistviewtimediv'>" +
+                        "<div class='homelistviewtimedayweek'>" +
+                            "<div class='homelistviewtimeday'>" + view.viewDateDay + "</div>" +
+                            "<div class='homelistviewtimeweek'>" + view.viewDateWeek + "</div>" +
+                        "</div>" +
+                        "<div class='homelistviewtimeyearmonth'>" + view.viewDateYear + "." + view.viewDateMonth + "</div>" +
+                    "</div>"))
+            .append($("<div class='homelistviewpointdiv'><div class='homelistviewpoint'></div></div>"))
+            .append($("<div class='homelistviewcontentdiv'>" +
+                        "<div class='homelistviewcontent'>" +
+                            "<div class='homelistviewtitle'>上次浏览的" + (view.categoryName == 'liangfang' ? '偏方' : '文章') + "</div>" +
+                            "<div class='homelistviewtext' onclick='" + onclickFunc + "'>" + view.articleTitle + "</div>" +
+                        "</div>" +
+                        "<div class='homelistviewimage'><img src='/image/home/time_view.png'/></div>" +
+                    "</div>"));
+        homeListViewHistoryElems.append(homeListViewHistoryElem);
+    }
+    $("#homecontentviewdiv").html(homeListViewHistoryElems);
 }
 function processWordStatisticsData(data) {
     var wordSearchList = data.wordSearchList;
     mockBubbleChart(wordSearchList);
+}
+function doUserViewData(data) {
+    console.log(data);
 }
 function insertEmptyModuleElems() {
     var lastUserClick = $.cookie('lastUserClick');
