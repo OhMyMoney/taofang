@@ -118,6 +118,12 @@ function postUserView(moduleName, clickId, clickTitle) {
         });
     }
 }
+function getArticleThumb(articleId) {
+    $.ajax({
+        url: ajaxBaseUrl + "/article/thumb/" + articleId,
+        success: processArticleThumbData
+    });
+}
 function postArticleThumb(articleId, articleCategory) {
     var userId = $.cookie('userId');
     if(typeof(userId) == "undefined" || !userId || userId == ""){
@@ -130,6 +136,12 @@ function postArticleThumb(articleId, articleCategory) {
         data: JSON.stringify({userId:parseInt(userId), articleId:articleId, articleCategory:articleCategory}),
         type: "post",
         success: doArticleThumbData
+    });
+}
+function sendSMSVCode(phoneNumber){
+    $.ajax({
+        url: ajaxBaseUrl + "/user/sms/" + phoneNumber,
+        success: processSMSVCodeData
     });
 }
 

@@ -21,4 +21,6 @@ public interface IArticleService {
     ArticleDetailDomain getArticleDetailById(int categoryId, int articleId);
 
     boolean updateArticleThumb(ArticleThumbDomain articleThumbDomain);
+
+    int getArticleThumb(int articleId);
 }

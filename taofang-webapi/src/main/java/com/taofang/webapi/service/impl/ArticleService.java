@@ -103,7 +103,7 @@ public class ArticleService implements IArticleService{
     @Override
     public ArticleDetailDomain getArticleDetailById(int categoryId, int articleId) {
         ArticleDetailDomain articleDetail;
-        try(Jedis jedis = jedisPool.getResource()){
+        try{
             List<ArticleWithBLOBs> articleWithBLOBsList = articleMapper.selectByCategoryArticleId(categoryId, articleId);
             if(articleWithBLOBsList.size() > 0){
                 articleDetail = ArticleModelUtil.tranArticleWithBLOBAsDetail(articleWithBLOBsList.get(0));
@@ -131,10 +131,14 @@ public class ArticleService implements IArticleService{
         String thumbSetKey = "article:" + articleThumbDomain.getArticleId() + ":" + DatetimeUtil.tranCurrentStrMIN();
         String thumbSetMember = "user:" + articleThumbDomain.getUserId();
         try(Jedis jedis = jedisPool.getResource()){
+            boolean canAdd;
             if(!jedis.exists(thumbSetKey)){
+                canAdd = jedis.sadd(thumbSetKey, thumbSetMember) == 1;
                 jedis.expire(thumbSetKey, 24*3600);
+            }else{
+                canAdd = jedis.sadd(thumbSetKey, thumbSetMember) == 1;
             }
-            if(jedis.sadd(thumbSetKey, thumbSetMember) == 1){
+            if(canAdd){
                 jedis.hincrBy(THUMB_HASH_KEY, thumbHashField, 1);
             }else{
                 return false;
@@ -146,7 +150,8 @@ public class ArticleService implements IArticleService{
         return true;
     }
 
-    private int getArticleThumb(int articleId){
+    @Override
+    public int getArticleThumb(int articleId){
         try(Jedis jedis = jedisPool.getResource()){
             String thumbHashField = "article:" + articleId;
             String thumbCnt = jedis.hget(THUMB_HASH_KEY, thumbHashField);

@@ -6,14 +6,18 @@ function createDLZCPopup() {
         loginRegisterNavigationElem.append($("<div class='lrnavigationldiv' onclick='showLoginRegisterPopup(\"login\")'>登录</div>"));
         loginRegisterNavigationElem.append($("<div class='lrnavigationrdiv' onclick='showLoginRegisterPopup(\"register\")'>注册</div>"));
         $("body").append(loginRegisterNavigationElem);
-        isShowLoginRegister = true;
+        setTimeout(function() {
+            isShowLoginRegister = true;
+        }, 500);
     }else{
         if(isShowLoginRegister){
             $("#loginregisternavigation").hide();
             isShowLoginRegister = false;
         }else{
             $("#loginregisternavigation").show();
-            isShowLoginRegister = true;
+            setTimeout(function() {
+                isShowLoginRegister = true;
+            }, 500);
         }
     }
 }
@@ -31,13 +35,27 @@ function showLoginRegisterPopup(role) {
         insertRegisterElems();
     }
 }
-function showArticleThumbPopup(role) {
+function showArticleThumbPopup(text) {
     if(!document.getElementById("articlethumbdiv")){
         createArticleThumbDiv();
     }else{
-        $('#articlethumbbgdiv').show();
-        $('#articlethumbdiv').show();
+        var sWidth = $(document).width();
+        var sHeight = $(document).height();
+        if($(document).scrollHeight > sHeight ){
+            sHeight = $(document).scrollHeight;
+        }
+        var bgWH = "width:" + sWidth + "px;" + "height:" + sHeight + "px;";
+        $('#articlethumbbgdiv').attr("style", bgWH).show();
+        var leftWidth = (sWidth - 180) / 2;
+        var topHeight = $("div.articledetailthumbimg").offset().top;
+        var thumbWH = "left:" + leftWidth + "px;" + "top:" + topHeight + "px;";
+        $('#articlethumbdiv').attr("style", thumbWH).show();
     }
+    $('#articlethumbdiv').html(text);
+    setTimeout(function() {
+        $('#articlethumbdiv').hide();
+        $('#articlethumbbgdiv').hide();
+    }, 2000)
 }
 function createLoginRegisterDiv() {
     var sWidth = $(document).width();
@@ -65,6 +83,12 @@ function createArticleThumbDiv() {
     var bgWH = "width:" + sWidth + "px;" + "height:" + sHeight + "px;";
     backgroundDivElem.attr("style", bgWH);
     $('body').append(backgroundDivElem);
+    var leftWidth = (sWidth - 180) / 2;
+    var topHeight = $("div.articledetailthumbimg").offset().top;
+    var thumbWH = "left:" + leftWidth + "px;" + "top:" + topHeight + "px;";
+    var thumbDivElem = $("<div id='articlethumbdiv' class='articlethumbdivclass'></div>");
+    thumbDivElem.attr("style", thumbWH);
+    $('body').append(thumbDivElem);
 }
 function insertLoginElems() {
     var loginElems = $("<div id='logindiv'></div>");
@@ -124,12 +148,31 @@ function closeLoginRegisterPopup() {
     $('#loginregisternavigation').hide();
     isShowLoginRegister = false;
 }
+function closeLRNavigationPopup() {
+    if(isShowLoginRegister && !$('#loginregisternavigation').is(":hidden")){
+        $('#loginregisternavigation').hide();
+        isShowLoginRegister = false;
+    }
+}
 // 短信验证码
 function registerSMSCode(id) {
     if(id == -1 && countdown > 0){
         return;
     }else if(id == -1){
-        countdown = 60;
+        countdown = 120;
+        var phoneNumber = $("#registerdiv").find($("[name='phoneNumber']")).val();
+        if(typeof(phoneNumber) == "undefined" || !phoneNumber || phoneNumber == ""){
+            $("#loginregisterErrorMsg").addClass("error").text("手机号码不能为空");
+            countdown = 0;
+            return;
+        }else if(!isPhoneNumber(phoneNumber)){
+            $("#loginregisterErrorMsg").addClass("error").text("手机号码格式不正确");
+            countdown = 0;
+            return;
+        }else{
+            $("#loginregisterErrorMsg").text("");
+            sendSMSVCode(phoneNumber);
+        }
     }
     if (countdown == 0) {
         $("#inputsmscodebutton").attr("disabled", false)

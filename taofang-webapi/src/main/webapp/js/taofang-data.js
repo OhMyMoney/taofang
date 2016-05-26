@@ -148,34 +148,34 @@ function processLiangfangPaginationData(data) {
         }
         $("#liangfangcontentlist").html(prescriptionListEnums);
 
-        var diseaselinkList = data.diseaselinkList;
-        var diseaselinkListEnums = $("<table><tbody></tbody></table>");
-        for(var di=0; di<diseaselinkList.length; di++){
-            var link = diseaselinkList[di];
-            var trEnum = $("<tr></tr>")
-                .append($("<td><div class='contentpointdiv'></div></td>"))
-                .append($("<td><div>" + link.relationTitle + "</div></td>"));
-            diseaselinkListEnums.append(trEnum);
-        }
-        $("#liangfangrelationdiseaselist").html(diseaselinkListEnums);
-
-        var symptomlinkList = data.symptomlinkList;
-        var symptomlinkListEnums = $("<table><tbody></tbody></table>");
-        for(var si=0; si<symptomlinkList.length; si++){
-            var link = symptomlinkList[si];
-            var trEnum = $("<tr></tr>")
-                .append($("<td><div class='contentpointdiv'></div></td>"))
-                .append($("<td><div>" + link.relationTitle + "</div></td>"));
-            symptomlinkListEnums.append(trEnum);
-        }
-        $("#liangfangrelationsymptomlist").html(symptomlinkListEnums);
+        // var diseaselinkList = data.diseaselinkList;
+        // var diseaselinkListEnums = $("<table><tbody></tbody></table>");
+        // for(var di=0; di<diseaselinkList.length; di++){
+        //     var link = diseaselinkList[di];
+        //     var trEnum = $("<tr></tr>")
+        //         .append($("<td><div class='contentpointdiv'></div></td>"))
+        //         .append($("<td><div>" + link.relationTitle + "</div></td>"));
+        //     diseaselinkListEnums.append(trEnum);
+        // }
+        // $("#liangfangrelationdiseaselist").html(diseaselinkListEnums);
+        //
+        // var symptomlinkList = data.symptomlinkList;
+        // var symptomlinkListEnums = $("<table><tbody></tbody></table>");
+        // for(var si=0; si<symptomlinkList.length; si++){
+        //     var link = symptomlinkList[si];
+        //     var trEnum = $("<tr></tr>")
+        //         .append($("<td><div class='contentpointdiv'></div></td>"))
+        //         .append($("<td><div>" + link.relationTitle + "</div></td>"));
+        //     symptomlinkListEnums.append(trEnum);
+        // }
+        // $("#liangfangrelationsymptomlist").html(symptomlinkListEnums);
 
         var nataropathylinkList = data.nataropathylinkList;
         var nataropathylinkListEnums = $("<table><tbody></tbody></table>");
         for(var ni=0; ni<nataropathylinkList.length; ni++){
+            var link = nataropathylinkList[ni];
             var onclickFunc = "gotoArticleDetailPage(\"ZRLF\", " + link.relationId + ")";
 
-            var link = nataropathylinkList[ni];
             var trEnum = $("<tr></tr>")
                 .append($("<td><div class='contentpointdiv'></div></td>"))
                 .append($("<td onclick='" + onclickFunc + "'><div>" + link.relationTitle + "</div></td>"));
@@ -287,6 +287,8 @@ function processHomeUserViewData(data) {
         var view = viewList[i];
         if(view.categoryName == 'liangfang'){
             onclickFunc = "createLiangfangPage(\"DETAIL\", 0, 0, " + view.articleId + ", 0)";
+        }else{
+            onclickFunc = "gotoArticleDetailPage(\"" + view.categoryName + "\"," + view.articleId + ")";
         }
         var homeListViewHistoryElem = $("<div class='homelistview'></div>")
             .append($("<div class='homelistviewtimediv'>" +
@@ -315,11 +317,19 @@ function processWordStatisticsData(data) {
 function doUserViewData(data) {
     console.log(data);
 }
+function processArticleThumbData(data) {
+    $('#articledetailthumbtext').html(data + "个表扬");
+}
+function processSMSVCodeData(data) {
+    console.log(data);
+}
 function doArticleThumbData(data) {
-    if(date == "success"){
-        
+    var dataArr = data.split(";");
+    if(dataArr[0] == "success"){
+        showArticleThumbPopup("点赞成功");
+        getArticleThumb(parseInt(dataArr[1]));
     }else{
-        
+        showArticleThumbPopup("您今天已经点赞");
     }
 }
 function insertEmptyModuleElems() {

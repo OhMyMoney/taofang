@@ -14,10 +14,8 @@ import com.taofang.webapi.model.CommentstarWithBLOBs;
 import com.taofang.webapi.model.Member;
 import com.taofang.webapi.result.Result;
 import com.taofang.webapi.service.IUserService;
-import com.taofang.webapi.util.CommentModelUtil;
-import com.taofang.webapi.util.MD5Util;
-import com.taofang.webapi.util.ResultUtil;
-import com.taofang.webapi.util.UserModelUtil;
+import com.taofang.webapi.sms.WebClient;
+import com.taofang.webapi.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +24,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
 import javax.annotation.PostConstruct;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -38,8 +37,14 @@ import java.util.Set;
 @Service
 public class UserService implements IUserService{
     private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
+    private static final String SMS_BASE_URL = "http://api.itrigo.net";
+    private static final String SMS_USERNAME = "zhonghui";
+    private static final String SMS_PASSWORD = "123456";
+    private static final String SMS_CONTENT = "【淘方网】您本次验证码为：";
 
     private ObjectMapper mapper;
+    private WebClient webclient;
+
     @Autowired
     private MemberMapper memberMapper;
     @Autowired
@@ -114,10 +119,20 @@ public class UserService implements IUserService{
         UserArticleBean userArticle = UserModelUtil.tranUserClickDomainAsUserArticleBean(userClick);
         userArticle.setDateTime(System.currentTimeMillis());
         try(Jedis jedis = jedisPool.getResource()){
-            jedis.zadd(viewKey, userArticle.getDateTime(), mapper.writeValueAsString(userArticle));
-            long viewCount = jedis.zcard(viewKey);
-            if(viewCount > 50){
-                jedis.zremrangeByRank(viewKey, 0, viewCount - 50);
+            String viewSetKey = "userId:" + userClick.getUserId() + ":view:"  + DatetimeUtil.tranCurrentStrMIN();
+            boolean canAdd;
+            if(!jedis.exists(viewSetKey)){
+                canAdd = jedis.sadd(viewSetKey, userClick.getClickId()+"") == 1;
+                jedis.expire(viewSetKey, 24*3600);
+            }else{
+                canAdd = jedis.sadd(viewSetKey, userClick.getClickId()+"") == 1;
+            }
+            if(canAdd){
+                jedis.zadd(viewKey, userArticle.getDateTime(), mapper.writeValueAsString(userArticle));
+                long viewCount = jedis.zcard(viewKey);
+                if(viewCount > 50){
+                    jedis.zremrangeByRank(viewKey, 0, viewCount - 50);
+                }
             }
             isUpdated = true;
         }catch(Exception e){
@@ -140,6 +155,28 @@ public class UserService implements IUserService{
             LOGGER.error(e.getMessage(), e);
         }
         return isUpdated;
+    }
+
+    @Override
+    public boolean sendSMSVcode(String phoneNumber) {
+        try(Jedis jedis = jedisPool.getResource()){
+            String smsCode = (int) (Math.random()*9000 + 1000) + "";
+            String smsKey = "SMS:" + phoneNumber + ":VCODE";
+            if(!jedis.exists(smsKey)){
+                String smsUrl = SMS_BASE_URL + "/mt.jsp?cpName=" + SMS_USERNAME + "&cpPwd=" +
+                        SMS_PASSWORD + "&phones=" + phoneNumber + "&msg=" +
+                        URLEncoder.encode(SMS_CONTENT + smsCode, "gbk");
+                String smsResult = webclient.doGet(smsUrl, "gbk");
+                if(smsResult.contains("0")){
+                    jedis.set(smsKey, smsCode, "NX", "EX", 120);
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+
+        return false;
     }
 
     @Override
@@ -180,26 +217,26 @@ public class UserService implements IUserService{
         String password = Optional.fromNullable(user.getPassword()).or("").trim();
         String confirmPassword = Optional.fromNullable(user.getConfirmPassword()).or("").trim();
         String phoneNumber = Optional.fromNullable(user.getPhoneNumber()).or("").trim();
-//        String smsCode = Optional.fromNullable(user.getSmsCode()).or("").trim();
-        try{
+        String smsCode = Optional.fromNullable(user.getSmsCode()).or("").trim();
+        try(Jedis jedis = jedisPool.getResource()){
             if(Strings.isNullOrEmpty(userName)){
                 result = ResultUtil.failResult("用户名不能为空");
             }else if(Strings.isNullOrEmpty(password)){
                 result = ResultUtil.failResult("密码不能为空");
             }else if(!password.equals(confirmPassword)){
                 result = ResultUtil.failResult("两次输入的密码不匹配");
-            }else if(Strings.isNullOrEmpty(phoneNumber)){
+            }else if(Strings.isNullOrEmpty(phoneNumber)) {
                 result = ResultUtil.failResult("手机号码不能为空");
-            /*else if(Strings.isNullOrEmpty(smsCode)){
+            }else if(Strings.isNullOrEmpty(smsCode)){
                 result = ResultUtil.failResult("手机验证码不能为空");
-            }*/
             }else{
-                /*Optional<String> redisCodeOptional = redisDao.getValueByKey("sms_code_"+phoneNumber);
-                if(!redisCodeOptional.isPresent()){
+                String smsKey = "SMS:" + phoneNumber + ":VCODE";
+                String vcode = jedis.get(smsKey);
+                if(Strings.isNullOrEmpty(vcode)){
                     result = ResultUtil.failResult("请重新获取验证码");
-                }else if(!smsCode.equals(redisCodeOptional.get())){
+                }else if(!vcode.equals(smsCode)){
                     result = ResultUtil.failResult("输入的验证码不正确");
-                }else{*/
+                }
                 List<Member> memberList = memberMapper.selectByMemberName(userName);
                 if(memberList.size() != 0){
                     result = ResultUtil.failResult("用户名已经存在,请重新输入");
@@ -223,6 +260,8 @@ public class UserService implements IUserService{
     public void init(){
         mapper = new ObjectMapper();
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+
+        webclient = new WebClient();
     }
 
 }

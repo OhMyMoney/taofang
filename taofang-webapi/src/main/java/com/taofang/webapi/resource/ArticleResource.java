@@ -68,9 +68,17 @@ public class ArticleResource {
     @Produces({MediaType.TEXT_PLAIN})
     public String updateArticleThumb(ArticleThumbDomain articleThumb){
         if(articleService.updateArticleThumb(articleThumb)){
-            return "success";
+            return "success;" + articleThumb.getArticleId();
         }else{
             return "fail";
         }
+    }
+
+    @GET
+    @Path("/thumb/{id}")
+    @Produces({MediaType.TEXT_PLAIN})
+    public String getArticleThumb(@DefaultValue("0")@PathParam("id")int id){
+        int thumbCnt = articleService.getArticleThumb(id);
+        return thumbCnt + "";
     }
 }

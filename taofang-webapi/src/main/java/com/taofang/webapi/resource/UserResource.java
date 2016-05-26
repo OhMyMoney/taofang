@@ -57,6 +57,17 @@ public class UserResource {
         }
     }
 
+    @GET
+    @Path("/sms/{phoneNumber}")
+    @Produces({MediaType.TEXT_PLAIN})
+    public String sendUserSMSVcodeByPath(@DefaultValue("")@PathParam("phoneNumber") String phoneNumber){
+        if(userService.sendSMSVcode(phoneNumber)){
+            return "success";
+        }else{
+            return "fail";
+        }
+    }
+
     @POST
     @Path("/collect/{userId}")
     @Consumes({MediaType.APPLICATION_JSON})

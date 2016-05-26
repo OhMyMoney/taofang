@@ -22,6 +22,8 @@ public interface IUserService {
 
     boolean updateUserCollect(UserClickDomain userClick);
 
+    boolean sendSMSVcode(String phoneNumber);
+
     /**
      * 验证用户登录条件
      * @param user

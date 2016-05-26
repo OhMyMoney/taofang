@@ -12,7 +12,7 @@ public interface CommentstarMapper {
 
     @Select({
             "select count(*) from CommentStar",
-            "where PrescriptionID = ${prescriptionID, jdbcType=INTEGER}"
+            "where PrescriptionID = ${prescriptionID}"
     })
     int countCommentByPrescriptionID(@Param("prescriptionID") int PrescriptionID);
 
@@ -20,7 +20,7 @@ public interface CommentstarMapper {
 
     @Select({
             "select CommentID, Experience, CreatedDate from CommentStar",
-            "where memberId = ${memberId, jdbcType=INTEGER}"
+            "where memberId = ${memberId}"
     })
     @ResultMap("ResultMapWithBLOBs")
     List<CommentstarWithBLOBs> selectCommentByMemberId(@Param("memberId") int memberId);

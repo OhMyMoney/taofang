@@ -300,14 +300,14 @@ function insertLiangfangContent(role, page, pageSize, prescription, order) {
             .append($("<div id='liangfangsearchcountresult' class='liangfangsearchcountresult'></div>"));
         var liangfangContentListElems = $("<div id='liangfangcontentlist' class='liangfangcontentlistdiv'></div>");
         var liangfangRelationElems = $("<div class='liangfangcontentrelationdiv'></div>")
-            .append("<div class='liangfangrelationdiv'>" +
-                    "<div class='liangfangrelationtitle'>相关疾病</div>" +
-                    "<div id='liangfangrelationdiseaselist' class='liangfangrelationlist'></div>" +
-                "</div>")
-            .append("<div class='liangfangrelationdiv'>" +
-                "<div class='liangfangrelationtitle'>相关症状</div>" +
-                "<div id='liangfangrelationsymptomlist' class='liangfangrelationlist'></div>" +
-                "</div>")
+            // .append("<div class='liangfangrelationdiv'>" +
+            //         "<div class='liangfangrelationtitle'>相关疾病</div>" +
+            //         "<div id='liangfangrelationdiseaselist' class='liangfangrelationlist'></div>" +
+            //     "</div>")
+            // .append("<div class='liangfangrelationdiv'>" +
+            //     "<div class='liangfangrelationtitle'>相关症状</div>" +
+            //     "<div id='liangfangrelationsymptomlist' class='liangfangrelationlist'></div>" +
+            //     "</div>")
             .append("<div class='liangfangrelationdiv'>" +
                 "<div class='liangfangrelationtitle'>自然疗法</div>" +
                 "<div id='liangfangrelationnataropathylist' class='liangfangrelationlist'></div>" +
@@ -439,6 +439,11 @@ function insertArticleContent(article, role, page, pageSize, articleId){
                             "<div id='articledetailcontentimage'></div>" +
                             "<div id='articledetailcontenttext'></div>" +
                         "</div>"))
+                    .append($("<div class='articledetailthumbdiv'>" +
+                        "<div class='articledetailthumbimg'><img src='/image/common/thumb.png'></div>" +
+                        "<div class='articledetailthumblabel'>写得好,赞一个</div>" +
+                        "<div id='articledetailthumbtext' class='articledetailthumbtext'></div>" +
+                        "</div>"))
             }else{
                 contentBodyElems
                     .append($("<div class='articledetailcontentdiv'>" +
@@ -449,11 +454,6 @@ function insertArticleContent(article, role, page, pageSize, articleId){
                         "</div>"))
             }
             contentBodyElems
-                .append($("<div class='articledetailthumbdiv'>" +
-                            "<div class='articledetailthumbimg'><img src='/image/common/thumb.png'></div>" +
-                            "<div class='articledetailthumblabel'>写得好,赞一个</div>" +
-                            "<div id='articledetailthumbtext' class='articledetailthumbtext'></div>" +
-                        "</div>"))
                 .append($("<div class='articledetailrelationlinkdiv'>" +
                             "<div class='articledetailrelationtitle'>相关链接</div>" +
                             "<div id='articledetailrelationlist'></div>" +
