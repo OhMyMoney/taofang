@@ -1,8 +1,8 @@
 var sWidth = $(document).width();
-var sHeight = sWidth * 0.4;
-$(".footeraddiv").attr("style", "height:" + (sHeight + 40) + "px");
-$(".footeraddiv .footeradimg").attr("style","width:"+ 3*sWidth + "px;height:" + sHeight + "px;");
-$(".footeraddiv .footeradimg img").attr("style","width:"+ sWidth + "px;height:" + sHeight + "px;");
+// var sHeight = sWidth * 0.4;
+// $(".footeraddiv").attr("style", "height:" + (sHeight + 40) + "px");
+// $(".footeraddiv .footeradimg").attr("style","width:"+ 3*sWidth + "px;height:" + sHeight + "px;");
+// $(".footeraddiv .footeradimg img").attr("style","width:"+ sWidth + "px;height:" + sHeight + "px;");
 var zBase = {
     config:{
         index:0,
@@ -11,8 +11,8 @@ var zBase = {
     },
     init:function(){
         this.slide = this.$id('footeraddiv');
-        this.img_div = this.$c('footeradimg')[0],
-            this.slide_btn = this.$tag('a',this.$c('footeradbtn')[0]);
+        this.img_div = this.$c('footeradimg')[0];
+        this.slide_btn = this.$tag('a',this.$c('footeradbtn')[0]);
         this.img_arr = this.$tag('img',this.img_div);
         if(this.config.auto) this.play();
         this.hover();
@@ -44,7 +44,7 @@ var zBase = {
         }
     },
     animate:function(obj,attr,val){
-        var d = 1000;//动画时间一秒完成。
+        var d = 500;//动画时间一秒完成。
         if(obj[attr+'timer']) clearInterval(obj[attr+'timer']);
         var start = parseInt(zBase.css(obj,attr));//动画开始位置
         //space = 动画结束位置-动画开始位置，即动画要运动的距离。
@@ -70,7 +70,7 @@ var zBase = {
             }
             zBase.$add(zBase.slide_btn[zBase.config.index],'hover');
 
-        },5000)
+        },10000)
 
 
     },
@@ -86,7 +86,7 @@ var zBase = {
                 }
                 zBase.$add(zBase.slide_btn[zBase.config.index],'hover');
                 zBase.animate(zBase.img_div,zBase.config.direct,-zBase.config.index*sWidth);
-            }
+            };
             this.slide_btn[i].onmouseout = function(){
                 zBase.play();
             }

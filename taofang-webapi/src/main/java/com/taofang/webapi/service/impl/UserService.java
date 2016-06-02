@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
+import com.taofang.webapi.bean.LoginResultBean;
+import com.taofang.webapi.bean.LoginUserBean;
 import com.taofang.webapi.bean.UserArticleBean;
 import com.taofang.webapi.dao.CommentstarMapper;
 import com.taofang.webapi.dao.InquiryprescriptionMapper;
@@ -37,10 +39,16 @@ import java.util.Set;
 @Service
 public class UserService implements IUserService{
     private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
+
     private static final String SMS_BASE_URL = "http://api.itrigo.net";
     private static final String SMS_USERNAME = "zhonghui";
     private static final String SMS_PASSWORD = "123456";
     private static final String SMS_CONTENT = "【淘方网】您本次验证码为：";
+
+    private static final String WX_LOGIN_URL = "https://api.weixin.qq.com/sns/oauth2/access_token?" +
+            "appid=wx0f263786638d7cac&secret=015f512e92f84b4998574505149c7c53";
+
+    private static final String WX_USER_URL = "https://api.weixin.qq.com/sns/userinfo?";
 
     private ObjectMapper mapper;
     private WebClient webclient;
@@ -144,14 +152,15 @@ public class UserService implements IUserService{
 
     @Override
     public boolean updateUserCollect(UserClickDomain userClick) {
-        boolean isUpdated;
+        boolean isUpdated = false;
         String collectKey = "userId:" + userClick.getUserId() + ":collect";
         UserArticleBean userArticle = UserModelUtil.tranUserClickDomainAsUserArticleBean(userClick);
         try(Jedis jedis = jedisPool.getResource()){
-            jedis.zadd(collectKey, System.currentTimeMillis(), mapper.writeValueAsString(userArticle));
-            isUpdated = true;
+            long addCnt = jedis.zadd(collectKey, System.currentTimeMillis(), mapper.writeValueAsString(userArticle));
+            if(addCnt >= 1){
+                isUpdated = true;
+            }
         }catch(Exception e){
-            isUpdated = false;
             LOGGER.error(e.getMessage(), e);
         }
         return isUpdated;
@@ -177,6 +186,40 @@ public class UserService implements IUserService{
         }
 
         return false;
+    }
+
+    @Override
+    public Integer loginByWX(String code) {
+        String loginURL = WX_LOGIN_URL + "&code=" + code + "&grant_type=authorization_code";
+        try(Jedis jedis = jedisPool.getResource()){
+            String wxLoginResult = webclient.doGet(loginURL);
+            if(!wxLoginResult.contains("errcode")){
+                LoginResultBean loginResult = mapper.readValue(wxLoginResult, LoginResultBean.class);
+                String wxUserHashKey = "wx:" + loginResult.getOpenid() + ":openid";
+                String access_tokenValue = loginResult.getAccess_token();
+                String refresh_tokenValue = loginResult.getRefresh_token();
+                jedis.hset(wxUserHashKey, "access_token", access_tokenValue);
+                jedis.hset(wxUserHashKey, "refresh_token", refresh_tokenValue);
+                jedis.expire(wxUserHashKey, 30*24*3600);
+
+                String wxUserUrl = WX_USER_URL + "access_token=" + loginResult.getAccess_token()
+                        + "&openid=" + loginResult.getOpenid() + "&lang=zh_CN";
+                String wxUserResult = webclient.doGet(wxUserUrl);
+                LoginUserBean loginUser = mapper.readValue(wxUserResult, LoginUserBean.class);
+                Member member = UserModelUtil.tranLoginUserBeanAsMember(loginUser);
+                List<Member> members = memberMapper.selectByMemberName(loginUser.getOpenid());
+                if(members.size() > 0){
+                    memberMapper.updateWXMember(member);
+                }else{
+                    memberMapper.insertWXMember(member);
+                }
+                members = memberMapper.selectByMemberName(loginUser.getOpenid());
+                return members.get(0).getMemberid();
+            }
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return null;
     }
 
     @Override
@@ -241,11 +284,10 @@ public class UserService implements IUserService{
                 if(memberList.size() != 0){
                     result = ResultUtil.failResult("用户名已经存在,请重新输入");
                 }else{
-                    Integer lastMemberId = memberMapper.selectLastMemberId();
                     Member member = UserModelUtil.tranUserDomainAsMember(user);
-                    member.setMemberid(Optional.fromNullable(lastMemberId).or(0) + 1);
                     memberMapper.insertMember(member);
-                    result.setData((Optional.fromNullable(lastMemberId).or(0) + 1) + "");
+                    List<Member> newMemberList = memberMapper.selectByMemberName(userName);
+                    result.setData(newMemberList.get(0).getMemberid() + "");
                 }
             }
             LOGGER.info("验证用户[user:" + user + "]注册条件 ==> " + result);

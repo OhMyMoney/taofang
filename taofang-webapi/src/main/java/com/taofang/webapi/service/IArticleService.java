@@ -1,9 +1,6 @@
 package com.taofang.webapi.service;
 
-import com.taofang.webapi.domain.ArticleDetailDomain;
-import com.taofang.webapi.domain.ArticlePaginationDomain;
-import com.taofang.webapi.domain.ArticleThumbDomain;
-import com.taofang.webapi.domain.RitucharyaPaginationDomain;
+import com.taofang.webapi.domain.*;
 
 /**
  * @Desc
@@ -23,4 +20,6 @@ public interface IArticleService {
     boolean updateArticleThumb(ArticleThumbDomain articleThumbDomain);
 
     int getArticleThumb(int articleId);
+
+    RitucharyaDomain getRitucharyaDomain(int ritucharya, int lastVideoId);
 }

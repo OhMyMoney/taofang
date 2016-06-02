@@ -12,6 +12,8 @@ public interface IPrescriptionService {
 
     PrescriptionDetailDomain getPrescriptionDetailDomain(int prescriptionId);
 
+    PrescriptionDetailDomain getPrescriptionDetailDomain(String prescription, int pageId);
+
     PrescriptionCommentDomain getPrescriptionCommentDomain(int prescriptionId);
 
     PrescriptionMaterialDomain getPrescriptionMaterialDomain(int prescriptionId);

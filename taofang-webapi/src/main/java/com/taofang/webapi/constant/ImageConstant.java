@@ -11,4 +11,6 @@ public class ImageConstant {
     public static final String HEAD_PORTRAIT_URL = "http://weibo.99taofang.com";
 
     public static final String DEFAULT_HEAD_PORTRAIT_URL = "http://www.99taofang.com/Content/Images/user-pic.png";
+
+    public static final String DEFAULT_ADVERT_IMAGE_URL = "http://www.99taofang.com/Content/Resources/Advert/";
 }

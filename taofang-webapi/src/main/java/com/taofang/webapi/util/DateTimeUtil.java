@@ -50,6 +50,11 @@ public class DatetimeUtil {
         return dateFormat.format(date);
     }
 
+    public static String tranDateAsString(Date date, String format){
+        SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+        return dateFormat.format(date);
+    }
+
     public static String tranCurrentStrMIN(){
         Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat(FORMAT_DEFAULT_YMD_MIN);
@@ -60,5 +65,6 @@ public class DatetimeUtil {
         Timestamp timestamp = tranDate("2013-05-06 11:23:42", FORMAT_DEFAULT);
         System.out.println(tranTimestamp(timestamp, FORMAT_DEFAULT));
         System.out.println(tranCurrentStrMIN());
+        System.out.println(tranDateAsString(new Date(), FORMAT_DEFAULT));
     }
 }

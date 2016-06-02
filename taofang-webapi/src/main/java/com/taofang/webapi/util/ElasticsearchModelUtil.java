@@ -14,15 +14,16 @@ public class ElasticsearchModelUtil {
                 "    \"from\": " + start + "," +
                 "    \"size\": " + limit + "," +
                 "    \"query\": {\n" +
-                "        \"query\" : {\n" +
                 "            \"query_string\" : {\n" +
-                "                \"query\" : \"" + name + "\",\n" +
-                "                \"fields\" : [\"d_aliasname.*\",\"d_name.*\",\"s_name.*^5\",\"p_name.*\",\"p_Material.*\"]\n" +
+                "                \"query\" : \"" + name.replaceAll("病", "") + "\",\n" +
+                "                \"fields\" : [\"d_aliasname.*\",\"d_name.*^2\",\"s_name.*^2\",\"p_name.*\",\"p_Material.*\"],\n" +
+                "                \"use_dis_max\" : true" +
                 "            }\n" +
-                "        }" +
                 "    }\n";
         if(!Strings.isNullOrEmpty(sortName)){
-            query += ",\"sort\":[{\"" + sortName + "\":{\"order\" : \"desc\"}},{\"p_Score\": {\"order\": \"desc\"}}]";
+            query += ",\"sort\":[{\"" + sortName + "\":{\"order\" : \"desc\"}},{\"_score\": {\"order\": \"desc\"}}]";
+        }else{
+            query += ",\"sort\":[{\"_score\":{\"order\": \"desc\"}},{\"p_Score\": {\"order\": \"asc\"}}]";
         }
         String fullQuery = "{\n" + query + "}";
         return fullQuery;

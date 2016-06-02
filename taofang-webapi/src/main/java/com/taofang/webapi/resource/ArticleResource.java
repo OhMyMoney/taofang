@@ -2,10 +2,7 @@ package com.taofang.webapi.resource;
 
 import com.google.common.base.Strings;
 import com.taofang.webapi.constant.ArticleCategory;
-import com.taofang.webapi.domain.ArticleDetailDomain;
-import com.taofang.webapi.domain.ArticlePaginationDomain;
-import com.taofang.webapi.domain.ArticleThumbDomain;
-import com.taofang.webapi.domain.RitucharyaPaginationDomain;
+import com.taofang.webapi.domain.*;
 import com.taofang.webapi.service.IArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -49,6 +46,16 @@ public class ArticleResource {
         RitucharyaPaginationDomain ritucharyaPagination = articleService.getRitucharyaPaginationDomain(ritucharya, page, pageSize);
 
         return ritucharyaPagination;
+    }
+
+    @GET
+    @Path("/ritucharya/list/video/{ritucharya}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public RitucharyaDomain getRitucharyaVideoByPath(@DefaultValue("0") @PathParam("ritucharya") int ritucharya,
+                                                     @DefaultValue("1") @QueryParam("lastId") int lastId) {
+        RitucharyaDomain ritucharyaDomain = articleService.getRitucharyaDomain(ritucharya, lastId);
+
+        return ritucharyaDomain;
     }
 
     @GET

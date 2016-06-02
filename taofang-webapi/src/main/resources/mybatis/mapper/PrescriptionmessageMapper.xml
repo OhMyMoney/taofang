@@ -25,15 +25,17 @@
 
   <select id="selectPrescriptionInfoById" resultType="com.taofang.webapi.bean.PrescriptionInfoBean">
     select
-      t1.ImageURL,
-      t1.CreateDate,
-      t1.CreatorName,
-      t2.PrescriptionID,
-      t2.Name,
+      t1.imageURL,
+      CONVERT(varchar(100), t1.CreateDate, 20) as createDateStr,
+      t1.createDate,
+      t1.creatorName,
+      t2.prescriptionID,
+      t2.name,
       t2.story,
       t2.productionAndUsage,
       t2.attentions,
-      t2.indication
+      t2.indication,
+      t2.audio
     from
       Prescription t1
         left join

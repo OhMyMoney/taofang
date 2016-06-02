@@ -27,16 +27,24 @@ public interface DtsimageMapper {
 
     /*Sql Server*/
     @Select({
-            "select top ${limit} id, Title, Image, Music from DTSImage",
+            "select top ${limit} id, Title, Image, Music, Category from DTSImage",
             "where Category = ${categoryId} and Music is not null",
             "and id not in",
             "(select top ${start} id from DTSImage",
-            "where Category = ${categoryId} and Music is not null order by Sequence)",
-            "order by Sequence"
+            "where Category = ${categoryId} and Music is not null order by id asc)",
+            "order by id asc"
     })
     @ResultMap("BaseResultMap")
     List<Dtsimage> selectByCategoryPagination(@Param("categoryId")int categoryId,
                                               @Param("start")int start,
                                               @Param("limit")int limit);
+
+    @Select({
+            "select top 1 id, Title, Image, Music, Category from DTSImage",
+            "where Category = ${categoryId} and id > ${videoId} order by id asc"
+    })
+    @ResultMap("BaseResultMap")
+    List<Dtsimage> selectByCategoryAndId(@Param("categoryId")int categoryId,
+                                         @Param("videoId")int videoId);
 
 }

@@ -1,13 +1,12 @@
 package com.taofang.webapi.resource;
 
 import com.taofang.webapi.constant.VCode;
-import com.taofang.webapi.domain.UserClickDomain;
-import com.taofang.webapi.domain.UserDetailDomain;
-import com.taofang.webapi.domain.UserDomain;
-import com.taofang.webapi.domain.UserViewDomain;
+import com.taofang.webapi.domain.*;
 import com.taofang.webapi.result.Result;
 import com.taofang.webapi.service.IUserService;
 import com.taofang.webapi.util.ResultUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.ws.rs.*;
@@ -20,6 +19,7 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("user")
 public class UserResource {
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserResource.class);
     @Autowired
     private IUserService userService;
 
@@ -66,6 +66,19 @@ public class UserResource {
         }else{
             return "fail";
         }
+    }
+
+    @POST
+    @Path("/wxqq")
+    @Consumes({MediaType.APPLICATION_JSON})
+    @Produces({MediaType.TEXT_PLAIN})
+    public String loginByWXQQ(UserWXQQLoginDomain userWXQQLogin){
+        Integer userId = null;
+        LOGGER.info(userWXQQLogin.getCode() + "; " + userWXQQLogin.getLoginType());
+        if(userWXQQLogin.getLoginType().equals("weixing")){
+            userId = userService.loginByWX(userWXQQLogin.getCode());
+        }
+        return userId == null ? "fail" : ("success;" + userId);
     }
 
     @POST

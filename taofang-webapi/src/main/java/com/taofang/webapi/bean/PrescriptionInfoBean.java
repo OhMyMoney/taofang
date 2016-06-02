@@ -1,6 +1,6 @@
 package com.taofang.webapi.bean;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 /**
  * @Desc
@@ -8,54 +8,81 @@ import java.sql.Timestamp;
  * @Create 2016-05-08
  */
 public class PrescriptionInfoBean {
-    private String ImageURL;
-    private Timestamp CreateDate;
-    private String CreatorName;
-    private Integer PrescriptionID;
-    private String Name;
+    private String imageURL;
+    private Date createDate;
+    private String createDateStr;
+    private String creatorName;
+    private Integer prescriptionID;
+    private String name;
     private String story;
     private String productionAndUsage;
     private String attentions;
     private String indication;
+    private String audio;
+
+    @Override
+    public String toString() {
+        return "PrescriptionInfoBean{" +
+                "imageURL='" + imageURL + '\'' +
+                ", createDate=" + createDate +
+                ", createDateStr='" + createDateStr + '\'' +
+                ", creatorName='" + creatorName + '\'' +
+                ", prescriptionID=" + prescriptionID +
+                ", name='" + name + '\'' +
+                ", story='" + story + '\'' +
+                ", productionAndUsage='" + productionAndUsage + '\'' +
+                ", attentions='" + attentions + '\'' +
+                ", indication='" + indication + '\'' +
+                ", audio='" + audio + '\'' +
+                '}';
+    }
 
     public String getImageURL() {
-        return ImageURL;
+        return imageURL;
     }
 
     public void setImageURL(String imageURL) {
-        ImageURL = imageURL;
+        this.imageURL = imageURL;
     }
 
-    public Timestamp getCreateDate() {
-        return CreateDate;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setCreateDate(Timestamp createDate) {
-        CreateDate = createDate;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public String getCreateDateStr() {
+        return createDateStr;
+    }
+
+    public void setCreateDateStr(String createDateStr) {
+        this.createDateStr = createDateStr;
     }
 
     public String getCreatorName() {
-        return CreatorName;
+        return creatorName;
     }
 
     public void setCreatorName(String creatorName) {
-        CreatorName = creatorName;
+        this.creatorName = creatorName;
     }
 
     public Integer getPrescriptionID() {
-        return PrescriptionID;
+        return prescriptionID;
     }
 
     public void setPrescriptionID(Integer prescriptionID) {
-        PrescriptionID = prescriptionID;
+        this.prescriptionID = prescriptionID;
     }
 
     public String getName() {
-        return Name;
+        return name;
     }
 
     public void setName(String name) {
-        Name = name;
+        this.name = name;
     }
 
     public String getStory() {
@@ -88,5 +115,13 @@ public class PrescriptionInfoBean {
 
     public void setIndication(String indication) {
         this.indication = indication;
+    }
+
+    public String getAudio() {
+        return audio;
+    }
+
+    public void setAudio(String audio) {
+        this.audio = audio;
     }
 }

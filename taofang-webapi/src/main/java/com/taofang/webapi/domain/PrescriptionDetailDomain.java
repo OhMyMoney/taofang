@@ -23,6 +23,8 @@ public class PrescriptionDetailDomain {
 
     private String imageUrl;
 
+    private String videoUrl;
+
     private String productionAndUsage;
 
     private String attentions;
@@ -83,6 +85,10 @@ public class PrescriptionDetailDomain {
     @XmlElement(name="imageUrl")
     public String getImageUrl() {
         return imageUrl;
+    }
+    @XmlElement(name="videoUrl")
+    public String getVideoUrl() {
+        return videoUrl;
     }
     @XmlElement(name="productionAndUsage")
     public String getProductionAndUsage() {
@@ -163,5 +169,9 @@ public class PrescriptionDetailDomain {
 
     public void setContentlinkList(List<RelationlinkDomain> contentlinkList) {
         this.contentlinkList = contentlinkList;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
     }
 }

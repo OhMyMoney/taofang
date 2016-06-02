@@ -1,5 +1,6 @@
 package com.taofang.webapi.service.impl;
 
+import com.google.common.base.Strings;
 import com.taofang.webapi.bean.CommentBean;
 import com.taofang.webapi.bean.PrescriptionInfoBean;
 import com.taofang.webapi.constant.ImageConstant;
@@ -75,7 +76,11 @@ public class PrescriptionService implements IPrescriptionService{
                 prescriptionDetail = PrescriptionModelUtil.trantranPrescriptionInfoBeanAsDetail(prescriptionInfoBeanList.get(0));
                 // 相关疾病
                 String diseaseNames = elasticsearchDao.searchDiseaseById(prescriptionId);
-                prescriptionDetail.setDiseaseNames(diseaseNames);
+                if(Strings.isNullOrEmpty(diseaseNames)){
+                    prescriptionDetail.setDiseaseNames("");
+                }else{
+                    prescriptionDetail.setDiseaseNames("<p>&nbsp;&nbsp;" + diseaseNames + "</p>");
+                }
                 // 评论数量
                 int commentCount = commentstarMapper.countCommentByPrescriptionID(prescriptionId);
                 prescriptionDetail.setCommentCount(commentCount);
@@ -94,6 +99,20 @@ public class PrescriptionService implements IPrescriptionService{
             }else{
                 prescriptionDetail = new PrescriptionDetailDomain(0);
             }
+        }catch(Exception e){
+            prescriptionDetail = new PrescriptionDetailDomain(0);
+            LOGGER.error(e.getMessage(), e);
+        }
+        return prescriptionDetail;
+    }
+
+    @Override
+    public PrescriptionDetailDomain getPrescriptionDetailDomain(String prescription, int pageId) {
+        PrescriptionDetailDomain prescriptionDetail;
+        try{
+            PrescriptionPaginationDomain prescriptionPagination = elasticsearchDao.searchPrescriptionPagination(prescription, "", 1, pageId, 1);
+            int prescriptionId = prescriptionPagination.getPrescriptionList().get(0).getPrescriptionId();
+            prescriptionDetail = getPrescriptionDetailDomain(prescriptionId);
         }catch(Exception e){
             prescriptionDetail = new PrescriptionDetailDomain(0);
             LOGGER.error(e.getMessage(), e);

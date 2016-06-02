@@ -67,6 +67,7 @@ function processArticleDetailData(data) {
     if(data.category == "WDGS" && data.videoUrl != ""){
         var onclickFunc = "playWDGSVideo(\"" + data.videoUrl + "\", \"" + data.articleTitle + "\")";
         $("#wdgsarticledetailcontentbutton").attr("onclick", onclickFunc);
+        playWDGSVideo(data.videoUrl, data.articleTitle);
     }else{
         $("#wdgsarticledetailcontentbutton").hide();
     }
@@ -82,20 +83,21 @@ function processArticleDetailData(data) {
         $('div.articledetailthumbimg').attr("onclick", onClickFunc);
         $('#articledetailthumbtext').html(data.thumbCount + "个表扬");
     }
-
-    var relationlinkList = data.relationlinkList;
-    var relationlinkListEnums = $("<table><tbody></tbody></table>");
-    for(var i=0; i< relationlinkList.length; i++){
-        var link = relationlinkList[i];
-        var onclickFunc="gotoArticleDetailPage(\"" + link.relationArticleCategory + "\", " + link.relationArticleId + ")";
-        var trEnum = $("<tr></tr>")
-            .append($("<td><div class='contentpointdiv'></div></td>"));
-        if(data.category == "WDGS"){
-            trEnum.append($("<td onclick='" + onclickFunc + "'><div>" + link.relationTitle + "</div></td>"));
-        }else{
-            trEnum.append($("<td><div>" + link.relationTitle + "</div></td>"));
+    if(data.category != "ZRLF"){
+        var relationlinkList = data.relationlinkList;
+        var relationlinkListEnums = $("<table><tbody></tbody></table>");
+        for(var i=0; i< relationlinkList.length; i++){
+            var link = relationlinkList[i];
+            var onclickFunc="gotoArticleDetailPage(\"" + link.relationArticleCategory + "\", " + link.relationArticleId + ")";
+            var trEnum = $("<tr></tr>")
+                .append($("<td><div class='contentpointdiv'></div></td>"));
+            if(data.category == "WDGS"){
+                trEnum.append($("<td onclick='" + onclickFunc + "'><div>" + link.relationTitle + "</div></td>"));
+            }else{
+                trEnum.append($("<td><div>" + link.relationTitle + "</div></td>"));
+            }
+            relationlinkListEnums.append(trEnum);
         }
-        relationlinkListEnums.append(trEnum);
     }
     $('#articledetailrelationlist').html(relationlinkListEnums);
     // 增加浏览
@@ -112,7 +114,7 @@ function processRitucharyaPaginationData(data) {
         var ritucharya = ritucharyaList[i];
         var videoPlayButtonId = "videoPlayButton" + ritucharya.ritucharyaId;
         var videoPlayTitleId = "videoPlayTitle" + ritucharya.ritucharyaId;
-        var onclickFunc = "playVideo(\"" + ritucharya.videoUrl + "\", \"" + ritucharya.ritucharyaTitle + "\", " + ritucharya.ritucharyaId + ")";
+        var onclickFunc = "playRitucharyaVideo(\"" + ritucharya.videoUrl + "\", \"" + ritucharya.ritucharyaTitle + "\", \"" + ritucharya.ritucharya + "\", " + ritucharya.ritucharyaId + ")";
 
         var contentListTrElems = $("<tr></tr>")
             .append($("<td><div class='jjysjkzscirclediv' onclick='" + onclickFunc + "'><div id='" + videoPlayButtonId + "' class='jjysjkzstrianglediv'></div></div></td>"))
@@ -124,6 +126,9 @@ function processRitucharyaPaginationData(data) {
     processPage(pagination.page, pagination.totalPage);
 
     $(".contentbodylist").html(contentListTableElems);
+    // 循环播放
+    playRitucharyaVideo(ritucharyaList[0].videoUrl, ritucharyaList[0].ritucharyaTitle, ritucharyaList[0].ritucharya, ritucharyaList[0].ritucharyaId);
+    // playVideo(ritucharyaList[0].videoUrl, ritucharyaList[0].ritucharyaTitle, ritucharyaList[0].ritucharyaId);
 }
 function processLiangfangPaginationData(data) {
     var pagination = data.pagination;
@@ -137,7 +142,8 @@ function processLiangfangPaginationData(data) {
         var prescriptionListEnums = $("<table><tbody></tbody></table>");
         for(var ip=0; ip<prescriptionList.length; ip++){
             var prescription = prescriptionList[ip];
-            var onclickFunc = "createLiangfangPage(\"DETAIL\", 0, 0, " + prescription.prescriptionId + ", 0)";
+            var currId = (pagination.page - 1) * pagination.pageSize + ip;
+            var onclickFunc = "gotoLiangfangDetailPage(\"" + data.prescription + "\", " + currId + ", " + pagination.totalCount + ", " + prescription.prescriptionId + ")";
             var score = prescription.prescriptionScore + "分";
             var prescriptionTrEnum = $("<tr></tr>")
                 .append($("<td><div class='contentpointdiv'></div></td>"))
@@ -190,13 +196,45 @@ function processLiangfangPaginationData(data) {
 function processLiangfangDetailData(data) {
     $("#liangfangcontentdetailcommentlistdiv").hide();
     $("#liangfangcontentdetailtitle").html(data.prescriptionTitle);
-    $("#liangfangcontentdetailauthor").html(data.author + "&nbsp;&nbsp;" + data.createTime);
+    if(data.videoUrl != ""){
+        var onclickFunc = "playWDGSVideo(\"" + data.videoUrl + "\", \"" + data.prescriptionTitle + "\")";
+        $("#wdgsarticledetailcontentbutton").attr("onclick", onclickFunc).show();
+        if(!$("#footer").is(":hidden")){
+            $('#wdgsarticledetailcontentbutton div').attr("class", "jjysjkzstrianglediv");
+            $("#footervideobutton").attr("class", "footervideostop");
+            document.getElementById("audiomp3").pause();
+        }
+        playWDGSVideo(data.videoUrl, data.prescriptionTitle);
+    }else{
+        $("#wdgsarticledetailcontentbutton").hide();
+    }
+    if(data.author == "" && data.createTime == ""){
+        $("#liangfangcontentdetailauthor").hide();
+    }else{
+        $("#liangfangcontentdetailauthor").html(data.author + "&nbsp;&nbsp;" + data.createTime);
+    }
     $("#liangfangcontentdetailstory").html(data.prescriptionStory);
     $("#liangfangcontentdetailimage").html($("<img src='" + data.imageUrl + "'/>"));
-    $("#liangfangcontentdetailmore_zzyf").html(data.productionAndUsage);
-    $("#liangfangcontentdetailmore_zysx").html(data.attentions);
-    $("#liangfangcontentdetailmore_xgjb").html(data.diseaseNames);
-    $("#liangfangcontentdetailmore_syzz").html(data.indication);
+    if(data.productionAndUsage == ""){
+        $("#liangfangcontentdetailmore_zzyf_div").hide();
+    }else{
+        $("#liangfangcontentdetailmore_zzyf").html(data.productionAndUsage);
+    }
+    if(data.attentions == ""){
+        $("#liangfangcontentdetailmore_zysx_div").hide();
+    }else{
+        $("#liangfangcontentdetailmore_zysx").html(data.attentions);
+    }
+    if(data.diseaseNames == ""){
+        $("#liangfangcontentdetailmore_xgjb_div").hide();
+    }else{
+        $("#liangfangcontentdetailmore_xgjb").html(data.diseaseNames);
+    }
+    if(data.indication == ""){
+        $("#liangfangcontentdetailmore_syzz_div").hide();
+    }else{
+        $("#liangfangcontentdetailmore_syzz").html(data.indication);
+    }
     $("#liangfangcontentdetailcommenttitle").html("查看用户评论(" + data.commentCount +")");
 
     var videolinkList = data.videolinkList;
@@ -225,6 +263,8 @@ function processLiangfangDetailData(data) {
         contentlinkListEnums.append(trEnum);
     }
     $("#liangfangrelationlinklist").html(contentlinkListEnums);
+    // 换一个偏方按钮的方法
+    $("#liangfangnextdetailbutton").attr("onclick", "nextLiangfangDetail()");
     // 增加浏览
     postUserView("liangfang", data.prescriptionId, data.prescriptionTitle)
 }
@@ -239,7 +279,7 @@ function processLiangfangCommentData(data) {
             .append($("<td><div class='liangfangcommentmemberdiv'>" +
                 "<div class='liangfangcommentmember'>" + comment.memberName + "</div>" +
                 "<div class='liangfangcommentscore'>" +  comment.score + "分" + "</div>" +
-                "<div class='liangfangcommenttime'>" +  comment.commentTime + "</div></div>" +
+                // "<div class='liangfangcommenttime'>" +  comment.commentTime + "</div></div>" +
                 "<div class='liangfangcommentexperience'>" + comment.commentContent + "</div></td>"));
         commentsEnum.append(commentTrEnum);
     }
@@ -314,8 +354,54 @@ function processWordStatisticsData(data) {
     var wordSearchList = data.wordSearchList;
     mockBubbleChart(wordSearchList);
 }
+function processAdvertData(data) {
+    var adList = data.advertisementList;
+    var sWidth = $(document).width();
+    var sHeight = sWidth * 0.4;
+    var contentFooterAds = $("<div></div>");
+    if(adList.length == 0){
+        contentFooterAds
+            .append($("<img src='/image/ads/yhxq.jpg' title='养护血气' />"))
+            .append($("<img src='/image/ads/yhxb.jpg' title='养护细胞' />"))
+            .append($("<img src='/image/ads/sypw.jpg' title='始于脾胃' />"));
+        $("#footeradimg").html(contentFooterAds);
+        $(".footeraddiv").attr("style", "height:" + (sHeight + 40) + "px");
+        $(".footeraddiv .footeradimg").attr("style","width:"+ 3*sWidth + "px;height:" + sHeight + "px;");
+        $(".footeraddiv .footeradimg img").attr("style","width:"+ sWidth + "px;height:" + sHeight + "px;");
+    }else if(adList.length == 1){
+        $("#footeradimg").html($("<img src='" + adList[0].adImage + "' title='" + adList[0].adTitle + "' />"));
+        var sWidth = $(document).width();
+        var sHeight = sWidth * 0.4;
+        $("div.footeradbtn").hide();
+        $(".footeraddiv").attr("style", "height:" + (sHeight + 20) + "px");
+        $(".footeraddiv .footeradimg").attr("style","width:"+ sWidth + "px;height:" + sHeight + "px;");
+        $(".footeraddiv .footeradimg img").attr("style","width:"+ sWidth + "px;height:" + sHeight + "px;");
+        zBase.config.index=0;
+    }else{
+        for(var i=0; i<3; i++){
+            var ad;
+            if(i >= adList.length){
+                ad = adList[0];
+            }else{
+                ad = adList[i];
+            }
+            contentFooterAds.append($("<img src='" + ad.adImage + "' title='" + ad.adTitle + "' />"));
+        }
+        $("#footeradimg").html(contentFooterAds);
+        $(".footeraddiv").attr("style", "height:" + (sHeight + 40) + "px");
+        $(".footeraddiv .footeradimg").attr("style","width:"+ 3*sWidth + "px;height:" + sHeight + "px;");
+        $(".footeraddiv .footeradimg img").attr("style","width:"+ sWidth + "px;height:" + sHeight + "px;");
+    }
+}
 function doUserViewData(data) {
     console.log(data);
+}
+function doUserCollectData(data) {
+    if(data == "success"){
+        createUserCollectResultPopup("收藏成功");
+    }else{
+        createUserCollectResultPopup("已经收藏");
+    }
 }
 function processArticleThumbData(data) {
     $('#articledetailthumbtext').html(data + "个表扬");
@@ -346,4 +432,13 @@ function insertEmptyModuleElems() {
     }
     text += "数据";
     $("#usercenter").html("<div class='usercenteremptyblockdiv'></div><div class='usercenteremptydiv'>" + text +"</div>");
+}
+
+function processNextJJYSVideoData(data) {
+    if(data.ritucharyaId != 0){
+        playRitucharyaVideo(data.videoUrl, data.ritucharyaTitle, data.ritucharya, data.ritucharyaId);
+    }else{
+        $("#footervideobutton").attr("class", "footervideostop");
+        document.getElementById("audiomp3").pause();
+    }
 }

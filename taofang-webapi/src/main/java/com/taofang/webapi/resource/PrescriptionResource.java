@@ -45,6 +45,16 @@ public class PrescriptionResource {
     }
 
     @GET
+    @Path("/next/detail")
+    @Produces({MediaType.APPLICATION_JSON})
+    public PrescriptionDetailDomain getPrescriptionDetailByName(@DefaultValue("") @QueryParam("prescription") String prescription,
+                                                                @DefaultValue("0") @QueryParam("pageId") int pageId){
+        PrescriptionDetailDomain prescriptionDetail = prescriptionService.getPrescriptionDetailDomain(prescription, pageId);
+
+        return prescriptionDetail;
+    }
+
+    @GET
     @Path("/comment/{id}")
     @Produces({MediaType.APPLICATION_JSON})
     public PrescriptionCommentDomain getPrescriptionCommentById(@DefaultValue("0") @PathParam("id") int id){

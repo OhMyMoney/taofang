@@ -161,4 +161,21 @@ public class ArticleService implements IArticleService{
             return 0;
         }
     }
+
+    @Override
+    public RitucharyaDomain getRitucharyaDomain(int ritucharya, int lastVideoId) {
+        RitucharyaDomain ritucharyaDomain = new RitucharyaDomain();
+        try{
+            List<Dtsimage> dtsimageList = dtsimageMapper.selectByCategoryAndId(ritucharya, lastVideoId);
+            if(dtsimageList.size() > 0){
+                ritucharyaDomain = ArticleModelUtil.tranDtsimage(dtsimageList.get(0));
+            }else{
+                ritucharyaDomain.setRitucharyaId(0);
+            }
+        }catch(Exception e){
+            ritucharyaDomain.setRitucharyaId(0);
+            LOGGER.error(e.getMessage(), e);
+        }
+        return ritucharyaDomain;
+    }
 }

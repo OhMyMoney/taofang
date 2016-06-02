@@ -24,6 +24,8 @@ public interface IUserService {
 
     boolean sendSMSVcode(String phoneNumber);
 
+    Integer loginByWX(String code);
+
     /**
      * 验证用户登录条件
      * @param user

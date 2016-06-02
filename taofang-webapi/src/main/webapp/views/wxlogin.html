@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>微信登录</title>
+    <link rel="stylesheet" href="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script type="text/javascript" src="/js/plugin/jquery.cookie.js"></script>
+    <script type="text/javascript" src="/js/taofang-ajax.js"></script>
+    <script>
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+            if (r != null) return unescape(r[2]); return null; //返回参数值
+        }
+        function doLoginData(data) {
+            var loginResult = data.split(";");
+            if(loginResult[0] == "success"){
+                $.cookie('userId', loginResult[1], {expires: 7, path: '/'});
+            }
+            location.href = "/views/taofang.html";
+        }
+        $(document).ready(function () {
+            var code = getUrlParam("code");
+            var state = getUrlParam("state");
+            $.ajax({
+                timeout: 5000,
+                url: ajaxBaseUrl + "/user/wxqq",
+                contentType: "application/json",
+                data: JSON.stringify({code:code, loginType:"weixing"}),
+                type: "post",
+                success: doLoginData
+            });
+        });
+    </script>
+</head>
+<body>
+
+</body>
+</html>

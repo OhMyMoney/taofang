@@ -27,29 +27,4 @@
     <result column="Summary" jdbcType="NVARCHAR" property="summary" />
     <result column="Symptom" jdbcType="NVARCHAR" property="symptom" />
   </resultMap>
-
-  <select id="countHealthVoiceByVideoDate" resultType="java.lang.Integer">
-    select
-      count(*)
-    from
-      article
-    where
-      Category = 4
-      <if test="videoDate != null">
-        and VideoDate = #{videoDate, jdbcType=TIMESTAMP}
-      </if>
-  </select>
-  <select id="selectHealthVoiceByVideoDate" resultMap="ResultMapWithBLOBs">
-    select
-      ArticleID, ArticleName, Video
-    from
-      article
-    where
-      Category = 4
-      <if test="videoDate != null">
-        and VideoDate = #{videoDate, jdbcType=TIMESTAMP}
-      </if>
-    order by VideoDate desc
-    limit #{start}, #{limit}
-  </select>
 </mapper>

@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0">
     <title>九九淘方网</title>
     <link rel="stylesheet" href="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.css">
     <link rel="stylesheet" href="/css/plugin/mobiscroll.custom-2.6.2.min.css" />
+    <link rel="stylesheet" href="/css/plugin/luara.css" />
     <link rel="stylesheet" href="/css/plugin/audioplayer.css" />
     <link rel="stylesheet" href="/css/taofang-navigation.css" />
     <link rel="stylesheet" href="/css/taofang-common.css" />
@@ -13,9 +14,11 @@
     <link rel="stylesheet" href="/css/taofang-bubble.css" />
     <script src="http://apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="http://apps.bdimg.com/libs/jquerymobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
     <script type="text/javascript" src="/js/plugin/jquery.cookie.js"></script>
     <script type="text/javascript" src="/js/plugin/audioplayer.min.js"></script>
     <script type="text/javascript" src="/js/plugin/mobiscroll.custom-2.6.2.min.js"></script>
+    <script type="text/javascript" src="/js/plugin/jquery.luara.0.0.1.min.js"></script>
     <script type="text/javascript" src="/js/taofang-html.js"></script>
     <script type="text/javascript" src="/js/taofang-ajax.js"></script>
     <script type="text/javascript" src="/js/taofang-common.js"></script>
@@ -28,6 +31,7 @@
         });
         $(document).click(function(){
             closeLRNavigationPopup();
+            closeSCFXPopup();
         });
     </script>
 </head>
@@ -35,13 +39,22 @@
     <div data-role="page">
         <div id="navigation" data-role="panel">
         </div>
-        <div id="header" data-role="header">
+        <div id="header" data-role="header" data-position="none">
         </div>
         <div id="content" data-role="content" class="content">
             <div id="contentbodydiv">
             </div>
             <div id="contentfooterdiv" class="contentfooterdiv">
                 <div id="contentfooteraddiv" class="contentfooteraddiv">
+                    <div id='footeraddiv' class='footeraddiv'>
+                        <div id='footeradimg' class='footeradimg'></div>
+                        <div class='footeradbtn'>
+                            <a data-role='none' href='#' class='hover'>●</a>
+                            <a data-role='none' href='#'>●</a>
+                            <a data-role='none' href='#'>●</a>
+                        </div>
+                        <script src='/js/taofang-ad.js'></script>
+                    </div>
                 </div>
                 <div id="contentfooterswitchdiv" class="contentfooterswitchdiv">
                 </div>

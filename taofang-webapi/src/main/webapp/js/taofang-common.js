@@ -65,6 +65,7 @@ function processPage(curPage, totalPage) {
 function playVideo(videoUrl, title, id) {
     $.cookie('videoUrl', videoUrl, {expires: 7, path: '/'});
     $.cookie('videoTitle', title, {expires: 7, path: '/'});
+    $.cookie('JJYSVideoId', 0, {expires: 7, path: '/'});
     var videoPlayButtonClass = $('#videoPlayButton' + id).attr("class");
     if(videoPlayButtonClass == "jjysjkzsparalleldiv"){
         $('#videoPlayButton' + id).attr("class", "jjysjkzstrianglediv");
@@ -92,6 +93,7 @@ function playVideo(videoUrl, title, id) {
 function playWDGSVideo(videoUrl, title) {
     $.cookie('videoUrl', videoUrl, {expires: 7, path: '/'});
     $.cookie('videoTitle', title, {expires: 7, path: '/'});
+    $.cookie('JJYSVideoId', 0, {expires: 7, path: '/'});
     var videoPlayButtonClass = $('#wdgsarticledetailcontentbutton div').attr("class");
     if(videoPlayButtonClass == "jjysjkzsparalleldiv"){
         $('#wdgsarticledetailcontentbutton div').attr("class", "jjysjkzstrianglediv");
@@ -118,8 +120,90 @@ function playFooterVideo(){
     if(footervideobuttonClass == "footervideostop"){
         $("#footervideobutton").attr("class", "footervideoplay");
         videoplay.play();
+        checkVideoStop(1);
     }else{
         $("#footervideobutton").attr("class", "footervideostop");
         videoplay.pause();
     }
+}
+function playRitucharyaVideo(videoUrl, title, ritucharya, id) {
+    $.cookie('videoUrl', videoUrl, {expires: 7, path: '/'});
+    $.cookie('videoTitle', title, {expires: 7, path: '/'});
+    $.cookie('videoFrom', "JJYS;" + ritucharya + ";" + id, {expires: 7, path: '/'});
+    $.cookie('JJYSVideoId', id, {expires: 7, path: '/'});
+    $('div.jjysjkzscirclediv div').attr("class", "jjysjkzstrianglediv");
+    $('#jjysjkzslisttable tbody tr td:nth-child(2) div').attr("class", "jjysjkzsvideotitle1");
+    $('#videoPlayButton' + id).attr("class", "jjysjkzsparalleldiv");
+    $('#videoPlayTitle' + id).attr("class", "jjysjkzsvideotitle2");
+    if($("#footer").is(":hidden")){
+        $("#footer").attr("data-position", "fixed");
+        $("#footer").addClass("ui-footer-fixed").addClass("slideup");
+        $("div.declarediv").attr("style", "height:140px");
+        $("#footer").show();
+        isFirstLoad = false;
+    }
+    doPlayFooterVideo(videoUrl, title, id);
+}
+function doPlayFooterVideo(videoUrl, videoTitle, id) {
+    var videoplay = document.getElementById("audiomp3");
+    if($("#footervideobutton").attr("class") == "footervideoplay"){
+        $("#footervideobutton").attr("class", "footervideostop");
+        videoplay.pause();
+    }
+    $("div.footervideotitle").html(videoTitle);
+    $("#audiomp3").attr("src", videoUrl);
+    $("#footervideobutton").attr("class", "footervideoplay");
+    videoplay.play();
+    checkFooterVideoStop(id);
+}
+function checkFooterVideoStop(id) {
+    if(id != $.cookie('JJYSVideoId')){
+        return;
+    }
+    setTimeout(function() {
+        if(document.getElementById("audiomp3").ended){
+            var videoFrom = $.cookie('videoFrom');
+            var cookieBad = typeof(videoFrom) == "undefined" || !videoFrom || videoFrom == "";
+            if(!cookieBad){
+                var videoFromArr = videoFrom.split(";");
+                if(videoFromArr[0] == "JJYS"){
+                    getNextJJYSVideo(videoFromArr[1], videoFromArr[2]);
+                }
+            }
+        }else{
+            checkFooterVideoStop(id);
+        }
+    }, 1000);
+}
+
+
+function playLoopJJYSVideo(ritucharyaList, index, flag) {
+    if(flag == 0 || index >= ritucharyaList.length){
+        return;
+    }
+    playVideo(ritucharyaList[index].videoUrl, ritucharyaList[index].ritucharyaTitle, ritucharyaList[index].ritucharyaId);
+    checkLoopVideoStop(ritucharyaList, index, flag);
+}
+function checkLoopVideoStop(ritucharyaList, index, flag) {
+    setTimeout(function() {
+        if(document.getElementById("audiomp3").ended){
+            playLoopJJYSVideo(ritucharyaList, index+1, flag)
+        }else{
+            checkLoopVideoStop(ritucharyaList, index, flag);
+        }
+    }, 1000);
+}
+
+function checkVideoStop(flag) {
+    if(flag == 0){
+        $("#footervideobutton").attr("class", "footervideostop");
+        return true;
+    }
+    setTimeout(function() {
+        if(document.getElementById("audiomp3").ended){
+            checkVideoStop(0);
+        }else{
+            checkVideoStop(1);
+        }
+    }, 1000);
 }

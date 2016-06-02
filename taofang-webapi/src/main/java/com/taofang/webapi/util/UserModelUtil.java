@@ -2,6 +2,7 @@ package com.taofang.webapi.util;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Strings;
+import com.taofang.webapi.bean.LoginUserBean;
 import com.taofang.webapi.bean.UserArticleBean;
 import com.taofang.webapi.constant.ImageConstant;
 import com.taofang.webapi.constant.TaofangModule;
@@ -23,11 +24,15 @@ public class UserModelUtil {
     public static UserDomain tranMemberAsUserDomain(Member member){
         UserDomain userDomain = new UserDomain();
         userDomain.setUserId(Optional.fromNullable(member.getMemberid()).or(0));
-        userDomain.setUserName(Optional.fromNullable(member.getMembername()).or(""));
+        userDomain.setUserName(Optional.fromNullable(member.getNickname()).or(""));
         if(Strings.isNullOrEmpty(member.getIcon())){
             userDomain.setIcon(ImageConstant.DEFAULT_HEAD_PORTRAIT_URL);
         }else{
-            userDomain.setIcon(ImageConstant.HEAD_PORTRAIT_URL + member.getIcon());
+            if(member.getIcon().contains("wx.qlogo.cn")){
+                userDomain.setIcon(member.getIcon());
+            }else{
+                userDomain.setIcon(ImageConstant.HEAD_PORTRAIT_URL + member.getIcon());
+            }
         }
         return userDomain;
     }
@@ -36,6 +41,17 @@ public class UserModelUtil {
         Member member = new Member();
         member.setMembername(userDomain.getUserName());
         member.setPassword(MD5Util.GetMD5Code(userDomain.getPassword()));
+        return member;
+    }
+
+    public static Member tranLoginUserBeanAsMember(LoginUserBean loginUser){
+        Member member = new Member();
+        member.setMembername(loginUser.getOpenid());
+        member.setPassword(MD5Util.GetMD5Code("123456"));
+        member.setSex(loginUser.getSex());
+        member.setNickname(loginUser.getNickname());
+        member.setIcon(loginUser.getHeadimgurl().replaceAll("\\/", "/"));
+
         return member;
     }
 

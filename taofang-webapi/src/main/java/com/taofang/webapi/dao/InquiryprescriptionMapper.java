@@ -11,7 +11,7 @@ public interface InquiryprescriptionMapper {
     @Select({
             "select InquiryID, Title, createdBy, createdDate",
             "from InquiryPrescription",
-            "where createdBy = ${createdBy}"
+            "where createdBy = '${createdBy}'"
     })
     @ResultMap("BaseResultMap")
     List<Inquiryprescription> selectByCreatedBy(@Param("createdBy") int createdBy);

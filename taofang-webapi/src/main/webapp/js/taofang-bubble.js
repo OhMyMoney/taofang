@@ -1,115 +1,18 @@
 var sWidth = $(document).width();
-var sHeight = 280;
-$(".homeheaderdiseaseshow").attr("style","width:"+ 3*sWidth*0.96 + "px;height:" + sHeight + "px;");
-$(".homeheaderdisease").attr("style","width:"+ sWidth*0.96 + "px;height:" + sHeight + "px;");
-var diseaseBase = {
-    config:{
-        index:0,
-        auto:true,
-        direct:'left'
-    },
-    init:function(){
-        this.slide = this.$id('homeheaderdiseasediv');
-        this.img_div = this.$c('homeheaderdiseaseshow')[0],
-        this.slide_btn = this.$tag('a',this.$c('homeheaderdiseasebutt')[0]);
-        this.img_arr = this.$tag1('div','homeheaderdisease',this.img_div);
-        if(this.config.auto) this.play();
-        this.hover();
-    },
-    $id:function(id){return document.getElementById(id);},
-    $tag:function(tagName,obj){return (obj ?obj : document).getElementsByTagName(tagName);	},
-    $tag1:function(tagName, className, obj){
-        var tags = obj.getElementsByTagName(tagName), arr=[];
-        for(var i=0;i<tags.length;i++){
-            if (tags[i].className == className){
-                arr.push(tags[i]);
-            }
-        }
-        return arr;
-    },
-    $c: function (claN,obj){
-        var tag = this.$tag('*'),reg = new RegExp('(^|\\s)'+claN+'(\\s|$)'),arr=[];
-        for(var i=0;i<tag.length;i++){
-            if (reg.test(tag[i].className)){
-                arr.push(tag[i]);
-            }
-        }
-        return arr;
-    },
-    $add:function(obj,claN){
-        reg = new RegExp('(^|\\s)'+claN+'(\\s|$)');
-        if (!reg.test(obj.className)){
-
-            obj.className += ' '+claN;
-        }
-    },
-    $remve:function(obj,claN){var cla=obj.className,reg="/\\s*"+claN+"\\b/g";obj.className=cla?cla.replace(eval(reg),''):''},
-    css:function(obj,attr,value){
-        if(value){
-            obj.style[attr] = value;
-        }else{
-            return  typeof window.getComputedStyle != 'undefined' ? window.getComputedStyle(obj,null)[attr] : obj.currentStyle[attr];
-        }
-    },
-    animate:function(obj,attr,val){
-        var d = 1000;//动画时间一秒完成。
-        if(obj[attr+'timer']) clearInterval(obj[attr+'timer']);
-        var start = parseInt(diseaseBase.css(obj,attr));//动画开始位置
-        //space = 动画结束位置-动画开始位置，即动画要运动的距离。
-        var space =  val- start,st=(new Date).getTime(),m=space>0? 'ceil':'floor';
-        obj[attr+'timer'] = setInterval(function(){
-            var t=(new Date).getTime()-st;//表示运行了多少时间，
-            if (t < d){//如果运行时间小于动画时间
-                diseaseBase.css(obj,attr,Math[m](diseaseBase.easing['easeOut'](t,start,space,d)) +'px');
-            }else{
-                clearInterval(obj[attr+'timer']);
-                diseaseBase.css(obj,attr,top+space+'px');
-            }
-        },20);
-    },
-    play:function(){
-        this.slide.timer = setInterval(function(){
-            diseaseBase.config.index++;
-            if(diseaseBase.config.index>=diseaseBase.img_arr.length) diseaseBase.config.index=0;//如果当前索引大于图片总数，把索引设置0
-
-            diseaseBase.animate(diseaseBase.img_div,diseaseBase.config.direct,-diseaseBase.config.index*sWidth);
-            for(var j=0;j<diseaseBase.slide_btn.length;j++){
-                diseaseBase.$remve(diseaseBase.slide_btn[j],'hoverhearer');
-            }
-            diseaseBase.$add(diseaseBase.slide_btn[diseaseBase.config.index],'hoverhearer');
-            $("#homeheaderdiseasediv").attr("style", "background-image:url('/image/bg/paopaobg" + diseaseBase.config.index + ".png')");
-
-        },10000)
-
-
-    },
-    hover:function(){
-        for(var i=0;i<this.slide_btn.length;i++){
-            this.slide_btn[i].index = i;//储存每个导航的索引值
-            this.slide_btn[i].onmouseover = function(){
-                if(diseaseBase.slide.timer) clearInterval(diseaseBase.slide.timer);
-                diseaseBase.config.index =this.index;
-
-                for(var j=0;j<diseaseBase.slide_btn.length;j++){
-                    diseaseBase.$remve(diseaseBase.slide_btn[j],'hoverhearer') ;
-                }
-                diseaseBase.$add(diseaseBase.slide_btn[diseaseBase.config.index],'hoverhearer');
-                diseaseBase.animate(diseaseBase.img_div,diseaseBase.config.direct,-diseaseBase.config.index*sWidth);
-            }
-            this.slide_btn[i].onmouseout = function(){
-                diseaseBase.play();
-            }
-        }
-    },
-    easing :{
-        linear:function(t,b,c,d){return c*t/d + b;},
-        swing:function(t,b,c,d) {return -c/2 * (Math.cos(Math.PI*t/d) - 1) + b;},
-        easeIn:function(t,b,c,d){return c*(t/=d)*t*t*t + b;},
-        easeOut:function(t,b,c,d){return -c*((t=t/d-1)*t*t*t - 1) + b;},
-        easeInOut:function(t,b,c,d){return ((t/=d/2) < 1)?(c/2*t*t*t*t + b):(-c/2*((t-=2)*t*t*t - 2) + b);}
-    }
-};
-diseaseBase.init();
+var sHeight = 300;
+var count = 0;
+$(function(){
+    $(".homeheaderdiseaseshow").luara({width:sWidth*0.96,height:sHeight,interval:10000,selected:"seleted"});
+    changeBackground();
+});
+function changeBackground() {
+    var index = count % 3;
+    count += 1;
+    $("#homeheaderdiseasediv").attr("style", "background-image:url('/image/bg/paopaobg" + index + ".png')");
+    setTimeout(function () {
+        changeBackground();
+    }, 10000)
+}
 
 function mockBubbleChart(wordsearchlist) {
     var wordSearchElems1 = $("<div></div>");

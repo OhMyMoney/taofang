@@ -1,4 +1,7 @@
-var ajaxBaseUrl = "http://localhost:8080/taofang/webapi";
+var ajaxBaseUrl = "http://m.99taofang.com/taofang/webapi";
+var wxloginUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx0f263786638d7cac"
+    + "&redirect_uri=http%3a%2f%2fm.99taofang.com%2fviews%2fwxlogin.html"
+    + "&response_type=code&scope=snsapi_userinfo&state=99taofang#wechat_redirect";
 
 function getLiangfangList(prescription, order, page, pageSize) {
     var ajaxUrl = ajaxBaseUrl + "/prescription/list?prescription=" + prescription + "&page=" + page + "&pageSize=" + pageSize;
@@ -10,6 +13,13 @@ function getLiangfangList(prescription, order, page, pageSize) {
 }
 function getLiangfangDetail(prescriptionId) {
     var ajaxUrl = ajaxBaseUrl + "/prescription/detail/" + prescriptionId;
+    $.ajax({
+        url: ajaxUrl,
+        success: processLiangfangDetailData
+    });
+}
+function getNextLiangfangDetail(prescription, pageId) {
+    var ajaxUrl = ajaxBaseUrl + "/prescription/next/detail?prescription=" + prescription + "&pageId=" + pageId;
     $.ajax({
         url: ajaxUrl,
         success: processLiangfangDetailData
@@ -104,6 +114,13 @@ function getWordStatistics() {
         success: processWordStatisticsData
     });
 }
+function getNextJJYSVideo(ritucharya, id) {
+    var ajaxUrl = ajaxBaseUrl + "/article/ritucharya/list/video/" + ritucharya + "?lastId=" + id;
+    $.ajax({
+        url: ajaxUrl,
+        success: processNextJJYSVideoData
+    });
+}
 function postUserView(moduleName, clickId, clickTitle) {
     var userId = $.cookie('userId');
     var notPost = typeof(userId) == "undefined" || !userId || userId == "";
@@ -117,6 +134,17 @@ function postUserView(moduleName, clickId, clickTitle) {
             success: doUserViewData
         });
     }
+}
+function postUserCollect(userId, clickId, clickTitle) {
+    //
+    $.ajax({
+        timeout: 5000,
+        url: ajaxBaseUrl + "/user/collect/" + userId,
+        contentType: "application/json",
+        data: JSON.stringify({userId:parseInt(userId), viewModuleId:0, viewModuleName:"liangfang", clickId:clickId, clickTitle:clickTitle}),
+        type: "post",
+        success: doUserCollectData
+    });
 }
 function getArticleThumb(articleId) {
     $.ajax({
@@ -142,6 +170,12 @@ function sendSMSVCode(phoneNumber){
     $.ajax({
         url: ajaxBaseUrl + "/user/sms/" + phoneNumber,
         success: processSMSVCodeData
+    });
+}
+function getAdsByModule(module){
+    $.ajax({
+        url: ajaxBaseUrl + "/ad/" + module,
+        success: processAdvertData
     });
 }
 
@@ -191,7 +225,7 @@ function register() {
 }
 // 微信登录
 function loginByWX(){
-
+    window.location = wxloginUrl;
 }
 // QQ登录
 function loginByQQ() {

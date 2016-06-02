@@ -66,23 +66,42 @@ public class PrescriptionModelUtil {
         prescriptionDetail.setAuthor(Optional.fromNullable(prescriptionInfoBean.getCreatorName()).or(""));
         if(!Strings.isNullOrEmpty(prescriptionInfoBean.getProductionAndUsage())){
             prescriptionDetail.setProductionAndUsage(prescriptionInfoBean.getProductionAndUsage().replaceAll("/Content/Resources/", ImageConstant.IMAGE_BASE_URL));
+        }else{
+            prescriptionDetail.setProductionAndUsage("");
         }
         if(!Strings.isNullOrEmpty(prescriptionInfoBean.getAttentions())){
             prescriptionDetail.setAttentions(prescriptionInfoBean.getAttentions().replaceAll("/Content/Resources/", ImageConstant.IMAGE_BASE_URL));
+        }else{
+            prescriptionDetail.setAttentions("");
         }
         if(!Strings.isNullOrEmpty(prescriptionInfoBean.getIndication())){
-            prescriptionDetail.setIndication(prescriptionInfoBean.getIndication().replaceAll("/Content/Resources/", ImageConstant.IMAGE_BASE_URL));
+            if(prescriptionInfoBean.getIndication().contains("<p>")){
+                prescriptionDetail.setIndication(prescriptionInfoBean.getIndication().replaceAll("/Content/Resources/", ImageConstant.IMAGE_BASE_URL));
+            }else{
+                prescriptionDetail.setIndication("<p>&nbsp;&nbsp;" + prescriptionInfoBean.getIndication().replaceAll("/Content/Resources/", ImageConstant.IMAGE_BASE_URL) + "</p>");
+            }
+        }else{
+            prescriptionDetail.setIndication("");
         }
         if(!Strings.isNullOrEmpty(prescriptionInfoBean.getStory())){
             prescriptionDetail.setPrescriptionStory(prescriptionInfoBean.getStory().replaceAll("/Content/Resources/", ImageConstant.IMAGE_BASE_URL));
+        }else{
+            prescriptionDetail.setPrescriptionStory("");
         }
         if(!Strings.isNullOrEmpty(prescriptionInfoBean.getImageURL())){
             prescriptionDetail.setImageUrl(ImageConstant.IMAGE_BASE_URL + prescriptionInfoBean.getImageURL());
         }else{
             prescriptionDetail.setImageUrl("");
         }
-        if(prescriptionInfoBean.getCreateDate() != null){
-            prescriptionDetail.setCreateTime(DatetimeUtil.tranTimestamp(prescriptionInfoBean.getCreateDate(), DatetimeUtil.FORMAT_DEFAULT));
+        if(!Strings.isNullOrEmpty(prescriptionInfoBean.getCreateDateStr())){
+            prescriptionDetail.setCreateTime(prescriptionInfoBean.getCreateDateStr());
+        }else{
+            prescriptionDetail.setCreateTime("");
+        }
+        if(!Strings.isNullOrEmpty(prescriptionInfoBean.getAudio())){
+            prescriptionDetail.setVideoUrl(prescriptionInfoBean.getAudio());
+        }else{
+            prescriptionDetail.setVideoUrl("");
         }
 
         return prescriptionDetail;

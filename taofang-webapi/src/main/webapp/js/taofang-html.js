@@ -1,6 +1,11 @@
 var isFirstLoad = true;
 function createHomePage() {
     $("#navigation").panel("close");
+    $("#header")
+        .attr("data-position", "none")
+        .removeClass("ui-header-fixed")
+        .removeClass("slideup");
+    $("#content").addClass("content_withouttop").removeClass("content_withtop");
     insertPanelNavigation();
     insertHomeHeader();
     insertHomeContentBody();
@@ -8,32 +13,54 @@ function createHomePage() {
     createFooter();
 }
 function createUserPage() {
+    $("#header")
+        .attr("data-position", "fixed")
+        .addClass("ui-header-fixed")
+        .addClass("slideup");
+    $("#content").addClass("content_withtop").removeClass("content_withouttop");
     insertUserinfoHeader();
     insertUserinfoContent();
+    getAdsByModule("USER");
 }
 function createLiangfangPage(role, page, pageSize, prescription, order) {
+    $("#navigation").panel("close");
+    $("#header")
+        .attr("data-position", "fixed")
+        .addClass("ui-header-fixed")
+        .addClass("slideup");
+    $("#content").addClass("content_withtop").removeClass("content_withouttop");
     insertLiangfangHeader(role, prescription);
     insertLiangfangContent(role, page, pageSize, prescription, order);
+    if(role == "LIST"){
+        getAdsByModule("LF_LIST");
+    }else{
+        getAdsByModule("LF_DETAIL");
+    }
 }
 function createJKZSPage(role, page, pageSize, articleId) {
     insertArticleHeader("JKZS", "健康之声", role);
     insertArticleContent("JKZS", role, page, pageSize, articleId);
+    getAdsByModule("JKZS");
 }
 function createWDGSPage(role, page, pageSize, articleId) {
     insertArticleHeader("WDGS", "我的故事", role);
     insertArticleContent("WDGS", role, page, pageSize, articleId);
+    getAdsByModule("WDGS");
 }
 function createZRLFPage(role, page, pageSize, articleId) {
     insertArticleHeader("ZRLF", "自然疗法", role);
     insertArticleContent("ZRLF", role, page, pageSize, articleId);
+    getAdsByModule("ZRLF");
 }
 function createJJYSPage(role, page, pageSize, articleId) {
     insertArticleHeader("JJYS", "季节养生", role);
     insertArticleContent("JJYS", role, page, pageSize, articleId);
+    getAdsByModule("JJYS");
 }
 function createJKZXPage(role, page, pageSize, articleId) {
     insertArticleHeader("JKZX", "健康资讯", role);
     insertArticleContent("JKZX", role, page, pageSize, articleId);
+    getAdsByModule("JKZX");
 }
 function gotoPageByType(type) {
     if (type == "pc"){
@@ -70,6 +97,11 @@ function gotoBackPage(role) {
 }
 function gotoArticlePage(article, page, pageSize) {
     $("#navigation").panel("close");
+    $("#header")
+        .attr("data-position", "fixed")
+        .addClass("ui-header-fixed")
+        .addClass("slideup");
+    $("#content").addClass("content_withtop").removeClass("content_withouttop");
     if(article == "JKZS"){
         createJKZSPage("LIST", page, pageSize, 0);
     }else if(article == "WDGS"){
@@ -83,6 +115,11 @@ function gotoArticlePage(article, page, pageSize) {
     }
 }
 function gotoArticleDetailPage(article, articleId) {
+    $("#header")
+        .attr("data-position", "fixed")
+        .addClass("ui-header-fixed")
+        .addClass("slideup");
+    $("#content").addClass("content_withtop").removeClass("content_withouttop");
     if(article == "JKZS"){
         createJKZSPage("DETAIL", 0, 0, articleId);
     }else if(article == "WDGS"){
@@ -95,24 +132,26 @@ function gotoArticleDetailPage(article, articleId) {
         createJKZXPage("DETAIL", 0, 0, articleId);
     }
 }
-function insertContentFoot() {
-    var contentFooterAdElems = $("<div id='footeraddiv' class='footeraddiv'></div>");
-    var contentFooterAds = $("<div class='footeradimg'></div>");
-    var adInfos = ["/image/guanggao.png", "/image/guanggao.png", "/image/guanggao.png"];
-    for(var i=0; i<adInfos.length; i++){
-        contentFooterAds
-            .append($("<img src='" + adInfos[i] + "' title='广告" + i + "' />"));
+function gotoLiangfangDetailPage(prescription, currId, totalCount, currPrescriptionId) {
+    var nextId = currId + 1;
+    if(nextId >= totalCount){
+        nextId = 0;
     }
-    var contentFooterBtn = $("<div class='footeradbtn'></div>");
-    contentFooterBtn
-        .append($("<a data-role='none' href='#' class='hover'>●</a>"))
-        .append($("<a data-role='none' href='#'>●</a>"))
-        .append($("<a data-role='none' href='#'>●</a>"));
-    contentFooterAdElems
-        .append(contentFooterAds)
-        .append(contentFooterBtn)
-        .append("<script src='/js/taofang-ad.js'></script>");
-    $("#contentfooteraddiv").html(contentFooterAdElems);
+    $.cookie('nextPrescription', prescription + ";" + nextId + ";" + totalCount, {expires: 7, path: '/'});
+    createLiangfangPage("DETAIL", 0, 0, currPrescriptionId, 0);
+}
+function insertContentFoot() {
+    var contentFooterAds = $("<div></div>")
+        .append($("<img src='/image/ads/yhxq.jpg' title='养护血气' />"))
+        .append($("<img src='/image/ads/yhxb.jpg' title='养护细胞' />"))
+        .append($("<img src='/image/ads/sypw.jpg' title='始于脾胃' />"));
+    $("#footeradimg").html(contentFooterAds);
+    var sWidth = $(document).width();
+    var sHeight = sWidth * 0.4;
+    $(".footeraddiv").attr("style", "height:" + (sHeight + 40) + "px");
+    $(".footeraddiv .footeradimg").attr("style","width:"+ 3*sWidth + "px;height:" + sHeight + "px;");
+    $(".footeraddiv .footeradimg img").attr("style","width:"+ sWidth + "px;height:" + sHeight + "px;");
+    
     var contentFooterSwitchElems = $("<div class='phoneandpcdiv'></div>");
     contentFooterSwitchElems
         .append($("<div class='phonediv'><div class='phone' onclick='gotoPageByType(\"phone\")'>" +
@@ -204,16 +243,14 @@ function insertHomeHeader() {
     var headerDiseaseDivElem = $("<div id='homeheaderdiseasediv' class='homeheaderdiseasediv'></div>");
 
     var headerDiseaseShowDivElem = $("<div class='homeheaderdiseaseshow'></div>")
-        .append($("<div id='homeheaderdiseasediv1' class='homeheaderdisease'></div>"))
-        .append($("<div id='homeheaderdiseasediv2' class='homeheaderdisease'></div>"))
-        .append($("<div id='homeheaderdiseasediv3' class='homeheaderdisease'></div>"));
-    var headerDiseaseButtDivElem = $("<div class='homeheaderdiseasebutt'></div>")
-        .append($("<a data-role='none' href='#' class='hoverhearer'>●</a>"))
-        .append($("<a data-role='none' href='#'>●</a>"))
-        .append($("<a data-role='none' href='#'>●</a>"));
+        .append($("<ul>" +
+                    "<li><div id='homeheaderdiseasediv1' class='homeheaderdisease'></div></li>" +
+                    "<li><div id='homeheaderdiseasediv2' class='homeheaderdisease'></div></li>" +
+                    "<li><div id='homeheaderdiseasediv3' class='homeheaderdisease'></div></li>" +
+                "</ul>"))
+        .append($("<ol><li></li><li></li><li></li></ol>"));
     headerDiseaseDivElem
         .append(headerDiseaseShowDivElem)
-        .append(headerDiseaseButtDivElem)
         .append("<script src='/js/taofang-bubble.js'></script>");
 
     headerElems
@@ -316,7 +353,12 @@ function insertLiangfangContent(role, page, pageSize, prescription, order) {
             .append(createContentPageElems("liangfang", prescription)).append(liangfangRelationElems);
     }else if (role == "DETAIL"){
         liangfangContentBodyElems
-            .append($("<div id='liangfangcontentdetailtitle'></div>"))
+            .append($("<div class='wdgsarticledetailtitlediv'>" +
+                        "<div id='liangfangcontentdetailtitle'></div>" +
+                        "<div class='wdgsarticledetailcontentbutton'>" +
+                            "<div id='wdgsarticledetailcontentbutton' class='jjysjkzscirclediv'><div class='jjysjkzstrianglediv'></div></div>" +
+                        "</div>" +
+                    "</div>"))
             .append($("<div id='liangfangcontentdetailauthor'></div>"))
             .append($("<div id='liangfangcontentdetailstory'></div>"))
             .append($("<div class='liangfangcontentdetailplacediv'></div>"))
@@ -326,19 +368,19 @@ function insertLiangfangContent(role, page, pageSize, prescription, order) {
                         "查看相关用料图片</div>" +
                     "</div>"))
             .append($("<div class='liangfangcontentdetailmorediv'>" +
-                        "<div class='liangfangcontentdetailmore'>" +
+                        "<div id='liangfangcontentdetailmore_zzyf_div' class='liangfangcontentdetailmore'>" +
                             "<div class='liangfangcontentdetailmoretitle'>制作用法</div>" +
                             "<div id='liangfangcontentdetailmore_zzyf' class='liangfangcontentdetailmorecontent'></div>" +
                         "</div>" +
-                        "<div class='liangfangcontentdetailmore'>" +
+                        "<div id='liangfangcontentdetailmore_zysx_div' class='liangfangcontentdetailmore'>" +
                             "<div class='liangfangcontentdetailmoretitle'>注意事项</div>" +
                             "<div id='liangfangcontentdetailmore_zysx' class='liangfangcontentdetailmorecontent'></div>" +
                         "</div>" +
-                        "<div class='liangfangcontentdetailmore'>" +
+                        "<div id='liangfangcontentdetailmore_xgjb_div' class='liangfangcontentdetailmore'>" +
                             "<div class='liangfangcontentdetailmoretitle'>相关疾病</div>" +
                             "<div id='liangfangcontentdetailmore_xgjb' class='liangfangcontentdetailmorecontent'></div>" +
                         "</div>" +
-                        "<div class='liangfangcontentdetailmore'>" +
+                        "<div id='liangfangcontentdetailmore_syzz_div' class='liangfangcontentdetailmore'>" +
                             "<div class='liangfangcontentdetailmoretitle'>适应症状</div>" +
                             "<div id='liangfangcontentdetailmore_syzz' class='liangfangcontentdetailmorecontent'></div>" +
                         "</div>" +
@@ -355,7 +397,7 @@ function insertLiangfangContent(role, page, pageSize, prescription, order) {
                             "<div class='liangfangcontentdetailcommentbuttondiv'><div class='liangfangcontentdetailcommentbutton' onclick='createWYPLPopup()'>我要评论</div></div>" +
                         "</div>" +
                         "<div class='liangfangcontentdetailcommentbackdiv'>" +
-                            "<div onclick='gotoBackPage(\"DETAIL\")' class='liangfangcontentdetailcommentbackbutton'>换一个偏方</div>" +
+                            "<div id='liangfangnextdetailbutton' class='liangfangcontentdetailcommentbackbutton'>换一个偏方</div>" +
                         "</div>" +
                     "</div>"))
             .append($("<div class='liangfangcontentdetailrelationdiv'>" +
@@ -384,6 +426,22 @@ function showLiangfangComment(prescriptionId) {
         getLiangfangComment(prescriptionId);
     }else{
         $('#liangfangcontentdetailcommentlistdiv').hide();
+    }
+}
+function nextLiangfangDetail() {
+    var nextPrescription = $.cookie('nextPrescription');
+    if(typeof(nextPrescription) == "undefined" || !nextPrescription || nextPrescription == ""){
+        location.href = "/views/taofang.html";
+    }else{
+        var nextPrescriptionArr = nextPrescription.split(";");
+        var nextId = parseInt(nextPrescriptionArr[1]) + 1;
+        var totalCount = parseInt(nextPrescriptionArr[2]);
+        if(nextId >= totalCount){
+            nextId = 0;
+        }
+        $.cookie('nextPrescription', nextPrescriptionArr[0] + ";" + nextId + ";" + totalCount, {expires: 7, path: '/'});
+        $('body,html').animate({scrollTop:0},10);
+        getNextLiangfangDetail(nextPrescriptionArr[0], parseInt(nextPrescriptionArr[1]));
     }
 }
 /*文章*/
@@ -455,9 +513,9 @@ function insertArticleContent(article, role, page, pageSize, articleId){
             }
             contentBodyElems
                 .append($("<div class='articledetailrelationlinkdiv'>" +
-                            "<div class='articledetailrelationtitle'>相关链接</div>" +
-                            "<div id='articledetailrelationlist'></div>" +
-                        "</div>"));
+                    "<div class='articledetailrelationtitle'>相关链接</div>" +
+                    "<div id='articledetailrelationlist'></div>" +
+                    "</div>"));
         }
     }
     $("#contentbodydiv").html(contentBodyElems);

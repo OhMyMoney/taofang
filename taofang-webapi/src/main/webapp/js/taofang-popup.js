@@ -1,5 +1,7 @@
 var isShowLoginRegister = false;
+var isShowSCFX = false;
 var countdown = 0;
+
 function createDLZCPopup() {
     if(!document.getElementById("loginregisternavigation")){
         var loginRegisterNavigationElem = $("<div id='loginregisternavigation' class='loginregisternavigation'></div>");
@@ -154,6 +156,7 @@ function closeLRNavigationPopup() {
         isShowLoginRegister = false;
     }
 }
+
 // 短信验证码
 function registerSMSCode(id) {
     if(id == -1 && countdown > 0){
@@ -282,12 +285,71 @@ function createOrderPopup() {
     }
 }
 function createSCFXPopup() {
+    if(!document.getElementById("liangfangscfxdiv")){
+        var scfxDivElem = $("<div id='liangfangscfxdiv' class='liangfangscfxdiv'></div>")
+            .append($("<div class='liangfangscfx' onclick='doUserCollect()'><div class='liangfangscfximg'><img src='/image/common/collect.png' /></div><div class='liangfangscfxtext'>收藏</div></div>"))
+            .append($("<div class='liangfangscfx' onclick='doUserShare()'><div class='liangfangscfximg'><img src='/image/common/share_black.png' /></div><div class='liangfangscfxtext'>分享</div></div>"));
+        $('body').append(scfxDivElem);
 
+        setTimeout(function() {
+            isShowSCFX = true;
+        }, 500);
+    }else{
+        if(isShowSCFX){
+            $("#liangfangscfxdiv").hide();
+            isShowSCFX = false;
+        }else{
+            $("#liangfangscfxdiv").show();
+            setTimeout(function() {
+                isShowSCFX = true;
+            }, 500);
+        }
+    }
+}
+function doUserCollect(clickId, clickTitle){
+    var userId = $.cookie('userId');
+    if(typeof(userId) == "undefined" || !userId || userId == ""){
+        createUnloginPopup();
+    }else{
+        postUserCollect(userId, clickId, clickTitle);
+    }
+}
+function doUserShare(){
+
+}
+function createUnloginPopup() {
+
+}
+function createUserCollectResultPopup(collectMsg) {
+
+}
+function closeSCFXPopup() {
+    if(isShowSCFX && !$('#liangfangscfxdiv').is(":hidden")){
+        $('#liangfangscfxdiv').hide();
+        isShowSCFX = false;
+    }
 }
 function createWYPLPopup() {
     
 }
 
+function createLiangfangSCFXDiv() {
+    var sWidth = $(document).width();
+    var sHeight = $(document).height();
+    if($(document).scrollHeight > sHeight ){
+        sHeight = $(document).scrollHeight;
+    }
+    // 背景界面
+    var backgroundDivElem = $("<div id='liangfangscfxbgdiv' class='liangfangscfxbgdiv'></div>");
+    var bgWH = "width:" + sWidth + "px;" + "height:" + sHeight + "px;";
+    backgroundDivElem.attr("style", bgWH);
+    $('body').append(backgroundDivElem);
+    // 内容界面
+    var scfxDivElem = $("<div id='liangfangscfxdiv' class='liangfangscfxdiv'></div>")
+        .append($("<div><div class='liangfangscfximg'><img src='/image/common/collect.png' /></div><div class='liangfangscfxtext'>收藏</div></div>"))
+        .append($("<div><div class='liangfangscfximg'><img src='/image/common/share_black.png' /></div><div class='liangfangscfxtext'>分享</div></div>"));
+    $('body').append(scfxDivElem);
+}
 function createLiangfangOrderDiv() {
     var sWidth = $(document).width();
     var sHeight = $(document).height();

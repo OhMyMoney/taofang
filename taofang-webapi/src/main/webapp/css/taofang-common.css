@@ -1,4 +1,7 @@
 /*header*/
+#header {
+    border: none;
+}
 .homeheaderdiv{
     background-image: url("/image/home/headerbackground.png");
     background-size: 100% 425px;
@@ -108,15 +111,33 @@
     width: 96%;
     position: absolute;
 }
-.homeheaderdiseaseshow{
-    position: absolute;
-    top: 0;
-    left: 0;
-}
+.homeheaderdiseaseshow{}
 .homeheaderdisease{
     text-shadow: none;
     float: left;
+    width: 100%;
 }
+/*homeheaderdiseaseshow*/
+ul,li,ol{margin: 0;padding: 0;}
+li{list-style: none;}
+.homeheaderdiseaseshow{}
+.homeheaderdiseaseshow ol{
+    position: relative;
+    width: 20%;
+    height: 20px;
+    top: -25px;
+    left: 40%;
+}
+.homeheaderdiseaseshow ol li{
+    float: left;
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    border: none;
+    margin: 6px 4px;
+    background: #B9B9B9;
+}
+.homeheaderdiseaseshow ol li.seleted{background: #F39F51;}
 .homeheaderdiseasebutt{
     width: 96%;
     height: 20px;
@@ -356,14 +377,15 @@
     border-radius: 5px;
 }
 #liangfangcontentdetailtitle{
-    height: 20px;
-    line-height: 20px;
-    padding-left: 8px;
-    font-size: 18px;
+    float: left;
+    width: 80%;
+    height: 60px;
+    line-height: 60px;
+    font-size: 22px;
     font-weight: bold;
     text-shadow: none;
     color: #56392F;
-    margin-top: 10px;
+    padding-left: 10px;
 }
 #liangfangcontentdetailauthor{
     height: 20px;
@@ -378,7 +400,7 @@
 }
 #liangfangcontentdetailstory{
     min-height: 50px;
-    font-size: 13px;
+    font-size: 18px;
     font-weight: normal;
     text-shadow: none;
     color: #56392F;
@@ -407,7 +429,6 @@
     width: 96%;
     padding-left: 2%;
     padding-top: 5px;
-    height: 200px;
 }
 .liangfangcontentdetailbutton{
     height: 40px;
@@ -435,8 +456,8 @@
 .liangfangcontentdetailmoretitle{
     height: 30px;
     line-height: 30px;
-    width: 80px;
-    font-size: 14px;
+    width: 90px;
+    font-size: 15px;
     font-weight: normal;
     text-shadow: none;
     color: #FFFFFF;
@@ -448,12 +469,12 @@
 }
 .liangfangcontentdetailmorecontent{
     color: #56392F;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: normal;
     text-shadow: none;
     padding-left: 5px;
     padding-right: 5px;
-    line-height: 1.5em;
+    line-height: 1.7em;
 }
 .liangfangcontentdetailmorecontent p{
     -webkit-margin-before: 0.5em;
@@ -519,7 +540,7 @@
 }
 .liangfangcommentmember{
     float: left;
-    width: 45%;
+    width: 85%;
     color: #AA9c97;
     font-size: 14px;
     text-shadow: none;
@@ -537,25 +558,26 @@
     height: 30px;
     line-height: 30px;
 }
-.liangfangcommenttime{
-    float: left;
-    width: 40%;
-    font-size: 10px;
-    font-weight: normal;
-    text-shadow: none;
-    color: #56392F;
-    height: 30px;
-    line-height: 30px;
-}
+/*.liangfangcommenttime{*/
+    /*float: left;*/
+    /*width: 40%;*/
+    /*font-size: 10px;*/
+    /*font-weight: normal;*/
+    /*text-shadow: none;*/
+    /*color: #56392F;*/
+    /*height: 30px;*/
+    /*line-height: 30px;*/
+/*}*/
 .liangfangcommentexperience{
     float: left;
-    font-size: 12px;
+    font-size: 14px;
     text-shadow: none;
     font-weight: normal;
     padding-right: 5px;
     padding-bottom: 5px;
     padding-top: 5px;
     color: #56392F;
+    line-height: 1.5em;
 }
 .liangfangcontentdetailcommentbuttondiv{
     height: 55px;
@@ -621,9 +643,9 @@
 #liangfangmateriallistdiv p{
     -webkit-margin-before: 0.5em;
     -webkit-margin-after: 0.5em;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
-    font-size: 15px;
+    -webkit-margin-start: 5px;
+    -webkit-margin-end: 5px;
+    font-size: 18px;
     font-weight: bold;
     text-shadow: none;
     color: #56392F;
@@ -683,8 +705,14 @@
     text-align: center;
 }
 /*content*/
-.content{
+.content_withtop{
     padding: 0px;
+    margin-top: 50px;
+    border: none;
+}
+.content_withouttop{
+    padding: 0px;
+    border: none;
 }
 .dateconditiondiv{
     width: 100%;
@@ -1191,7 +1219,7 @@
 #articledetailcontenttext p{
     margin: 6px;
     color: #56392F;
-    font-size: 13px;
+    font-size: 18px;
     font-weight: normal;
     text-shadow: none;
     line-height: 1.8em;
@@ -1615,7 +1643,7 @@
     height: 20px;
     line-height: 20px;
     position: absolute;
-    bottom: 10px;
+    bottom: 20px;
     z-index: 11;
     text-align: center;
 }
@@ -1703,6 +1731,9 @@ a {
     margin-top: 5px;
 }
 /*footer*/
+#footer{
+    border: none;
+}
 .footervideodiv{
     width: 100%;
     background-color: #686766;

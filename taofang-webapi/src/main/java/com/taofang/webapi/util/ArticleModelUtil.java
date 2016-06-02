@@ -4,8 +4,10 @@ import com.google.common.base.Optional;
 import com.google.common.base.Strings;
 import com.taofang.webapi.constant.ArticleCategory;
 import com.taofang.webapi.constant.ImageConstant;
-import com.taofang.webapi.constant.Ritucharya;
-import com.taofang.webapi.domain.*;
+import com.taofang.webapi.domain.ArticleDetailDomain;
+import com.taofang.webapi.domain.ArticleDomain;
+import com.taofang.webapi.domain.RelationlinkDomain;
+import com.taofang.webapi.domain.RitucharyaDomain;
 import com.taofang.webapi.model.ArticleWithBLOBs;
 import com.taofang.webapi.model.Dtsimage;
 
@@ -54,7 +56,7 @@ public class ArticleModelUtil {
         ritucharyaDomain.setRitucharyaId(Optional.fromNullable(dtsimage.getId()).or(0));
         ritucharyaDomain.setRitucharyaTitle(Optional.fromNullable(dtsimage.getTitle()).or(""));
         if(dtsimage.getCategory() != null){
-            ritucharyaDomain.setRitucharya(Ritucharya.getRitucharyaNameById(dtsimage.getCategory()));
+            ritucharyaDomain.setRitucharya(dtsimage.getCategory() + "");
         }else{
             ritucharyaDomain.setRitucharya("");
         }
