@@ -33,6 +33,30 @@ public class MD5Util {
         return sBuffer.toString();
     }
 
+    public static String SHA1(String decript) {
+        try {
+            MessageDigest digest = java.security.MessageDigest
+                    .getInstance("SHA-1");
+            digest.update(decript.getBytes());
+            byte messageDigest[] = digest.digest();
+            // Create Hex String
+            StringBuffer hexString = new StringBuffer();
+            // 字节数组转换为 十六进制 数
+            for (int i = 0; i < messageDigest.length; i++) {
+                String shaHex = Integer.toHexString(messageDigest[i] & 0xFF);
+                if (shaHex.length() < 2) {
+                    hexString.append(0);
+                }
+                hexString.append(shaHex);
+            }
+            return hexString.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
     public static String GetMD5Code(String strObj) {
         String resultString = null;
         try {
@@ -43,5 +67,11 @@ public class MD5Util {
             resultString = "";
         }
         return resultString;
+    }
+
+    public static void main(String[] args){
+        String str = "jsapi_ticket=kgt8ON7yVITDhtdwci0qeSFTMkpZGrFPza2V4kI4o_o7_F0sUF4SYXpM9v9BxHwAUlqRQ9mW1mFWv-JIY-MqAA";
+        str += "&noncestr=99taofang&timestamp=1465116554000&url=http://localhost:8080/views/taofang.html";
+        System.out.println(SHA1(str));
     }
 }

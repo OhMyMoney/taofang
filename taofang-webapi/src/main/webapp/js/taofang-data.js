@@ -196,6 +196,8 @@ function processLiangfangPaginationData(data) {
 function processLiangfangDetailData(data) {
     $("#liangfangcontentdetailcommentlistdiv").hide();
     $("#liangfangcontentdetailtitle").html(data.prescriptionTitle);
+    $.cookie('currLiangfang', data.prescriptionTitle, {expires: 7, path: '/'});
+    $.cookie('currLiangfangId', data.prescriptionId, {expires: 7, path: '/'});
     if(data.videoUrl != ""){
         var onclickFunc = "playWDGSVideo(\"" + data.videoUrl + "\", \"" + data.prescriptionTitle + "\")";
         $("#wdgsarticledetailcontentbutton").attr("onclick", onclickFunc).show();
@@ -263,10 +265,15 @@ function processLiangfangDetailData(data) {
         contentlinkListEnums.append(trEnum);
     }
     $("#liangfangrelationlinklist").html(contentlinkListEnums);
+    // 分享按钮初始化
+    getWeixinShareSignature();
+    // 收藏按钮
+    var onclicFunc = "doUserCollect(" + data.prescriptionId + ", \"" + data.prescriptionTitle + "\")";
+    $("#liangfangscfx_sc").attr("onclick", onclicFunc);
     // 换一个偏方按钮的方法
     $("#liangfangnextdetailbutton").attr("onclick", "nextLiangfangDetail()");
     // 增加浏览
-    postUserView("liangfang", data.prescriptionId, data.prescriptionTitle)
+    postUserView("liangfang", data.prescriptionId, data.prescriptionTitle);
 }
 function processLiangfangCommentData(data) {
     var commentList = data.commentList;
@@ -398,9 +405,9 @@ function doUserViewData(data) {
 }
 function doUserCollectData(data) {
     if(data == "success"){
-        createUserCollectResultPopup("收藏成功");
+        createUserCollectResultPopup("收藏成功!");
     }else{
-        createUserCollectResultPopup("已经收藏");
+        createUserCollectResultPopup("已经收藏!");
     }
 }
 function processArticleThumbData(data) {

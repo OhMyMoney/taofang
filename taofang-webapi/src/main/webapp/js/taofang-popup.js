@@ -27,7 +27,13 @@ function showLoginRegisterPopup(role) {
     if(!document.getElementById("loginregisterdiv")){
         createLoginRegisterDiv();
     }else{
-        $('#loginregisterbgdiv').show();
+        var sWidth = $(document).width();
+        var sHeight = $(document).height();
+        if($(document).scrollHeight > sHeight ){
+            sHeight = $(document).scrollHeight;
+        }
+        var bgWH = "width:" + sWidth + "px;" + "height:" + sHeight + "px;";
+        $('#loginregisterbgdiv').attr("style", bgWH).show();
         $('#loginregisterdiv').show();
     }
     if(role == "login"){
@@ -287,9 +293,9 @@ function createOrderPopup() {
 function createSCFXPopup() {
     if(!document.getElementById("liangfangscfxdiv")){
         var scfxDivElem = $("<div id='liangfangscfxdiv' class='liangfangscfxdiv'></div>")
-            .append($("<div class='liangfangscfx' onclick='doUserCollect()'><div class='liangfangscfximg'><img src='/image/common/collect.png' /></div><div class='liangfangscfxtext'>收藏</div></div>"))
-            .append($("<div class='liangfangscfx' onclick='doUserShare()'><div class='liangfangscfximg'><img src='/image/common/share_black.png' /></div><div class='liangfangscfxtext'>分享</div></div>"));
-        $('body').append(scfxDivElem);
+            .append($("<div id='liangfangscfx_sc' class='liangfangscfx' onclick='doUserCollect()'><div class='liangfangscfximg'><img src='/image/common/collect.png' /></div><div class='liangfangscfxtext'>收藏</div></div>"))
+            .append($("<div id='liangfangscfx_fx' class='liangfangscfx' onclick='doUserShare()'><div class='liangfangscfximg'><img src='/image/common/share_black.png' /></div><div class='liangfangscfxtext'>分享</div></div>"));
+        $('body').append(scfxDivElem).append("<script type='text/javascript' src='/js/taofang-clipboard.js'></script>");
 
         setTimeout(function() {
             isShowSCFX = true;
@@ -308,6 +314,8 @@ function createSCFXPopup() {
 }
 function doUserCollect(clickId, clickTitle){
     var userId = $.cookie('userId');
+    $("#liangfangscfxdiv").hide();
+    isShowSCFX = false;
     if(typeof(userId) == "undefined" || !userId || userId == ""){
         createUnloginPopup();
     }else{
@@ -315,13 +323,72 @@ function doUserCollect(clickId, clickTitle){
     }
 }
 function doUserShare(){
-
 }
 function createUnloginPopup() {
-
+    var sWidth = $(document).width();
+    var sHeight = $(document).height();
+    if($(document).scrollHeight > sHeight ){
+        sHeight = $(document).scrollHeight;
+    }
+    var bgWH = "width:" + sWidth + "px;" + "height:" + sHeight + "px;";
+    if(!document.getElementById("liangfangscfxunlogindiv")){
+        // 背景界面
+        var backgroundDivElem = $("<div id='liangfangscfxunloginbgdiv' class='liangfangscfxunloginbgdiv'></div>");
+        backgroundDivElem.attr("style", bgWH);
+        // 登陆界面
+        var scfxUnloginDivElem = $("<div id='liangfangscfxunlogindiv' class='liangfangscfxunlogindiv'></div>")
+            .append($("<div class='liangfangscfxunloginclosediv'><div onclick='closeSCFXUnlogin()'><img src='/image/common/close.png'></div></div>"))
+            .append($("<div class='liangfangscfxunloginpromptdiv'>" +
+                        "<div class='liangfangscfxunloginpromptimg'><img src='/image/common/note_yellow.png'/></div>" +
+                        "<div class='liangfangscfxunloginprompttext'>使用此功能前请登录</div>" +
+                    "</div>"))
+            .append($("<div class='liangfangscfxunloginloginregisterdiv'>" +
+                        "<div class='liangfangscfxunloginlogindiv'><div class='liangfangscfxunloginlogin' onclick='liangfangLogin()'>马上去登录</div></div>" +
+                        "<div class='liangfangscfxunloginregisterdiv'><div class='liangfangscfxunloginregister' onclick='liangfangRegister()'>新用户注册</div></div>" +
+                    "</div>"));
+        $('body').append(backgroundDivElem).append(scfxUnloginDivElem);
+    }else{
+        $("#liangfangscfxunloginbgdiv").attr("style", bgWH).show();
+        $("#liangfangscfxunlogindiv").show();
+    }
+}
+function liangfangLogin(){
+    closeSCFXUnlogin();
+    showLoginRegisterPopup("login");
+}
+function liangfangRegister() {
+    closeSCFXUnlogin();
+    showLoginRegisterPopup("register");
+}
+function closeSCFXUnlogin(){
+    $("#liangfangscfxunlogindiv").hide();
+    $("#liangfangscfxunloginbgdiv").hide();
 }
 function createUserCollectResultPopup(collectMsg) {
-
+    var sWidth = $(document).width();
+    var sHeight = $(document).height();
+    if($(document).scrollHeight > sHeight ){
+        sHeight = $(document).scrollHeight;
+    }
+    var bgWH = "width:" + sWidth + "px;" + "height:" + sHeight + "px;";
+    var leftW = "left:" + (sWidth - 180)/2 + "px";
+    if(!document.getElementById("liangfangscfxcollectdiv")){
+        // 背景界面
+        var backgroundDivElem = $("<div id='liangfangscfxcollectbgdiv' class='liangfangscfxunloginbgdiv'></div>");
+        backgroundDivElem.attr("style", bgWH);
+        var liangfangCollectElemDiv = $("<div id='liangfangscfxcollectdiv' class='liangfangscfxcollectdiv'></div>")
+            .append("<div class='liangfangscfxcollectimage'><img src='/image/common/heart.png' /></div>")
+            .append("<div class='liangfangscfxcollecttext'></div>").attr("style", leftW);
+        $('body').append(backgroundDivElem).append(liangfangCollectElemDiv);
+    }else{
+        $("#liangfangscfxcollectbgdiv").attr("style", bgWH).show();
+        $("#liangfangscfxcollectdiv").attr("style", leftW).show();
+    }
+    $("div.liangfangscfxcollecttext").html(collectMsg);
+    setTimeout(function() {
+        $('#liangfangscfxcollectdiv').hide();
+        $('#liangfangscfxcollectbgdiv').hide();
+    }, 2000)
 }
 function closeSCFXPopup() {
     if(isShowSCFX && !$('#liangfangscfxdiv').is(":hidden")){
@@ -330,7 +397,7 @@ function closeSCFXPopup() {
     }
 }
 function createWYPLPopup() {
-    
+
 }
 
 function createLiangfangSCFXDiv() {

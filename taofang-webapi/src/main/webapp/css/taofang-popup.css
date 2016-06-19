@@ -6,6 +6,140 @@
     opacity: 0.6;
     z-index: 10000;
 }
+.liangfangscfxunloginbgdiv{
+    position: absolute;
+    background-color: #7B7B7B;
+    opacity: 0.6;
+    z-index: 10000;
+}
+.liangfangscfxunlogindiv{
+    position: absolute;
+    top: 200px;
+    left: 2%;
+    width: 96%;
+    height: 220px;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    z-index: 10001;
+}
+.liangfangscfxunloginclosediv{
+    width: 100%;
+    height: 40px;
+}
+.liangfangscfxunloginclosediv div{
+    float: right;
+    width: 30px;
+    height: 30px;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+.liangfangscfxunloginclosediv div img{
+    width: 30px;
+    height: 30px;
+}
+.liangfangscfxunloginpromptdiv{
+    width: 100%;
+    height: 90px;
+}
+.liangfangscfxunloginpromptimg{
+    float: left;
+    width: 30%;
+    text-align: right;
+    height: 80px;
+    margin-top: 10px;
+}
+.liangfangscfxunloginpromptimg img{
+    width: 40px;
+    height: 40px;
+}
+.liangfangscfxunloginprompttext{
+    float: left;
+    width: 60%;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+    padding-left: 10px;
+}
+.liangfangscfxunloginloginregisterdiv{
+    width: 100%;
+    height: 80px;
+}
+.liangfangscfxunloginlogindiv{
+    float: left;
+    width: 50%;
+    height: 80px;
+}
+.liangfangscfxunloginlogin{
+    width: 80%;
+    margin-left: 10%;
+    text-align: center;
+    height: 42px;
+    line-height: 42px;
+    background: #F39F51;
+    border: none;
+    font-size: 18px;
+    color: #FFFFFF;
+    font-weight: bold;
+    border-radius: 5px;
+    text-shadow: none;
+}
+.liangfangscfxunloginregisterdiv{
+    float: left;
+    width: 50%;
+    height: 80px;
+}
+.liangfangscfxunloginregister{
+    width: 80%;
+    margin-left: 10%;
+    text-align: center;
+    height: 42px;
+    line-height: 42px;
+    background: #FFFFFF;
+    border: 1px solid #F39F51;
+    font-size: 18px;
+    color: #F39F51;
+    font-weight: bold;
+    border-radius: 5px;
+    text-shadow: none;
+}
+.liangfangscfxcollectdiv{
+    position: absolute;
+    width: 180px;
+    height: 60px;
+    top: 320px;
+    line-height: 60px;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    z-index: 10001;
+    font-size: 16px;
+    text-shadow: none;
+    font-weight: bolder;
+    color: #333333;
+    text-align: center;
+}
+.liangfangscfxcollectimage{
+    float: left;
+    width: 60px;
+    height: 60px;
+    text-align: right;
+}
+.liangfangscfxcollectimage img{
+    height: 30px;
+    width: 30px;
+    margin-top: 15px;
+}
+.liangfangscfxcollecttext{
+    float: left;
+    width: 110px;
+    padding-left: 10px;
+    text-align: left;
+    font-size: 18px;
+    font-weight: bold;
+    text-shadow: none;
+    height: 60px;
+    line-height: 60px;
+}
+
 .liangfangscfxdiv{
     position: absolute;
     top: 35px;

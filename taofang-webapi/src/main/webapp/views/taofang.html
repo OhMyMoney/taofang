@@ -19,6 +19,7 @@
     <script type="text/javascript" src="/js/plugin/audioplayer.min.js"></script>
     <script type="text/javascript" src="/js/plugin/mobiscroll.custom-2.6.2.min.js"></script>
     <script type="text/javascript" src="/js/plugin/jquery.luara.0.0.1.min.js"></script>
+    <script type="text/javascript" src="/js/plugin/ZeroClipboard.min.js"></script>
     <script type="text/javascript" src="/js/taofang-html.js"></script>
     <script type="text/javascript" src="/js/taofang-ajax.js"></script>
     <script type="text/javascript" src="/js/taofang-common.js"></script>
@@ -28,6 +29,11 @@
     <script>
         $(document).ready(function () {
             createHomePage();
+            var liangfangId = getUrlParam("prescriptionId");
+            var noLiangfangId = typeof(liangfangId) == "undefined" || !liangfangId || liangfangId == "" || liangfangId == null
+            if (!noLiangfangId){
+                createLiangfangPage("DETAIL", 0, 0, liangfangId, 0);
+            }
         });
         $(document).click(function(){
             closeLRNavigationPopup();

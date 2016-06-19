@@ -1,3 +1,61 @@
+function initWeixinShare(data){
+    if(data != ""){
+        wx.config({
+            debug: false,
+            appId: 'wx0f263786638d7cac', // 必填，公众号的唯一标识
+            timestamp: 1465116554000, // 必填，生成签名的时间戳
+            nonceStr: '99taofang', // 必填，生成签名的随机串
+            signature: data,// 必填，签名，见附录1
+            jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ', 'onMenuShareWeibo'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+        wx.ready(function(){
+            // 分享到朋友圈
+            wx.onMenuShareTimeline({
+                title: $.cookie('currLiangfang'),
+                link: 'http://m.99taofang.com/views/taofang.html?prescriptionId=' + $.cookie('currLiangfangId'),
+                imgUrl: 'http://m.99taofang.com/image/share.jpg',
+                success: function () {
+                    console.log("share");
+                },
+                cancel: function () {
+                    console.log("cancle");
+                }
+            });
+            // 分享给朋友
+            wx.onMenuShareAppMessage({
+                title: $.cookie('currLiangfang'), // 分享标题
+                desc: $.cookie('currLiangfang'), // 分享描述
+                link: 'http://m.99taofang.com/views/taofang.html?prescriptionId=' + $.cookie('currLiangfangId'), // 分享链接
+                imgUrl: 'http://m.99taofang.com/image/share.jpg', // 分享图标
+                type: '', // 分享类型,music、video或link，不填默认为link
+                dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                success: function () {
+                    console.log("share");
+                },
+                cancel: function () {
+                    console.log("cancle");
+                }
+            });
+            // 分享到QQ
+            wx.onMenuShareQQ({
+                title: $.cookie('currLiangfang'), // 分享标题
+                desc: $.cookie('currLiangfang'), // 分享描述
+                link: 'http://m.99taofang.com/views/taofang.html?prescriptionId=' + $.cookie('currLiangfangId'), // 分享链接
+                imgUrl: 'http://m.99taofang.com/image/share.jpg', // 分享图标
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+        });
+        wx.error(function(res){
+            console.log(res);
+        });
+    }
+}
+
 function createContentPageElems(article, articleId) {
     var contentPageElems = $("<div id='contentbodypage' class='contentbodypage'></div>");
     contentPageElems

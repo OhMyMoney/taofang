@@ -1,4 +1,5 @@
 var ajaxBaseUrl = "http://m.99taofang.com/taofang/webapi";
+// var ajaxBaseUrl = "http://localhost:8080/taofang/webapi";
 var wxloginUrl = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx0f263786638d7cac"
     + "&redirect_uri=http%3a%2f%2fm.99taofang.com%2fviews%2fwxlogin.html"
     + "&response_type=code&scope=snsapi_userinfo&state=99taofang#wechat_redirect";
@@ -136,7 +137,6 @@ function postUserView(moduleName, clickId, clickTitle) {
     }
 }
 function postUserCollect(userId, clickId, clickTitle) {
-    //
     $.ajax({
         timeout: 5000,
         url: ajaxBaseUrl + "/user/collect/" + userId,
@@ -178,7 +178,12 @@ function getAdsByModule(module){
         success: processAdvertData
     });
 }
-
+function getWeixinShareSignature(){
+    $.ajax({
+        url: ajaxBaseUrl + "/access/weixin/signature",
+        success: initWeixinShare
+    });
+}
 
 function refreshVCode() {
     $.ajax({
